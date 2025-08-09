@@ -4,16 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Vape District | D8 Cartridges</title>
-  <!-- Use the site-wide styles -->
   <link rel="stylesheet" href="style.css">
-  <!-- Page-specific styling -->
   <style>
-    /* hero section */
+    /* Hero */
     .hero-cart {
       background-image: url('images/420.jpg');
       background-size: cover;
       background-position: center;
-      padding: 120px 20px;
+      padding: 140px 20px;
       text-align: center;
       color: #fff;
       position: relative;
@@ -35,11 +33,11 @@
       margin-bottom: 0.5rem;
     }
     .hero-cart p {
-      margin-bottom: 1.5rem;
-      font-size: 1.1rem;
+      margin-bottom: 1.8rem;
+      font-size: 1.2rem;
     }
 
-    /* product cards grid */
+    /* Grid */
     .cart-grid {
       max-width: 1100px;
       margin: 0 auto;
@@ -77,7 +75,7 @@
       color: #555;
     }
 
-    /* continuous slider */
+    /* Slider improvements */
     .brand-showcase {
       background: #0b0b0b;
       padding: 20px 0;
@@ -87,16 +85,18 @@
     .brand-track {
       display: flex;
       width: max-content;
-      animation: scrollLeft 20s linear infinite;
+      animation: scrollLeft 25s linear infinite;
     }
-    .brand-track:hover { animation-play-state: paused; }
+    .brand-track:hover {
+      animation-play-state: paused;
+    }
     .brand-item {
       flex: 0 0 200px;
       padding: 10px;
     }
     .brand-item img {
       width: 100%;
-      height: 100px;
+      height: 110px;
       object-fit: contain;
       background: #fff;
       border-radius: 8px;
@@ -104,29 +104,41 @@
     }
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      100% { transform: translateX(-66.6667%); }
     }
 
-    /* CTA section */
+    /* CTA */
     .cta {
       background: #f3f4f6;
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
     }
     .cta h2 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: #13293d;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
     .cta p {
-      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
       color: #555;
+    }
+    .cta .btn-primary {
+      display: inline-block;
+      padding: 18px 36px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      background-color: #0d6efd;
+      color: #fff;
+      transition: background-color 0.2s;
+      text-decoration: none;
+    }
+    .cta .btn-primary:hover {
+      background-color: #0b61d5;
     }
   </style>
 </head>
 <body>
-
-  <!-- Navigation (copied from your index page) -->
   <nav>
     <a href="index.html" class="nav-logo">Vape District</a>
     <ul class="nav-links">
@@ -137,7 +149,6 @@
     </ul>
   </nav>
 
-  <!-- Hero section -->
   <header class="hero-cart">
     <h1>D8 Cartridges</h1>
     <p>Top flavors and brands. Ask us in‑store for today’s options.</p>
@@ -145,7 +156,6 @@
   </header>
 
   <main>
-    <!-- Featured brands grid -->
     <section>
       <h2 class="section-title" style="text-align:center;margin-top:40px;">Featured D8 Cartridge Brands</h2>
       <div class="cart-grid">
@@ -172,10 +182,14 @@
       </div>
     </section>
 
-    <!-- Continuous brand showcase slider -->
     <section class="brand-showcase" aria-label="Scrolling D8 cartridge showcase">
       <div class="brand-track">
-        <!-- duplicate the sequence twice to ensure seamless scroll -->
+        <!-- Repeat the brands 3 times for continuous scroll -->
+        <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
+        <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
+        <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
+        <div class="brand-item"><img src="images/ripped.png" alt="Ripped"></div>
+
         <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
         <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
         <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
@@ -188,7 +202,6 @@
       </div>
     </section>
 
-    <!-- Call-to-action section -->
     <section class="cta">
       <h2>Looking for a specific strain?</h2>
       <p>Inventory rotates daily. Call the shop and we’ll check the case for you.</p>
@@ -196,7 +209,6 @@
     </section>
   </main>
 
-  <!-- Footer (copied from index) -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
@@ -208,10 +220,8 @@
       </nav>
     </div>
     <script>
-      // update year automatically
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
   </footer>
-
 </body>
 </html>
