@@ -1,86 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vape District | 420 Cartridges</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vape District | D8 Cartridges</title>
+
+  <!-- site-wide css & js -->
+  <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
+
+  <!-- page-local styles: seamless slider -->
+  <style>
+    .brand-strip {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #0b0b0b;
+      padding: 12px 0;
+      margin-top: 28px;
+    }
+    .brand-track {
+      display: flex;
+      gap: 28px;
+      width: max-content;
+      animation: scroll-left 22s linear infinite;
+      will-change: transform;
+    }
+    .brand-track:hover { animation-play-state: paused; }
+    .brand-item {
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      background: #151515;
+      border-radius: 10px;
+    }
+    .brand-item img {
+      max-height: 120px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    /* small tweak to card images so the boxes look even */
+    .card img { object-fit: contain; background:#fff; }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
+
+  <!-- NAV -->
   <nav>
     <a class="nav-logo" href="index.html">Vape District</a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li class="dropdown">
-        <a href="#">Shop</a>
-        <div class="dropdown-content">
-          <div class="submenu">
-            <a href="420.html" class="has-sub">420</a>
-            <div class="sub-dropdown">
-              <a href="420-wraps.html">Wraps</a>
-              <a href="420-cartridges.html">420 Cartridges</a>
-              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
-              <a href="420-glass.html">Glass</a>
-              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
-              <a href="420-batteries.html">Batteries</a>
-            </div>
-          </div>
-          <div class="submenu">
-            <a href="vapes.html" class="has-sub">Vapes</a>
-            <div class="sub-dropdown">
-              <a href="vape-juice.html">Vape Juice</a>
-              <a href="vape-devices.html">Devices</a>
-              <a href="vape-disposables.html">Disposables</a>
-              <a href="vape-mods.html">Mods</a>
-            </div>
-          </div>
-          <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
-          <a href="mystery-boxes.html">Mystery Boxes</a>
-        </div>
-      </li>
+      <li><a href="vape-disposables.html">Vapes</a></li>
+      <li><a class="active" href="420-cartridges.html">D8 Cartridges</a></li>
+      <li><a href="420-disposable-cartridges.html">D8 Disposables</a></li>
+      <li><a href="420-glass.html">Glass</a></li>
+      <li><a href="vape-devices.html">Devices</a></li>
+      <li><a href="vape-juice.html">Juice</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="menu-toggle">☰</div>
   </nav>
-  <!-- Hero -->
-  <section class="hero" style="height: 60vh; background-image: url('images/chapo_blood_diamonds.png');">
+
+  <!-- HERO -->
+  <header class="hero" style="background-image:url('images/hero_420.jpg');">
     <div class="hero-content">
-      <h1>420 Cartridges</h1>
-      <p>Convenient pre‑filled cartridges for a smooth experience.</p>
+      <h1>D8 Cartridges</h1>
+      <p>Top flavors and brands. Ask us in-store for today’s options.</p>
+      <a href="contact.html" class="btn-primary">Call or Visit</a>
     </div>
-  </section>
-  <!-- Content -->
-  <section class="categories-section">
-    <div class="about-text" style="flex:1 1 100%; text-align:center;">
-      <h2 class="section-title">Our Cartridges</h2>
-      <p>We stock a variety of high‑quality cartridges filled with premium oils. Visit us to find your preferred strain and potency.</p>
+  </header>
+
+  <main class="page">
+
+    <!-- Brand grid -->
+    <section>
+      <h2 class="section-title">Featured D8 Cartridge Brands</h2>
+
+      <div class="grid">
+        <!-- Tre House -->
+        <article class="card">
+          <img src="images/tre_house.png" alt="Tre House D8 cartridge"/>
+          <div class="card-body">
+            <h3>Tre House</h3>
+            <p>Live resin carts with rotating strains and dessert-heavy profiles.</p>
+          </div>
+        </article>
+
+        <!-- Mellow Fellow -->
+        <article class="card">
+          <img src="images/mellow_fellow.png" alt="Mellow Fellow D8 cartridge"/>
+          <div class="card-body">
+            <h3>Mellow Fellow</h3>
+            <p>Premium blends (H4CBD / THCV / HHC combos) for targeted effects.</p>
+          </div>
+        </article>
+
+        <!-- Sauced Exotix -->
+        <article class="card">
+          <img src="images/sauced.png" alt="Sauced Exotix D8 cartridge"/>
+          <div class="card-body">
+            <h3>Sauced Exotix</h3>
+            <p>High-impact live sauce carts with bold flavor-forward strains.</p>
+          </div>
+        </article>
+
+        <!-- Ripped -->
+        <article class="card">
+          <img src="images/ripped.png" alt="Ripped D8 cartridge"/>
+          <div class="card-body">
+            <h3>Ripped</h3>
+            <p>Big-potency THCA/D8 blends; colorful packaging, classic strains.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Seamless image slider (no gaps) -->
+    <section aria-label="Scrolling D8 cartridges showcase">
+      <div class="brand-strip">
+        <!-- duplicate the sequence twice inside so it loops without blank space -->
+        <div class="brand-track">
+          <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"/></div>
+          <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"/></div>
+          <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"/></div>
+          <div class="brand-item"><img src="images/ripped.png" alt="Ripped"/></div>
+
+          <!-- duplicate set -->
+          <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"/></div>
+          <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"/></div>
+          <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"/></div>
+          <div class="brand-item"><img src="images/ripped.png" alt="Ripped"/></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Looking for a specific strain?</h2>
+      <p>Inventory rotates daily. Call the shop and we’ll check the case for you.</p>
+      <a href="tel:216-000-0000" class="btn-primary">Call Now</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="vape-disposables.html">Vapes</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="images/chapo_blood_diamonds.png" alt="Premium Indica Cartridges">
-        <h3>Premium Indica Cartridges</h3>
-        <p>Smooth and relaxing, perfect for unwinding at the end of the day.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/chapo_blood_diamonds.png" alt="Hybrid Blend Cartridges">
-        <h3>Hybrid Blend Cartridges</h3>
-        <p>A balanced mix of indica and sativa for the best of both worlds.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/chapo_blood_diamonds.png" alt="Sativa Cartridges">
-        <h3>Sativa Cartridges</h3>
-        <p>Energizing cartridges that keep you uplifted and focused.</p>
-      </div>
-    </div>
-  </section>
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
-    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </footer>
+
 </body>
 </html>
