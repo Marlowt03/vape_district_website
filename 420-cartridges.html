@@ -1,144 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | D8 Cartridges</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css" />
+
   <style>
-    /* Hero */
+    /* ---------- HERO ---------- */
     .hero-cart {
       background-image: url('images/420.jpg');
       background-size: cover;
       background-position: center;
+      position: relative;
       padding: 140px 20px;
       text-align: center;
       color: #fff;
-      position: relative;
     }
     .hero-cart::after {
       content: "";
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background: rgba(0,0,0,0.5);
     }
-    .hero-cart h1,
-    .hero-cart p,
-    .hero-cart a {
-      position: relative;
-      z-index: 1;
+    .hero-cart .inner {
+      position: relative; z-index: 1; max-width: 1000px; margin: 0 auto;
     }
-    .hero-cart h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
+    .hero-cart h1 { font-size: 3rem; margin: 0 0 .6rem; }
+    .hero-cart p  { font-size: 1.15rem; margin: 0 0 1.8rem; }
+    .hero-btn {
+      display: inline-block;
+      padding: 18px 40px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 10px;
+      background: #0d6efd;
+      color: #fff; text-decoration: none;
+      box-shadow: 0 6px 14px rgba(13,110,253,.35);
+      transition: transform .18s ease, background .18s ease, box-shadow .2s;
     }
-    .hero-cart p {
-      margin-bottom: 1.8rem;
-      font-size: 1.2rem;
+    .hero-btn:hover {
+      background: #0b5ed7;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(13,110,253,.35);
     }
 
-    /* Grid */
+    /* ---------- GRID ---------- */
+    .section-title {
+      text-align: center; margin: 48px 0 8px; color: #13293d;
+    }
     .cart-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      display: grid;
-      gap: 32px;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      max-width: 1100px; margin: 0 auto; padding: 28px 20px 50px;
+      display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
     }
     .cart-card {
-      background: #f9fafb;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-      overflow: hidden;
-      transition: transform 0.2s;
+      background: #f9fafb; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+      transition: transform .18s ease, box-shadow .18s ease;
       text-align: center;
     }
-    .cart-card:hover {
-      transform: translateY(-4px);
-    }
+    .cart-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
     .cart-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain;
-      background: #fff;
-      padding: 12px;
+      width: 100%; height: 190px; object-fit: contain;
+      background: #fff; padding: 14px;
     }
-    .cart-card h3 {
-      margin: 12px 0 6px;
-      font-size: 1.25rem;
-      color: #13293d;
-    }
-    .cart-card p {
-      font-size: 0.9rem;
-      padding: 0 16px 16px;
-      color: #555;
-    }
+    .cart-card h3 { margin: 12px 0 6px; font-size: 1.2rem; color: #13293d; }
+    .cart-card p  { margin: 0 16px 18px; color: #555; font-size: .95rem; }
 
-    /* Slider improvements */
+    /* ---------- INFINITE CAROUSEL ---------- */
     .brand-showcase {
-      background: #0b0b0b;
-      padding: 20px 0;
-      margin-top: 40px;
-      overflow: hidden;
+      background: #0b0b0b; padding: 22px 0; overflow: hidden;
     }
     .brand-track {
-      display: flex;
-      width: max-content;
-      animation: scrollLeft 25s linear infinite;
-    }
-    .brand-track:hover {
-      animation-play-state: paused;
+      display: flex; gap: 20px;
+      animation: scrollLeft 20s linear infinite;
     }
     .brand-item {
-      flex: 0 0 200px;
-      padding: 10px;
+      flex: 0 0 auto;
+      width: 210px;
     }
     .brand-item img {
-      width: 100%;
-      height: 110px;
-      object-fit: contain;
-      background: #fff;
-      border-radius: 8px;
-      padding: 6px;
+      width: 100%; height: 110px; object-fit: contain;
+      background: #fff; border-radius: 10px; padding: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
     }
     @keyframes scrollLeft {
       0% { transform: translateX(0); }
-      100% { transform: translateX(-66.6667%); }
+      100% { transform: translateX(-50%); }
     }
 
-    /* CTA */
+    /* ---------- BIG CTA ---------- */
     .cta {
-      background: #f3f4f6;
-      padding: 80px 20px;
-      text-align: center;
+      background: #f3f4f6; padding: 80px 20px; text-align: center;
     }
-    .cta h2 {
-      font-size: 2.5rem;
-      color: #13293d;
-      margin-bottom: 1rem;
-    }
-    .cta p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      color: #555;
-    }
+    .cta h2 { font-size: 2.6rem; color: #13293d; margin: 0 0 .8rem; }
+    .cta p  { font-size: 1.2rem; color: #555; margin: 0 0 1.8rem; }
     .cta .btn-primary {
-      display: inline-block;
-      padding: 18px 36px;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      background-color: #0d6efd;
-      color: #fff;
-      transition: background-color 0.2s;
-      text-decoration: none;
+      display: inline-block; padding: 16px 34px; font-weight: 700;
+      border-radius: 10px; background: #0d6efd; color: #fff; text-decoration: none;
+      transition: background .18s ease, transform .18s ease, box-shadow .2s;
+      box-shadow: 0 6px 14px rgba(13,110,253,.35);
     }
-    .cta .btn-primary:hover {
-      background-color: #0b61d5;
+    .cta .btn-primary:hover { background: #0b5ed7; transform: translateY(-2px); }
+
+    @media (max-width: 640px) {
+      .hero-cart { padding: 110px 16px; }
+      .hero-cart h1 { font-size: 2.3rem; }
+      .hero-cart p  { font-size: 1rem; }
+      .brand-item { width: 170px; }
+      .brand-item img { height: 95px; }
+      .cta h2 { font-size: 2rem; }
+      .cta p  { font-size: 1.05rem; }
     }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="index.html" class="nav-logo">Vape District</a>
     <ul class="nav-links">
@@ -149,52 +126,46 @@
     </ul>
   </nav>
 
+  <!-- HERO -->
   <header class="hero-cart">
-    <h1>D8 Cartridges</h1>
-    <p>Top flavors and brands. Ask us in‑store for today’s options.</p>
-    <a href="tel:4405582671" class="btn-primary">Call or Visit</a>
+    <div class="inner">
+      <h1>D8 Cartridges</h1>
+      <p>Top flavors and brands. Ask us in-store for today’s options.</p>
+      <a href="tel:4405582671" class="hero-btn">Call or Visit</a>
+    </div>
   </header>
 
   <main>
+    <!-- GRID -->
     <section>
-      <h2 class="section-title" style="text-align:center;margin-top:40px;">Featured D8 Cartridge Brands</h2>
+      <h2 class="section-title">Featured D8 Cartridge Brands</h2>
       <div class="cart-grid">
-        <div class="cart-card">
-          <img src="images/tre_house.png" alt="Tre House cartridge">
-          <h3>Tre House</h3>
-          <p>Live resin carts with rotating strains and dessert‑heavy profiles.</p>
-        </div>
-        <div class="cart-card">
-          <img src="images/mellow_fellow.png" alt="Mellow Fellow cartridge">
-          <h3>Mellow Fellow</h3>
+        <article class="cart-card">
+          <img src="images/tre_house.png" alt="Tre House cartridge" />
+          <h3>Tre House</h3>
+          <p>Live resin carts with rotating strains and dessert-heavy profiles.</p>
+        </article>
+        <article class="cart-card">
+          <img src="images/mellow_fellow.png" alt="Mellow Fellow cartridge" />
+          <h3>Mellow Fellow</h3>
           <p>Premium H4CBD/THCV/HHC blends for targeted effects.</p>
-        </div>
-        <div class="cart-card">
-          <img src="images/sauced.png" alt="Sauced Exotix cartridge">
-          <h3>Sauced Exotix</h3>
-          <p>High‑impact live sauce carts with bold, flavor‑forward strains.</p>
-        </div>
-        <div class="cart-card">
-          <img src="images/ripped.png" alt="Ripped cartridge">
+        </article>
+        <article class="cart-card">
+          <img src="images/sauced.png" alt="Sauced Exotix cartridge" />
+          <h3>Sauced Exotix</h3>
+          <p>High-impact live sauce carts with bold, flavor-forward strains.</p>
+        </article>
+        <article class="cart-card">
+          <img src="images/ripped.png" alt="Ripped cartridge" />
           <h3>Ripped</h3>
-          <p>Potent THCA/D8 blends with vibrant, eye‑catching packaging.</p>
-        </div>
+          <p>Potent THCA/D8 blends with vibrant, eye-catching packaging.</p>
+        </article>
       </div>
     </section>
 
-    <section class="brand-showcase" aria-label="Scrolling D8 cartridge showcase">
-      <div class="brand-track">
-        <!-- Repeat the brands 3 times for continuous scroll -->
-        <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
-        <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
-        <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
-        <div class="brand-item"><img src="images/ripped.png" alt="Ripped"></div>
-
-        <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
-        <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
-        <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
-        <div class="brand-item"><img src="images/ripped.png" alt="Ripped"></div>
-
+    <!-- INFINITE CAROUSEL -->
+    <section class="brand-showcase">
+      <div class="brand-track" id="brandTrack">
         <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
         <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
         <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
@@ -202,6 +173,7 @@
       </div>
     </section>
 
+    <!-- BIG CTA -->
     <section class="cta">
       <h2>Looking for a specific strain?</h2>
       <p>Inventory rotates daily. Call the shop and we’ll check the case for you.</p>
@@ -215,13 +187,25 @@
       <nav class="footer-nav">
         <a href="index.html">Home</a>
         <a href="vape-disposables.html">Vapes</a>
-        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
+
+  <script>
+    // Duplicate carousel items for infinite scroll
+    const track = document.getElementById('brandTrack');
+    const items = Array.from(track.children);
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      track.appendChild(clone);
+    });
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      track.appendChild(clone);
+    });
+  </script>
 </body>
 </html>
