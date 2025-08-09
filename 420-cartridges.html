@@ -1,164 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Vape District | D8 Cartridges</title>
-
-  <!-- site-wide css & js -->
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
-
-  <!-- page-local styles: seamless slider -->
+  <!-- Use the site-wide styles -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Page-specific styling -->
   <style>
-    .brand-strip {
-      width: 100%;
-      overflow: hidden;
+    /* hero section */
+    .hero-cart {
+      background-image: url('images/420.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 120px 20px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+    .hero-cart::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-cart h1,
+    .hero-cart p,
+    .hero-cart a {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-cart h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-cart p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* product cards grid */
+    .cart-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+    .cart-card {
+      background: #f9fafb;
       border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.2s;
+      text-align: center;
+    }
+    .cart-card:hover {
+      transform: translateY(-4px);
+    }
+    .cart-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      background: #fff;
+      padding: 12px;
+    }
+    .cart-card h3 {
+      margin: 12px 0 6px;
+      font-size: 1.25rem;
+      color: #13293d;
+    }
+    .cart-card p {
+      font-size: 0.9rem;
+      padding: 0 16px 16px;
+      color: #555;
+    }
+
+    /* continuous slider */
+    .brand-showcase {
       background: #0b0b0b;
-      padding: 12px 0;
-      margin-top: 28px;
+      padding: 20px 0;
+      margin-top: 40px;
+      overflow: hidden;
     }
     .brand-track {
       display: flex;
-      gap: 28px;
       width: max-content;
-      animation: scroll-left 22s linear infinite;
-      will-change: transform;
+      animation: scrollLeft 20s linear infinite;
     }
     .brand-track:hover { animation-play-state: paused; }
     .brand-item {
-      min-width: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 16px;
-      background: #151515;
-      border-radius: 10px;
+      flex: 0 0 200px;
+      padding: 10px;
     }
     .brand-item img {
-      max-height: 120px;
-      width: auto;
-      display: block;
+      width: 100%;
+      height: 100px;
       object-fit: contain;
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px;
     }
-    @keyframes scroll-left {
-      0%   { transform: translateX(0); }
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
-    /* small tweak to card images so the boxes look even */
-    .card img { object-fit: contain; background:#fff; }
+
+    /* CTA section */
+    .cta {
+      background: #f3f4f6;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: 2rem;
+      color: #13293d;
+      margin-bottom: 0.5rem;
+    }
+    .cta p {
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- Navigation (copied from your index page) -->
   <nav>
-    <a class="nav-logo" href="index.html">Vape District</a>
+    <a href="index.html" class="nav-logo">Vape District</a>
     <ul class="nav-links">
-      <li><a href="vape-disposables.html">Vapes</a></li>
-      <li><a class="active" href="420-cartridges.html">D8 Cartridges</a></li>
-      <li><a href="420-disposable-cartridges.html">D8 Disposables</a></li>
-      <li><a href="420-glass.html">Glass</a></li>
-      <li><a href="vape-devices.html">Devices</a></li>
-      <li><a href="vape-juice.html">Juice</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="shop.html">Shop</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero" style="background-image:url('images/hero_420.jpg');">
-    <div class="hero-content">
-      <h1>D8 Cartridges</h1>
-      <p>Top flavors and brands. Ask us in-store for today’s options.</p>
-      <a href="contact.html" class="btn-primary">Call or Visit</a>
-    </div>
+  <!-- Hero section -->
+  <header class="hero-cart">
+    <h1>D8 Cartridges</h1>
+    <p>Top flavors and brands. Ask us in‑store for today’s options.</p>
+    <a href="tel:4405582671" class="btn-primary">Call or Visit</a>
   </header>
 
-  <main class="page">
-
-    <!-- Brand grid -->
+  <main>
+    <!-- Featured brands grid -->
     <section>
-      <h2 class="section-title">Featured D8 Cartridge Brands</h2>
-
-      <div class="grid">
-        <!-- Tre House -->
-        <article class="card">
-          <img src="images/tre_house.png" alt="Tre House D8 cartridge"/>
-          <div class="card-body">
-            <h3>Tre House</h3>
-            <p>Live resin carts with rotating strains and dessert-heavy profiles.</p>
-          </div>
-        </article>
-
-        <!-- Mellow Fellow -->
-        <article class="card">
-          <img src="images/mellow_fellow.png" alt="Mellow Fellow D8 cartridge"/>
-          <div class="card-body">
-            <h3>Mellow Fellow</h3>
-            <p>Premium blends (H4CBD / THCV / HHC combos) for targeted effects.</p>
-          </div>
-        </article>
-
-        <!-- Sauced Exotix -->
-        <article class="card">
-          <img src="images/sauced.png" alt="Sauced Exotix D8 cartridge"/>
-          <div class="card-body">
-            <h3>Sauced Exotix</h3>
-            <p>High-impact live sauce carts with bold flavor-forward strains.</p>
-          </div>
-        </article>
-
-        <!-- Ripped -->
-        <article class="card">
-          <img src="images/ripped.png" alt="Ripped D8 cartridge"/>
-          <div class="card-body">
-            <h3>Ripped</h3>
-            <p>Big-potency THCA/D8 blends; colorful packaging, classic strains.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Seamless image slider (no gaps) -->
-    <section aria-label="Scrolling D8 cartridges showcase">
-      <div class="brand-strip">
-        <!-- duplicate the sequence twice inside so it loops without blank space -->
-        <div class="brand-track">
-          <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"/></div>
-          <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"/></div>
-          <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"/></div>
-          <div class="brand-item"><img src="images/ripped.png" alt="Ripped"/></div>
-
-          <!-- duplicate set -->
-          <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"/></div>
-          <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"/></div>
-          <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"/></div>
-          <div class="brand-item"><img src="images/ripped.png" alt="Ripped"/></div>
+      <h2 class="section-title" style="text-align:center;margin-top:40px;">Featured D8 Cartridge Brands</h2>
+      <div class="cart-grid">
+        <div class="cart-card">
+          <img src="images/tre_house.png" alt="Tre House cartridge">
+          <h3>Tre House</h3>
+          <p>Live resin carts with rotating strains and dessert‑heavy profiles.</p>
+        </div>
+        <div class="cart-card">
+          <img src="images/mellow_fellow.png" alt="Mellow Fellow cartridge">
+          <h3>Mellow Fellow</h3>
+          <p>Premium H4CBD/THCV/HHC blends for targeted effects.</p>
+        </div>
+        <div class="cart-card">
+          <img src="images/sauced.png" alt="Sauced Exotix cartridge">
+          <h3>Sauced Exotix</h3>
+          <p>High‑impact live sauce carts with bold, flavor‑forward strains.</p>
+        </div>
+        <div class="cart-card">
+          <img src="images/ripped.png" alt="Ripped cartridge">
+          <h3>Ripped</h3>
+          <p>Potent THCA/D8 blends with vibrant, eye‑catching packaging.</p>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- Continuous brand showcase slider -->
+    <section class="brand-showcase" aria-label="Scrolling D8 cartridge showcase">
+      <div class="brand-track">
+        <!-- duplicate the sequence twice to ensure seamless scroll -->
+        <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
+        <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
+        <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
+        <div class="brand-item"><img src="images/ripped.png" alt="Ripped"></div>
+
+        <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
+        <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
+        <div class="brand-item"><img src="images/sauced.png" alt="Sauced Exotix"></div>
+        <div class="brand-item"><img src="images/ripped.png" alt="Ripped"></div>
+      </div>
+    </section>
+
+    <!-- Call-to-action section -->
     <section class="cta">
       <h2>Looking for a specific strain?</h2>
       <p>Inventory rotates daily. Call the shop and we’ll check the case for you.</p>
-      <a href="tel:216-000-0000" class="btn-primary">Call Now</a>
+      <a href="tel:4405582671" class="btn-primary">Call Now</a>
     </section>
-
   </main>
 
+  <!-- Footer (copied from index) -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
       <nav class="footer-nav">
         <a href="index.html">Home</a>
         <a href="vape-disposables.html">Vapes</a>
-        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
     <script>
+      // update year automatically
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
   </footer>
