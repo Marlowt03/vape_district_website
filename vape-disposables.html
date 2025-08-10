@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Disposable Vapes — Vape District</title>
 
-<!-- Your global stylesheet -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
@@ -16,12 +15,13 @@
     --brand:#1a73e8;
     --brand-2:#1567cf;
     --max:1120px;
+    --section-grey:#f7f8fa;
   }
   *{box-sizing:border-box}
   html,body{margin:0;color:var(--ink);background:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
   img{max-width:100%;display:block}
 
-  /* ===== NAV (matches other pages) ===== */
+  /* ===== NAV ===== */
   nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:1px solid #e8eef6}
   nav .nav-logo{display:inline-block;padding:14px 16px;font-weight:800;font-size:1.6rem;color:#2aa2ff;text-decoration:none}
   nav .menu-toggle{display:none}
@@ -61,17 +61,26 @@
   .vd-container{max-width:var(--max);margin:0 auto;padding:0 16px}
 
   /* ===== BRAND GRID ===== */
-  .vd-grid-wrap{padding:28px 0 6px}
+  .vd-grid-wrap{
+    padding:28px 0 6px;
+    background:var(--section-grey);
+  }
   .vd-page-sub{margin:0 0 18px;color:#2a3542;font-size:1.125rem;font-weight:700;letter-spacing:.2px}
   .vd-grid{display:grid;gap:22px;grid-template-columns:repeat(2,1fr)}
   @media (min-width:680px){.vd-grid{grid-template-columns:repeat(3,1fr)}}
   @media (min-width:980px){.vd-grid{grid-template-columns:repeat(5,1fr)}}
   .vd-card{background:#fff;border-radius:16px;padding:16px 14px;text-align:center;box-shadow:0 10px 18px rgba(0,0,0,.08)}
-  .vd-card img{width:100%;height:150px;object-fit:contain;background:#f6f7f9;border-radius:12px}
+  .vd-card img{
+    width:100%;
+    height:110px; /* shorter height */
+    object-fit:contain;
+    background:#f6f7f9;
+    border-radius:12px
+  }
   .vd-card figcaption{margin-top:12px;font-weight:800;color:#1b2a3a;font-size:1.05rem}
 
-  /* ===== FEATURED SLIDER (white) ===== */
-  .vd-strip--light{background:#fff;color:#111;padding:30px 0 20px;margin-top:28px;border-top:1px solid #eef2f7}
+  /* ===== FEATURED SLIDER ===== */
+  .vd-strip--light{background:#fff;color:#111;padding:30px 0 20px;margin-top:0;border-top:1px solid #eef2f7}
   .vd-title{font-size:1.6rem;margin:0 0 4px;font-weight:800;color:#13293d}
   .vd-sub{margin:0 0 8px;color:#495869}
 
@@ -82,7 +91,7 @@
     animation:marqueeX var(--dur,30s) linear infinite;
   }
   .marq-item{background:#fff;border-radius:16px;padding:14px;min-width:240px;box-shadow:0 10px 22px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
-  .marq-item img{height:170px;width:auto;object-fit:contain}
+  .marq-item img{height:140px;width:auto;object-fit:contain}
 
   @keyframes marqueeX{
     from{transform:translateX(0)}
@@ -98,7 +107,7 @@
   .vd-btn--primary{color:#fff;background:var(--brand);box-shadow:0 10px 28px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08)}
   .vd-btn--primary:hover{background:var(--brand-2)}
 
-  /* ===== FOOTER (simple) ===== */
+  /* ===== FOOTER ===== */
   .footer{border-top:1px solid #e8eef6;background:#fff;color:#2a3a4a}
   .footer .inner{max-width:var(--max);margin:0 auto;padding:18px 16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
   .footer a{color:#2a3a4a;text-decoration:none;font-weight:600}
@@ -106,7 +115,7 @@
 </head>
 <body>
 
-<!-- ===== NAV ===== -->
+<!-- NAV -->
 <nav id="site-nav">
   <a href="index.html" class="nav-logo">Vape District</a>
   <div class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</div>
@@ -126,7 +135,7 @@
   </ul>
 </nav>
 
-<!-- ===== HERO ===== -->
+<!-- HERO -->
 <header class="vd-hero">
   <div class="inner">
     <h1>Disposable Vapes</h1>
@@ -138,7 +147,7 @@
 </header>
 
 <main>
-  <!-- ===== BRAND GRID ===== -->
+  <!-- BRAND GRID -->
   <section class="vd-grid-wrap">
     <div class="vd-container">
       <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
@@ -163,26 +172,18 @@
           <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
           <figcaption>FOGER</figcaption>
         </figure>
-        <!-- Optional
-        <figure class="vd-card">
-          <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy" />
-          <figcaption>North Stellar</figcaption>
-        </figure>
-        -->
       </div>
     </div>
   </section>
 
-  <!-- ===== FEATURED SLIDER (seamless) ===== -->
+  <!-- FEATURED SLIDER -->
   <section class="vd-strip vd-strip--light" aria-label="Featured Disposables">
     <div class="vd-container">
       <h2 class="vd-title">Featured Disposables</h2>
       <p class="vd-sub">Always moving — no gaps, no blinking.</p>
     </div>
-
     <div class="marquee" id="disp-marquee">
       <ul class="marquee__track" id="disp-track">
-        <!-- Base sequence (one copy) -->
         <li class="marq-item"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
         <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
         <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
@@ -191,7 +192,7 @@
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
+  <!-- CTA -->
   <section class="vd-cta">
     <div class="vd-container">
       <h3>Looking for something specific?</h3>
@@ -203,7 +204,7 @@
   </section>
 </main>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="inner">
     <p style="margin:0">&copy; <span id="year"></span> Vape District. All rights reserved.</p>
@@ -212,18 +213,13 @@
 </footer>
 
 <script>
-  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Mobile menu toggle (keeps nav behavior consistent)
   const toggle = document.getElementById('menuToggle');
   const nav = document.getElementById('site-nav');
   toggle?.addEventListener('click', ()=>{
     const open = nav.classList.toggle('nav-open');
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-
-  // Mobile: tap to open Shop submenu
   (function(){
     const isTouch = matchMedia('(hover:none)').matches;
     if(!isTouch) return;
@@ -234,33 +230,20 @@
       shop.classList.toggle('submenu-open');
     });
   })();
-
-  // ===== Seamless marquee (no gaps / no blink) =====
   (function () {
     const marquee = document.getElementById('disp-marquee');
     const track   = document.getElementById('disp-track');
     if (!marquee || !track) return;
-
     const BASE_HTML = track.innerHTML;
-
     function build() {
-      // Build exactly two identical sequences back-to-back
       track.innerHTML = BASE_HTML + BASE_HTML;
-
-      // Sequence width is half of total
       const seqWidth = track.scrollWidth / 2;
-
-      // Animate exactly one sequence width (px/sec speed)
       const pxPerSec = window.innerWidth >= 900 ? 80 : 60;
       track.style.setProperty('--dist', `-${seqWidth}px`);
       track.style.setProperty('--dur',  `${seqWidth / pxPerSec}s`);
     }
-
-    // Build after images are ready for precise measurements
     if (document.readyState === 'complete') build();
     else window.addEventListener('load', build, { once: true });
-
-    // Rebuild on resize/rotation
     let t;
     window.addEventListener('resize', ()=>{
       clearTimeout(t);
