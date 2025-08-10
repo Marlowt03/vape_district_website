@@ -14,15 +14,21 @@
   nav .dropdown-content{ position:absolute; top:100%; left:0; min-width:220px; }
 
   /* HERO – use the image in /images/ and keep overlay behind content */
-  .devices-page .hero{
-    position:relative; z-index:0;
-    color:#fff; text-align:center;
-    background:#0b0d10 url('images/device_package.jpg') center/cover no-repeat;
-    min-height:44vh; padding:180px 16px 120px;
+ .devices-page .hero {
+  position: relative;
+  z-index: 0;
+  color: #fff;
+  text-align: center;
+  background: #0b0d10 url('images/device_package.jpg') center/cover no-repeat;
+  min-height: 28vh;       /* was 44vh — smaller */
+  padding: 80px 16px 60px; /* was 180px 16px 120px — much less padding */
+}
+@media (max-width: 720px) {
+  .devices-page .hero {
+    min-height: 32vh;
+    padding: 70px 14px 50px;
   }
-  @media (max-width:720px){
-    .devices-page .hero{ min-height:48vh; padding:160px 14px 110px; }
-  }
+}
   .devices-page .hero::after{
     content:""; position:absolute; inset:0;
     background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,.28));
