@@ -19,19 +19,16 @@
       background: #fff; border-radius: 12px; padding: 8px 0;
       box-shadow: 0 10px 24px rgba(0,0,0,.12); z-index: 1000;
     }
-    /* show on hover (desktop) */
     @media (hover:hover){ nav .has-submenu:hover > .submenu { display: block; } }
-    /* mobile tap support (toggled by tiny script at bottom) */
     nav .submenu-open > .submenu { display: block; }
-    /* submenu items NOT bold */
     nav .submenu a { font-weight: 500 !important; display:block; padding:10px 16px; color:#111; text-decoration:none; white-space:nowrap; }
     nav .submenu a:hover { background:#f5f7fb; }
 
-    /* ===== HERO ===== */
+    /* ===== HERO (Geek Bar as background) ===== */
     .vd-hero{
-      background:url('images/hero.jpg') center/cover no-repeat;
+      background: #101010 url('images/geek_bar.png') center/contain no-repeat;
       color:#fff; text-align:center; position:relative;
-      padding: 300px 16px 150px; /* tall like the theme */
+      padding: 280px 16px 140px;
     }
     .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
     .vd-hero .inner{ position:relative; z-index:1; max-width:1000px; margin:0 auto; }
@@ -43,7 +40,13 @@
 
     /* ===== BRAND GRID ===== */
     .vd-grid-wrap{ padding: 28px 0 6px; }
-    .vd-page-sub { margin: 0 0 18px; color: #555; }
+    .vd-page-sub {
+      margin: 0 0 18px;
+      color: #2a3542;
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
     .vd-grid{
       display:grid; gap:18px;
       grid-template-columns:repeat(2,1fr);
@@ -60,10 +63,10 @@
     }
     .vd-card figcaption{ margin-top:10px; font-weight:700; color:#1b2a3a; font-size:.98rem; }
 
-    /* ===== SLIDER ===== */
-    .vd-strip--dark{ background:#0b0b0b; color:#fff; padding:30px 0 20px; margin-top:28px; }
-    .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; }
-    .vd-sub{ margin:0 0 8px; opacity:.9; }
+    /* ===== SLIDER (white background) ===== */
+    .vd-strip--light{ background:#ffffff; color:#111; padding:30px 0 20px; margin-top:28px; }
+    .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
+    .vd-sub{ margin:0 0 8px; opacity:.85; }
 
     .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
     .marquee__track{
@@ -73,13 +76,13 @@
     }
     .marq-item{
       background:#fff; border-radius:16px; padding:14px; min-width:220px;
-      box-shadow:0 10px 22px rgba(0,0,0,.18);
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
       display:flex; align-items:center; justify-content:center;
     }
     .marq-item img{ height:140px; width:auto; object-fit:contain; display:block; }
     @media (min-width:900px){
-      .marq-item{ min-width:260px; }
-      .marq-item img{ height:170px; }
+      .marq-item { min-width:260px; }
+      .marq-item img { height:170px; }
     }
     @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(var(--marquee-distance,-100%)); } }
     @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
@@ -87,7 +90,7 @@
 </head>
 <body>
 
-  <!-- NAV (logo restored; About before Shop; dropdown items not bold) -->
+  <!-- NAV (logo at left; About → Shop → Contact; no “Disposable Vapes” item) -->
   <nav>
     <a href="index.html" class="nav-logo">Vape District</a>
     <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
@@ -103,16 +106,15 @@
           <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
         </ul>
       </li>
-      <li><a class="active" href="vape-disposables.html">Disposable Vapes</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO (Geek Bar as the top image) -->
   <header class="vd-hero">
     <div class="inner">
       <h1>Disposable Vapes</h1>
-      <p>Off-Stamp, North 5K, FOGER, RAZ, Geek Bar & more.</p>
+      <p>Off-Stamp, North 5K, FOGER, RAZ & more.</p>
     </div>
   </header>
 
@@ -131,7 +133,7 @@
             <figcaption>Geek Bar</figcaption>
           </figure>
           <figure class="vd-card">
-            <img src="images/offstamp.png" alt="Off-Stamp" loading="lazy" />
+            <img src="images/off_stamp.png" alt="Off-Stamp" loading="lazy" />
             <figcaption>Off-Stamp</figcaption>
           </figure>
           <figure class="vd-card">
@@ -142,7 +144,7 @@
             <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
             <figcaption>FOGER</figcaption>
           </figure>
-          <!-- Optional if file exists -->
+          <!-- Optional (uncomment only if file exists) -->
           <!--
           <figure class="vd-card">
             <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy" />
@@ -153,8 +155,8 @@
       </div>
     </section>
 
-    <!-- SLIDER (single, gapless) -->
-    <section class="vd-strip vd-strip--dark" aria-label="Featured Disposables">
+    <!-- SLIDER (white background; Geek Bar removed) -->
+    <section class="vd-strip vd-strip--light" aria-label="Featured Disposables">
       <div class="vd-container">
         <h2 class="vd-title">Featured Disposables</h2>
         <p class="vd-sub">Always moving — no gaps, no blinking.</p>
@@ -163,11 +165,10 @@
       <div class="marquee" id="disp-marquee" data-speed="28">
         <ul class="marquee__track" id="disp-track">
           <!-- Base items listed once; JS clones just enough to loop seamlessly -->
-          <li class="marq-item"><img src="images/offstamp.png"  alt="Off-Stamp"></li>
-          <li class="marq-item"><img src="images/north-5k.jpg"  alt="North 5K"></li>
-          <li class="marq-item"><img src="images/foger.jpg"     alt="FOGER"></li>
-          <li class="marq-item"><img src="images/raz.png"       alt="RAZ"></li>
-          <li class="marq-item"><img src="images/geek_bar.png"  alt="Geek Bar"></li>
+          <li class="marq-item"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
+          <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
+          <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
+          <li class="marq-item"><img src="images/raz.png"        alt="RAZ"></li>
           <!-- Optional if present -->
           <!-- <li class="marq-item"><img src="images/north-stellar.jpg" alt="North Stellar"></li> -->
         </ul>
@@ -175,10 +176,16 @@
     </section>
   </main>
 
-  <!-- FOOTER (keep your global footer if you have one; simple fallback) -->
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="vape-disposables.html">Vapes</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
@@ -196,7 +203,7 @@
       });
     })();
 
-    // Gapless marquee builder (no duplicate stacks, no black flash)
+    // Gapless marquee builder (no duplicates stacking, no black flash)
     (function () {
       const marquee = document.getElementById('disp-marquee');
       const baseTrack = document.getElementById('disp-track');
