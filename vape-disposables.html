@@ -1,150 +1,203 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Disposable Vapes - Vape District</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+<main>
 
-  <!-- HEADER/NAV -->
-  <header>
-    <nav>
-      <div class="logo"><a href="index.html">Vape District</a></div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li class="dropdown">
-          <a href="#">Shop</a>
-          <ul class="dropdown-content">
-            <li class="has-sub"><a href="420.html">420 ▸</a></li>
-            <li class="has-sub"><a href="vapes.html">Vapes ▸</a></li>
-            <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
-            <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
-          </ul>
-        </li>
-        <li><a href="contact.html">Contact</a></li>
+  <!-- =============== Brands grid =============== -->
+  <section class="vd-wrap">
+    <div class="vd-container">
+      <h1 class="vd-page-title">Disposable Vapes</h1>
+      <p class="vd-page-sub">Our selection includes Off-Stamp, North 5K, FOGER, RAZ, Geek Bar and more.</p>
+
+      <div class="vd-grid">
+        <!-- Each brand card -->
+        <figure class="vd-card">
+          <img src="images/raz.png" alt="RAZ" loading="lazy">
+          <figcaption>RAZ</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/geek_bar.png" alt="Geek Bar" loading="lazy">
+          <figcaption>Geek Bar</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/offstamp.png" alt="Off-Stamp" loading="lazy">
+          <figcaption>Off-Stamp</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/north-5k.jpg" alt="North 5K" loading="lazy">
+          <figcaption>North 5K</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/foger.jpg" alt="FOGER" loading="lazy">
+          <figcaption>FOGER</figcaption>
+        </figure>
+
+        <!-- Optional: only include if you actually added the file -->
+        <!--
+        <figure class="vd-card">
+          <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy">
+          <figcaption>North Stellar</figcaption>
+        </figure>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== Endless slider =============== -->
+  <section class="vd-strip vd-strip--dark" aria-label="Featured Disposables">
+    <div class="vd-container">
+      <h2 class="vd-title">Featured Disposables</h2>
+      <p class="vd-sub">Always moving — no gaps, no blinking.</p>
+    </div>
+
+    <div class="marquee" id="disp-marquee" data-speed="28">
+      <ul class="marquee__track" id="disp-track">
+        <!-- Base items (only list once; JS handles cloning for loop) -->
+        <li class="marq-item"><img src="images/offstamp.png"   alt="Off-Stamp"></li>
+        <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
+        <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
+        <li class="marq-item"><img src="images/raz.png"        alt="RAZ"></li>
+        <li class="marq-item"><img src="images/geek_bar.png"   alt="Geek Bar"></li>
+        <!-- Optional if file exists -->
+        <!-- <li class="marq-item"><img src="images/north-stellar.jpg" alt="North Stellar"></li> -->
       </ul>
-    </nav>
-  </header>
+    </div>
+  </section>
 
-  <main>
+</main>
 
-    <!-- PAGE HEADER -->
-    <section class="page-header">
-      <h1>Disposable Vapes</h1>
-      <p>Our latest collection — Off-Stamp, North 5K, FOGER & more</p>
-    </section>
+<!-- ===== Page-scoped styles (won’t affect other pages) ===== -->
+<style>
+  .vd-wrap { padding: 28px 0 6px; }
+  .vd-container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  .vd-page-title { margin: 0 0 4px; color: #13293d; font-weight: 800; }
+  .vd-page-sub { margin: 0 0 18px; color: #555; }
 
-    <!-- SLIDER -->
-    <section class="vd-strip vd-strip--dark" aria-label="Disposable Vapes">
-      <div class="vd-container">
-        <h2 class="vd-title">Our Selection</h2>
-        <p class="vd-sub">Smooth flavors, reliable quality</p>
-      </div>
+  /* Brand grid */
+  .vd-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 680px) { .vd-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 980px) { .vd-grid { grid-template-columns: repeat(5, 1fr); } }
 
-      <div class="vd-rail">
-        <!-- Track A -->
-        <div class="vd-track">
-          <figure class="vd-card" aria-label="Off-Stamp">
-            <img src="images/off-stamp.jpg" alt="Off-Stamp disposable" loading="lazy" />
-          </figure>
-          <figure class="vd-card" aria-label="North 5K">
-            <img src="images/north-5k.jpg" alt="North 5K disposable" loading="lazy" />
-          </figure>
-          <figure class="vd-card" aria-label="FOGER">
-            <img src="images/foger.jpg" alt="FOGER disposable" loading="lazy" />
-          </figure>
-          <!-- Add any other disposables you already had -->
-        </div>
+  .vd-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,.08);
+  }
+  .vd-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    background: #f6f7f9;
+    border-radius: 10px;
+  }
+  .vd-card figcaption {
+    margin-top: 10px;
+    font-weight: 700;
+    color: #1b2a3a;
+    font-size: .98rem;
+  }
 
-        <!-- Track B -->
-        <div class="vd-track vd-track--clone">
-          <figure class="vd-card" aria-label="Off-Stamp">
-            <img src="images/off-stamp.jpg" alt="Off-Stamp disposable" loading="lazy" />
-          </figure>
-          <figure class="vd-card" aria-label="North 5K">
-            <img src="images/north-5k.jpg" alt="North 5K disposable" loading="lazy" />
-          </figure>
-          <figure class="vd-card" aria-label="FOGER">
-            <img src="images/foger.jpg" alt="FOGER disposable" loading="lazy" />
-          </figure>
-          <!-- Clone of others too -->
-        </div>
-      </div>
-    </section>
+  /* Slider section */
+  .vd-strip--dark { background: #0b0b0b; color: #fff; padding: 30px 0 20px; margin-top: 28px; }
+  .vd-title { font-size: 1.6rem; margin: 0 0 4px; font-weight: 800; }
+  .vd-sub { margin: 0 0 8px; opacity: .9; }
 
-  </main>
+  /* Marquee core */
+  .marquee { position: relative; overflow: hidden; padding: 16px 0 24px; }
+  .marquee__track {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .marq-item {
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px;
+    min-width: 220px;
+    box-shadow: 0 10px 22px rgba(0,0,0,.18);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .marq-item img { height: 140px; width: auto; object-fit: contain; display: block; }
 
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Vape District. All Rights Reserved.</p>
-  </footer>
+  @media (min-width: 900px) {
+    .marq-item { min-width: 260px; }
+    .marq-item img { height: 170px; }
+  }
 
-  <!-- SLIDER STYLES -->
-  <style>
-    .vd-strip--dark {
-      background: #0b0b0b;
-      color: #fff;
-      padding: 32px 0 12px;
-    }
-    .vd-container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-    .vd-title {
-      font-size: 2rem;
-      margin: 0 0 6px;
-      font-weight: 800;
-    }
-    .vd-sub {
-      opacity: .9;
-      margin: 0 0 8px;
-    }
-    .vd-rail {
-      position: relative;
-      overflow: hidden;
-      padding: 20px 0 28px;
-    }
-    .vd-track {
-      display: flex;
-      gap: 20px;
-      animation: vd-scroll 28s linear infinite;
-      will-change: transform;
-    }
-    .vd-track--clone {
-      margin-left: 20px;
-    }
-    .vd-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 14px;
-      min-width: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 22px rgba(0,0,0,.18);
-    }
-    .vd-card img {
-      display: block;
-      height: 140px;
-      width: auto;
-      object-fit: contain;
-    }
-    @media (min-width: 900px) {
-      .vd-card { min-width: 260px; }
-      .vd-card img { height: 170px; }
-    }
-    @keyframes vd-scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-100%); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .vd-track { animation: none; }
-    }
-  </style>
+  /* Animation; duration is set via JS with a CSS var */
+  .marquee__track {
+    animation: marquee linear infinite var(--marquee-duration, 28s);
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(var(--marquee-distance, -100%)); }
+  }
 
-</body>
-</html>
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track { animation: none !important; }
+  }
+</style>
+
+<!-- ===== Minimal JS: builds a seamless loop, no double track, no black blink ===== -->
+<script>
+  (function () {
+    const marquee = document.getElementById('disp-marquee');
+    const baseTrack = document.getElementById('disp-track');
+    if (!marquee || !baseTrack) return;
+
+    // Clean any previous clones if you re-edit this page
+    baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+
+    const containerWidth = marquee.clientWidth;
+    let contentWidth = baseTrack.scrollWidth;
+
+    // Clone children until we have at least 2x container width for gapless loop
+    // (buffer avoids any rounding gap on some devices)
+    const buffer = 40;
+    while (contentWidth < containerWidth * 2 + buffer) {
+      baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+        const clone = item.cloneNode(true);
+        clone.setAttribute('data-clone', '1');
+        baseTrack.appendChild(clone);
+      });
+      contentWidth = baseTrack.scrollWidth;
+    }
+
+    // Set distance and duration based on actual content width for perfectly smooth loop
+    const speed = Number(marquee.dataset.speed || 28); // seconds per full width
+    baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
+    baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
+
+    // Recalc on resize to avoid gaps when device rotates
+    let t;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        // Reset clones and rebuild
+        baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+        const cw = marquee.clientWidth;
+        let w = baseTrack.scrollWidth;
+        while (w < cw * 2 + buffer) {
+          baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+            const clone = item.cloneNode(true);
+            clone.setAttribute('data-clone', '1');
+            baseTrack.appendChild(clone);
+          });
+          w = baseTrack.scrollWidth;
+        }
+        baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
+      }, 120);
+    }, { passive: true });
+  })();
+</script>
