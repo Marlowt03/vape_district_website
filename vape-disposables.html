@@ -5,112 +5,115 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Disposable Vapes — Vape District</title>
 
-<!-- Global site files (keep your existing) -->
+<!-- Your global stylesheet -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* ===== Page-scoped tweaks (won’t clobber your global theme) ===== */
-
-  /* Submenu: not bold; arrows handled in link text */
-  nav .nav-links, nav .nav-links ul { list-style:none; margin:0; padding:0; }
-  nav .has-submenu { position:relative; }
-  nav .submenu {
-    display:none; position:absolute; top:100%; left:0; min-width:220px;
-    background:#fff; border-radius:12px; padding:8px 0;
-    box-shadow:0 10px 24px rgba(0,0,0,.12); z-index:1000;
+  :root{
+    --ink:#0f2233;
+    --ink-2:#24374a;
+    --muted:#5c6b79;
+    --brand:#1a73e8;
+    --brand-2:#1567cf;
+    --max:1120px;
   }
-  @media (hover:hover){ nav .has-submenu:hover > .submenu { display:block; } }
-  nav .submenu a { font-weight:500 !important; display:block; padding:10px 16px; color:#111; text-decoration:none; white-space:nowrap; }
-  nav .submenu a:hover { background:#f5f7fb; }
-  /* Mobile: tap to open submenu (toggled by tiny script below) */
-  nav .submenu-open > .submenu { display:block; }
+  *{box-sizing:border-box}
+  html,body{margin:0;color:var(--ink);background:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  img{max-width:100%;display:block}
 
-  /* HERO (Geek Bar as background, zoomed in) */
+  /* ===== NAV (matches other pages) ===== */
+  nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:1px solid #e8eef6}
+  nav .nav-logo{display:inline-block;padding:14px 16px;font-weight:800;font-size:1.6rem;color:#2aa2ff;text-decoration:none}
+  nav .menu-toggle{display:none}
+  nav .nav-links{list-style:none;margin:0;padding:0 16px;display:flex;gap:28px;align-items:center}
+  nav .nav-links a{color:var(--ink);text-decoration:none;font-weight:700}
+  nav .has-submenu{position:relative}
+  nav .submenu{
+    display:none;position:absolute;top:100%;left:0;min-width:220px;background:#fff;border-radius:12px;padding:8px 0;box-shadow:0 10px 24px rgba(0,0,0,.12);z-index:1000
+  }
+  @media (hover:hover){ nav .has-submenu:hover>.submenu{display:block} }
+  nav .submenu a{display:block;padding:10px 16px;color:#111;text-decoration:none;font-weight:500 !important;white-space:nowrap}
+  nav .submenu a:hover{background:#f5f7fb}
+  nav .submenu-open>.submenu{display:block}
+  @media (max-width:860px){
+    nav .menu-toggle{display:block;margin-left:auto;padding:14px 16px;cursor:pointer}
+    nav .nav-links{position:fixed;inset:auto 0 0 0;top:58px;background:#fff;flex-direction:column;gap:14px;padding:16px;border-top:1px solid #e8eef6;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.2s}
+    nav.nav-open .nav-links{transform:none;opacity:1;pointer-events:auto}
+    nav .submenu{position:static;box-shadow:none;padding:4px 0 8px}
+  }
+
+  /* ===== HERO ===== */
   .vd-hero{
     background:#101010 url('images/geek_bar.png') center/cover no-repeat;
-    color:#fff; text-align:center; position:relative;
-    padding: 320px 16px 160px;
+    color:#fff;text-align:center;position:relative;padding:320px 16px 160px
   }
-  .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
-  .vd-hero .inner{ position:relative; z-index:1; max-width:1120px; margin:0 auto; }
-  .vd-hero h1{ margin:0 0 8px; font-size:3rem; font-weight:800; }
-  .vd-hero p{ margin:0; font-size:1.1rem; opacity:.95; }
-  .vd-actions{ margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-  .vd-btn{
-    appearance:none; border:0; border-radius:12px; padding:14px 22px;
-    font-weight:800; font-size:1rem; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-    transition:transform .08s, box-shadow .2s, background .2s, color .2s;
-  }
-  .vd-btn:active{ transform:translateY(1px); }
-  .vd-btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
-  .vd-btn--ghost:hover{ background:#f5f7fb; }
+  .vd-hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+  .vd-hero .inner{position:relative;z-index:1;max-width:var(--max);margin:0 auto}
+  .vd-hero h1{margin:0 0 8px;font-size:3rem;font-weight:800}
+  .vd-hero p{margin:0;font-size:1.1rem;opacity:.95}
+  .vd-actions{margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .vd-btn{appearance:none;border:0;border-radius:12px;padding:14px 22px;font-weight:800;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:transform .08s,box-shadow .2s,background .2s,color .2s}
+  .vd-btn:active{transform:translateY(1px)}
+  .vd-btn--ghost{color:#0b1f33;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.16)}
+  .vd-btn--ghost:hover{background:#f5f7fb}
 
-  /* CONTENT WRAP */
-  .vd-container{ max-width:1120px; margin:0 auto; padding:0 16px; }
+  /* ===== WRAP ===== */
+  .vd-container{max-width:var(--max);margin:0 auto;padding:0 16px}
 
-  /* BRAND GRID */
-  .vd-grid-wrap{ padding:28px 0 6px; }
-  .vd-page-sub{
-    margin:0 0 18px; color:#2a3542;
-    font-size:1.125rem; font-weight:700; letter-spacing:.2px;
-  }
-  .vd-grid{ display:grid; gap:18px; grid-template-columns:repeat(2,1fr); }
-  @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr); } }
-  @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(5,1fr); } }
-  .vd-card{
-    background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
-    box-shadow:0 8px 16px rgba(0,0,0,.08);
-  }
-  .vd-card img{
-    width:100%; height:120px; object-fit:contain; display:block;
-    background:#f6f7f9; border-radius:10px;
-  }
-  .vd-card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; font-size:.98rem; }
+  /* ===== BRAND GRID ===== */
+  .vd-grid-wrap{padding:28px 0 6px}
+  .vd-page-sub{margin:0 0 18px;color:#2a3542;font-size:1.125rem;font-weight:700;letter-spacing:.2px}
+  .vd-grid{display:grid;gap:22px;grid-template-columns:repeat(2,1fr)}
+  @media (min-width:680px){.vd-grid{grid-template-columns:repeat(3,1fr)}}
+  @media (min-width:980px){.vd-grid{grid-template-columns:repeat(5,1fr)}}
+  .vd-card{background:#fff;border-radius:16px;padding:16px 14px;text-align:center;box-shadow:0 10px 18px rgba(0,0,0,.08)}
+  .vd-card img{width:100%;height:150px;object-fit:contain;background:#f6f7f9;border-radius:12px}
+  .vd-card figcaption{margin-top:12px;font-weight:800;color:#1b2a3a;font-size:1.05rem}
 
-  /* FEATURED SLIDER (white background) */
-  .vd-strip--light{ background:#fff; color:#111; padding:30px 0 20px; margin-top:28px; border-top:1px solid #eef2f7; }
-  .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
-  .vd-sub{ margin:0 0 8px; color:#495869; }
+  /* ===== FEATURED SLIDER (white) ===== */
+  .vd-strip--light{background:#fff;color:#111;padding:30px 0 20px;margin-top:28px;border-top:1px solid #eef2f7}
+  .vd-title{font-size:1.6rem;margin:0 0 4px;font-weight:800;color:#13293d}
+  .vd-sub{margin:0 0 8px;color:#495869}
 
-  .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
+  .marquee{position:relative;overflow:hidden;padding:16px 0 24px}
   .marquee__track{
-    display:inline-flex; align-items:center; gap:20px;
-    will-change:transform; backface-visibility:hidden;
-    animation: marquee linear infinite var(--marquee-duration, 28s);
+    display:inline-flex;align-items:center;gap:20px;
+    will-change:transform;backface-visibility:hidden;
+    animation:marqueeX var(--dur,30s) linear infinite;
   }
-  .marq-item{
-    background:#fff; border-radius:16px; padding:14px; min-width:220px;
-    box-shadow:0 10px 22px rgba(0,0,0,.12);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .marq-item img{ height:140px; width:auto; object-fit:contain; display:block; }
-  @media (min-width:900px){ .marq-item{ min-width:260px; } .marq-item img{ height:170px; } }
-  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(var(--marquee-distance,-100%)); } }
-  @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
+  .marq-item{background:#fff;border-radius:16px;padding:14px;min-width:240px;box-shadow:0 10px 22px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
+  .marq-item img{height:170px;width:auto;object-fit:contain}
 
-  /* BOTTOM CTA */
-  .vd-cta{
-    background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-    padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5;
+  @keyframes marqueeX{
+    from{transform:translateX(0)}
+    to  {transform:translateX(var(--dist,-100%))}
   }
-  .vd-cta h3{ font-size:2.2rem; margin:0 0 10px; color:#13293d; font-weight:800; }
-  .vd-cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.1rem; }
-  .vd-cta .vd-btn{ font-size:1.05rem; padding:16px 26px; border-radius:14px; }
-  .vd-btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
-  .vd-btn--primary:hover{ background:#1567cf; }
+  @media (prefers-reduced-motion:reduce){.marquee__track{animation:none!important}}
+
+  /* ===== CTA ===== */
+  .vd-cta{background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%);padding:54px 16px;text-align:center;margin-top:36px;border-top:1px solid #e7edf5}
+  .vd-cta h3{font-size:2.2rem;margin:0 0 10px;color:#13293d;font-weight:800}
+  .vd-cta p{margin:0 auto 18px;max-width:860px;color:#495869;font-size:1.1rem}
+  .vd-cta .vd-btn{font-size:1.05rem;padding:16px 26px;border-radius:14px}
+  .vd-btn--primary{color:#fff;background:var(--brand);box-shadow:0 10px 28px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08)}
+  .vd-btn--primary:hover{background:var(--brand-2)}
+
+  /* ===== FOOTER (simple) ===== */
+  .footer{border-top:1px solid #e8eef6;background:#fff;color:#2a3a4a}
+  .footer .inner{max-width:var(--max);margin:0 auto;padding:18px 16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .footer a{color:#2a3a4a;text-decoration:none;font-weight:600}
 </style>
 </head>
 <body>
 
-<!-- NAV — same structure as other pages -->
-<nav>
+<!-- ===== NAV ===== -->
+<nav id="site-nav">
   <a href="index.html" class="nav-logo">Vape District</a>
-  <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
-  <ul class="nav-links">
+  <div class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</div>
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
-
-    <li class="has-submenu">
+    <li class="has-submenu" id="shopMenu">
       <a href="shop.html">Shop</a>
       <ul class="submenu">
         <li><a href="420.html">420 ▸</a></li>
@@ -119,17 +122,15 @@
         <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
       </ul>
     </li>
-
     <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ===== HERO ===== -->
 <header class="vd-hero">
   <div class="inner">
     <h1>Disposable Vapes</h1>
     <p>Off-Stamp, North 5K, FOGER, RAZ & more.</p>
-
     <div class="vd-actions">
       <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
     </div>
@@ -137,39 +138,32 @@
 </header>
 
 <main>
-  <!-- BRAND GRID -->
+  <!-- ===== BRAND GRID ===== -->
   <section class="vd-grid-wrap">
     <div class="vd-container">
       <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
-
       <div class="vd-grid">
         <figure class="vd-card">
           <img src="images/raz.png" alt="RAZ" loading="lazy" />
           <figcaption>RAZ</figcaption>
         </figure>
-
         <figure class="vd-card">
           <img src="images/geek_bar.png" alt="Geek Bar" loading="lazy" />
           <figcaption>Geek Bar</figcaption>
         </figure>
-
         <figure class="vd-card">
           <img src="images/off_stamp.png" alt="Off-Stamp" loading="lazy" />
           <figcaption>Off-Stamp</figcaption>
         </figure>
-
         <figure class="vd-card">
           <img src="images/north-5k.jpg" alt="North 5K" loading="lazy" />
           <figcaption>North 5K</figcaption>
         </figure>
-
         <figure class="vd-card">
           <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
           <figcaption>FOGER</figcaption>
         </figure>
-
-        <!-- Optional (uncomment only if file exists) -->
-        <!--
+        <!-- Optional
         <figure class="vd-card">
           <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy" />
           <figcaption>North Stellar</figcaption>
@@ -179,16 +173,16 @@
     </div>
   </section>
 
-  <!-- SLIDER (white bg; Geek Bar removed from track) -->
+  <!-- ===== FEATURED SLIDER (seamless) ===== -->
   <section class="vd-strip vd-strip--light" aria-label="Featured Disposables">
     <div class="vd-container">
       <h2 class="vd-title">Featured Disposables</h2>
       <p class="vd-sub">Always moving — no gaps, no blinking.</p>
     </div>
 
-    <div class="marquee" id="disp-marquee" data-speed="28">
+    <div class="marquee" id="disp-marquee">
       <ul class="marquee__track" id="disp-track">
-        <!-- Base items once; JS clones just enough to loop seamlessly -->
+        <!-- Base sequence (one copy) -->
         <li class="marq-item"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
         <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
         <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
@@ -197,7 +191,7 @@
     </div>
   </section>
 
-  <!-- BOTTOM CTA -->
+  <!-- ===== CTA ===== -->
   <section class="vd-cta">
     <div class="vd-container">
       <h3>Looking for something specific?</h3>
@@ -209,74 +203,69 @@
   </section>
 </main>
 
- <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
-    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </footer>
-</body>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="inner">
+    <p style="margin:0">&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+    <p style="margin:0">6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+  </div>
+</footer>
+
 <script>
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile: tap-to-open for Shop submenu (does nothing on desktop)
+  // Mobile menu toggle (keeps nav behavior consistent)
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', ()=>{
+    const open = nav.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Mobile: tap to open Shop submenu
   (function(){
-    const isTouch = matchMedia('(hover: none)').matches;
-    const shop = document.querySelector('nav .has-submenu');
-    if (!shop) return;
-    const link = shop.querySelector(':scope > a');
-    link.addEventListener('click', function(e){
-      if (isTouch) { e.preventDefault(); shop.classList.toggle('submenu-open'); }
+    const isTouch = matchMedia('(hover:none)').matches;
+    if(!isTouch) return;
+    const shop = document.getElementById('shopMenu');
+    const link = shop?.querySelector(':scope > a');
+    link?.addEventListener('click', e=>{
+      e.preventDefault();
+      shop.classList.toggle('submenu-open');
     });
   })();
 
-  // Gapless marquee (no blink, no double stack)
+  // ===== Seamless marquee (no gaps / no blink) =====
   (function () {
     const marquee = document.getElementById('disp-marquee');
-    const baseTrack = document.getElementById('disp-track');
-    if (!marquee || !baseTrack) return;
+    const track   = document.getElementById('disp-track');
+    if (!marquee || !track) return;
 
-    // Clean old clones if re-saved
-    baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+    const BASE_HTML = track.innerHTML;
 
-    const containerWidth = marquee.clientWidth;
-    let contentWidth = baseTrack.scrollWidth;
-    const buffer = 40;
+    function build() {
+      // Build exactly two identical sequences back-to-back
+      track.innerHTML = BASE_HTML + BASE_HTML;
 
-    // Clone items until we exceed ~2x container width
-    while (contentWidth < containerWidth * 2 + buffer) {
-      baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-        const clone = item.cloneNode(true);
-        clone.setAttribute('data-clone', '1');
-        baseTrack.appendChild(clone);
-      });
-      contentWidth = baseTrack.scrollWidth;
+      // Sequence width is half of total
+      const seqWidth = track.scrollWidth / 2;
+
+      // Animate exactly one sequence width (px/sec speed)
+      const pxPerSec = window.innerWidth >= 900 ? 80 : 60;
+      track.style.setProperty('--dist', `-${seqWidth}px`);
+      track.style.setProperty('--dur',  `${seqWidth / pxPerSec}s`);
     }
 
-    // Set distance/duration from actual width for a perfect loop
-    const speed = Number(marquee.dataset.speed || 28);
-    baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
-    baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
+    // Build after images are ready for precise measurements
+    if (document.readyState === 'complete') build();
+    else window.addEventListener('load', build, { once: true });
 
-    // Rebuild on resize (e.g., rotate phone)
+    // Rebuild on resize/rotation
     let t;
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', ()=>{
       clearTimeout(t);
-      t = setTimeout(() => {
-        baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-        const cw = marquee.clientWidth;
-        let w = baseTrack.scrollWidth;
-        while (w < cw * 2 + buffer) {
-          baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-            const clone = item.cloneNode(true);
-            clone.setAttribute('data-clone', '1');
-            baseTrack.appendChild(clone);
-          });
-          w = baseTrack.scrollWidth;
-        }
-        baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
-      }, 120);
-    }, { passive: true });
+      t = setTimeout(build, 120);
+    }, { passive:true });
   })();
 </script>
 </body>
