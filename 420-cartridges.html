@@ -5,135 +5,170 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | D8 Cartridges</title>
 
+  <!-- your global site styles -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- page-scoped styles (navbar + hero + grid + infinite slider + CTA) -->
   <style>
+    /* ---------- NAVBAR (sticky + mobile hamburger) ---------- */
+    .site-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: #0b0b0b; color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      color: #fff; text-decoration: none; font-weight: 800; letter-spacing:.3px;
+      font-size: 1.15rem;
+    }
+    .nav-links {
+      display: flex; gap: 20px; list-style: none; margin: 0; padding: 0;
+    }
+    .nav-links a {
+      color: #e6e6e6; text-decoration: none; font-weight: 600; font-size: .95rem;
+      padding: 8px 10px; border-radius: 8px; transition: background .18s,color .18s;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,.09); color: #fff; }
+    .nav-links a.active { background: #0d6efd; color: #fff; }
+
+    /* hamburger */
+    .nav-toggle {
+      display: none; background: none; border: none; color: #fff;
+      width: 44px; height: 44px; border-radius: 10px;
+    }
+    .nav-toggle:focus-visible { outline: 2px solid #0d6efd; }
+
+    /* mobile menu panel */
+    .mobile-panel {
+      display: none; background: #0b0b0b; border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .mobile-panel ul { list-style: none; padding: 10px 16px 16px; margin: 0; }
+    .mobile-panel a {
+      display: block; padding: 12px; border-radius: 10px; text-decoration: none;
+      font-weight: 700; color: #e6e6e6;
+    }
+    .mobile-panel a:hover { background: rgba(255,255,255,.09); color: #fff; }
+    .mobile-panel a.active { background: #0d6efd; color: #fff; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: inline-grid; place-items: center; }
+      .mobile-panel.show { display: block; }
+    }
+
     /* ---------- HERO ---------- */
     .hero-cart {
       background-image: url('images/420.jpg');
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      padding: 140px 20px;
-      text-align: center;
-      color: #fff;
+      background-size: cover; background-position: center;
+      position: relative; padding: 140px 16px; text-align: center; color: #fff;
     }
-    .hero-cart::after {
-      content: "";
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0.5);
-    }
-    .hero-cart .inner {
-      position: relative; z-index: 1; max-width: 1000px; margin: 0 auto;
-    }
-    .hero-cart h1 { font-size: 3rem; margin: 0 0 .6rem; }
+    .hero-cart::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,.5); }
+    .hero-cart .inner { position:relative; z-index:1; max-width: 1000px; margin:0 auto; }
+    .hero-cart h1 { font-size: 2.9rem; margin: 0 0 .6rem; }
     .hero-cart p  { font-size: 1.15rem; margin: 0 0 1.8rem; }
+
     .hero-btn {
-      display: inline-block;
-      padding: 18px 40px;
-      font-size: 1.15rem;
-      font-weight: 700;
-      border-radius: 10px;
-      background: #0d6efd;
-      color: #fff; text-decoration: none;
-      box-shadow: 0 6px 14px rgba(13,110,253,.35);
-      transition: transform .18s ease, background .18s ease, box-shadow .2s;
+      display:inline-block; padding:18px 40px; font-size:1.15rem; font-weight:800;
+      border-radius:10px; background:#0d6efd; color:#fff; text-decoration:none;
+      box-shadow:0 10px 24px rgba(13,110,253,.35);
+      transition:transform .18s, background .18s, box-shadow .2s;
     }
-    .hero-btn:hover {
-      background: #0b5ed7;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(13,110,253,.35);
-    }
+    .hero-btn:hover { background:#0b5ed7; transform:translateY(-2px); }
 
     /* ---------- GRID ---------- */
-    .section-title {
-      text-align: center; margin: 48px 0 8px; color: #13293d;
-    }
+    .section-title { text-align:center; margin:48px 0 10px; color:#13293d; }
     .cart-grid {
-      max-width: 1100px; margin: 0 auto; padding: 28px 20px 50px;
-      display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+      max-width:1100px; margin:0 auto; padding:28px 16px 52px;
+      display:grid; gap:32px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
     }
     .cart-card {
-      background: #f9fafb; border-radius: 12px; overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,.06);
-      transition: transform .18s ease, box-shadow .18s ease;
-      text-align: center;
+      background:#f9fafb; border-radius:12px; overflow:hidden;
+      box-shadow:0 2px 6px rgba(0,0,0,.06);
+      transition:transform .18s, box-shadow .18s; text-align:center;
     }
-    .cart-card:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+    .cart-card:hover { transform:translateY(-4px); box-shadow:0 6px 18px rgba(0,0,0,.08); }
     .cart-card img {
-      width: 100%; height: 190px; object-fit: contain;
-      background: #fff; padding: 14px;
+      width:100%; height:190px; object-fit:contain; background:#fff; padding:14px;
     }
-    .cart-card h3 { margin: 12px 0 6px; font-size: 1.2rem; color: #13293d; }
-    .cart-card p  { margin: 0 16px 18px; color: #555; font-size: .95rem; }
+    .cart-card h3 { margin:12px 0 6px; font-size:1.2rem; color:#13293d; }
+    .cart-card p  { margin:0 16px 18px; color:#555; font-size:.95rem; }
 
-    /* ---------- INFINITE CAROUSEL ---------- */
-    .brand-showcase {
-      background: #0b0b0b; padding: 22px 0; overflow: hidden;
-    }
-    .brand-track {
-      display: flex; gap: 20px;
-      animation: scrollLeft 20s linear infinite;
-    }
-    .brand-item {
-      flex: 0 0 auto;
-      width: 210px;
-    }
+    /* ---------- INFINITE (GAPLESS) CAROUSEL ---------- */
+    .brand-showcase { background:#0b0b0b; padding:22px 0; overflow:hidden; }
+    .brand-track { display:flex; gap:20px; will-change: transform; }
+    .brand-item { flex:0 0 auto; width:210px; }
     .brand-item img {
-      width: 100%; height: 110px; object-fit: contain;
-      background: #fff; border-radius: 10px; padding: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.15);
-    }
-    @keyframes scrollLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      width:100%; height:110px; object-fit:contain; background:#fff;
+      border-radius:10px; padding:8px; box-shadow:0 2px 8px rgba(0,0,0,.15);
     }
 
-    /* ---------- BIG CTA ---------- */
-    .cta {
-      background: #f3f4f6; padding: 80px 20px; text-align: center;
-    }
-    .cta h2 { font-size: 2.6rem; color: #13293d; margin: 0 0 .8rem; }
-    .cta p  { font-size: 1.2rem; color: #555; margin: 0 0 1.8rem; }
+    /* ---------- CTA ---------- */
+    .cta { background:#f3f4f6; padding:80px 16px; text-align:center; }
+    .cta h2 { font-size:2.6rem; color:#13293d; margin:0 0 .8rem; }
+    .cta p  { font-size:1.2rem; color:#555; margin:0 0 1.8rem; }
     .cta .btn-primary {
-      display: inline-block; padding: 16px 34px; font-weight: 700;
-      border-radius: 10px; background: #0d6efd; color: #fff; text-decoration: none;
-      transition: background .18s ease, transform .18s ease, box-shadow .2s;
-      box-shadow: 0 6px 14px rgba(13,110,253,.35);
+      display:inline-block; padding:16px 34px; font-weight:800; border-radius:10px;
+      background:#0d6efd; color:#fff; text-decoration:none;
+      box-shadow:0 10px 24px rgba(13,110,253,.35);
+      transition:transform .18s, background .18s;
     }
-    .cta .btn-primary:hover { background: #0b5ed7; transform: translateY(-2px); }
+    .cta .btn-primary:hover { background:#0b5ed7; transform:translateY(-2px); }
 
     @media (max-width: 640px) {
-      .hero-cart { padding: 110px 16px; }
-      .hero-cart h1 { font-size: 2.3rem; }
-      .hero-cart p  { font-size: 1rem; }
-      .brand-item { width: 170px; }
-      .brand-item img { height: 95px; }
-      .cta h2 { font-size: 2rem; }
-      .cta p  { font-size: 1.05rem; }
+      .hero-cart { padding:110px 14px; }
+      .hero-cart h1 { font-size:2.2rem; }
+      .hero-cart p { font-size:1rem; }
+      .brand-item { width:170px; }
+      .brand-item img { height:95px; }
+      .cta h2 { font-size:2rem; }
+      .cta p  { font-size:1.05rem; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Vape District</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a class="active" href="shop.html">Shop</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- NAVBAR -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">Vape District</a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+        <!-- hamburger icon -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <ul class="nav-links" id="navLinksDesktop">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- mobile panel -->
+    <nav class="mobile-panel" id="mobilePanel">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="shop.html">Shop</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <!-- HERO -->
-  <header class="hero-cart">
+  <section class="hero-cart">
     <div class="inner">
       <h1>D8 Cartridges</h1>
       <p>Top flavors and brands. Ask us in-store for today’s options.</p>
       <a href="tel:4405582671" class="hero-btn">Call or Visit</a>
     </div>
-  </header>
+  </section>
 
   <main>
     <!-- GRID -->
@@ -163,8 +198,8 @@
       </div>
     </section>
 
-    <!-- INFINITE CAROUSEL -->
-    <section class="brand-showcase">
+    <!-- GAPLESS INFINITE CAROUSEL -->
+    <section class="brand-showcase" aria-label="Scrolling D8 cartridge showcase">
       <div class="brand-track" id="brandTrack">
         <div class="brand-item"><img src="images/tre_house.png" alt="Tre House"></div>
         <div class="brand-item"><img src="images/mellow_fellow.png" alt="Mellow Fellow"></div>
@@ -181,6 +216,7 @@
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
@@ -194,18 +230,54 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
 
+  <!-- Mobile menu + truly gapless scroller -->
   <script>
-    // Duplicate carousel items for infinite scroll
+    // mobile nav
+    const toggle = document.getElementById('navToggle');
+    const panel  = document.getElementById('mobilePanel');
+    toggle?.addEventListener('click', () => {
+      const open = panel.classList.toggle('show');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // infinite, no-blink carousel:
+    // 1) clone items until track width > viewport * 3 (plenty of runway)
+    // 2) translate left with requestAnimationFrame; when first item fully off-screen,
+    //    move it to the end (no CSS animation reset -> no flash).
     const track = document.getElementById('brandTrack');
-    const items = Array.from(track.children);
-    items.forEach(item => {
-      const clone = item.cloneNode(true);
-      track.appendChild(clone);
+    const makeClones = () => {
+      const vw = window.innerWidth;
+      while (track.scrollWidth < vw * 3) {
+        Array.from(track.children).forEach(el => track.appendChild(el.cloneNode(true)));
+      }
+    };
+    makeClones();
+    window.addEventListener('resize', () => {
+      // rebuild on resize for iPhone rotations
+      const items = Array.from(track.children).slice(0,4); // original four
+      track.innerHTML = '';
+      items.forEach(el => track.appendChild(el.cloneNode(true)));
+      makeClones();
     });
-    items.forEach(item => {
-      const clone = item.cloneNode(true);
-      track.appendChild(clone);
-    });
+
+    let offset = 0;
+    const speed = 0.5; // px per frame (adjust if you want faster/slower)
+    function tick() {
+      offset -= speed;
+      track.style.transform = `translateX(${offset}px)`;
+      // if first child is fully offscreen to the left, move it to the end and reset offset
+      const first = track.firstElementChild;
+      if (first) {
+        const firstWidth = first.getBoundingClientRect().width + 20; // include gap
+        if (-offset >= firstWidth) {
+          track.appendChild(first);
+          offset += firstWidth;
+          track.style.transform = `translateX(${offset}px)`;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   </script>
 </body>
 </html>
