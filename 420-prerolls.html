@@ -58,24 +58,44 @@
 <body>
 
 <!-- Keep your existing nav by using the same markup/classes from your other pages -->
-<nav>
-  <a href="index.html" class="nav-logo">Vape District</a>
-  <div class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</div>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li class="has-submenu" id="shopMenu">
-      <a href="shop.html">Shop</a>
-      <ul class="submenu">
-        <li><a href="420.html">420 ▸</a></li>
-        <li><a href="vapes.html">Vapes ▸</a></li>
-        <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
-        <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
-      </ul>
-    </li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+  <!-- Navigation -->
+  <nav>
+    <a class="nav-logo" href="index.html">Vape District</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dropdown">
+        <a href="#">Shop</a>
+        <div class="dropdown-content">
+          <div class="submenu">
+            <a href="420.html" class="has-sub">420</a>
+            <div class="sub-dropdown">
+              <a href="420-wraps.html">Wraps</a>
+              <a href="420-cartridges.html">420 Cartridges</a>
+              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+              <a href="420-glass.html">Glass</a>
+              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+              <a href="420-batteries.html">Batteries</a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a href="vapes.html" class="has-sub">Vapes</a>
+            <div class="sub-dropdown">
+              <a href="vape-juice.html">Vape Juice</a>
+              <a href="vape-devices.html">Devices</a>
+              <a href="vape-disposables.html">Disposables</a>
+              <a href="vape-mods.html">Mods</a>
+            </div>
+          </div>
+          <a href="detox.html">Pass A Dr*g Test / Detox</a>
+          <!-- Hookah page removed -->
+          <a href="mystery-boxes.html">Mystery Boxes</a>
+        </div>
+      </li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle">☰</div>
+  </nav>
 
 <header class="hero-420">
   <div class="vd-wrap inner">
