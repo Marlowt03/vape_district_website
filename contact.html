@@ -8,7 +8,80 @@
   <!-- Your global files (match the rest of the site) -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
+<div class="contact-page">
+  <!-- HERO -->
+  <header class="contact-hero">
+    <div class="inner">
+      <h1>Contact</h1>
+      <p class="hero-subtext">Call any store, or tap directions to navigate there now.</p>
+    </div>
+  </header>
 
+  <!-- LOCATIONS -->
+  <section class="locations">
+    <h2 class="locations-title">Our Stores</h2>
+
+    <div class="locations-grid">
+      <!-- Brunswick -->
+      <article class="loc-card">
+        <div class="loc-media">
+          <img src="images/27EEC06C-3C40-4C57-B7A1-2CA241A0387A_4.jpg" alt="Vape District — Brunswick storefront" />
+          <div class="loc-chip">Brunswick</div>
+        </div>
+        <div class="loc-body">
+          <p class="loc-address">809 Pearl Rd, Brunswick, OH 44212</p>
+          <div class="loc-actions">
+            <a class="btn-solid" href="https://www.google.com/maps/search/?api=1&query=809+Pearl+Rd,+Brunswick,+OH+44212" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn-ghost" href="tel:13304603287">(330) 460-3287</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Willoughby -->
+      <article class="loc-card">
+        <div class="loc-media">
+          <img src="images/Screenshot_2025-08-10_at_12.29.55_AM.jpg" alt="Vape District — Willoughby storefront" />
+          <div class="loc-chip">Willoughby</div>
+        </div>
+        <div class="loc-body">
+          <p class="loc-address">36301 Euclid Ave, Willoughby, OH 44094</p>
+          <div class="loc-actions">
+            <a class="btn-solid" href="https://www.google.com/maps/search/?api=1&query=36301+Euclid+Ave,+Willoughby,+OH+44094" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn-ghost" href="tel:14407106027">(440) 710-6027</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Parma Heights -->
+      <article class="loc-card">
+        <div class="loc-media">
+          <img src="images/Screenshot_2025-08-10_at_12.30.03_AM.jpg" alt="Vape District — Parma Heights storefront" />
+          <div class="loc-chip">Parma Heights</div>
+        </div>
+        <div class="loc-body">
+          <p class="loc-address">6420 Pearl Rd, Cleveland, OH 44130</p>
+          <div class="loc-actions">
+            <a class="btn-solid" href="https://www.google.com/maps/search/?api=1&query=6420+Pearl+Rd,+Cleveland,+OH+44130" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn-ghost" href="tel:14405582671">(440) 558-2671</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-wrap" aria-label="Map — Parma Heights">
+    <div class="map-card">
+      <header>Parma Heights Map</header>
+      <iframe
+        class="map-iframe"
+        src="https://www.google.com/maps?q=6420+Pearl+Rd,+Cleveland,+OH+44130&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
+  </section>
+</div>
   <!-- Page-only styles -->
   <style>
     /* HERO — much taller + tagline back */
@@ -88,14 +161,12 @@
               <a href="420-batteries.html">Batteries</a>
             </div>
           </div>
-          <div class="submenu">
-            <a href="vapes.html" class="has-sub">Vapes</a>
-            <div class="sub-dropdown">
-              <a href="vape-juice.html">Vape Juice</a>
-              <a href="vape-devices.html">Devices</a>
-              <a href="vape-disposables.html">Disposables</a>
-              <a href="vape-mods.html">Mods</a>
-            </div>
+         <ul class="submenu">
+  <li><a href="420.html">420 ▸</a></li>
+  <li><a href="vapes.html">Vapes ▸</a></li>
+  <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+  <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+</ul>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
           <!-- Hookah page removed -->
