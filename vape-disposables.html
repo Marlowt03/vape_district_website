@@ -1,96 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Disposable Vapes — Vape District</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Disposable Vapes — Vape District</title>
 
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+<!-- === Page Styles (scoped) === -->
+<style>
+  :root{
+    --ink:#0f2233;
+    --ink-2:#24374a;
+    --muted:#5c6b79;
+    --bg:#ffffff;
+    --bg-soft:#f6f8fb;
+    --brand:#1a73e8;
+    --brand-2:#1567cf;
+    --shadow:0 10px 24px rgba(0,0,0,.12);
+    --radius:14px;
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  img{max-width:100%;display:block}
 
-  <style>
-    nav .nav-links, nav .nav-links ul { list-style: none; margin: 0; padding: 0; }
-    nav .has-submenu { position: relative; }
-    nav .submenu {
-      display: none; position: absolute; top: 100%; left: 0; min-width: 220px;
-      background: #fff; border-radius: 12px; padding: 8px 0;
-      box-shadow: 0 10px 24px rgba(0,0,0,.12); z-index: 1000;
-    }
-    @media (hover:hover){ nav .has-submenu:hover > .submenu { display: block; } }
-    nav .submenu-open > .submenu { display: block; }
-    nav .submenu a { font-weight: 500 !important; display:block; padding:10px 16px; color:#111; text-decoration:none; white-space:nowrap; }
-    nav .submenu a:hover { background:#f5f7fb; }
+  /* ========== NAV ========== */
+  nav{
+    position:sticky; top:0; z-index:1000;
+    backdrop-filter:saturate(1.2) blur(6px);
+    background:rgba(255,255,255,.86);
+    border-bottom:1px solid #e8eef6;
+  }
+  .nav-inner{max-width:var(--max);margin:auto;display:flex;align-items:center;gap:18px;padding:14px 16px}
+  .nav-logo{font-weight:800;font-size:1.6rem;letter-spacing:.3px;color:#2aa2ff;text-decoration:none;white-space:nowrap}
+  .nav-links{list-style:none;margin:0;padding:0;display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--ink);text-decoration:none;font-weight:700}
+  .nav-links a:hover{opacity:.8}
+  .has-submenu{position:relative}
+  .submenu{
+    display:none; position:absolute; top:calc(100% + 10px); left:0; min-width:240px;
+    background:#fff; border-radius:12px; box-shadow:var(--shadow); padding:8px 0;
+  }
+  .submenu a{
+    display:block; padding:10px 16px; color:#111; text-decoration:none; font-weight:500 !important;
+    white-space:nowrap;
+  }
+  .submenu a:hover{background:#f3f6fb}
+  /* show on hover (desktop) */
+  @media (hover:hover){ .has-submenu:hover > .submenu{display:block} }
 
-    /* HERO zoomed in */
-    .vd-hero{
-      background: #101010 url('images/geek_bar.png') center/cover no-repeat;
-      color:#fff; text-align:center; position:relative;
-      padding: 320px 16px 160px;
-    }
-    .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
-    .vd-hero .inner{ position:relative; z-index:1; max-width:1000px; margin:0 auto; }
-    .vd-hero h1{ font-size:3rem; margin:0; }
-    .vd-hero p{ margin:.6rem 0 0; font-size:1.1rem; opacity:.95; }
+  /* mobile */
+  .menu-toggle{display:none;margin-left:auto;font-size:1.5rem;cursor:pointer;user-select:none}
+  @media (max-width:860px){
+    .menu-toggle{display:block}
+    .nav-links{position:fixed; inset:auto 0 0 0; top:60px; background:#fff; flex-direction:column; gap:14px; padding:16px; border-top:1px solid #e8eef6; transform:translateY(-8px); opacity:0; pointer-events:none; transition:.2s}
+    .nav-open .nav-links{transform:none; opacity:1; pointer-events:auto}
+    .has-submenu > .submenu{position:static; box-shadow:none; padding:4px 0 8px}
+  }
+  /* tap to open submenu on mobile */
+  .submenu-open > .submenu{display:block}
 
-    .vd-container { max-width:1120px; margin:0 auto; padding:0 16px; }
+  /* ========== HERO ========== */
+  .hero{
+    position:relative; color:#fff; text-align:center;
+    background:#111 url('images/geek_bar.png') center/cover no-repeat;
+    padding: 320px 16px 160px;
+  }
+  .hero::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.38),rgba(0,0,0,.42))}
+  .hero > .hero-inner{position:relative; z-index:1; max-width:var(--max); margin:auto}
+  .hero h1{margin:0 0 8px; font-size:3rem; font-weight:800}
+  .hero p{margin:0; font-size:1.1rem; opacity:.95}
+  .actions{margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
 
-    .vd-grid-wrap{ padding: 28px 0 6px; }
-    .vd-page-sub {
-      margin: 0 0 18px;
-      color: #2a3542;
-      font-size: 1.125rem;
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-    .vd-grid{
-      display:grid; gap:18px;
-      grid-template-columns:repeat(2,1fr);
-    }
-    @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr);} }
-    @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(5,1fr);} }
-    .vd-card{
-      background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
-      box-shadow:0 8px 16px rgba(0,0,0,.08);
-    }
-    .vd-card img{
-      width:100%; height:120px; object-fit:contain; display:block;
-      background:#f6f7f9; border-radius:10px;
-    }
-    .vd-card figcaption{ margin-top:10px; font-weight:700; color:#1b2a3a; font-size:.98rem; }
+  .btn{
+    appearance:none; border:0; border-radius:12px; padding:14px 22px;
+    font-weight:800; font-size:1rem; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    transition:transform .08s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn:active{ transform:translateY(1px) }
+  .btn-primary{ color:#fff; background:var(--brand); box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08) }
+  .btn-primary:hover{ background:var(--brand-2) }
+  .btn-ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16) }
+  .btn-ghost:hover{ background:#f5f7fb }
 
-    .vd-strip--light{ background:#ffffff; color:#111; padding:30px 0 20px; margin-top:28px; }
-    .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
-    .vd-sub{ margin:0 0 8px; opacity:.85; }
+  /* ========== WRAPPER ========== */
+  .container{max-width:var(--max); margin:auto; padding:0 16px}
 
-    .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
-    .marquee__track{
-      display:inline-flex; align-items:center; gap:20px;
-      will-change:transform; backface-visibility:hidden;
-      animation: marquee linear infinite var(--marquee-duration, 28s);
-    }
-    .marq-item{
-      background:#fff; border-radius:16px; padding:14px; min-width:220px;
-      box-shadow:0 10px 22px rgba(0,0,0,.12);
-      display:flex; align-items:center; justify-content:center;
-    }
-    .marq-item img{ height:140px; width:auto; object-fit:contain; display:block; }
-    @media (min-width:900px){
-      .marq-item { min-width:260px; }
-      .marq-item img { height:170px; }
-    }
-    @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(var(--marquee-distance,-100%)); } }
-    @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
-  </style>
+  /* ========== BRAND GRID ========== */
+  .section-pad{padding:28px 0 6px}
+  .sublead{
+    margin:0 0 18px; color:var(--ink-2);
+    font-size:1.125rem; font-weight:700; letter-spacing:.2px;
+  }
+  .grid{
+    display:grid; gap:18px; grid-template-columns:repeat(2,1fr);
+  }
+  @media (min-width:680px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  @media (min-width:980px){ .grid{grid-template-columns:repeat(5,1fr)} }
+  .card{
+    background:#fff; border-radius:var(--radius); padding:14px 12px; text-align:center;
+    box-shadow:0 8px 16px rgba(0,0,0,.08);
+  }
+  .card img{
+    width:100%; height:120px; object-fit:contain; background:#f6f7f9; border-radius:10px;
+  }
+  .card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; font-size:.98rem }
+
+  /* ========== FEATURED SLIDER ========== */
+  .strip{ background:#fff; color:#111; padding:30px 0 20px; margin-top:28px; border-top:1px solid #eef2f7 }
+  .title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d }
+  .muted{ margin:0 0 8px; color:#495869 }
+
+  .marquee{ position:relative; overflow:hidden; padding:16px 0 24px }
+  .track{
+    display:inline-flex; align-items:center; gap:20px;
+    will-change:transform; backface-visibility:hidden;
+    animation: marquee linear infinite var(--dur,28s);
+  }
+  .tile{
+    background:#fff; border-radius:16px; padding:14px; min-width:220px;
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tile img{ height:140px; width:auto; object-fit:contain }
+  @media (min-width:900px){ .tile{min-width:260px}.tile img{height:170px} }
+
+  @keyframes marquee{ from{transform:translateX(0)} to{ transform:translateX(var(--dist,-100%)) } }
+  @media (prefers-reduced-motion:reduce){ .track{ animation:none !important } }
+
+  /* ========== BOTTOM CTA ========== */
+  .cta{
+    background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%);
+    padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5
+  }
+  .cta h3{ font-size:2.2rem; margin:0 0 10px; color:#13293d; font-weight:800 }
+  .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.1rem }
+  .cta .btn-primary{ font-size:1.05rem; padding:16px 26px; border-radius:14px }
+</style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Vape District</a>
-    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
-    <ul class="nav-links">
+<!-- =================== NAV =================== -->
+<nav id="site-nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">Vape District</a>
+
+    <div class="menu-toggle" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</div>
+
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li class="has-submenu">
+
+      <li class="has-submenu" id="shopMenu">
         <a href="shop.html">Shop</a>
         <ul class="submenu">
           <li><a href="420.html">420 ▸</a></li>
@@ -99,124 +159,172 @@
           <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
         </ul>
       </li>
+
       <li><a href="contact.html">Contact</a></li>
     </ul>
-  </nav>
+  </div>
+</nav>
 
-  <header class="vd-hero">
-    <div class="inner">
-      <h1>Disposable Vapes</h1>
-      <p>Off-Stamp, North 5K, FOGER, RAZ & more.</p>
+<!-- =================== HERO =================== -->
+<header class="hero">
+  <div class="hero-inner">
+    <h1>Disposable Vapes</h1>
+    <p>Off-Stamp, North 5K, FOGER, RAZ & more.</p>
+
+    <div class="actions">
+      <a class="btn btn-ghost" href="contact.html">Call or Visit</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="vd-grid-wrap">
-      <div class="vd-container">
-        <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
-        <div class="vd-grid">
-          <figure class="vd-card">
-            <img src="images/raz.png" alt="RAZ" loading="lazy" />
-            <figcaption>RAZ</figcaption>
-          </figure>
-          <figure class="vd-card">
-            <img src="images/geek_bar.png" alt="Geek Bar" loading="lazy" />
-            <figcaption>Geek Bar</figcaption>
-          </figure>
-          <figure class="vd-card">
-            <img src="images/off_stamp.png" alt="Off-Stamp" loading="lazy" />
-            <figcaption>Off-Stamp</figcaption>
-          </figure>
-          <figure class="vd-card">
-            <img src="images/north-5k.jpg" alt="North 5K" loading="lazy" />
-            <figcaption>North 5K</figcaption>
-          </figure>
-          <figure class="vd-card">
-            <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
-            <figcaption>FOGER</figcaption>
-          </figure>
-        </div>
+<main>
+  <!-- ========== BRANDS GRID ========== -->
+  <section class="section-pad">
+    <div class="container">
+      <p class="sublead">Explore our most popular disposable vape brands.</p>
+
+      <div class="grid">
+        <figure class="card">
+          <img src="images/raz.png" alt="RAZ" loading="lazy" />
+          <figcaption>RAZ</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/off_stamp.png" alt="Off-Stamp" loading="lazy" />
+          <figcaption>Off-Stamp</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/north-5k.jpg" alt="North 5K" loading="lazy" />
+          <figcaption>North 5K</figcaption>
+        </figure>
+
+        <figure class="card">
+          <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
+          <figcaption>FOGER</figcaption>
+        </figure>
+
+        <!-- Optional brand (uncomment only if file exists) -->
+        <!--
+        <figure class="card">
+          <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy" />
+          <figcaption>North Stellar</figcaption>
+        </figure>
+        -->
       </div>
-    </section>
-
-    <section class="vd-strip vd-strip--light" aria-label="Featured Disposables">
-      <div class="vd-container">
-        <h2 class="vd-title">Featured Disposables</h2>
-        <p class="vd-sub">Always moving — no gaps, no blinking.</p>
-      </div>
-
-      <div class="marquee" id="disp-marquee" data-speed="28">
-        <ul class="marquee__track" id="disp-track">
-          <li class="marq-item"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
-          <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
-          <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
-          <li class="marq-item"><img src="images/raz.png"        alt="RAZ"></li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
     </div>
-    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  </footer>
+  </section>
 
-  <script>
-    (function(){
-      const isTouch = matchMedia('(hover: none)').matches;
-      const shop = document.querySelector('nav .has-submenu');
-      if (!shop) return;
-      const link = shop.querySelector(':scope > a');
-      link.addEventListener('click', function(e){
-        if (isTouch) { e.preventDefault(); shop.classList.toggle('submenu-open'); }
+  <!-- ========== FEATURED SLIDER ========== -->
+  <section class="strip" aria-label="Featured Disposables">
+    <div class="container">
+      <h2 class="title">Featured Disposables</h2>
+      <p class="muted">Always moving — no gaps, no blinking.</p>
+    </div>
+
+    <div class="marquee" id="dispMarq" data-speed="28">
+      <ul class="track" id="dispTrack">
+        <!-- Base items once; JS clones the needed count to loop seamlessly -->
+        <li class="tile"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
+        <li class="tile"><img src="images/north-5k.jpg"   alt="North 5K"></li>
+        <li class="tile"><img src="images/foger.jpg"      alt="FOGER"></li>
+        <li class="tile"><img src="images/raz.png"        alt="RAZ"></li>
+        <!-- Optional if present -->
+        <!-- <li class="tile"><img src="images/north-stellar.jpg" alt="North Stellar"></li> -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta">
+    <div class="container">
+      <h3>Looking for something specific?</h3>
+      <p>We carry a much larger selection in-store than what’s shown here. Give us a quick call and we’ll check today’s case for flavors and brands in stock.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="tel:+14405582671">Call Now</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer style="border-top:1px solid #e8eef6;background:#fff">
+  <div class="container" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:18px 16px;">
+    <p style="margin:0;color:#5b6a78;">&copy; <span id="yr"></span> Vape District. All rights reserved.</p>
+    <nav style="display:flex;gap:14px;flex-wrap:wrap">
+      <a href="index.html" style="color:#2a3a4a;text-decoration:none;font-weight:600">Home</a>
+      <a href="vape-disposables.html" style="color:#2a3a4a;text-decoration:none;font-weight:600">Vapes</a>
+      <a href="420-cartridges.html" style="color:#2a3a4a;text-decoration:none;font-weight:600">D8 Cartridges</a>
+      <a href="contact.html" style="color:#2a3a4a;text-decoration:none;font-weight:600">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- === Scripts (scoped) === -->
+<script>
+  // Footer year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const siteNav = document.getElementById('site-nav');
+  menuBtn?.addEventListener('click', () => {
+    const open = siteNav.classList.toggle('nav-open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Mobile tap-to-open for Shop submenu
+  (function(){
+    const isTouch = matchMedia('(hover: none)').matches;
+    const shop = document.getElementById('shopMenu');
+    if (!shop || !isTouch) return;
+    const link = shop.querySelector(':scope > a');
+    link.addEventListener('click', (e)=>{
+      e.preventDefault();
+      shop.classList.toggle('submenu-open');
+    });
+  })();
+
+  // Gapless marquee (no blink, no stacking)
+  (function(){
+    const marquee = document.getElementById('dispMarq');
+    const track = document.getElementById('dispTrack');
+    if(!marquee || !track) return;
+
+    // Clean clones if re-run
+    track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+
+    const needWidth = marquee.clientWidth * 2 + 40; // >2x container
+    let curr = track.scrollWidth;
+
+    while (curr < needWidth) {
+      track.querySelectorAll(':scope > .tile').forEach(item=>{
+        const c = item.cloneNode(true);
+        c.setAttribute('data-clone','1');
+        track.appendChild(c);
       });
-    })();
+      curr = track.scrollWidth;
+    }
+    track.style.setProperty('--dist', `-${curr/2}px`);
+    const speed = Number(marquee.dataset.speed || 28);
+    track.style.setProperty('--dur', `${speed}s`);
 
-    (function () {
-      const marquee = document.getElementById('disp-marquee');
-      const baseTrack = document.getElementById('disp-track');
-      if (!marquee || !baseTrack) return;
-
-      baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-
-      const containerWidth = marquee.clientWidth;
-      let contentWidth = baseTrack.scrollWidth;
-      const buffer = 40;
-
-      while (contentWidth < containerWidth * 2 + buffer) {
-        baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-          const clone = item.cloneNode(true);
-          clone.setAttribute('data-clone', '1');
-          baseTrack.appendChild(clone);
-        });
-        contentWidth = baseTrack.scrollWidth;
-      }
-
-      const speed = Number(marquee.dataset.speed || 28);
-      baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
-      baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
-
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-          const cw = marquee.clientWidth;
-          let w = baseTrack.scrollWidth;
-          while (w < cw * 2 + buffer) {
-            baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-              const clone = item.cloneNode(true);
-              clone.setAttribute('data-clone', '1');
-              baseTrack.appendChild(clone);
-            });
-            w = baseTrack.scrollWidth;
-          }
-          baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
-        }, 120);
-      }, { passive: true });
-    })();
-  </script>
+    let t;
+    window.addEventListener('resize',()=>{
+      clearTimeout(t);
+      t=setTimeout(()=>{
+        track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+        let w = track.scrollWidth;
+        while (w < marquee.clientWidth * 2 + 40) {
+          track.querySelectorAll(':scope > .tile').forEach(item=>{
+            const c=item.cloneNode(true); c.setAttribute('data-clone','1'); track.appendChild(c);
+          });
+          w = track.scrollWidth;
+        }
+        track.style.setProperty('--dist', `-${w/2}px`);
+      },120);
+    }, {passive:true});
+  })();
+</script>
 </body>
 </html>
