@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>420 (Pre-Rolls) — Vape District</title>
+
+<!-- Use your global stylesheet so the page matches the rest of the site -->
+<link rel="stylesheet" href="style.css" />
+
+<style>
+  /* Page-scoped light tweaks only (keeps your theme intact) */
+  :root{ --max:1120px; --ink:#0f2233; --brand:#1a73e8; --brand2:#1567cf; }
+  .vd-wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
+
+  /* Hero with 420.jpg */
+  .hero-420{
+    position:relative;color:#fff;text-align:center;
+    background:#000 url('images/420.jpg') center/cover no-repeat;
+    padding: 320px 16px 160px;
+  }
+  .hero-420::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+  .hero-420 .inner{position:relative;z-index:1}
+  .hero-420 h1{margin:0 0 8px;font-size:3rem;font-weight:800}
+  .hero-420 p{margin:0;font-size:1.1rem;opacity:.95}
+  .btn{appearance:none;border:0;border-radius:12px;padding:14px 22px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+  .btn-white{background:#fff;color:#0b1f33;box-shadow:0 8px 20px rgba(0,0,0,.16)}
+  .btn-white:hover{background:#f5f7fb}
+
+  /* Cards grid */
+  .grid{display:grid;gap:20px;margin:28px 0 6px}
+  @media (min-width:680px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{
+    background:#fff;border-radius:14px;padding:16px;text-align:center;
+    box-shadow:0 10px 18px rgba(0,0,0,.08)
+  }
+  .card img{width:100%;height:180px;object-fit:contain;background:#f6f7f9;border-radius:12px}
+  .card h3{margin:12px 0 6px;font-size:1.1rem}
+  .sublead{margin:0;color:#2a3542;font-weight:700}
+
+  /* Featured slider (gapless) */
+  .strip{background:#fff;border-top:1px solid #eef2f7;margin-top:28px;padding:30px 0 20px}
+  .title{font-size:1.6rem;margin:0 0 4px;font-weight:800;color:#13293d}
+  .muted{margin:0 0 8px;color:#495869}
+  .marquee{position:relative;overflow:hidden;padding:16px 0 24px}
+  .track{display:inline-flex;gap:20px;will-change:transform;animation:marq linear infinite var(--dur,28s)}
+  .tile{background:#fff;border-radius:16px;padding:14px;min-width:240px;box-shadow:0 10px 22px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
+  .tile img{height:170px;width:auto;object-fit:contain}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(var(--dist,-100%))}}
+
+  /* Bottom CTA */
+  .cta{background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%);text-align:center;border-top:1px solid #e7edf5;padding:54px 16px;margin-top:36px}
+  .cta h2{margin:0 0 10px;font-size:2rem}
+  .btn-primary{background:var(--brand);color:#fff}
+  .btn-primary:hover{background:var(--brand2)}
+</style>
+</head>
+<body>
+
+<!-- Keep your existing nav by using the same markup/classes from your other pages -->
+<nav>
+  <a href="index.html" class="nav-logo">Vape District</a>
+  <div class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="has-submenu" id="shopMenu">
+      <a href="shop.html">Shop</a>
+      <ul class="submenu">
+        <li><a href="420.html">420 ▸</a></li>
+        <li><a href="vapes.html">Vapes ▸</a></li>
+        <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+        <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero-420">
+  <div class="vd-wrap inner">
+    <h1>420 (Pre-Rolls)</h1>
+    <p>Explore our most popular Pre Rolls.</p>
+    <div style="margin-top:16px">
+      <a class="btn btn-white" href="contact.html">Call or Visit</a>
+    </div>
+  </div>
+</header>
+
+<main class="vd-wrap">
+  <!-- Product cards -->
+  <section>
+    <p class="sublead">Our best-sellers</p>
+    <div class="grid">
+      <article class="card">
+        <picture>
+          <source srcset="images/zour-stash.webp" type="image/webp">
+          <img src="images/zour-stash.png" alt="Zour Stash Pre-Rolls">
+        </picture>
+        <h3>Zour Stash</h3>
+      </article>
+
+      <article class="card">
+        <img src="images/curvana.png" alt="Curvana Pre-Rolls">
+        <h3>Curvana</h3>
+      </article>
+
+      <article class="card">
+        <img src="images/dank-leaf.png" alt="Dank Leaf Pre-Rolls">
+        <h3>Dank Leaf</h3>
+      </article>
+    </div>
+  </section>
+
+  <!-- Continuous slider -->
+  <section class="strip" aria-label="Featured Pre-Rolls">
+    <h2 class="title">Featured Pre-Rolls</h2>
+    <p class="muted">Smooth, gapless carousel — always in motion.</p>
+
+    <div class="marquee" id="marq">
+      <ul class="track" id="track">
+        <li class="tile"><img src="images/zour-stash.png" alt="Zour Stash"></li>
+        <li class="tile"><img src="images/curvana.png"    alt="Curvana"></li>
+        <li class="tile"><img src="images/dank-leaf.png"  alt="Dank Leaf"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Bottom call-to-action -->
+  <section class="cta">
+    <h2>Looking for a specific strain?</h2>
+    <p>Inventory rotates daily. Call the shop and we’ll check today’s case for you.</p>
+    <a class="btn btn-primary" href="tel:+14405582671">Call Now</a>
+  </section>
+</main>
+
+<footer style="border-top:1px solid #e8eef6;background:#fff">
+  <div class="vd-wrap" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 0;">
+    <p style="margin:0;color:#5b6a78;">&copy; <span id="yr"></span> Vape District. All rights reserved.</p>
+    <nav style="display:flex;gap:14px;flex-wrap:wrap">
+      <a href="index.html" style="text-decoration:none;font-weight:600;color:#2a3a4a">Home</a>
+      <a href="420.html" style="text-decoration:none;font-weight:600;color:#2a3a4a">420</a>
+      <a href="vapes.html" style="text-decoration:none;font-weight:600;color:#2a3a4a">Vapes</a>
+      <a href="contact.html" style="text-decoration:none;font-weight:600;color:#2a3a4a">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // footer year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // mobile menu toggle (matches your other pages)
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.querySelector('nav');
+  menuToggle?.addEventListener('click', ()=>{
+    const open = nav.classList.toggle('nav-open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // shop submenu tap on mobile
+  (function(){
+    const isTouch = matchMedia('(hover: none)').matches;
+    if(!isTouch) return;
+    const shop = document.getElementById('shopMenu');
+    const link = shop?.querySelector(':scope > a');
+    link?.addEventListener('click', e=>{
+      e.preventDefault();
+      shop.classList.toggle('submenu-open');
+    });
+  })();
+
+  // gapless marquee (same logic as disposables page)
+  (function(){
+    const marq = document.getElementById('marq');
+    const track = document.getElementById('track');
+    if(!marq || !track) return;
+
+    // remove old clones if any
+    track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+
+    const need = marq.clientWidth * 2 + 40;
+    let w = track.scrollWidth;
+
+    while (w < need){
+      track.querySelectorAll(':scope > .tile').forEach(item=>{
+        const c = item.cloneNode(true);
+        c.setAttribute('data-clone','1');
+        track.appendChild(c);
+      });
+      w = track.scrollWidth;
+    }
+    track.style.setProperty('--dist', `-${w/2}px`);
+    track.style.setProperty('--dur', '28s');
+
+    let t;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(t);
+      t=setTimeout(()=>{
+        track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+        let w2 = track.scrollWidth;
+        while (w2 < marq.clientWidth*2 + 40){
+          track.querySelectorAll(':scope > .tile').forEach(item=>{
+            const c=item.cloneNode(true); c.setAttribute('data-clone','1'); track.appendChild(c);
+          });
+          w2 = track.scrollWidth;
+        }
+        track.style.setProperty('--dist', `-${w2/2}px`);
+      },120);
+    }, {passive:true});
+  })();
+</script>
+</body>
+</html>
