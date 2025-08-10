@@ -1,203 +1,255 @@
-<main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Disposable Vapes — Vape District</title>
 
-  <!-- =============== Brands grid =============== -->
-  <section class="vd-wrap">
-    <div class="vd-container">
-      <h1 class="vd-page-title">Disposable Vapes</h1>
-      <p class="vd-page-sub">Our selection includes Off-Stamp, North 5K, FOGER, RAZ, Geek Bar and more.</p>
+  <!-- Global site files -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 
-      <div class="vd-grid">
-        <!-- Each brand card -->
-        <figure class="vd-card">
-          <img src="images/raz.png" alt="RAZ" loading="lazy">
-          <figcaption>RAZ</figcaption>
-        </figure>
-
-        <figure class="vd-card">
-          <img src="images/geek_bar.png" alt="Geek Bar" loading="lazy">
-          <figcaption>Geek Bar</figcaption>
-        </figure>
-
-        <figure class="vd-card">
-          <img src="images/offstamp.png" alt="Off-Stamp" loading="lazy">
-          <figcaption>Off-Stamp</figcaption>
-        </figure>
-
-        <figure class="vd-card">
-          <img src="images/north-5k.jpg" alt="North 5K" loading="lazy">
-          <figcaption>North 5K</figcaption>
-        </figure>
-
-        <figure class="vd-card">
-          <img src="images/foger.jpg" alt="FOGER" loading="lazy">
-          <figcaption>FOGER</figcaption>
-        </figure>
-
-        <!-- Optional: only include if you actually added the file -->
-        <!--
-        <figure class="vd-card">
-          <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy">
-          <figcaption>North Stellar</figcaption>
-        </figure>
-        -->
-      </div>
-    </div>
-  </section>
-
-  <!-- =============== Endless slider =============== -->
-  <section class="vd-strip vd-strip--dark" aria-label="Featured Disposables">
-    <div class="vd-container">
-      <h2 class="vd-title">Featured Disposables</h2>
-      <p class="vd-sub">Always moving — no gaps, no blinking.</p>
-    </div>
-
-    <div class="marquee" id="disp-marquee" data-speed="28">
-      <ul class="marquee__track" id="disp-track">
-        <!-- Base items (only list once; JS handles cloning for loop) -->
-        <li class="marq-item"><img src="images/offstamp.png"   alt="Off-Stamp"></li>
-        <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
-        <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
-        <li class="marq-item"><img src="images/raz.png"        alt="RAZ"></li>
-        <li class="marq-item"><img src="images/geek_bar.png"   alt="Geek Bar"></li>
-        <!-- Optional if file exists -->
-        <!-- <li class="marq-item"><img src="images/north-stellar.jpg" alt="North Stellar"></li> -->
-      </ul>
-    </div>
-  </section>
-
-</main>
-
-<!-- ===== Page-scoped styles (won’t affect other pages) ===== -->
-<style>
-  .vd-wrap { padding: 28px 0 6px; }
-  .vd-container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
-  .vd-page-title { margin: 0 0 4px; color: #13293d; font-weight: 800; }
-  .vd-page-sub { margin: 0 0 18px; color: #555; }
-
-  /* Brand grid */
-  .vd-grid {
-    display: grid;
-    gap: 18px;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 680px) { .vd-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (min-width: 980px) { .vd-grid { grid-template-columns: repeat(5, 1fr); } }
-
-  .vd-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 14px 12px;
-    text-align: center;
-    box-shadow: 0 8px 16px rgba(0,0,0,.08);
-  }
-  .vd-card img {
-    width: 100%;
-    height: 120px;
-    object-fit: contain;
-    display: block;
-    background: #f6f7f9;
-    border-radius: 10px;
-  }
-  .vd-card figcaption {
-    margin-top: 10px;
-    font-weight: 700;
-    color: #1b2a3a;
-    font-size: .98rem;
-  }
-
-  /* Slider section */
-  .vd-strip--dark { background: #0b0b0b; color: #fff; padding: 30px 0 20px; margin-top: 28px; }
-  .vd-title { font-size: 1.6rem; margin: 0 0 4px; font-weight: 800; }
-  .vd-sub { margin: 0 0 8px; opacity: .9; }
-
-  /* Marquee core */
-  .marquee { position: relative; overflow: hidden; padding: 16px 0 24px; }
-  .marquee__track {
-    display: inline-flex;
-    align-items: center;
-    gap: 20px;
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-  .marq-item {
-    background: #fff;
-    border-radius: 16px;
-    padding: 14px;
-    min-width: 220px;
-    box-shadow: 0 10px 22px rgba(0,0,0,.18);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .marq-item img { height: 140px; width: auto; object-fit: contain; display: block; }
-
-  @media (min-width: 900px) {
-    .marq-item { min-width: 260px; }
-    .marq-item img { height: 170px; }
-  }
-
-  /* Animation; duration is set via JS with a CSS var */
-  .marquee__track {
-    animation: marquee linear infinite var(--marquee-duration, 28s);
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(var(--marquee-distance, -100%)); }
-  }
-
-  /* Accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee__track { animation: none !important; }
-  }
-</style>
-
-<!-- ===== Minimal JS: builds a seamless loop, no double track, no black blink ===== -->
-<script>
-  (function () {
-    const marquee = document.getElementById('disp-marquee');
-    const baseTrack = document.getElementById('disp-track');
-    if (!marquee || !baseTrack) return;
-
-    // Clean any previous clones if you re-edit this page
-    baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-
-    const containerWidth = marquee.clientWidth;
-    let contentWidth = baseTrack.scrollWidth;
-
-    // Clone children until we have at least 2x container width for gapless loop
-    // (buffer avoids any rounding gap on some devices)
-    const buffer = 40;
-    while (contentWidth < containerWidth * 2 + buffer) {
-      baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-        const clone = item.cloneNode(true);
-        clone.setAttribute('data-clone', '1');
-        baseTrack.appendChild(clone);
-      });
-      contentWidth = baseTrack.scrollWidth;
+  <!-- Page-scoped styles only -->
+  <style>
+    /* ===== NAV fixes (scoped) ===== */
+    nav .nav-links, nav .nav-links ul { list-style: none; margin: 0; padding: 0; }
+    nav .has-submenu { position: relative; }
+    nav .submenu {
+      display: none; position: absolute; top: 100%; left: 0; min-width: 220px;
+      background: #fff; border-radius: 12px; padding: 8px 0;
+      box-shadow: 0 10px 24px rgba(0,0,0,.12); z-index: 1000;
     }
+    /* show on hover (desktop) */
+    @media (hover:hover){ nav .has-submenu:hover > .submenu { display: block; } }
+    /* mobile tap support (toggled by tiny script at bottom) */
+    nav .submenu-open > .submenu { display: block; }
+    /* submenu items NOT bold */
+    nav .submenu a { font-weight: 500 !important; display:block; padding:10px 16px; color:#111; text-decoration:none; white-space:nowrap; }
+    nav .submenu a:hover { background:#f5f7fb; }
 
-    // Set distance and duration based on actual content width for perfectly smooth loop
-    const speed = Number(marquee.dataset.speed || 28); // seconds per full width
-    baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
-    baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
+    /* ===== HERO ===== */
+    .vd-hero{
+      background:url('images/hero.jpg') center/cover no-repeat;
+      color:#fff; text-align:center; position:relative;
+      padding: 300px 16px 150px; /* tall like the theme */
+    }
+    .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
+    .vd-hero .inner{ position:relative; z-index:1; max-width:1000px; margin:0 auto; }
+    .vd-hero h1{ font-size:3rem; margin:0; }
+    .vd-hero p{ margin:.6rem 0 0; font-size:1.1rem; opacity:.95; }
 
-    // Recalc on resize to avoid gaps when device rotates
-    let t;
-    window.addEventListener('resize', () => {
-      clearTimeout(t);
-      t = setTimeout(() => {
-        // Reset clones and rebuild
-        baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-        const cw = marquee.clientWidth;
-        let w = baseTrack.scrollWidth;
-        while (w < cw * 2 + buffer) {
-          baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-            const clone = item.cloneNode(true);
-            clone.setAttribute('data-clone', '1');
-            baseTrack.appendChild(clone);
-          });
-          w = baseTrack.scrollWidth;
-        }
-        baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
-      }, 120);
-    }, { passive: true });
-  })();
-</script>
+    /* ===== CONTENT WRAP ===== */
+    .vd-container { max-width:1120px; margin:0 auto; padding:0 16px; }
+
+    /* ===== BRAND GRID ===== */
+    .vd-grid-wrap{ padding: 28px 0 6px; }
+    .vd-page-sub { margin: 0 0 18px; color: #555; }
+    .vd-grid{
+      display:grid; gap:18px;
+      grid-template-columns:repeat(2,1fr);
+    }
+    @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr);} }
+    @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(5,1fr);} }
+    .vd-card{
+      background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
+      box-shadow:0 8px 16px rgba(0,0,0,.08);
+    }
+    .vd-card img{
+      width:100%; height:120px; object-fit:contain; display:block;
+      background:#f6f7f9; border-radius:10px;
+    }
+    .vd-card figcaption{ margin-top:10px; font-weight:700; color:#1b2a3a; font-size:.98rem; }
+
+    /* ===== SLIDER ===== */
+    .vd-strip--dark{ background:#0b0b0b; color:#fff; padding:30px 0 20px; margin-top:28px; }
+    .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; }
+    .vd-sub{ margin:0 0 8px; opacity:.9; }
+
+    .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
+    .marquee__track{
+      display:inline-flex; align-items:center; gap:20px;
+      will-change:transform; backface-visibility:hidden;
+      animation: marquee linear infinite var(--marquee-duration, 28s);
+    }
+    .marq-item{
+      background:#fff; border-radius:16px; padding:14px; min-width:220px;
+      box-shadow:0 10px 22px rgba(0,0,0,.18);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .marq-item img{ height:140px; width:auto; object-fit:contain; display:block; }
+    @media (min-width:900px){
+      .marq-item{ min-width:260px; }
+      .marq-item img{ height:170px; }
+    }
+    @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(var(--marquee-distance,-100%)); } }
+    @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV (logo restored; About before Shop; dropdown items not bold) -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vape District</a>
+    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="has-submenu">
+        <a href="shop.html">Shop</a>
+        <ul class="submenu">
+          <li><a href="420.html">420 ▸</a></li>
+          <li><a href="vapes.html">Vapes ▸</a></li>
+          <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+          <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+        </ul>
+      </li>
+      <li><a class="active" href="vape-disposables.html">Disposable Vapes</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="vd-hero">
+    <div class="inner">
+      <h1>Disposable Vapes</h1>
+      <p>Off-Stamp, North 5K, FOGER, RAZ, Geek Bar & more.</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- BRAND GRID -->
+    <section class="vd-grid-wrap">
+      <div class="vd-container">
+        <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
+        <div class="vd-grid">
+          <figure class="vd-card">
+            <img src="images/raz.png" alt="RAZ" loading="lazy" />
+            <figcaption>RAZ</figcaption>
+          </figure>
+          <figure class="vd-card">
+            <img src="images/geek_bar.png" alt="Geek Bar" loading="lazy" />
+            <figcaption>Geek Bar</figcaption>
+          </figure>
+          <figure class="vd-card">
+            <img src="images/offstamp.png" alt="Off-Stamp" loading="lazy" />
+            <figcaption>Off-Stamp</figcaption>
+          </figure>
+          <figure class="vd-card">
+            <img src="images/north-5k.jpg" alt="North 5K" loading="lazy" />
+            <figcaption>North 5K</figcaption>
+          </figure>
+          <figure class="vd-card">
+            <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
+            <figcaption>FOGER</figcaption>
+          </figure>
+          <!-- Optional if file exists -->
+          <!--
+          <figure class="vd-card">
+            <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy" />
+            <figcaption>North Stellar</figcaption>
+          </figure>
+          -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDER (single, gapless) -->
+    <section class="vd-strip vd-strip--dark" aria-label="Featured Disposables">
+      <div class="vd-container">
+        <h2 class="vd-title">Featured Disposables</h2>
+        <p class="vd-sub">Always moving — no gaps, no blinking.</p>
+      </div>
+
+      <div class="marquee" id="disp-marquee" data-speed="28">
+        <ul class="marquee__track" id="disp-track">
+          <!-- Base items listed once; JS clones just enough to loop seamlessly -->
+          <li class="marq-item"><img src="images/offstamp.png"  alt="Off-Stamp"></li>
+          <li class="marq-item"><img src="images/north-5k.jpg"  alt="North 5K"></li>
+          <li class="marq-item"><img src="images/foger.jpg"     alt="FOGER"></li>
+          <li class="marq-item"><img src="images/raz.png"       alt="RAZ"></li>
+          <li class="marq-item"><img src="images/geek_bar.png"  alt="Geek Bar"></li>
+          <!-- Optional if present -->
+          <!-- <li class="marq-item"><img src="images/north-stellar.jpg" alt="North Stellar"></li> -->
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER (keep your global footer if you have one; simple fallback) -->
+  <footer>
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="vape-disposables.html">Vapes</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+  <!-- Tiny helpers: submenu tap + gapless marquee -->
+  <script>
+    // Mobile tap for the Shop submenu
+    (function(){
+      const isTouch = matchMedia('(hover: none)').matches;
+      const shop = document.querySelector('nav .has-submenu');
+      if (!shop) return;
+      const link = shop.querySelector(':scope > a');
+      link.addEventListener('click', function(e){
+        if (isTouch) { e.preventDefault(); shop.classList.toggle('submenu-open'); }
+      });
+    })();
+
+    // Gapless marquee builder (no duplicate stacks, no black flash)
+    (function () {
+      const marquee = document.getElementById('disp-marquee');
+      const baseTrack = document.getElementById('disp-track');
+      if (!marquee || !baseTrack) return;
+
+      // Remove prior clones if you edit and re-save
+      baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+
+      const containerWidth = marquee.clientWidth;
+      let contentWidth = baseTrack.scrollWidth;
+      const buffer = 40; // avoid tiny rounding gap
+
+      // Clone items until we exceed ~2x container width for a perfect loop
+      while (contentWidth < containerWidth * 2 + buffer) {
+        baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+          const clone = item.cloneNode(true);
+          clone.setAttribute('data-clone', '1');
+          baseTrack.appendChild(clone);
+        });
+        contentWidth = baseTrack.scrollWidth;
+      }
+
+      // Set distance/duration from actual width so it never blinks
+      const speed = Number(marquee.dataset.speed || 28); // seconds per full width
+      baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
+      baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
+
+      // Rebuild on resize (e.g., phone rotates)
+      let t;
+      window.addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+          const cw = marquee.clientWidth;
+          let w = baseTrack.scrollWidth;
+          while (w < cw * 2 + buffer) {
+            baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+              const clone = item.cloneNode(true);
+              clone.setAttribute('data-clone', '1');
+              baseTrack.appendChild(clone);
+            });
+            w = baseTrack.scrollWidth;
+          }
+          baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
+        }, 120);
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
