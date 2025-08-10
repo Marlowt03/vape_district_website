@@ -2,185 +2,192 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us - Vape District</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vape District | Contact</title>
+
+  <!-- Your global files (match the rest of the site) -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+  <!-- Page-only styles -->
   <style>
-    /* Fix submenu font weight */
-    .submenu a {
-      font-weight: normal !important;
+    /* HERO — much taller + tagline back */
+    .contact-hero{
+      background:url('images/hero.jpg') center/cover no-repeat;
+      color:#fff;text-align:center;position:relative;
+      padding:350px 16px 160px; /* bigger top, good bottom */
     }
-    .submenu a:hover {
-      color: #00aaff; /* theme hover color */
-    }
+    .contact-hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+    .contact-hero .inner{position:relative;z-index:1;max-width:1000px;margin:0 auto}
+    .contact-hero h1{font-size:3rem;margin:0}
+    .hero-subtext{margin-top:12px;font-size:1.15rem;font-weight:500;max-width:760px;margin-left:auto;margin-right:auto}
 
-    /* Hero section styling */
-    .contact-hero {
-      background: url('hero.jpg') center/cover no-repeat;
-      text-align: center;
-      padding: 160px 20px 80px; /* more space above */
-      color: white;
-    }
-    .contact-hero h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-    }
-    .contact-hero p {
-      font-size: 1.2em;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+    /* Locations */
+    .locations{max-width:1120px;margin:40px auto 80px;padding:0 16px}
+    .locations-title{text-align:center;margin-bottom:20px;color:#13293d;font-weight:800}
+    .locations-grid{display:grid;gap:24px;grid-template-columns:repeat(3,1fr)}
+    @media (max-width:980px){.locations-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.locations-grid{grid-template-columns:1fr}}
 
-    /* Location card styling */
-    .locations {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      background: #f9f9f9;
-    }
-    .location-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .location-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .location-card h2 {
-      margin: 15px 0 5px;
-      color: #333;
-    }
-    .location-card p {
-      margin: 0;
-      color: #666;
-    }
-    .location-card a {
-      display: inline-block;
-      margin: 10px 5px 20px;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      background: #00aaff;
-      color: white;
-      font-weight: bold;
-    }
-    .location-card a.directions {
-      background: #333;
-    }
+    .loc-card{background:#f9fafb;border-radius:14px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s}
+    .loc-card:hover{transform:translateY(-4px);box-shadow:0 16px 28px rgba(0,0,0,.08)}
+    .loc-media{position:relative;overflow:hidden}
+    .loc-media img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .6s ease;background:#eee}
+    .loc-card:hover .loc-media img{transform:scale(1.03)}
+    .loc-chip{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.6);color:#fff;font-weight:800;padding:8px 12px;border-radius:10px;backdrop-filter:blur(2px)}
+    .loc-body{padding:14px 16px 18px}
+    .loc-address{margin:6px 0 14px;color:#333;font-weight:600;font-size:.95rem}
+    .loc-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-solid{display:inline-block;padding:12px 16px;border-radius:10px;background:#0d6efd;color:#fff;text-decoration:none;font-weight:800;box-shadow:0 10px 24px rgba(13,110,253,.35);transition:transform .18s,background .18s,box-shadow .18s;flex:1 1 180px;text-align:center}
+    .btn-solid:hover{background:#0b5ed7;transform:translateY(-2px)}
+    .btn-ghost{display:inline-block;padding:12px 16px;border-radius:10px;background:#e9eefc;color:#0d6efd;text-decoration:none;font-weight:800;transition:transform .18s,background .18s;flex:1 1 140px;text-align:center}
+    .btn-ghost:hover{background:#dbe7ff;transform:translateY(-2px)}
 
-    /* Nav fix */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    /* Map */
+    .map-wrap{max-width:1120px;margin:40px auto 80px;padding:0 16px}
+    .map-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.06)}
+    .map-card header{background:#13293d;color:#fff;padding:14px 16px;font-weight:800;font-size:1.1rem}
+    .map-iframe{border:0;width:100%;height:350px;display:block}
+
+    /* --- LIGHTWEIGHT dropdown (scoped) so Contact has the same menu --- */
+    nav .has-submenu{position:relative}
+    nav .has-submenu > a::after{content:"▸";margin-left:8px;font-size:.9em}
+    nav .submenu{
+      position:absolute;top:100%;left:0;min-width:220px;background:#fff;border-radius:10px;
+      box-shadow:0 10px 24px rgba(0,0,0,.15);padding:10px 0;display:none;z-index:50;
     }
-    nav a {
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-      margin: 0 10px;
+    nav .submenu a{display:block;padding:10px 16px;color:#111;text-decoration:none;white-space:nowrap}
+    nav .submenu a:hover{background:#f3f4f6}
+    /* show on hover (desktop) */
+    @media (hover:hover){
+      nav .has-submenu:hover > .submenu{display:block}
     }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-    .nav-links li {
-      position: relative;
-    }
-    .submenu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 5px;
-      min-width: 200px;
-      z-index: 1000;
-    }
-    .submenu li {
-      padding: 10px;
-    }
-    .submenu li:hover {
-      background: #f0f0f0;
-    }
-    .has-submenu:hover .submenu {
-      display: block;
-    }
+    /* mobile tap support */
+    .submenu-open > .submenu{display:block}
   </style>
 </head>
 <body>
 
+  <!-- NAV with dropdown -->
   <nav>
     <a href="index.html" class="nav-logo">Vape District</a>
+    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
       <li class="has-submenu">
-        <a href="#">Shop</a>
+        <a href="shop.html">Shop</a>
         <ul class="submenu">
-          <li class="has-submenu"><a href="420.html">420 ▸</a></li>
-          <li class="has-submenu"><a href="vapes.html">Vapes ▸</a></li>
+          <li><a href="420.html">420</a></li>
+          <li><a href="vapes.html">Vapes</a></li>
           <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
           <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
         </ul>
       </li>
+      <li><a href="about.html">About</a></li>
       <li><a class="active" href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <section class="contact-hero">
-    <h1>Contact Us</h1>
-    <p>We’d love to hear from you! Visit any of our locations below or give us a call.</p>
-  </section>
+  <!-- HERO -->
+  <header class="contact-hero">
+    <div class="inner">
+      <h1>Contact</h1>
+      <p class="hero-subtext">Call any store, or tap directions to navigate there now.</p>
+    </div>
+  </header>
 
+  <!-- LOCATIONS -->
   <section class="locations">
-    <div class="location-card">
-      <img src="willoughby.jpeg" alt="Willoughby Store">
-      <h2>Vape District Willoughby</h2>
-      <p>36301 Euclid Ave, Willoughby, OH 44094</p>
-      <p>(440) 710-6027</p>
-      <a href="tel:+14407106027">Call</a>
-      <a class="directions" href="https://goo.gl/maps/qEypmQg4hJfn8tFh8" target="_blank">Get Directions</a>
-    </div>
+    <h2 class="locations-title">Our Stores</h2>
 
-    <div class="location-card">
-      <img src="brunswick.jpeg" alt="Brunswick Store">
-      <h2>Vape District Brunswick</h2>
-      <p>809 Pearl Rd, Brunswick, OH 44212</p>
-      <p>(330) 460-3287</p>
-      <a href="tel:+13304603287">Call</a>
-      <a class="directions" href="https://goo.gl/maps/3Q5A1h6oRfXq2rWw7" target="_blank">Get Directions</a>
-    </div>
+    <div class="locations-grid">
+      <!-- Brunswick -->
+      <article class="loc-card">
+        <div class="loc-media">
+          <img src="images/27EEC06C-3C40-4C57-B7A1-2CA241A0387A_4.jpg" alt="Vape District — Brunswick storefront" />
+          <div class="loc-chip">Brunswick</div>
+        </div>
+        <div class="loc-body">
+          <p class="loc-address">809 Pearl Rd, Brunswick, OH 44212</p>
+          <div class="loc-actions">
+            <a class="btn-solid" href="https://www.google.com/maps/search/?api=1&query=809+Pearl+Rd,+Brunswick,+OH+44212" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn-ghost" href="tel:13304603287">(330) 460-3287</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="location-card">
-      <img src="parma.jpeg" alt="Parma Heights Store">
-      <h2>Vape District Parma Heights</h2>
-      <p>6420 Pearl Rd, Cleveland, OH 44130</p>
-      <p>(440) 340-5269</p>
-      <a href="tel:+14403405269">Call</a>
-      <a class="directions" href="https://goo.gl/maps/njBptK2KfD8nSX2s6" target="_blank">Get Directions</a>
+      <!-- Willoughby -->
+      <article class="loc-card">
+        <div class="loc-media">
+          <img src="images/Screenshot_2025-08-10_at_12.29.55_AM.jpg" alt="Vape District — Willoughby storefront" />
+          <div class="loc-chip">Willoughby</div>
+        </div>
+        <div class="loc-body">
+          <p class="loc-address">36301 Euclid Ave, Willoughby, OH 44094</p>
+          <div class="loc-actions">
+            <a class="btn-solid" href="https://www.google.com/maps/search/?api=1&query=36301+Euclid+Ave,+Willoughby,+OH+44094" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn-ghost" href="tel:14407106027">(440) 710-6027</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Parma Heights -->
+      <article class="loc-card">
+        <div class="loc-media">
+          <img src="images/Screenshot_2025-08-10_at_12.30.03_AM.jpg" alt="Vape District — Parma Heights storefront" />
+          <div class="loc-chip">Parma Heights</div>
+        </div>
+        <div class="loc-body">
+          <p class="loc-address">6420 Pearl Rd, Cleveland, OH 44130</p>
+          <div class="loc-actions">
+            <a class="btn-solid" href="https://www.google.com/maps/search/?api=1&query=6420+Pearl+Rd,+Cleveland,+OH+44130" target="_blank" rel="noopener">Get Directions</a>
+            <a class="btn-ghost" href="tel:14405582671">(440) 558-2671</a>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section class="map" style="padding:40px; text-align:center;">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2948.1452287355584!2d-81.73531882404756!3d41.392104397402336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8830fcdcdd64b39f%3A0x9c1e57bfb6f499d7!2s6420%20Pearl%20Rd%2C%20Cleveland%2C%20OH%2044130!5e0!3m2!1sen!2sus!4v1691679600000!5m2!1sen!2sus" 
-      width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
-    </iframe>
+  <!-- Parma Heights Map -->
+  <section class="map-wrap" aria-label="Map — Parma Heights">
+    <div class="map-card">
+      <header>Parma Heights Map</header>
+      <iframe
+        class="map-iframe"
+        src="https://www.google.com/maps?q=6420+Pearl+Rd,+Cleveland,+OH+44130&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
   </section>
 
+  <footer>
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="vape-disposables.html">Vapes</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+  <!-- Tiny helper so submenu works on mobile taps without fighting your script.js -->
+  <script>
+    (function(){
+      const isTouch = matchMedia('(hover: none)').matches;
+      const shop = document.querySelector('nav .has-submenu');
+      if (!shop) return;
+      const link = shop.querySelector('a');
+      link.addEventListener('click', function(e){
+        if (isTouch) {
+          e.preventDefault();
+          shop.classList.toggle('submenu-open');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
