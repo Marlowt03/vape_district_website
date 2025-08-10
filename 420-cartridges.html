@@ -5,71 +5,31 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | D8 Cartridges</title>
 
-  <!-- your global site styles -->
+  <!-- Use the site's global styles so the nav matches everywhere -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- page-scoped styles (navbar + hero + grid + infinite slider + CTA) -->
+  <!-- Page-only styles that won't touch your global nav -->
   <style>
-    /* ---------- NAVBAR (sticky + mobile hamburger) ---------- */
-    .site-nav {
-      position: sticky; top: 0; z-index: 50;
-      background: #0b0b0b; color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto; padding: 14px 16px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo {
-      color: #fff; text-decoration: none; font-weight: 800; letter-spacing:.3px;
-      font-size: 1.15rem;
-    }
-    .nav-links {
-      display: flex; gap: 20px; list-style: none; margin: 0; padding: 0;
-    }
-    .nav-links a {
-      color: #e6e6e6; text-decoration: none; font-weight: 600; font-size: .95rem;
-      padding: 8px 10px; border-radius: 8px; transition: background .18s,color .18s;
-    }
-    .nav-links a:hover { background: rgba(255,255,255,.09); color: #fff; }
-    .nav-links a.active { background: #0d6efd; color: #fff; }
-
-    /* hamburger */
-    .nav-toggle {
-      display: none; background: none; border: none; color: #fff;
-      width: 44px; height: 44px; border-radius: 10px;
-    }
-    .nav-toggle:focus-visible { outline: 2px solid #0d6efd; }
-
-    /* mobile menu panel */
-    .mobile-panel {
-      display: none; background: #0b0b0b; border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .mobile-panel ul { list-style: none; padding: 10px 16px 16px; margin: 0; }
-    .mobile-panel a {
-      display: block; padding: 12px; border-radius: 10px; text-decoration: none;
-      font-weight: 700; color: #e6e6e6;
-    }
-    .mobile-panel a:hover { background: rgba(255,255,255,.09); color: #fff; }
-    .mobile-panel a.active { background: #0d6efd; color: #fff; }
-
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .nav-toggle { display: inline-grid; place-items: center; }
-      .mobile-panel.show { display: block; }
-    }
-
     /* ---------- HERO ---------- */
     .hero-cart {
-      background-image: url('images/420.jpg');
-      background-size: cover; background-position: center;
-      position: relative; padding: 140px 16px; text-align: center; color: #fff;
+      background-image: url('images/420.jpg'); /* swap if you prefer another hero image */
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      padding: 140px 16px;
+      text-align: center;
+      color: #fff;
     }
-    .hero-cart::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,.5); }
-    .hero-cart .inner { position:relative; z-index:1; max-width: 1000px; margin:0 auto; }
+    .hero-cart::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-cart .inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
     .hero-cart h1 { font-size: 2.9rem; margin: 0 0 .6rem; }
     .hero-cart p  { font-size: 1.15rem; margin: 0 0 1.8rem; }
 
+    /* Big square hero button (mirrors your home “Shop Now” vibe) */
     .hero-btn {
       display:inline-block; padding:18px 40px; font-size:1.15rem; font-weight:800;
       border-radius:10px; background:#0d6efd; color:#fff; text-decoration:none;
@@ -96,7 +56,7 @@
     .cart-card h3 { margin:12px 0 6px; font-size:1.2rem; color:#13293d; }
     .cart-card p  { margin:0 16px 18px; color:#555; font-size:.95rem; }
 
-    /* ---------- INFINITE (GAPLESS) CAROUSEL ---------- */
+    /* ---------- GAPLESS INFINITE CAROUSEL (no blink) ---------- */
     .brand-showcase { background:#0b0b0b; padding:22px 0; overflow:hidden; }
     .brand-track { display:flex; gap:20px; will-change: transform; }
     .brand-item { flex:0 0 auto; width:210px; }
@@ -105,7 +65,7 @@
       border-radius:10px; padding:8px; box-shadow:0 2px 8px rgba(0,0,0,.15);
     }
 
-    /* ---------- CTA ---------- */
+    /* ---------- BIG CTA ---------- */
     .cta { background:#f3f4f6; padding:80px 16px; text-align:center; }
     .cta h2 { font-size:2.6rem; color:#13293d; margin:0 0 .8rem; }
     .cta p  { font-size:1.2rem; color:#555; margin:0 0 1.8rem; }
@@ -130,36 +90,16 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <header class="site-nav">
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html">Vape District</a>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-        <!-- hamburger icon -->
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </button>
-
-      <ul class="nav-links" id="navLinksDesktop">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a class="active" href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-
-    <!-- mobile panel -->
-    <nav class="mobile-panel" id="mobilePanel">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a class="active" href="shop.html">Shop</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- NAV: use your site’s global nav exactly (no custom CSS here) -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vape District</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
   <!-- HERO -->
   <section class="hero-cart">
@@ -216,7 +156,7 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (uses your global footer styles) -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
@@ -230,54 +170,55 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
 
-  <!-- Mobile menu + truly gapless scroller -->
+  <!-- Truly gapless scroller (no blink), tuned for iPhone too -->
   <script>
-    // mobile nav
-    const toggle = document.getElementById('navToggle');
-    const panel  = document.getElementById('mobilePanel');
-    toggle?.addEventListener('click', () => {
-      const open = panel.classList.toggle('show');
-      toggle.setAttribute('aria-expanded', String(open));
-    });
-
-    // infinite, no-blink carousel:
-    // 1) clone items until track width > viewport * 3 (plenty of runway)
-    // 2) translate left with requestAnimationFrame; when first item fully off-screen,
-    //    move it to the end (no CSS animation reset -> no flash).
     const track = document.getElementById('brandTrack');
-    const makeClones = () => {
-      const vw = window.innerWidth;
-      while (track.scrollWidth < vw * 3) {
-        Array.from(track.children).forEach(el => track.appendChild(el.cloneNode(true)));
-      }
-    };
-    makeClones();
-    window.addEventListener('resize', () => {
-      // rebuild on resize for iPhone rotations
-      const items = Array.from(track.children).slice(0,4); // original four
-      track.innerHTML = '';
-      items.forEach(el => track.appendChild(el.cloneNode(true)));
-      makeClones();
-    });
 
-    let offset = 0;
-    const speed = 0.5; // px per frame (adjust if you want faster/slower)
-    function tick() {
-      offset -= speed;
-      track.style.transform = `translateX(${offset}px)`;
-      // if first child is fully offscreen to the left, move it to the end and reset offset
-      const first = track.firstElementChild;
-      if (first) {
-        const firstWidth = first.getBoundingClientRect().width + 20; // include gap
-        if (-offset >= firstWidth) {
-          track.appendChild(first);
-          offset += firstWidth;
-          track.style.transform = `translateX(${offset}px)`;
-        }
+    function buildClones() {
+      const originals = Array.from(track.children).slice(0, 4); // keep first 4 as source
+      track.innerHTML = '';
+      originals.forEach(el => track.appendChild(el.cloneNode(true)));
+
+      // Clone until we have plenty of runway (3x viewport width)
+      while (track.scrollWidth < window.innerWidth * 3) {
+        originals.forEach(el => track.appendChild(el.cloneNode(true)));
       }
-      requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+
+    function startLoop() {
+      let offset = 0;
+      const gap = 20; // matches CSS gap between items
+      const speed = 0.5; // px per frame
+
+      function step() {
+        offset -= speed;
+        track.style.transform = `translateX(${offset}px)`;
+
+        const first = track.firstElementChild;
+        if (first) {
+          const w = first.getBoundingClientRect().width + gap;
+          if (-offset >= w) {
+            track.appendChild(first);
+            offset += w;
+            track.style.transform = `translateX(${offset}px)`;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    buildClones();
+    startLoop();
+
+    // Rebuild on resize / orientation change (iPhone safe)
+    let t;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        buildClones();
+      }, 150);
+    });
   </script>
 </body>
 </html>
