@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Disposable Vapes — Vape District</title>
 
-  <!-- Global site files -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 
-  <!-- Page-scoped styles only -->
   <style>
-    /* ===== NAV fixes (scoped) ===== */
     nav .nav-links, nav .nav-links ul { list-style: none; margin: 0; padding: 0; }
     nav .has-submenu { position: relative; }
     nav .submenu {
@@ -24,21 +21,19 @@
     nav .submenu a { font-weight: 500 !important; display:block; padding:10px 16px; color:#111; text-decoration:none; white-space:nowrap; }
     nav .submenu a:hover { background:#f5f7fb; }
 
-    /* ===== HERO (Geek Bar as background) ===== */
+    /* HERO zoomed in */
     .vd-hero{
-      background: #101010 url('images/geek_bar.png') center/contain no-repeat;
+      background: #101010 url('images/geek_bar.png') center/cover no-repeat;
       color:#fff; text-align:center; position:relative;
-      padding: 280px 16px 140px;
+      padding: 320px 16px 160px;
     }
     .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
     .vd-hero .inner{ position:relative; z-index:1; max-width:1000px; margin:0 auto; }
     .vd-hero h1{ font-size:3rem; margin:0; }
     .vd-hero p{ margin:.6rem 0 0; font-size:1.1rem; opacity:.95; }
 
-    /* ===== CONTENT WRAP ===== */
     .vd-container { max-width:1120px; margin:0 auto; padding:0 16px; }
 
-    /* ===== BRAND GRID ===== */
     .vd-grid-wrap{ padding: 28px 0 6px; }
     .vd-page-sub {
       margin: 0 0 18px;
@@ -63,7 +58,6 @@
     }
     .vd-card figcaption{ margin-top:10px; font-weight:700; color:#1b2a3a; font-size:.98rem; }
 
-    /* ===== SLIDER (white background) ===== */
     .vd-strip--light{ background:#ffffff; color:#111; padding:30px 0 20px; margin-top:28px; }
     .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
     .vd-sub{ margin:0 0 8px; opacity:.85; }
@@ -90,7 +84,6 @@
 </head>
 <body>
 
-  <!-- NAV (logo at left; About → Shop → Contact; no “Disposable Vapes” item) -->
   <nav>
     <a href="index.html" class="nav-logo">Vape District</a>
     <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
@@ -110,7 +103,6 @@
     </ul>
   </nav>
 
-  <!-- HERO (Geek Bar as the top image) -->
   <header class="vd-hero">
     <div class="inner">
       <h1>Disposable Vapes</h1>
@@ -119,7 +111,6 @@
   </header>
 
   <main>
-    <!-- BRAND GRID -->
     <section class="vd-grid-wrap">
       <div class="vd-container">
         <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
@@ -144,18 +135,10 @@
             <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
             <figcaption>FOGER</figcaption>
           </figure>
-          <!-- Optional (uncomment only if file exists) -->
-          <!--
-          <figure class="vd-card">
-            <img src="images/north-stellar.jpg" alt="North Stellar" loading="lazy" />
-            <figcaption>North Stellar</figcaption>
-          </figure>
-          -->
         </div>
       </div>
     </section>
 
-    <!-- SLIDER (white background; Geek Bar removed) -->
     <section class="vd-strip vd-strip--light" aria-label="Featured Disposables">
       <div class="vd-container">
         <h2 class="vd-title">Featured Disposables</h2>
@@ -164,35 +147,23 @@
 
       <div class="marquee" id="disp-marquee" data-speed="28">
         <ul class="marquee__track" id="disp-track">
-          <!-- Base items listed once; JS clones just enough to loop seamlessly -->
           <li class="marq-item"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
           <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
           <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
           <li class="marq-item"><img src="images/raz.png"        alt="RAZ"></li>
-          <!-- Optional if present -->
-          <!-- <li class="marq-item"><img src="images/north-stellar.jpg" alt="North Stellar"></li> -->
         </ul>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
-      <nav class="footer-nav">
-        <a href="index.html">Home</a>
-        <a href="vape-disposables.html">Vapes</a>
-        <a href="420-cartridges.html">D8 Cartridges</a>
-        <a href="contact.html">Contact</a>
-      </nav>
     </div>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
 
-  <!-- Tiny helpers: submenu tap + gapless marquee -->
   <script>
-    // Mobile tap for the Shop submenu
     (function(){
       const isTouch = matchMedia('(hover: none)').matches;
       const shop = document.querySelector('nav .has-submenu');
@@ -203,20 +174,17 @@
       });
     })();
 
-    // Gapless marquee builder (no duplicates stacking, no black flash)
     (function () {
       const marquee = document.getElementById('disp-marquee');
       const baseTrack = document.getElementById('disp-track');
       if (!marquee || !baseTrack) return;
 
-      // Remove prior clones if you edit and re-save
       baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
 
       const containerWidth = marquee.clientWidth;
       let contentWidth = baseTrack.scrollWidth;
-      const buffer = 40; // avoid tiny rounding gap
+      const buffer = 40;
 
-      // Clone items until we exceed ~2x container width for a perfect loop
       while (contentWidth < containerWidth * 2 + buffer) {
         baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
           const clone = item.cloneNode(true);
@@ -226,12 +194,10 @@
         contentWidth = baseTrack.scrollWidth;
       }
 
-      // Set distance/duration from actual width so it never blinks
-      const speed = Number(marquee.dataset.speed || 28); // seconds per full width
+      const speed = Number(marquee.dataset.speed || 28);
       baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
       baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
 
-      // Rebuild on resize (e.g., phone rotates)
       let t;
       window.addEventListener('resize', () => {
         clearTimeout(t);
