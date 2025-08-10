@@ -4,25 +4,30 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Vape Devices — Vape District</title>
-
-<!-- Keep your global theme so the nav matches the rest of the site -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* Page-scoped only (won’t change your global nav styles) */
   .devices-page { --max:1120px; --brand:#1a73e8; --brand2:#1567cf; --grey:#f7f8fa; }
 
-  /* HERO – smaller, with your device_package.jpg */
+  /* NAV safety: keep nav on top but not covering the page */
+  nav{ position:relative; z-index:30; }
+  nav .dropdown-content{ position:absolute; top:100%; left:0; min-width:220px; }
+
+  /* HERO – use the image in /images/ and keep overlay behind content */
   .devices-page .hero{
-    position:relative; color:#fff; text-align:center;
-    background:#0b0d10 url('device_package.jpg') center/cover no-repeat;
-    /* not huge; shows most of the image */
+    position:relative; z-index:0;
+    color:#fff; text-align:center;
+    background:#0b0d10 url('images/device_package.jpg') center/cover no-repeat;
     min-height:44vh; padding:180px 16px 120px;
   }
   @media (max-width:720px){
     .devices-page .hero{ min-height:48vh; padding:160px 14px 110px; }
   }
-  .devices-page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,.28)); }
+  .devices-page .hero::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,.28));
+    z-index:0; pointer-events:none; /* <- don’t block clicks */
+  }
   .devices-page .hero .inner{ position:relative; z-index:1; max-width:var(--max); margin:0 auto; }
   .devices-page .hero h1{ margin:0 0 8px; font-size:2.6rem; font-weight:800; }
   .devices-page .hero p{ margin:0; opacity:.95; }
@@ -33,7 +38,6 @@
 
   .devices-page .container{ max-width:var(--max); margin:0 auto; padding:0 16px; }
 
-  /* Brand grid (kept shorter so tall PNGs look good) */
   .devices-page .grid-wrap{ background:var(--grey); padding:28px 0 6px; }
   .devices-page .section-sub{ margin:0 0 18px; color:#2a3542; font-weight:700; }
   .devices-page .grid{ display:grid; gap:22px; grid-template-columns:repeat(2,1fr); }
@@ -43,7 +47,6 @@
   .devices-page .card img{ width:100%; height:110px; object-fit:contain; background:#f6f7f9; border-radius:12px; }
   .devices-page .card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; }
 
-  /* Slider (gapless, no blink) */
   .devices-page .strip{ background:#fff; color:#111; padding:30px 0 20px; border-top:1px solid #eef2f7; }
   .devices-page .title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
   .devices-page .sub{ margin:0 0 8px; color:#495869; }
@@ -70,16 +73,13 @@
 </head>
 <body class="devices-page">
 
-<!-- NAV (same structure, but “Shop” is dropdown-only) -->
 <nav>
   <a href="index.html" class="nav-logo">Vape District</a>
   <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
   <ul class="nav-links" id="main-nav">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
-
     <li class="dropdown">
-      <!-- No href so it isn’t a link -->
       <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
       <div class="dropdown-content">
         <a href="420.html">420 ▸</a>
@@ -88,25 +88,21 @@
         <a href="mystery-boxes.html">Mystery Boxes</a>
       </div>
     </li>
-
     <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
   <div class="inner">
     <h1>Vape Devices</h1>
     <p>Caliburn, SMOK Novo, Vaporesso XROS, Suorin & more.</p>
     <div class="actions">
-      <!-- takes you to contact page -->
       <a class="btn btn--ghost" href="contact.html">Call or Visit</a>
     </div>
   </div>
 </header>
 
 <main>
-  <!-- Brand grid -->
   <section class="grid-wrap">
     <div class="container">
       <p class="section-sub">Explore our most popular device brands.</p>
@@ -120,7 +116,6 @@
     </div>
   </section>
 
-  <!-- Seamless slider -->
   <section class="strip" aria-label="Featured Devices">
     <div class="container">
       <h2 class="title">Featured Devices</h2>
@@ -154,10 +149,9 @@
 </footer>
 
 <script>
-  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile menu toggle (matches other pages)
+  // Mobile menu toggle
   document.querySelector('.menu-toggle')?.addEventListener('click', function(){
     const nav = document.getElementById('main-nav');
     if (!nav) return;
@@ -165,39 +159,33 @@
     this.setAttribute('aria-expanded', nav.classList.contains('show') ? 'true' : 'false');
   });
 
-  // Make "Shop" a dropdown only (no navigation)
+  // Make “Shop” dropdown-only (no navigation)
   (function(){
     const toggle = document.querySelector('.dropdown .dropdown-toggle');
     const wrap   = toggle?.parentElement;
     if (!toggle || !wrap) return;
-
-    // Prevent navigation on click
     toggle.addEventListener('click', (e)=>{
       e.preventDefault();
-      wrap.classList.toggle('submenu-open'); // your CSS already handles this pattern
+      wrap.classList.toggle('submenu-open');
       toggle.setAttribute('aria-expanded', wrap.classList.contains('submenu-open') ? 'true' : 'false');
     });
   })();
 
-  // Gapless marquee: duplicate track once; animate width of one sequence
+  // Gapless marquee
   (function(){
     const track = document.getElementById('dev-track');
     if (!track) return;
     const BASE = track.innerHTML;
-
     function build(){
-      track.innerHTML = BASE + BASE;                // exactly 2×
-      const seq = track.scrollWidth / 2;            // one sequence width
+      track.innerHTML = BASE + BASE;
+      const seq = track.scrollWidth / 2;
       const pxPerSec = window.innerWidth >= 900 ? 80 : 60;
       track.style.setProperty('--dist', `-${seq}px`);
       track.style.setProperty('--dur',  `${seq / pxPerSec}s`);
     }
-
     if (document.readyState === 'complete') build();
     else window.addEventListener('load', build, { once:true });
-
-    let t;
-    window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+    let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
   })();
 </script>
 </body>
