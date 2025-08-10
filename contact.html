@@ -5,100 +5,96 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | Contact</title>
 
-  <!-- Use your real global files -->
+  <!-- Your global files (match the rest of the site) -->
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 
-  <!-- Page-scoped styles (won’t mess with global nav) -->
+  <!-- Page-only styles -->
   <style>
-    /* HERO */
-   .contact-hero {
-  background: url('images/hero.jpg') center/cover no-repeat;
-  color: #fff;
-  text-align: center;
-  padding: 350px 16px 160px; /* doubled top padding */
-  position: relative;
-}
-
-.hero-subtext {
-  font-size: 1.2rem;
-  margin-top: 12px;
-  font-weight: 500;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-    .contact-hero::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
-    .contact-hero .inner { position:relative; z-index:1; max-width:1000px; margin:0 auto; }
-    .contact-hero h1 { font-size:2.8rem; margin:0; }
-
-    /* LOCATIONS */
-    .locations { max-width:1120px; margin:40px auto 80px; padding:0 16px; }
-    .locations-title { text-align:center; margin-bottom:20px; color:#13293d; font-weight:800; }
-    .locations-grid { display:grid; gap:24px; grid-template-columns:repeat(3,1fr); }
-    @media (max-width:980px){ .locations-grid{ grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:640px){ .locations-grid{ grid-template-columns:1fr;} }
-
-    .loc-card{ background:#f9fafb; border-radius:14px; overflow:hidden;
-      box-shadow:0 10px 20px rgba(0,0,0,.06); transition:transform .18s, box-shadow .18s; }
-    .loc-card:hover{ transform:translateY(-4px); box-shadow:0 16px 28px rgba(0,0,0,.08); }
-    .loc-media{ position:relative; overflow:hidden; }
-    .loc-media img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; transition:transform .6s ease; background:#eee; }
-    .loc-card:hover .loc-media img{ transform:scale(1.03); }
-    .loc-chip{ position:absolute; left:12px; bottom:12px; background:rgba(0,0,0,.6); color:#fff; font-weight:800; padding:8px 12px; border-radius:10px; backdrop-filter:blur(2px); }
-    .loc-body{ padding:14px 16px 18px; }
-    .loc-address{ margin:6px 0 14px; color:#333; font-weight:600; font-size:.95rem; }
-    .loc-actions{ display:flex; gap:12px; flex-wrap:wrap; }
-    .btn-solid{
-      display:inline-block; padding:12px 16px; border-radius:10px;
-      background:#0d6efd; color:#fff; text-decoration:none; font-weight:800;
-      box-shadow:0 10px 24px rgba(13,110,253,.35);
-      transition:transform .18s, background .18s, box-shadow .18s;
-      flex:1 1 180px; text-align:center;
+    /* HERO — much taller + tagline back */
+    .contact-hero{
+      background:url('images/hero.jpg') center/cover no-repeat;
+      color:#fff;text-align:center;position:relative;
+      padding:350px 16px 160px; /* bigger top, good bottom */
     }
-    .btn-solid:hover{ background:#0b5ed7; transform:translateY(-2px); }
-    .btn-ghost{
-      display:inline-block; padding:12px 16px; border-radius:10px;
-      background:#e9eefc; color:#0d6efd; text-decoration:none; font-weight:800;
-      transition:transform .18s, background .18s;
-      flex:1 1 140px; text-align:center;
-    }
-    .btn-ghost:hover{ background:#dbe7ff; transform:translateY(-2px); }
+    .contact-hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+    .contact-hero .inner{position:relative;z-index:1;max-width:1000px;margin:0 auto}
+    .contact-hero h1{font-size:3rem;margin:0}
+    .hero-subtext{margin-top:12px;font-size:1.15rem;font-weight:500;max-width:760px;margin-left:auto;margin-right:auto}
 
-    /* MAP */
-    .map-wrap{ max-width:1120px; margin:40px auto 80px; padding:0 16px; }
-    .map-card{ background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,.06); }
-    .map-card header{ background:#13293d; color:#fff; padding:14px 16px; font-weight:800; font-size:1.1rem; }
-    .map-iframe{ border:0; width:100%; height:350px; display:block; }
+    /* Locations */
+    .locations{max-width:1120px;margin:40px auto 80px;padding:0 16px}
+    .locations-title{text-align:center;margin-bottom:20px;color:#13293d;font-weight:800}
+    .locations-grid{display:grid;gap:24px;grid-template-columns:repeat(3,1fr)}
+    @media (max-width:980px){.locations-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.locations-grid{grid-template-columns:1fr}}
 
-    @media (max-width:640px){
-      .contact-hero{ padding: 180px 14px 110px; }
-      .contact-hero h1{ font-size:2.2rem; }
-      .map-iframe{ height:320px; }
+    .loc-card{background:#f9fafb;border-radius:14px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s}
+    .loc-card:hover{transform:translateY(-4px);box-shadow:0 16px 28px rgba(0,0,0,.08)}
+    .loc-media{position:relative;overflow:hidden}
+    .loc-media img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .6s ease;background:#eee}
+    .loc-card:hover .loc-media img{transform:scale(1.03)}
+    .loc-chip{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.6);color:#fff;font-weight:800;padding:8px 12px;border-radius:10px;backdrop-filter:blur(2px)}
+    .loc-body{padding:14px 16px 18px}
+    .loc-address{margin:6px 0 14px;color:#333;font-weight:600;font-size:.95rem}
+    .loc-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-solid{display:inline-block;padding:12px 16px;border-radius:10px;background:#0d6efd;color:#fff;text-decoration:none;font-weight:800;box-shadow:0 10px 24px rgba(13,110,253,.35);transition:transform .18s,background .18s,box-shadow .18s;flex:1 1 180px;text-align:center}
+    .btn-solid:hover{background:#0b5ed7;transform:translateY(-2px)}
+    .btn-ghost{display:inline-block;padding:12px 16px;border-radius:10px;background:#e9eefc;color:#0d6efd;text-decoration:none;font-weight:800;transition:transform .18s,background .18s;flex:1 1 140px;text-align:center}
+    .btn-ghost:hover{background:#dbe7ff;transform:translateY(-2px)}
+
+    /* Map */
+    .map-wrap{max-width:1120px;margin:40px auto 80px;padding:0 16px}
+    .map-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.06)}
+    .map-card header{background:#13293d;color:#fff;padding:14px 16px;font-weight:800;font-size:1.1rem}
+    .map-iframe{border:0;width:100%;height:350px;display:block}
+
+    /* --- LIGHTWEIGHT dropdown (scoped) so Contact has the same menu --- */
+    nav .has-submenu{position:relative}
+    nav .has-submenu > a::after{content:"▸";margin-left:8px;font-size:.9em}
+    nav .submenu{
+      position:absolute;top:100%;left:0;min-width:220px;background:#fff;border-radius:10px;
+      box-shadow:0 10px 24px rgba(0,0,0,.15);padding:10px 0;display:none;z-index:50;
     }
+    nav .submenu a{display:block;padding:10px 16px;color:#111;text-decoration:none;white-space:nowrap}
+    nav .submenu a:hover{background:#f3f4f6}
+    /* show on hover (desktop) */
+    @media (hover:hover){
+      nav .has-submenu:hover > .submenu{display:block}
+    }
+    /* mobile tap support */
+    .submenu-open > .submenu{display:block}
   </style>
 </head>
 <body>
 
-  <!-- RESTORED GLOBAL NAV (matches index.html structure + classes) -->
+  <!-- NAV with dropdown -->
   <nav>
     <a href="index.html" class="nav-logo">Vape District</a>
     <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
+      <li class="has-submenu">
+        <a href="shop.html">Shop</a>
+        <ul class="submenu">
+          <li><a href="420.html">420</a></li>
+          <li><a href="vapes.html">Vapes</a></li>
+          <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+          <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+        </ul>
+      </li>
       <li><a href="about.html">About</a></li>
-      <li><a href="shop.html">Shop</a></li>
       <li><a class="active" href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
- <!-- HERO -->
-<header class="contact-hero">
-  <div class="inner">
-    <h1>Contact</h1>
-    <p class="hero-subtext">Your one-stop shop for premium vapes, glass, and more.</p>
-  </div>
-</header>
+  <!-- HERO -->
+  <header class="contact-hero">
+    <div class="inner">
+      <h1>Contact</h1>
+      <p class="hero-subtext">Call any store, or tap directions to navigate there now.</p>
+    </div>
+  </header>
 
   <!-- LOCATIONS -->
   <section class="locations">
@@ -152,7 +148,7 @@
     </div>
   </section>
 
-  <!-- PARMA HEIGHTS MAP -->
+  <!-- Parma Heights Map -->
   <section class="map-wrap" aria-label="Map — Parma Heights">
     <div class="map-card">
       <header>Parma Heights Map</header>
@@ -161,17 +157,37 @@
         src="https://www.google.com/maps?q=6420+Pearl+Rd,+Cleveland,+OH+44130&output=embed"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen>
-      </iframe>
+        allowfullscreen></iframe>
     </div>
   </section>
 
-  <!-- GLOBAL FOOTER (same structure) -->
   <footer>
     <div class="container footer-inner">
       <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="vape-disposables.html">Vapes</a>
+        <a href="420-cartridges.html">D8 Cartridges</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
+
+  <!-- Tiny helper so submenu works on mobile taps without fighting your script.js -->
+  <script>
+    (function(){
+      const isTouch = matchMedia('(hover: none)').matches;
+      const shop = document.querySelector('nav .has-submenu');
+      if (!shop) return;
+      const link = shop.querySelector('a');
+      link.addEventListener('click', function(e){
+        if (isTouch) {
+          e.preventDefault();
+          shop.classList.toggle('submenu-open');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
