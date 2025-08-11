@@ -20,13 +20,13 @@
   color: #fff;
   text-align: center;
   background: #0b0d10 url('images/device_package.jpg') center/cover no-repeat;
-  min-height: 18vh;       /* much smaller now */
-  padding: 50px 16px 40px; /* reduced top/bottom padding */
+  height: 280px;           /* fixed height instead of full screen */
+  padding: 40px 16px;      /* even spacing */
 }
 @media (max-width: 720px) {
   .devices-page .hero {
-    min-height: 22vh;
-    padding: 40px 14px 30px;
+    height: 200px;         /* smaller on mobile */
+    padding: 30px 14px;
   }
 }
   .devices-page .hero::after{
