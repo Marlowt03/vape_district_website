@@ -19,6 +19,30 @@
   color: #fff;
   text-align: center;
 
+  /* balanced height */
+  height: 330px !important;   /* medium size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 !important;
+}
+
+.page .hero .inner{
+  padding: 14px 16px;
+}
+
+.page .hero h1{
+  margin: 0 0 6px;
+}
+
+.page .hero p{
+  margin: 0;
+}
+
+@media (max-width: 768px){
+  .page .hero{ height: 240px !important; }
+}
   /* fixed height: desktop + mobile */
   height: 260px !important;          /* desktop/tablet */
   display: flex; align-items: center; justify-content: center;
