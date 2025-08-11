@@ -5,44 +5,39 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Mods — Vape District</title>
 
-<!-- Global site CSS (your nav/buttons/theme live here) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ===== Page-scoped styles (won’t touch your global nav) ===== */
 .page { --wrap:1120px; --pad:16px; --gap:24px; }
 
-/* HERO — medium height */
+/* HERO */
 .page .hero{
   position:relative;
   background:#0b0b0b url('images/mods.jpg') center/cover no-repeat;
   color:#fff; text-align:center;
-  /* happy medium header height */
-  padding: clamp(80px, 18vh, 140px) var(--pad);
+  padding: clamp(60px, 14vh, 100px) var(--pad); /* adjusted height */
 }
-.page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.18)); }
+.page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
 .page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.page .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; }
-.page .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.8vw,17px); }
-.page .actions{ margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-
-/* nice, simple button (scoped) */
-.page .btn{
+.page .hero h1{ margin:0 0 6px; font-size:clamp(24px,4vw,34px); font-weight:900; }
+.page .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.8vw,16px); }
+.page .actions{ margin-top:12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.page .actions a{
   display:inline-block; padding:12px 20px; border-radius:10px;
-  text-decoration:none; font-weight:800; font-size:0.98rem;
-  background:#ffffff; color:#0b1f33; box-shadow:0 8px 20px rgba(0,0,0,.14);
+  text-decoration:none; font-weight:700; font-size:0.97rem;
+  background:#007BFF; color:#fff; box-shadow:0 8px 20px rgba(0,0,0,.14);
   transition:background .2s, transform .08s;
 }
-.page .btn:hover{ background:#f5f7fb; }
-.page .btn:active{ transform:translateY(1px); }
+.page .actions a:hover{ background:#0069d9; }
+.page .actions a:active{ transform:translateY(1px); }
 
 /* CONTENT WRAP */
 .page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
 /* PRODUCT CARDS */
-.page .section{ padding:26px 0 10px; }
+.page .section{ padding:22px 0 8px; }
 .page .section h2{
-  margin:0 0 6px; font-size:clamp(18px,3.1vw,21px); /* a hair smaller per request */
+  margin:0 0 8px; font-size:clamp(17px,3.2vw,22px);
   color:#223041; font-weight:800; text-align:center;
 }
 .page .section p.lead{ margin:0 0 16px; color:#526173; text-align:center; }
@@ -61,62 +56,53 @@
 }
 .page .thumb{
   background:#f6f7f9; border-radius:14px; padding:12px;
-  display:flex; align-items:center; justify-content:center; height:146px;
+  display:flex; align-items:center; justify-content:center; height:142px;
 }
-.page .card img{ max-height:118px; width:auto; object-fit:contain; display:block; }
+.page .card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
 .page .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
 
-/* FEATURED STRIP (centered) */
-.page .strip{ background:#fff; color:#111; padding:22px 0 16px; margin-top:10px; border-top:1px solid #eef2f7; }
+/* FEATURED STRIP */
+.page .strip{ background:#fff; color:#111; padding:18px 0 14px; margin-top:6px; border-top:1px solid #eef2f7; }
 .page .strip .wrap{ text-align:center; }
-.page .strip h3{ margin:0 0 6px; font-size:22px; font-weight:800; color:#13293d; }
+.page .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
 .page .strip p{ margin:0 0 10px; color:#526173; }
 
-/* GAPLESS MARQUEE */
-.page .marquee{ position:relative; overflow:hidden; padding:10px 0 18px; }
+/* MARQUEE */
+.page .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
 .page .track{
-  display:inline-flex; align-items:center; gap:18px;
+  display:inline-flex; align-items:center; gap:16px;
   will-change:transform; backface-visibility:hidden;
   animation: page-mar linear infinite var(--dur, 25s);
 }
 .page .item{
-  background:#fff; border-radius:16px; padding:12px; min-width:220px;
+  background:#fff; border-radius:16px; padding:12px; min-width:210px;
   box-shadow:0 10px 22px rgba(0,0,0,.12);
   display:flex; align-items:center; justify-content:center;
 }
-.page .item img{ height:132px; width:auto; object-fit:contain; display:block; }
-@media (min-width:900px){ .page .item{ min-width:244px; } .page .item img{ height:152px; } }
+.page .item img{ height:130px; width:auto; object-fit:contain; display:block; }
+@media (min-width:900px){ .page .item{ min-width:236px; } .page .item img{ height:150px; } }
 @keyframes page-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
-@media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
 
-/* BOTTOM CTA */
+/* FOOTER */
+footer.foot {
+  background:#032933; /* deep teal-blue */
+  padding:30px 0;
+  color:#fff;
+}
+footer.foot a{ color:#1E90FF; }
+
+/* CTA */
 .page .cta{
   background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:44px var(--pad); margin-top:26px; border-top:1px solid #e7edf5; text-align:center;
+  padding:38px var(--pad); margin-top:22px; border-top:1px solid #e7edf5; text-align:center;
 }
 .page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
-.page .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.04rem; }
-.page .btn-blue{
-  background:#1a73e8; color:#fff;
-  box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08);
-}
-.page .btn-blue:hover{ background:#1567cf; }
-
-/* BLUE FOOTER (matches your other pages) */
-footer.foot{
-  background:#1e90ff;
-  color:#fff;
-  text-align:center;
-  padding:28px 0;
-  font-size:14px;
-}
-footer.foot a{ color:#fff; text-decoration:underline; }
-footer.foot a:hover{ text-decoration:none; }
+.page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.02rem; }
 </style>
 </head>
 <body class="page">
 
-<!-- NAV — same structure as index.html -->
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -153,7 +139,6 @@ footer.foot a:hover{ text-decoration:none; }
   </ul>
   <div class="menu-toggle">☰</div>
 </nav>
-<!-- END NAV -->
 
 <!-- HERO -->
 <header class="hero">
@@ -161,7 +146,7 @@ footer.foot a:hover{ text-decoration:none; }
     <h1>Mods</h1>
     <p>Smok, Geekvape, Vaporesso, Lost Vape & more.</p>
     <div class="actions">
-      <a class="btn" href="contact.html">Call or Visit</a>
+      <a href="contact.html">Call or Visit</a>
     </div>
   </div>
 </header>
@@ -215,33 +200,30 @@ footer.foot a:hover{ text-decoration:none; }
       <h4>Looking for something specific?</h4>
       <p>We stock more in-store than online. Call and we’ll check today’s case for the colors and kits you want.</p>
       <div class="actions">
-        <a class="btn btn-blue" href="tel:+14405582671">Call Now</a>
+        <a href="tel:+14405582671">Call Now</a>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot wrap" style="text-align:center; color:#fff; font-size:14px;">
   <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
 </footer>
 
 <script>
-// Footer year
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* Gapless marquee (no gaps, no blink) */
 (function(){
   const mq = document.getElementById('modsMarquee');
   const track = document.getElementById('modsTrack');
   if(!mq || !track) return;
 
-  const PAD = 40;
+  const pad = 40;
   function refill(){
-    // remove old clones (safe on re-run)
     track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
     let w = track.scrollWidth;
-    const need = mq.clientWidth * 2 + PAD;
+    const need = mq.clientWidth * 2 + pad;
     while (w < need){
       track.querySelectorAll(':scope > .item').forEach(item=>{
         const c = item.cloneNode(true);
