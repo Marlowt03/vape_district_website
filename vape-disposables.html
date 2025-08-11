@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* ========== PAGE-SCOPED STYLES ONLY (won’t touch nav) ========== */
+  /* ========== PAGE-SCOPED STYLES ONLY (won’t touch global nav styles) ========== */
   .vd-page { --max:1120px; --brand:#1a73e8; --brand2:#1567cf; --section-grey:#f7f8fa; }
 
   .vd-page .vd-hero{
@@ -57,19 +57,30 @@
 
   /* Simple footer wrapper so spacing matches site */
   .vd-page .footer .inner{max-width:var(--max); margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between}
+
+  /* ====== NAV fix: make “Shop” NOT a link but still open dropdown ====== */
+  nav .dropdown > span.shop-label{
+    display:inline-block; padding:10px 15px;
+    color:inherit; text-decoration:none; font-weight:600; cursor:default; user-select:none;
+  }
+  /* If your global CSS shows dropdown on hover for .dropdown:hover .dropdown-content,
+     this keeps working because we’re still hovering the same <li>. */
+  /* Mobile/tap fallback via JS: .dropdown.open shows the panel */
+  nav .dropdown.open > .dropdown-content{ display:block; }
 </style>
 </head>
 <body class="vd-page">
 
-<!-- PASTE THE EXACT NAV BLOCK FROM index.html BELOW -->
+<!-- NAV (Shop is now a non-clickable <span>) -->
 <nav>
   <a href="index.html" class="nav-logo">Vape District</a>
   <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
   <ul class="nav-links" id="main-nav">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
+
     <li class="dropdown">
-      <a href="shop.html">Shop</a>
+      <span class="shop-label" aria-haspopup="true" aria-expanded="false">Shop</span>
       <div class="dropdown-content">
         <a href="420.html">420 ▸</a>
         <a href="vapes.html">Vapes ▸</a>
@@ -77,6 +88,7 @@
         <a href="mystery-boxes.html">Mystery Boxes</a>
       </div>
     </li>
+
     <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
@@ -160,13 +172,32 @@
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // If your index uses a hamburger that toggles .show on .nav-links:
+  // Mobile hamburger (keeps your existing pattern)
   document.querySelector('.menu-toggle')?.addEventListener('click', function(){
     const nav = document.getElementById('main-nav');
     if (!nav) return;
     nav.classList.toggle('show');
     this.setAttribute('aria-expanded', nav.classList.contains('show') ? 'true' : 'false');
   });
+
+  // Make "Shop" non-clickable but tappable to open on mobile
+  (function(){
+    const dd = document.querySelector('nav .dropdown');
+    const label = dd?.querySelector(':scope > span.shop-label');
+    if (!dd || !label) return;
+    const isTouch = matchMedia('(hover: none)').matches;
+    if (isTouch){
+      label.setAttribute('role','button');
+      label.setAttribute('tabindex','0');
+      const toggle = (e)=>{ 
+        e.preventDefault();
+        const open = dd.classList.toggle('open');
+        label.setAttribute('aria-expanded', open ? 'true':'false');
+      };
+      label.addEventListener('click', toggle);
+      label.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ toggle(e); } });
+    }
+  })();
 
   // Seamless marquee (duplicate base sequence, animate exactly one width)
   (function () {
