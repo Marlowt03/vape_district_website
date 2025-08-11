@@ -1,292 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>D8 Cartridges — Vape District</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Disposable Cartridges — Vape District</title>
 
-  <!-- Your global stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css" />
 
-  <style>
-    /* ===== Page-scoped styles (safe with your global CSS) ===== */
+<style>
+  :root{
+    --wrap: 1120px;
+    --pad: 16px;
+    --blue-900: #07242E;
+    --blue-800: #0C3442;
+    --accent: #1a73e8;
+  }
 
-    /* Hero keeps your site look; swap the image path if you use a different one on this page */
-    .vd-hero {
-      position: relative;
-      background: #0b0f14 url('images/chapo_blood_diamonds.png') center/cover no-repeat;
-      color: #fff;
-      text-align: center;
-      padding: 220px 16px 120px; /* tall but not overwhelming */
-    }
-    .vd-hero::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
-    .vd-hero .inner { position:relative; z-index:1; max-width:1120px; margin:0 auto; }
-    .vd-hero h1 { margin:0 0 8px; font-weight:800; font-size:3rem; }
-    .vd-hero p { margin:0; opacity:.95; font-size:1.1rem; }
-    .vd-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
-    .vd-btn{
-      appearance:none; border:0; border-radius:12px; padding:14px 22px;
-      font-weight:800; font-size:1rem; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-      transition:transform .08s, box-shadow .2s, background .2s, color .2s;
-    }
-    .vd-btn:active{ transform:translateY(1px); }
-    .vd-btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
-    .vd-btn--ghost:hover{ background:#f5f7fb; }
+  /* HERO */
+  .hero{
+    position: relative;
+    height: 400px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    background: url("images/test_chapo.png") center / cover no-repeat;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35));
+  }
+  .hero .inner{
+    position: relative; z-index: 1;
+    max-width: var(--wrap);
+    padding: 0 var(--pad);
+  }
+  .hero h1{ margin:0 0 8px; font-weight:900; font-size: clamp(28px, 5vw, 48px); }
+  .hero p.sub{ margin:0; font-size: clamp(14px, 2.6vw, 18px); opacity:.98; }
+  .hero .actions{ margin-top: 14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .hero .actions a{
+    display:inline-block; padding:12px 20px; border-radius:10px;
+    text-decoration:none; font-weight:800; font-size:1rem;
+    background: var(--accent); color:#fff;
+    box-shadow: 0 10px 26px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.12);
+    transition: transform .08s, background .2s, box-shadow .2s;
+  }
+  .hero .actions a:hover{ background:#1666cf; box-shadow: 0 12px 30px rgba(26,115,232,.45), 0 2px 6px rgba(0,0,0,.16); }
+  .hero .actions a:active{ transform: translateY(1px); }
 
-    /* Main container */
-    .vd-container{ max-width:1120px; margin:0 auto; padding:0 16px; }
+  /* SECTION HEADING */
+  .section{ padding: 28px 0 8px; }
+  .section h2{
+    margin:0 0 8px; text-align:center;
+    color:#223041; font-weight:900; letter-spacing:.2px;
+    font-size: clamp(18px, 3.4vw, 26px);
+  }
+  .section p.lead{ margin:0 0 16px; text-align:center; color:#526173; }
 
-    /* Product grid */
-    .vd-section { padding:36px 0 8px; }
-    .vd-lead { text-align:center; margin:0 0 22px; color:#2a3542; font-weight:800; font-size:1.25rem; }
-    .vd-grid{
-      display:grid; gap:22px; grid-template-columns:repeat(2, minmax(0, 1fr));
-      justify-items:center; align-items:stretch;
-    }
-    @media (min-width:760px){ .vd-grid{ grid-template-columns:repeat(4, minmax(0, 1fr)); } }
+  /* PRODUCT GRID */
+  .grid{
+    display:grid; gap:20px;
+    grid-template-columns: repeat(1, minmax(0,1fr));
+  }
+  @media (min-width:640px){ .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width:980px){ .grid{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
 
-    .vd-card{
-      width:100%; max-width:250px;
-      background:#fff; border-radius:16px; padding:16px 14px; text-align:center;
-      box-shadow:0 10px 20px rgba(0,0,0,.08);
-    }
-    .vd-card .img-wrap{
-      background:#f6f7f9; border-radius:12px; display:flex; align-items:center; justify-content:center;
-      height:210px; overflow:hidden;
-    }
-    .vd-card img{ max-width:100%; max-height:100%; height:auto; width:auto; display:block; }
-    .vd-card figcaption{ margin-top:12px; font-weight:800; color:#1b2a3a; }
+  .card{
+    background:#fff; border-radius:18px; padding:14px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.10);
+    text-align: center;
+  }
+  .thumb{
+    height: 180px;
+    border-radius:14px; overflow:hidden;
+    background:#f1f4f7;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .thumb img{
+    max-height:100%; max-width:100%; object-fit: contain;
+    display:block;
+  }
+  .card h3{
+    margin:10px 0 0; font-size: 18px; color:#0f2436; font-weight:800;
+  }
 
-    /* Featured slider (gapless) */
-    .vd-strip { background:#fff; border-top:1px solid #eef2f7; padding:30px 0 28px; margin-top:30px; }
-    .vd-title { text-align:center; font-weight:800; color:#13293d; margin:0 0 4px; font-size:1.6rem; }
-    .vd-sub   { text-align:center; color:#495869; margin:0 0 14px; }
-
-    .marquee { position:relative; overflow:hidden; padding:16px 0 10px; }
-    .marquee__track{
-      display:inline-flex; align-items:center; gap:20px;
-      will-change:transform; backface-visibility:hidden;
-      animation: marquee linear infinite var(--marquee-duration, 28s);
-    }
-    .marq-item{
-      background:#fff; border-radius:16px; padding:14px; min-width:220px;
-      box-shadow:0 10px 22px rgba(0,0,0,.12);
-      display:flex; align-items:center; justify-content:center;
-    }
-    .marq-item img{ height:160px; width:auto; object-fit:contain; display:block; }
-    @media (min-width:980px){ .marq-item{ min-width:260px; } .marq-item img{ height:180px; } }
-    @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(var(--marquee-distance,-100%)); } }
-    @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
-
-    /* Bottom CTA */
-    .vd-cta{
-      background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-      padding:64px 16px; text-align:center; margin-top:40px; border-top:1px solid #e7edf5;
-    }
-    .vd-cta h3{ font-size:2.2rem; margin:0 0 10px; color:#13293d; font-weight:800; }
-    .vd-cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.1rem; }
-    .vd-btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
-    .vd-btn--primary:hover{ background:#1567cf; }
-  </style>
+  /* FOOTER (blue gradient) */
+  .blue-foot{
+    margin:0; padding: 56px 16px;
+    background: linear-gradient(180deg, var(--blue-800) 0%, var(--blue-900) 100%);
+    color:#eaf2f7; text-align:center; font-size:14px;
+  }
+  .blue-foot a{ color:#7bb2ff; text-decoration:none; }
+  .blue-foot a:hover{ text-decoration:underline; }
+</style>
 </head>
 <body>
 
-  <!-- NAV — use the exact structure from your index -->
-  <nav>
-    <a class="nav-logo" href="index.html">Vape District</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-
-      <li class="dropdown">
-        <a href="#">Shop</a>
-        <div class="dropdown-content">
-          <div class="submenu">
-            <a href="420.html" class="has-sub">420</a>
-            <div class="sub-dropdown">
-              <a href="420-wraps.html">Wraps</a>
-              <a href="420-cartridges.html">420 Cartridges</a>
-              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
-              <a href="420-glass.html">Glass</a>
-              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
-              <a href="420-batteries.html">Batteries</a>
-            </div>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Vape District</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="dropdown">
+      <a href="#">Shop</a>
+      <div class="dropdown-content">
+        <div class="submenu">
+          <a href="420.html" class="has-sub">420</a>
+          <div class="sub-dropdown">
+            <a href="420-wraps.html">Wraps</a>
+            <a href="420-cartridges.html">420 Cartridges</a>
+            <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+            <a href="420-glass.html">Glass</a>
+            <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+            <a href="420-batteries.html">Batteries</a>
           </div>
-
-          <div class="submenu">
-            <a href="vapes.html" class="has-sub">Vapes</a>
-            <div class="sub-dropdown">
-              <a href="vape-juice.html">Vape Juice</a>
-              <a href="vape-devices.html">Devices</a>
-              <a href="vape-disposables.html">Disposables</a>
-              <a href="vape-mods.html">Mods</a>
-            </div>
-          </div>
-
-          <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
-      </li>
-
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="menu-toggle">☰</div>
-  </nav>
-
-  <!-- HERO (header style kept consistent with site) -->
-  <header class="vd-hero">
-    <div class="inner">
-      <h1>D8 Cartridges</h1>
-      <p>Tre House, Mellow Fellow, Sauced, Ripped &amp; more.</p>
-
-      <div class="vd-actions">
-        <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
+        <div class="submenu">
+          <a href="vapes.html" class="has-sub">Vapes</a>
+          <div class="sub-dropdown">
+            <a href="vape-juice.html">Vape Juice</a>
+            <a href="vape-devices.html">Devices</a>
+            <a href="vape-disposables.html">Disposables</a>
+            <a href="vape-mods.html">Mods</a>
+          </div>
+        </div>
+        <a href="detox.html">Pass A Dr*g Test / Detox</a>
+        <a href="mystery-boxes.html">Mystery Boxes</a>
       </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="menu-toggle">☰</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="inner">
+    <h1>Disposable Cartridges</h1>
+    <p class="sub">Premium disposable cartridges from top brands.</p>
+    <div class="actions">
+      <a href="contact.html">Call or Visit</a>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <!-- PRODUCT CARDS -->
-    <section class="vd-section">
-      <div class="vd-container">
-        <p class="vd-lead">Explore our most popular cartridge brands.</p>
+<main>
+  <section class="section wrap">
+    <h2>Explore our most popular disposable cartridges.</h2>
+    <p class="lead">High quality, great flavors, ready to use.</p>
 
-        <div class="vd-grid">
-          <figure class="vd-card">
-            <div class="img-wrap">
-              <img
-                src="images/Adobe%20Express%20-%20file%20(12).png"
-                alt="Tre House Gelato Cartridge" loading="lazy">
-            </div>
-            <figcaption>Tre House — Gelato</figcaption>
-          </figure>
+    <div class="grid">
+      <article class="card">
+        <div class="thumb"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></div>
+        <h3>Space Gods</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></div>
+        <h3>Hidden Hills</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/Torch.png" alt="Torch"></div>
+        <h3>Torch</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/Loose%20Change.png" alt="Loose Change"></div>
+        <h3>Loose Change</h3>
+      </article>
+    </div>
+  </section>
 
-          <figure class="vd-card">
-            <div class="img-wrap">
-              <img src="images/Mellow%20Fellow.png"
-                   alt="Mellow Fellow Candyland Cartridge" loading="lazy">
-            </div>
-            <figcaption>Mellow Fellow — Candyland</figcaption>
-          </figure>
+  <section class="section wrap" style="text-align:center;">
+    <h2>Looking for something specific?</h2>
+    <p>We stock more in-store than online. Call us to check today’s selection.</p>
+    <a href="tel:+14405582671" class="glass-btn" style="background: var(--accent); color:#fff;">Call Now</a>
+  </section>
+</main>
 
-          <figure class="vd-card">
-            <div class="img-wrap">
-              <img src="images/Sauced1.png"
-                   alt="Sauced LA Pop Rockz Cartridge" loading="lazy">
-            </div>
-            <figcaption>Sauced — LA Pop Rockz</figcaption>
-          </figure>
+<footer class="blue-foot">
+  <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp;
+     <a href="tel:+14405582671">(440) 558-2671</a>
+  </p>
+</footer>
 
-          <figure class="vd-card">
-            <div class="img-wrap">
-              <img src="images/Ripped.png"
-                   alt="Ripped Ice Cream Kush Cartridge" loading="lazy">
-            </div>
-            <figcaption>Ripped — Ice Cream Kush</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURED SLIDER (gapless, no blink) -->
-    <section class="vd-strip" aria-label="Featured Cartridges">
-      <div class="vd-container">
-        <h2 class="vd-title">Featured Cartridges</h2>
-        <p class="vd-sub">Smooth, gapless carousel — always in motion.</p>
-      </div>
-
-      <div class="marquee" id="cart-marquee" data-speed="28">
-        <ul class="marquee__track" id="cart-track">
-          <li class="marq-item"><img src="images/Adobe%20Express%20-%20file%20(12).png" alt="Tre House"></li>
-          <li class="marq-item"><img src="images/Mellow%20Fellow.png" alt="Mellow Fellow"></li>
-          <li class="marq-item"><img src="images/Sauced1.png" alt="Sauced"></li>
-          <li class="marq-item"><img src="images/Ripped.png" alt="Ripped"></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- BOTTOM CTA -->
-    <section class="vd-cta">
-      <div class="vd-container">
-        <h3>Looking for a specific strain?</h3>
-        <p>We carry a much larger selection in-store than what’s shown here. Give us a quick call and we’ll check today’s case for flavors and brands in stock.</p>
-        <div class="vd-actions">
-          <a class="vd-btn vd-btn--primary" href="tel:+14405582671">Call Now</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- (Optional) simple footer that matches your site -->
-  <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
-    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </footer>
-
-  <script>
-    // Mobile submenu tap behavior (keeps desktop hover working via your CSS)
-    (function(){
-      const isTouch = matchMedia('(hover: none)').matches;
-      document.querySelectorAll('.submenu > .has-sub').forEach(link=>{
-        link.addEventListener('click', e=>{
-          if (isTouch){ e.preventDefault(); link.parentElement.classList.toggle('open'); }
-        });
-      });
-      const menuToggle = document.querySelector('.menu-toggle');
-      const links = document.querySelector('.nav-links');
-      if(menuToggle && links){
-        menuToggle.addEventListener('click', ()=> links.classList.toggle('open'));
-      }
-    })();
-
-    // Gapless marquee for cartridges
-    (function () {
-      const marquee = document.getElementById('cart-marquee');
-      const track = document.getElementById('cart-track');
-      if (!marquee || !track) return;
-
-      // Clean any prior clones
-      track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-
-      const buffer = 40;
-      const containerWidth = marquee.clientWidth;
-      let contentWidth = track.scrollWidth;
-
-      // Clone until we exceed ~2x container width (smooth loop, no gaps)
-      while (contentWidth < containerWidth * 2 + buffer) {
-        track.querySelectorAll(':scope > .marq-item').forEach((item) => {
-          const clone = item.cloneNode(true);
-          clone.setAttribute('data-clone', '1');
-          track.appendChild(clone);
-        });
-        contentWidth = track.scrollWidth;
-      }
-
-      // Set the travel distance & animation duration
-      const speed = Number(marquee.dataset.speed || 28);
-      track.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
-      track.style.setProperty('--marquee-duration', `${speed}s`);
-
-      // Rebuild on resize
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-          const cw = marquee.clientWidth;
-          let w = track.scrollWidth;
-          while (w < cw * 2 + buffer) {
-            track.querySelectorAll(':scope > .marq-item').forEach((item) => {
-              const clone = item.cloneNode(true);
-              clone.setAttribute('data-clone', '1');
-              track.appendChild(clone);
-            });
-            w = track.scrollWidth;
-          }
-          track.style.setProperty('--marquee-distance', `-${w / 2}px`);
-        }, 120);
-      }, { passive: true });
-    })();
-  </script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
