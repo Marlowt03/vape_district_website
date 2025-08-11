@@ -1,86 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vape District | Disposable Cartridges</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Disposable Cartridges — Vape District</title>
+
+<!-- Your global CSS drives the correct nav look -->
+<link rel="stylesheet" href="style.css" />
+
+<style>
+/* ===== Page-scoped tweaks only — no nav or button styles ===== */
+.page { --wrap:1120px; --pad:16px; --gap:24px; }
+
+/* HERO: tiny reduction in height (≈10–15px) */
+.page .hero{
+  position:relative;
+  background:#0b0b0b url('images/test_chapo.png') center/cover no-repeat;
+  color:#fff; text-align:center;
+  padding: 18px var(--pad) 12px; /* <- tiny bit shorter than before */
+}
+.page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
+.page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
+.page .hero h1{ margin:0 0 6px; font-size:clamp(24px,4.2vw,36px); font-weight:900; }
+.page .hero p{ margin:0; opacity:.98; }
+
+/* Keep whatever your site uses for buttons; don’t restyle them here */
+.page .actions{ margin-top:12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* Content wrap */
+.page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+/* Brand grid (centered) */
+.page .brands{ padding:22px 0 8px; }
+.page .brands h2{
+  margin:0 0 10px; font-size:clamp(18px,3.6vw,24px); color:#223041; font-weight:800; text-align:center;
+}
+.page .brand-grid{
+  display:grid; gap:var(--gap);
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  justify-items:center;
+}
+@media (min-width:740px){ .page .brand-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
+.page .card{
+  width:100%; max-width:240px;
+  background:#fff; border-radius:18px; padding:14px 14px 12px; text-align:center;
+  box-shadow:0 10px 22px rgba(0,0,0,.10);
+}
+.page .card .thumb{
+  background:#f6f7f9; border-radius:14px; padding:12px;
+  display:flex; align-items:center; justify-content:center; height:142px;
+}
+.page .card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
+.page .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
+
+/* Featured (center headings only) */
+.page .strip{ background:#fff; color:#111; padding:20px 0 16px; margin-top:6px; }
+.page .strip .wrap{ text-align:center; }
+.page .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
+.page .strip p{ margin:0 0 10px; color:#526173; }
+
+/* Gapless marquee (no gaps, no flicker) */
+.page .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
+.page .track{
+  display:inline-flex; align-items:center; gap:16px;
+  will-change:transform; backface-visibility:hidden;
+  animation: page-mar linear infinite var(--dur, 25s);
+}
+.page .mitem{
+  background:#fff; border-radius:16px; padding:12px; min-width:210px;
+  box-shadow:0 10px 22px rgba(0,0,0,.12);
+  display:flex; align-items:center; justify-content:center;
+}
+.page .mitem img{ height:130px; width:auto; object-fit:contain; display:block; }
+@keyframes page-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
+@media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
+
+/* Bottom CTA block — no button styling, just layout */
+.page .cta{ background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%); padding:44px var(--pad); margin-top:26px; border-top:1px solid #e7edf5; text-align:center; }
+.page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,30px); color:#13293d; font-weight:900; }
+.page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.04rem; }
+
+/* Footer text only */
+.page .foot{ text-align:center; padding:28px var(--pad); color:#5a6a7a; font-size:14px; }
+.page .foot a{ color:#1a73e8; text-decoration:none; }
+</style>
 </head>
-<body>
-  <!-- Navigation -->
-  <nav>
-    <a class="nav-logo" href="index.html">Vape District</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li class="dropdown">
-        <a href="#">Shop</a>
-        <div class="dropdown-content">
-          <div class="submenu">
-            <a href="420.html" class="has-sub">420</a>
-            <div class="sub-dropdown">
-              <a href="420-wraps.html">Wraps</a>
-              <a href="420-cartridges.html">420 Cartridges</a>
-              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
-              <a href="420-glass.html">Glass</a>
-              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
-              <a href="420-batteries.html">Batteries</a>
-            </div>
+<body class="page">
+
+<!-- Navigation (EXACTLY as you pasted) -->
+<nav>
+  <a class="nav-logo" href="index.html">Vape District</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="dropdown">
+      <a href="#">Shop</a>
+      <div class="dropdown-content">
+        <div class="submenu">
+          <a href="420.html" class="has-sub">420</a>
+          <div class="sub-dropdown">
+            <a href="420-wraps.html">Wraps</a>
+            <a href="420-cartridges.html">420 Cartridges</a>
+            <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+            <a href="420-glass.html">Glass</a>
+            <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+            <a href="420-batteries.html">Batteries</a>
           </div>
-          <div class="submenu">
-            <a href="vapes.html" class="has-sub">Vapes</a>
-            <div class="sub-dropdown">
-              <a href="vape-juice.html">Vape Juice</a>
-              <a href="vape-devices.html">Devices</a>
-              <a href="vape-disposables.html">Disposables</a>
-              <a href="vape-mods.html">Mods</a>
-            </div>
-          </div>
-          <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
-          <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
-      </li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="menu-toggle">☰</div>
-  </nav>
-  <!-- Hero -->
-  <section class="hero" style="height: 60vh; background-image: url('images/half_baked_phc.png');">
-    <div class="hero-content">
-      <h1>Disposable Cartridges</h1>
-      <p>Ready‑to‑use cartridges for a hassle‑free session.</p>
+        <div class="submenu">
+          <a href="vapes.html" class="has-sub">Vapes</a>
+          <div class="sub-dropdown">
+            <a href="vape-juice.html">Vape Juice</a>
+            <a href="vape-devices.html">Devices</a>
+            <a href="vape-disposables.html">Disposables</a>
+            <a href="vape-mods.html">Mods</a>
+          </div>
+        </div>
+        <a href="detox.html">Pass A Dr*g Test / Detox</a>
+        <!-- Hookah page removed -->
+        <a href="mystery-boxes.html">Mystery Boxes</a>
+      </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="menu-toggle">☰</div>
+</nav>
+<!-- END NAV -->
+
+<!-- HERO (slightly shorter) -->
+<header class="hero">
+  <div class="inner">
+    <h1>Disposable Cartridges</h1>
+    <p>Space Gods, Hidden Hills, Torch, Loose Change & more.</p>
+    <div class="actions">
+      <!-- use your site’s normal button class if you have one; else leave plain link -->
+      <a href="contact.html">Call or Visit</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- BRANDS -->
+  <section class="brands wrap" aria-label="Popular disposable cartridge brands">
+    <h2>Explore our most popular disposable cartridge brands.</h2>
+    <div class="brand-grid">
+      <figure class="card">
+        <div class="thumb"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></div>
+        <figcaption><h3>Space Gods</h3></figcaption>
+      </figure>
+      <figure class="card">
+        <div class="thumb"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></div>
+        <figcaption><h3>Hidden Hills</h3></figcaption>
+      </figure>
+      <figure class="card">
+        <div class="thumb"><img src="images/Torch.png" alt="Torch"></div>
+        <figcaption><h3>Torch</h3></figcaption>
+      </figure>
+      <figure class="card">
+        <div class="thumb"><img src="images/Loose%20Change.png" alt="Loose Change"></div>
+        <figcaption><h3>Loose Change</h3></figcaption>
+      </figure>
     </div>
   </section>
-  <!-- Content -->
-  <section class="categories-section">
-    <div class="about-text" style="flex:1 1 100%; text-align:center;">
-      <h2 class="section-title">Convenient &amp; Reliable</h2>
-      <p>Grab a disposable cartridge when you’re on the go. Our selection features a variety of strains and flavors, packaged for portability and ease of use.</p>
+
+  <!-- FEATURED (centered, gapless) -->
+  <section class="strip" aria-label="Featured Disposable Cartridges">
+    <div class="wrap">
+      <h3>Featured Disposable Cartridges</h3>
+      <p>Smooth, gapless carousel — always in motion.</p>
     </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="images/half_baked_phc.png" alt="Half Baked PHC">
-        <h3>Half Baked PHC</h3>
-        <p>Premium disposable carts with potent formulas.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/ghost_disposable.png" alt="Ghost Disposables">
-        <h3>Ghost Disposables</h3>
-        <p>Smooth and flavorful disposables for easy use on the go.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/ghost_disposable.png" alt="Ghost Disposables">
-        <h3>Ghost Disposables</h3>
-        <p>Compact disposables delivering consistent performance.</p>
-      </div>
+
+    <div class="marquee" id="dcMarquee" data-speed="25">
+      <ul class="track" id="dcTrack">
+        <li class="mitem"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></li>
+        <li class="mitem"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></li>
+        <li class="mitem"><img src="images/Torch.png" alt="Torch"></li>
+        <li class="mitem"><img src="images/Loose%20Change.png" alt="Loose Change"></li>
+      </ul>
     </div>
   </section>
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
-    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </footer>
+
+  <!-- BOTTOM CTA (no button styles here—use your site’s defaults) -->
+  <section class="cta">
+    <div class="wrap">
+      <h4>Looking for something specific?</h4>
+      <p>We stock more in-store than online. Call for today’s stock.</p>
+      <a href="tel:+14405582671">Call Now</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
+  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+</footer>
+
+<script>
+  // Footer year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Gapless marquee
+  (function(){
+    const mq = document.getElementById('dcMarquee');
+    const track = document.getElementById('dcTrack');
+    if(!mq || !track) return;
+
+    const pad = 40;
+    const refill = () => {
+      track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+      let w = track.scrollWidth;
+      const need = mq.clientWidth * 2 + pad;
+      while (w < need) {
+        track.querySelectorAll(':scope > li').forEach(item => {
+          const c = item.cloneNode(true);
+          c.setAttribute('data-clone','1');
+          track.appendChild(c);
+        });
+        w = track.scrollWidth;
+      }
+      track.style.setProperty('--dist', `-${w/2}px`);
+      track.style.setProperty('--dur', `${Number(mq.dataset.speed||25)}s`);
+    };
+    refill();
+
+    let t;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(refill, 120);
+    }, { passive:true });
+  })();
+</script>
 </body>
 </html>
