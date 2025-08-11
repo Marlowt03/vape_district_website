@@ -12,25 +12,24 @@
 /* ---------- Page-scoped styles (won’t disturb the rest of the site) ---------- */
 .vj { --wrap:1120px; --pad:16px; --gap:22px; }
 
-/* HERO — compact, readable, with white button */
+/* HERO — significantly shorter with white button */
 .vj .hero{
   position:relative;
-  background:#0b0b0b url('images/vapejuice.jpg') center/cover no-repeat;
+  background:#0b0b0b url('images/vapejuice.png') center/cover no-repeat;
   color:#fff;
   text-align:center;
-  /* compact but visible (a little less than half screen on desktop) */
-  min-height: clamp(160px, 28vh, 280px);
+  min-height: clamp(120px, 18vh, 180px); /* ← shorter hero */
   display:flex; align-items:center; justify-content:center;
-  padding: 14px var(--pad);
+  padding: 12px var(--pad);
 }
-.vj .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.35)); }
+.vj .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.35)); pointer-events:none; }
 .vj .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.vj .hero h1{ margin:0 0 6px; font-weight:900; font-size:clamp(26px,4.4vw,40px); }
-.vj .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.6vw,18px); }
-.vj .actions{ margin-top:12px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.vj .hero h1{ margin:0 0 6px; font-weight:900; font-size:clamp(22px,3.8vw,34px); }
+.vj .hero p{ margin:0; opacity:.98; font-size:clamp(13px,2.4vw,16px); }
+.vj .actions{ margin-top:10px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
 .vj .btn{
   display:inline-block; padding:12px 20px; border-radius:12px;
-  text-decoration:none; font-weight:800; font-size:0.98rem;
+  text-decoration:none; font-weight:800; font-size:0.96rem;
   transition:transform .08s, box-shadow .2s, background .2s, color .2s, border-color .2s;
 }
 .vj .btn:active{ transform:translateY(1px); }
@@ -44,7 +43,7 @@
 .vj .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
 /* PRODUCT GRID */
-.vj .section{ padding:26px 0 10px; }
+.vj .section{ padding:22px 0 10px; }
 .vj .section h2{
   margin:0 0 6px; text-align:center; color:#203245;
   font-size:clamp(18px,3.2vw,24px); font-weight:900;
@@ -65,7 +64,7 @@
 }
 .vj .thumb{
   background:#f6f7f9; border-radius:14px; padding:12px;
-  height:150px; display:flex; align-items:center; justify-content:center;
+  height:150px; display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .vj .card img{ max-height:122px; width:auto; object-fit:contain; display:block; }
 .vj .card h3{ margin:10px 0 0; font-size:17px; color:#0f2436; font-weight:800; }
@@ -95,7 +94,7 @@
 /* BOTTOM CTA */
 .vj .cta{
   background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:42px var(--pad); margin-top:24px; border-top:1px solid #e7edf5; text-align:center;
+  padding:38px var(--pad); margin-top:22px; border-top:1px solid #e7edf5; text-align:center;
 }
 .vj .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
 .vj .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.04rem; }
@@ -107,7 +106,7 @@
 /* FOOTER (dark blue like the others) */
 .site-foot{
   background:linear-gradient(180deg,#082734 0%, #06232e 100%);
-  color:#d8e6ef; text-align:center; padding:40px 16px;
+  color:#d8e6ef; text-align:center; padding:38px 16px;
 }
 .site-foot a{ color:#8fc8ff; text-decoration:none; }
 .site-foot a:hover{ text-decoration:underline; }
@@ -206,12 +205,6 @@
         <div class="thumb"><img src="images/Salt%20nic%203.webp" alt="Fruitia Sweet Peach Ice"></div>
         <h3>Fruitia — Sweet Peach Ice</h3>
       </article>
-      <!-- add more as you like:
-      <article class="card">
-        <div class="thumb"><img src="images/Salt%20nic%204.webp" alt="Juice Head Salts Raspberry Lemonade"></div>
-        <h3>Juice Head Salts — Raspberry Lemonade</h3>
-      </article>
-      -->
     </div>
   </section>
 
@@ -266,10 +259,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
   if(!mq || !track) return;
 
   function build(){
-    // remove old clones if any
     track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
-
-    const need = mq.clientWidth * 2 + 40; // fill ~2x width + buffer
+    const need = mq.clientWidth * 2 + 40;
     let w = track.scrollWidth;
 
     while(w < need){
