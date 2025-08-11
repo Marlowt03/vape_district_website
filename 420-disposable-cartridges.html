@@ -2,92 +2,112 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Disposable Cartridges — Vape District</title>
 
-<!-- Your global CSS drives the correct nav look -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ===== Page-scoped tweaks only — no nav or button styles ===== */
-.page { --wrap:1120px; --pad:16px; --gap:24px; }
+  :root{
+    --wrap: 1120px;
+    --pad: 16px;
+    --blue-900: #07242E;
+    --blue-800: #0C3442;
+    --accent: #1a73e8;
+  }
 
-/* HERO: tiny reduction in height (≈10–15px) */
-.page .hero{
-  position:relative;
-  background:#0b0b0b url('images/test_chapo.png') center/cover no-repeat;
-  color:#fff; text-align:center;
-  padding: 18px var(--pad) 12px; /* <- tiny bit shorter than before */
-}
-.page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
-.page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.page .hero h1{ margin:0 0 6px; font-size:clamp(24px,4.2vw,36px); font-weight:900; }
-.page .hero p{ margin:0; opacity:.98; }
+  /* ===== HERO (significantly smaller) ===== */
+  .hero{
+    position: relative;
+    height: 180px; /* smaller than half of 400px */
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    background: url("images/21-_DSC5504.jpg") center / cover no-repeat; /* update extension if needed */
+    margin: 0;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,.36), rgba(0,0,0,.24));
+  }
+  .hero .inner{
+    position: relative; z-index: 1;
+    max-width: var(--wrap); padding: 0 var(--pad);
+  }
+  .hero h1{ margin:0 0 4px; font-weight:900; font-size: clamp(22px, 4vw, 34px); }
+  .hero p.sub{ margin:0; font-size: clamp(13px, 2.6vw, 16px); opacity:.98; }
+  .hero .actions{ margin-top: 10px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .hero .actions a{
+    display:inline-block; padding:10px 16px; border-radius:10px;
+    text-decoration:none; font-weight:800; font-size:.95rem;
+    background: var(--accent); color:#fff;
+    box-shadow: 0 10px 22px rgba(26,115,232,.30), 0 2px 6px rgba(0,0,0,.10);
+    transition: transform .08s, background .2s, box-shadow .2s;
+  }
+  .hero .actions a:hover{ background:#1666cf; }
 
-/* Keep whatever your site uses for buttons; don’t restyle them here */
-.page .actions{ margin-top:12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  /* ===== CONTENT SECTIONS ===== */
+  .wrap{ max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
 
-/* Content wrap */
-.page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+  .section{ padding: 24px 0 10px; }
+  .section h2{
+    margin:0 0 8px; text-align:center;
+    color:#223041; font-weight:900; letter-spacing:.2px;
+    font-size: clamp(18px, 3.2vw, 24px);
+  }
+  .section p.lead{ margin:0 0 16px; text-align:center; color:#526173; }
 
-/* Brand grid (centered) */
-.page .brands{ padding:22px 0 8px; }
-.page .brands h2{
-  margin:0 0 10px; font-size:clamp(18px,3.6vw,24px); color:#223041; font-weight:800; text-align:center;
-}
-.page .brand-grid{
-  display:grid; gap:var(--gap);
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  justify-items:center;
-}
-@media (min-width:740px){ .page .brand-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-.page .card{
-  width:100%; max-width:240px;
-  background:#fff; border-radius:18px; padding:14px 14px 12px; text-align:center;
-  box-shadow:0 10px 22px rgba(0,0,0,.10);
-}
-.page .card .thumb{
-  background:#f6f7f9; border-radius:14px; padding:12px;
-  display:flex; align-items:center; justify-content:center; height:142px;
-}
-.page .card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
-.page .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
+  /* ===== PRODUCT GRID ===== */
+  .grid{
+    display:grid; gap:20px;
+    grid-template-columns: repeat(1, minmax(0,1fr));
+  }
+  @media (min-width:640px){ .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width:980px){ .grid{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
 
-/* Featured (center headings only) */
-.page .strip{ background:#fff; color:#111; padding:20px 0 16px; margin-top:6px; }
-.page .strip .wrap{ text-align:center; }
-.page .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
-.page .strip p{ margin:0 0 10px; color:#526173; }
+  .card{
+    background:#fff; border-radius:18px; padding:14px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.10);
+    text-align:center;
+  }
+  .thumb{
+    height: 180px;
+    border-radius:14px; overflow:hidden;
+    background:#f1f4f7;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .thumb img{
+    max-height:100%; max-width:100%; object-fit: contain; display:block;
+  }
+  .card h3{
+    margin:10px 0 0; font-size: 18px; color:#0f2436; font-weight:800;
+  }
 
-/* Gapless marquee (no gaps, no flicker) */
-.page .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
-.page .track{
-  display:inline-flex; align-items:center; gap:16px;
-  will-change:transform; backface-visibility:hidden;
-  animation: page-mar linear infinite var(--dur, 25s);
-}
-.page .mitem{
-  background:#fff; border-radius:16px; padding:12px; min-width:210px;
-  box-shadow:0 10px 22px rgba(0,0,0,.12);
-  display:flex; align-items:center; justify-content:center;
-}
-.page .mitem img{ height:130px; width:auto; object-fit:contain; display:block; }
-@keyframes page-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
-@media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
+  /* ===== BOTTOM CTA ===== */
+  .cta{
+    text-align:center; padding: 28px 0 34px;
+  }
+  .cta a{
+    display:inline-block; padding:12px 22px; border-radius:12px;
+    background: var(--accent); color:#fff; text-decoration:none; font-weight:800;
+    box-shadow: 0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08);
+  }
 
-/* Bottom CTA block — no button styling, just layout */
-.page .cta{ background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%); padding:44px var(--pad); margin-top:26px; border-top:1px solid #e7edf5; text-align:center; }
-.page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,30px); color:#13293d; font-weight:900; }
-.page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.04rem; }
-
-/* Footer text only */
-.page .foot{ text-align:center; padding:28px var(--pad); color:#5a6a7a; font-size:14px; }
-.page .foot a{ color:#1a73e8; text-decoration:none; }
+  /* ===== FOOTER (dark blue) ===== */
+  .blue-foot{
+    margin:0; padding: 56px 16px;
+    background: linear-gradient(180deg, var(--blue-800) 0%, var(--blue-900) 100%);
+    color:#eaf2f7; text-align:center; font-size:14px;
+  }
+  .blue-foot a{ color:#7bb2ff; text-decoration:none; }
+  .blue-foot a:hover{ text-decoration:underline; }
 </style>
 </head>
-<body class="page">
+<body>
 
-<!-- Navigation (EXACTLY as you pasted) -->
+<!-- NAV (unchanged structure) -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -117,7 +137,6 @@
           </div>
         </div>
         <a href="detox.html">Pass A Dr*g Test / Detox</a>
-        <!-- Hookah page removed -->
         <a href="mystery-boxes.html">Mystery Boxes</a>
       </div>
     </li>
@@ -125,110 +144,59 @@
   </ul>
   <div class="menu-toggle">☰</div>
 </nav>
-<!-- END NAV -->
 
-<!-- HERO (slightly shorter) -->
+<!-- HERO -->
 <header class="hero">
   <div class="inner">
     <h1>Disposable Cartridges</h1>
-    <p>Space Gods, Hidden Hills, Torch, Loose Change & more.</p>
+    <p class="sub">Premium disposable cartridges from top brands.</p>
     <div class="actions">
-      <!-- use your site’s normal button class if you have one; else leave plain link -->
       <a href="contact.html">Call or Visit</a>
     </div>
   </div>
 </header>
 
 <main>
-  <!-- BRANDS -->
-  <section class="brands wrap" aria-label="Popular disposable cartridge brands">
-    <h2>Explore our most popular disposable cartridge brands.</h2>
-    <div class="brand-grid">
-      <figure class="card">
+  <section class="section wrap">
+    <h2>Explore our most popular disposable cartridges.</h2>
+    <p class="lead">High quality, great flavors, ready to use.</p>
+
+    <div class="grid">
+      <article class="card">
         <div class="thumb"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></div>
-        <figcaption><h3>Space Gods</h3></figcaption>
-      </figure>
-      <figure class="card">
+        <h3>Space Gods</h3>
+      </article>
+      <article class="card">
         <div class="thumb"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></div>
-        <figcaption><h3>Hidden Hills</h3></figcaption>
-      </figure>
-      <figure class="card">
+        <h3>Hidden Hills</h3>
+      </article>
+      <article class="card">
         <div class="thumb"><img src="images/Torch.png" alt="Torch"></div>
-        <figcaption><h3>Torch</h3></figcaption>
-      </figure>
-      <figure class="card">
+        <h3>Torch</h3>
+      </article>
+      <article class="card">
         <div class="thumb"><img src="images/Loose%20Change.png" alt="Loose Change"></div>
-        <figcaption><h3>Loose Change</h3></figcaption>
-      </figure>
+        <h3>Loose Change</h3>
+      </article>
     </div>
   </section>
 
-  <!-- FEATURED (centered, gapless) -->
-  <section class="strip" aria-label="Featured Disposable Cartridges">
-    <div class="wrap">
-      <h3>Featured Disposable Cartridges</h3>
-      <p>Smooth, gapless carousel — always in motion.</p>
-    </div>
-
-    <div class="marquee" id="dcMarquee" data-speed="25">
-      <ul class="track" id="dcTrack">
-        <li class="mitem"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></li>
-        <li class="mitem"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></li>
-        <li class="mitem"><img src="images/Torch.png" alt="Torch"></li>
-        <li class="mitem"><img src="images/Loose%20Change.png" alt="Loose Change"></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- BOTTOM CTA (no button styles here—use your site’s defaults) -->
-  <section class="cta">
-    <div class="wrap">
-      <h4>Looking for something specific?</h4>
-      <p>We stock more in-store than online. Call for today’s stock.</p>
-      <a href="tel:+14405582671">Call Now</a>
-    </div>
+  <section class="cta wrap">
+    <h2>Looking for something specific?</h2>
+    <p>We stock more in-store than online. Call us to check today’s selection.</p>
+    <a href="tel:+14405582671">Call Now</a>
   </section>
 </main>
 
-<footer class="foot">
-  <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
-  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+<footer class="blue-foot">
+  <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp;
+     <a href="tel:+14405582671">(440) 558-2671</a>
+  </p>
 </footer>
 
 <script>
-  // Footer year
-  document.getElementById('y').textContent = new Date().getFullYear();
-
-  // Gapless marquee
-  (function(){
-    const mq = document.getElementById('dcMarquee');
-    const track = document.getElementById('dcTrack');
-    if(!mq || !track) return;
-
-    const pad = 40;
-    const refill = () => {
-      track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-      let w = track.scrollWidth;
-      const need = mq.clientWidth * 2 + pad;
-      while (w < need) {
-        track.querySelectorAll(':scope > li').forEach(item => {
-          const c = item.cloneNode(true);
-          c.setAttribute('data-clone','1');
-          track.appendChild(c);
-        });
-        w = track.scrollWidth;
-      }
-      track.style.setProperty('--dist', `-${w/2}px`);
-      track.style.setProperty('--dur', `${Number(mq.dataset.speed||25)}s`);
-    };
-    refill();
-
-    let t;
-    window.addEventListener('resize', () => {
-      clearTimeout(t);
-      t = setTimeout(refill, 120);
-    }, { passive:true });
-  })();
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
