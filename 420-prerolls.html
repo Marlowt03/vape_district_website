@@ -53,9 +53,15 @@
   /* Product brand grid */
   .vd-grid-wrap{ padding:28px 0 6px; }
   .vd-page-sub{ margin:0 0 18px; color:#2a3542; font-size:1.125rem; font-weight:700; letter-spacing:.2px; }
-  .vd-grid{ display:grid; gap:18px; grid-template-columns:repeat(2,1fr); }
-  @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr); } }
-  @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(4,1fr); } }
+.vd-grid {
+  display: flex;
+  justify-content: center; /* Center the cards */
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.vd-card {
+  flex: 0 1 220px; /* Keeps consistent card width */
+}
   .vd-card{
     background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
     box-shadow:0 8px 16px rgba(0,0,0,.08);
