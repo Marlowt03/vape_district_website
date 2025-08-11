@@ -8,14 +8,15 @@
 <link rel="stylesheet" href="style.css" />
 
 <style>
+/* ---- Page-scoped styles (won’t touch your global nav) ---- */
 .page { --wrap:1120px; --pad:16px; --gap:24px; }
 
-/* HERO */
+/* HERO — ~20% smaller than the last medium */
 .page .hero{
   position:relative;
   background:#0b0b0b url('images/mods.jpg') center/cover no-repeat;
   color:#fff; text-align:center;
-  padding: clamp(60px, 14vh, 100px) var(--pad); /* adjusted height */
+  padding: clamp(48px, 11.2vh, 80px) var(--pad); /* was 60/14vh/100 */
 }
 .page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
 .page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
@@ -25,10 +26,10 @@
 .page .actions a{
   display:inline-block; padding:12px 20px; border-radius:10px;
   text-decoration:none; font-weight:700; font-size:0.97rem;
-  background:#007BFF; color:#fff; box-shadow:0 8px 20px rgba(0,0,0,.14);
+  background:#ffffff; color:#0b1f33; box-shadow:0 8px 20px rgba(0,0,0,.14);
   transition:background .2s, transform .08s;
 }
-.page .actions a:hover{ background:#0069d9; }
+.page .actions a:hover{ background:#f5f7fb; }
 .page .actions a:active{ transform:translateY(1px); }
 
 /* CONTENT WRAP */
@@ -67,7 +68,7 @@
 .page .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
 .page .strip p{ margin:0 0 10px; color:#526173; }
 
-/* MARQUEE */
+/* GAPLESS MARQUEE (no blink, no gaps) */
 .page .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
 .page .track{
   display:inline-flex; align-items:center; gap:16px;
@@ -82,14 +83,7 @@
 .page .item img{ height:130px; width:auto; object-fit:contain; display:block; }
 @media (min-width:900px){ .page .item{ min-width:236px; } .page .item img{ height:150px; } }
 @keyframes page-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
-
-/* FOOTER */
-footer.foot {
-  background:#032933; /* deep teal-blue */
-  padding:30px 0;
-  color:#fff;
-}
-footer.foot a{ color:#1E90FF; }
+@media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
 
 /* CTA */
 .page .cta{
@@ -98,11 +92,28 @@ footer.foot a{ color:#1E90FF; }
 }
 .page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
 .page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.02rem; }
+.page .cta .btn-blue{
+  display:inline-block; padding:12px 22px; border-radius:10px;
+  background:#1a73e8; color:#fff; font-weight:800; text-decoration:none;
+  box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08);
+}
+.page .cta .btn-blue:hover{ background:#1567cf; }
+
+/* FULL-WIDTH FOOTER — darker blue-gray */
+.site-footer{
+  background:#0F2A33;  /* darker blue-gray */
+  color:#fff; width:100%;
+}
+.site-footer .footer-inner{
+  max-width:var(--wrap); margin:0 auto; padding:28px var(--pad); text-align:center;
+}
+.site-footer a{ color:#cfe5ff; text-decoration:underline; }
+.site-footer a:hover{ text-decoration:none; }
 </style>
 </head>
 <body class="page">
 
-<!-- NAV -->
+<!-- NAV (unchanged) -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -200,20 +211,25 @@ footer.foot a{ color:#1E90FF; }
       <h4>Looking for something specific?</h4>
       <p>We stock more in-store than online. Call and we’ll check today’s case for the colors and kits you want.</p>
       <div class="actions">
-        <a href="tel:+14405582671">Call Now</a>
+        <a class="btn-blue" href="tel:+14405582671">Call Now</a>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="foot wrap" style="text-align:center; color:#fff; font-size:14px;">
-  <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
-  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+<!-- FOOTER (full width, dark blue-gray) -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
+    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+  </div>
 </footer>
 
 <script>
+// Footer year
 document.getElementById('y').textContent = new Date().getFullYear();
 
+// Gapless marquee
 (function(){
   const mq = document.getElementById('modsMarquee');
   const track = document.getElementById('modsTrack');
