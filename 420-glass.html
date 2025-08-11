@@ -4,112 +4,133 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Glass — Vape District</title>
+
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* Page tokens */
+/* PAGE WRAP */
 .page { --wrap:1120px; --pad:16px; --gap:24px; }
 
-/* ---------- HERO (centered overlay) ---------- */
-.page .hero{
+/* HERO */
+.page .hero {
   position:relative;
-  background:#0b0b0b url('images/glass-hero.jpg') center/cover no-repeat;
-  color:#fff;
-  height:600px;               /* same height you liked */
-}
-.page .hero::after{
-  content:"";
-  position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.18));
-}
-.page .hero .inner{
-  position:relative; z-index:1;
-  max-width:var(--wrap); margin:0 auto;
-  height:100%;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center; /* centers title/subtext/button */
-  padding:0 var(--pad);
+  background:#0b0b0b url('images/7f06b8cb-6a15-45bf-854a-9b12952fdba0.png') center/cover no-repeat;
+  color:#fff; 
+  height:600px; /* height you liked */
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
 }
-.page .hero h1{
-  margin:0 0 8px;
-  font-size:clamp(28px,4.4vw,40px);
+.page .hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15));
+}
+.page .hero .inner {
+  position:relative;
+  z-index:1;
+  max-width:var(--wrap);
+  padding:0 var(--pad);
+}
+.page .hero h1 {
+  margin:0 0 10px;
+  font-size:clamp(32px,5vw,46px);
   font-weight:900;
-  letter-spacing:.2px;
 }
-.page .hero p{
-  margin:0 0 14px;
-  font-size:clamp(14px,2.8vw,17px);
+.page .hero p {
+  margin:0 0 18px;
   opacity:.98;
+  font-size:clamp(15px,2.8vw,18px);
 }
-.page .actions{
-  display:flex; gap:12px; flex-wrap:wrap; justify-content:center;
-}
-.page .actions a{
-  display:inline-block; padding:12px 20px;
-  border-radius:10px; text-decoration:none;
-  font-weight:800; font-size:.98rem;
-  background:#ffffff; color:#0b1f33;
-  box-shadow:0 8px 22px rgba(0,0,0,.18);
+.page .actions a {
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.97rem;
+  background:#ffffff;
+  color:#0b1f33;
+  box-shadow:0 8px 20px rgba(0,0,0,.14);
   transition:background .2s, transform .08s;
 }
 .page .actions a:hover{ background:#f5f7fb; }
 .page .actions a:active{ transform:translateY(1px); }
 
-/* ---------- CONTENT WRAP ---------- */
+/* CONTENT WRAP */
 .page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
-/* ---------- PRODUCT CARDS (bigger/zoomed images) ---------- */
-.page .section{ padding:26px 0 10px; }
-.page .section h2{
-  margin:0 0 8px; text-align:center;
-  font-size:clamp(18px,3.1vw,22px); font-weight:800; color:#223041;
+/* PRODUCT SECTION */
+.page .section{ padding:40px 0; }
+.page .section h2 {
+  margin:0 0 8px;
+  font-size:clamp(20px,3.2vw,26px);
+  color:#223041;
+  font-weight:800;
+  text-align:center;
 }
-.page .section .lead{
-  margin:0 0 18px; text-align:center; color:#526173;
+.page .section p.lead {
+  margin:0 0 16px;
+  color:#526173;
+  text-align:center;
 }
 
+/* PRODUCT GRID */
 .page .grid{
-  display:grid; gap:var(--gap);
-  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  display:grid;
+  gap:var(--gap);
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   justify-items:center;
 }
-
 .page .card{
-  width:100%; max-width:300px;
-  background:#fff; border-radius:18px;
-  padding:14px 14px 12px; text-align:center;
+  width:100%;
+  max-width:320px;
+  background:#fff;
+  border-radius:18px;
+  padding:14px;
+  text-align:center;
   box-shadow:0 10px 22px rgba(0,0,0,.10);
 }
 .page .thumb{
-  background:#f6f7f9; border-radius:14px;
-  height:240px;                     /* taller frame */
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden;                   /* hide zoom edges */
+  background:#f6f7f9;
+  border-radius:14px;
+  padding:0;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:240px;
 }
 .page .card img{
-  width:auto; max-height:220px; display:block;
-  object-fit:contain;
-  transform:scale(1.08);            /* default zoom-in */
-  transition:transform .25s ease;
+  width:120%;
+  height:120%;
+  object-fit:cover;
+  display:block;
 }
-.page .card:hover img{ transform:scale(1.12); }  /* tasteful hover zoom */
 .page .card h3{
-  margin:12px 0 0; font-size:18px; color:#0f2436; font-weight:800;
+  margin:10px 0 0;
+  font-size:18px;
+  color:#0f2436;
+  font-weight:800;
 }
 
-/* ---------- FOOTER (blue like other pages) ---------- */
-.foot{
-  background:#083041; color:#fff;
-  padding:36px 0; text-align:center;
+/* FOOTER */
+footer.foot {
+  background-color:#08232e;
+  color:#fff;
+  padding:26px 0;
+  text-align:center;
+  font-size:14px;
 }
-.foot a{ color:#1e9bff; text-decoration:none; }
-.foot a:hover{ text-decoration:underline; }
+footer.foot a { color:#1e90ff; text-decoration:none; }
+footer.foot a:hover { text-decoration:underline; }
 </style>
 </head>
 <body class="page">
 
-<!-- NAV (unchanged structure) -->
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -148,10 +169,10 @@
 </nav>
 
 <!-- HERO -->
-<header class="hero" role="banner" aria-label="Glass hero">
+<header class="hero">
   <div class="inner">
     <h1>Glass</h1>
-    <p>Premium bongs, rigs, and glassware.</p>
+    <p>Premium glassware for every style</p>
     <div class="actions">
       <a href="contact.html">Call or Visit</a>
     </div>
@@ -159,21 +180,20 @@
 </header>
 
 <main>
-  <section class="section wrap" aria-label="Glass Collection">
-    <h2>Our Glass Collection</h2>
-    <p class="lead">Durable, stylish, and ready for your next session.</p>
+  <!-- PRODUCT CARDS -->
+  <section class="section wrap" aria-label="Glass Products">
+    <h2>Explore our premium glassware.</h2>
+    <p class="lead">Durable, stylish, and built to last.</p>
 
     <div class="grid">
       <article class="card">
         <div class="thumb"><img src="images/green_rifle3.jpg" alt="Green Rifle"></div>
         <h3>Green Rifle</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/glass_face.jpg" alt="Glass Face"></div>
         <h3>Glass Face</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/colorful_bongs2.jpg" alt="Colorful Bongs"></div>
         <h3>Colorful Bongs</h3>
@@ -182,7 +202,7 @@
   </section>
 </main>
 
-<footer class="foot">
+<footer class="foot wrap">
   <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
 </footer>
@@ -190,5 +210,6 @@
 <script>
 document.getElementById('y').textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>
