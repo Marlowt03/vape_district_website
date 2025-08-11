@@ -1,263 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mods — Vape District</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mods — Vape District</title>
+<link rel="stylesheet" href="style.css" />
 
-  <!-- Your global theme -->
-  <link rel="stylesheet" href="style.css" />
+<style>
+/* --- Nav (same look/behavior as index) --- */
+nav{position:sticky;top:0;z-index:1000;background:#fff;backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid #eef2f6;}
+nav .wrap{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:14px 16px;}
+nav .nav-logo{font-weight:800;font-size:28px;color:#1a73e8;text-decoration:none;}
+nav .nav-links{list-style:none;margin:0;padding:0;display:flex;gap:28px;align-items:center;}
+nav .nav-links>a, nav .nav-links li>a{color:#222;text-decoration:none;font-weight:700;}
+nav .dropdown{position:relative;}
+nav .dropdown>a{pointer-events:none;cursor:default;} /* Shop not clickable */
+nav .dropdown-content{display:none;position:absolute;left:0;top:100%;background:#fff;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.12);padding:12px;min-width:280px;}
+nav .dropdown:hover .dropdown-content{display:block;}
+nav .dropdown-content .submenu{padding:6px 0;border-top:1px solid #f1f3f7;}
+nav .dropdown-content .submenu:first-child{border-top:0;}
+nav .dropdown-content a{display:block;padding:9px 12px;border-radius:8px;color:#111;text-decoration:none;font-weight:600;}
+nav .dropdown-content a:hover{background:#f5f7fb;}
+nav .menu-toggle{margin-left:auto;display:none;cursor:pointer;font-size:22px;}
+@media (max-width:820px){
+  nav .menu-toggle{display:block;}
+  nav .nav-links{display:none;position:absolute;left:0;right:0;top:56px;background:#fff;padding:12px 16px;flex-direction:column;gap:14px;border-bottom:1px solid #eef2f6;}
+  nav.open .nav-links{display:flex;}
+  nav .dropdown{width:100%;}
+  nav .dropdown-content{position:static;box-shadow:none;border-radius:10px;display:none;margin-top:6px;padding:6px;background:#f8fafc;}
+  nav .dropdown.open .dropdown-content{display:block;}
+}
 
-  <style>
-    /* ===== Page-scoped styles (won’t touch your global theme) ===== */
+/* --- Hero --- */
+.hero{
+  background:#101010 url('images/test_chapo.png') center/cover no-repeat;
+  position:relative;color:#fff;text-align:center;
+  padding: 180px 16px 110px;
+}
+.hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35);}
+.hero .inner{position:relative;z-index:1;max-width:1120px;margin:0 auto;}
+.hero h1{margin:0 0 10px;font-size:40px;font-weight:800;}
+.hero p{margin:0 0 14px;font-size:18px;opacity:.98}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.btn{appearance:none;border:0;border-radius:12px;padding:14px 22px;font-weight:800;font-size:16px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:transform .08s,box-shadow .2s,background .2s,color .2s;}
+.btn:active{transform:translateY(1px)}
+.btn-ghost{color:#0b1f33;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.16);}
+.btn-ghost:hover{background:#f6f8fb}
 
-    /* HERO (keep the site look; smaller height like other pages) */
-    .vd-hero{
-      background:#0b0f14 url('images/device_package.jpg') center/cover no-repeat;
-      color:#fff; text-align:center; position:relative;
-      padding: 180px 16px 110px;  /* similar to disposables page height */
-    }
-    .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
-    .vd-hero .inner{ position:relative; z-index:1; max-width:1120px; margin:0 auto; }
-    .vd-hero h1{ margin:0 0 8px; font-size:3rem; font-weight:800; }
-    .vd-hero p{ margin:0; font-size:1.1rem; opacity:.95; }
-    .vd-actions{ margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-    .vd-btn{
-      appearance:none; border:0; border-radius:12px; padding:14px 22px;
-      font-weight:800; font-size:1rem; text-decoration:none; display:inline-flex;
-      align-items:center; justify-content:center;
-      transition:transform .08s, box-shadow .2s, background .2s, color .2s;
-    }
-    .vd-btn:active{ transform:translateY(1px); }
-    .vd-btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
-    .vd-btn--ghost:hover{ background:#f5f7fb; }
+/* --- Page wrap --- */
+.container{max-width:1120px;margin:0 auto;padding:0 16px}
 
-    /* CONTENT WRAP */
-    .vd-container{ max-width:1120px; margin:0 auto; padding:0 16px; }
+/* --- Brand/Product cards grid --- */
+.section{padding:26px 0}
+.section h2{font-size:26px;margin:0 0 6px;color:#13293d;font-weight:800;text-align:center}
+.section p.lead{margin:0 0 18px;color:#506074;text-align:center}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:#fff;border-radius:18px;box-shadow:0 10px 22px rgba(0,0,0,.08);padding:16px 14px;text-align:center}
+.card .thumb{background:#f6f7f9;border-radius:12px;height:160px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card img{width:auto;height:100%;object-fit:contain;display:block}
+.card h3{margin:12px 0 4px;font-size:18px;color:#0f2233;font-weight:800}
 
-    /* BRAND GRID */
-    .vd-grid-wrap{ padding:28px 0 6px; }
-    .vd-page-sub{
-      margin:0 0 18px; color:#2a3542;
-      font-size:1.125rem; font-weight:700; letter-spacing:.2px; text-align:center;
-    }
-    .vd-grid{
-      display:grid; gap:18px; grid-template-columns:repeat(2,1fr);
-      justify-items:center;
-    }
-    @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr); } }
-    @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(4,1fr); } }
-    .vd-card{
-      width:100%; max-width:260px;
-      background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
-      box-shadow:0 8px 16px rgba(0,0,0,.08);
-    }
-    .vd-card img{
-      width:100%; height:120px; object-fit:contain; display:block;
-      background:#f6f7f9; border-radius:10px;
-    }
-    .vd-card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; font-size:.98rem; }
+/* --- Carousel strip (light) --- */
+.strip{background:#fff;border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7;padding:28px 0;margin-top:18px}
+.strip .title{font-size:24px;font-weight:800;color:#13293d;text-align:center;margin:0 0 6px}
+.strip .sub{color:#506074;text-align:center;margin:0 0 10px}
+.marquee{position:relative;overflow:hidden;padding:12px 0 22px}
+.track{display:inline-flex;align-items:center;gap:20px;will-change:transform;backface-visibility:hidden;animation:marquee linear infinite var(--dur,28s)}
+.item{background:#fff;border-radius:16px;padding:14px;min-width:220px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(0,0,0,.12)}
+.item img{height:150px;width:auto;object-fit:contain;display:block}
+@media(min-width:900px){.item{min-width:260px}.item img{height:170px}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(var(--dist,-100%))}}
 
-    /* FEATURED SLIDER (light section) */
-    .vd-strip--light{ background:#fff; color:#111; padding:30px 0 22px; margin-top:28px; border-top:1px solid #eef2f7; }
-    .vd-title{ font-size:1.6rem; margin:0 0 6px; font-weight:800; color:#13293d; text-align:center; }
-    .vd-sub{ margin:0 0 10px; color:#495869; text-align:center; }
+/* --- Bottom CTA --- */
+.cta{background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%);padding:58px 16px;margin-top:34px;border-top:1px solid #e7edf5;text-align:center}
+.cta h3{font-size:32px;margin:0 0 10px;color:#13293d;font-weight:800}
+.cta p{margin:0 auto 18px;max-width:860px;color:#495869;font-size:18px}
+.btn-primary{color:#fff;background:#1a73e8;box-shadow:0 10px 28px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08)}
+.btn-primary:hover{background:#1567cf}
 
-    .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
-    .marquee__track{
-      display:inline-flex; align-items:center; gap:20px;
-      will-change:transform; backface-visibility:hidden;
-      animation: marquee linear infinite var(--marquee-duration, 28s);
-    }
-    .marq-item{
-      background:#fff; border-radius:16px; padding:14px; min-width:220px;
-      box-shadow:0 10px 22px rgba(0,0,0,.12);
-      display:flex; align-items:center; justify-content:center;
-    }
-    .marq-item img{ height:150px; width:auto; object-fit:contain; display:block; }
-    @media (min-width:900px){ .marq-item{ min-width:250px; } .marq-item img{ height:170px; } }
-    @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(var(--marquee-distance,-100%)); } }
-    @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
-
-    /* BOTTOM CTA */
-    .vd-cta{
-      background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-      padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5;
-    }
-    .vd-cta h3{ font-size:2.2rem; margin:0 0 10px; color:#13293d; font-weight:800; }
-    .vd-cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.1rem; }
-    .vd-cta .vd-btn{ font-size:1.05rem; padding:16px 26px; border-radius:14px; }
-    .vd-btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
-    .vd-btn--primary:hover{ background:#1567cf; }
-  </style>
+/* footer tiny */
+footer{padding:24px 16px;text-align:center;color:#6b7785;font-size:14px}
+</style>
 </head>
 <body>
 
-  <!-- NAV — use your existing structure; no global CSS changes here -->
-  <nav>
-    <a href="index.html" class="nav-logo">Vape District</a>
-    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
-    <ul class="nav-links">
+<!-- NAV -->
+<nav id="site-nav">
+  <div class="wrap">
+    <a class="nav-logo" href="index.html">Vape District</a>
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
 
-      <li class="has-submenu">
-        <a href="#" onclick="return false;">Shop</a>
-        <ul class="submenu">
-          <li><a href="420.html">420 ▸</a></li>
-          <li><a href="vapes.html">Vapes ▸</a></li>
-          <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
-          <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
-        </ul>
+      <li class="dropdown" id="shopDrop">
+        <a href="#">Shop</a>
+        <div class="dropdown-content">
+          <div class="submenu">
+            <a href="420.html" class="has-sub">420</a>
+            <div class="sub-dropdown">
+              <a href="420-wraps.html">Wraps</a>
+              <a href="420-cartridges.html">420 Cartridges</a>
+              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+              <a href="420-glass.html">Glass</a>
+              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+              <a href="420-batteries.html">Batteries</a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a href="vapes.html" class="has-sub">Vapes</a>
+            <div class="sub-dropdown">
+              <a href="vape-juice.html">Vape Juice</a>
+              <a href="vape-devices.html">Devices</a>
+              <a href="vape-disposables.html">Disposables</a>
+              <a href="vape-mods.html">Mods</a>
+            </div>
+          </div>
+          <a href="detox.html">Pass A Dr*g Test / Detox</a>
+          <a href="mystery-boxes.html">Mystery Boxes</a>
+        </div>
       </li>
 
       <li><a href="contact.html">Contact</a></li>
     </ul>
-  </nav>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <header class="vd-hero">
-    <div class="inner">
-      <h1>Mods</h1>
-      <p>SMOK, Geekvape, Vaporesso, Lost Vape & more.</p>
+<!-- HERO -->
+<header class="hero">
+  <div class="inner">
+    <h1>Mods</h1>
+    <p Powerful performance devices from the brands you ask for.</p>
+    <div class="actions">
+      <a class="btn btn-ghost" href="contact.html">Call or Visit</a>
+    </div>
+  </div>
+</header>
 
-      <div class="vd-actions">
-        <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
+<main>
+  <!-- PRODUCT CARDS -->
+  <section class="section container">
+    <h2>Explore our most popular mod brands.</h2>
+    <p class="lead">Smok, Geekvape, Vaporesso, and Lost Vape — in stock.</p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="thumb"><img src="images/Smok.png" alt="Smok Mod"></div>
+        <h3>Smok</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/Geekvape.png" alt="Geekvape Mod"></div>
+        <h3>Geekvape</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso Armour"></div>
+        <h3>Vaporesso</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/Lost%20vape.png" alt="Lost Vape"></div>
+        <h3>Lost Vape</h3>
+      </article>
+    </div>
+  </section>
+
+  <!-- CAROUSEL -->
+  <section class="strip" aria-label="Featured Mods">
+    <div class="container">
+      <p class="title">Featured Mods</p>
+      <p class="sub">Smooth, gapless carousel — always in motion.</p>
+    </div>
+
+    <div class="marquee" id="mods-marquee" data-speed="28">
+      <ul class="track" id="mods-track">
+        <li class="item"><img src="images/Smok.png" alt="Smok"></li>
+        <li class="item"><img src="images/Geekvape.png" alt="Geekvape"></li>
+        <li class="item"><img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso"></li>
+        <li class="item"><img src="images/Lost%20vape.png" alt="Lost Vape"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="cta">
+    <div class="container">
+      <h3>Looking for something specific?</h3>
+      <p>We stock more in-store than online. Call and we’ll check today’s case for the colors and kits you want.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="tel:+14405582671">Call Now</a>
+        <a class="btn btn-ghost" href="contact.html">Call or Visit</a>
       </div>
     </div>
-  </header>
+  </section>
+</main>
 
-  <main>
-    <!-- BRAND GRID -->
-    <section class="vd-grid-wrap">
-      <div class="vd-container">
-        <p class="vd-page-sub">Explore our most popular mod brands.</p>
+<footer>
+  &copy; <span id="year"></span> Vape District • Parma Heights, Brunswick &amp; Willoughby
+</footer>
 
-        <div class="vd-grid">
-          <figure class="vd-card">
-            <img src="images/Smok.png" alt="SMOK" loading="lazy" />
-            <figcaption>SMOK</figcaption>
-          </figure>
+<script>
+// footer year
+document.getElementById('year').textContent = new Date().getFullYear();
 
-          <figure class="vd-card">
-            <img src="images/Geekvape.png" alt="Geekvape" loading="lazy" />
-            <figcaption>Geekvape</figcaption>
-          </figure>
+// mobile nav toggle
+const nav = document.getElementById('site-nav');
+document.getElementById('menuToggle').addEventListener('click', () => {
+  nav.classList.toggle('open');
+});
+if (window.matchMedia('(max-width:820px)').matches){
+  const shop = document.getElementById('shopDrop');
+  shop.addEventListener('click', (e)=>{
+    // only toggle when tapping the row, not a link inside
+    if(e.target === shop || e.target === shop.querySelector('a')) {
+      e.preventDefault();
+      shop.classList.toggle('open');
+    }
+  });
+}
 
-          <figure class="vd-card">
-            <img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso" loading="lazy" />
-            <figcaption>Vaporesso</figcaption>
-          </figure>
+// gapless marquee
+(function(){
+  const marquee = document.getElementById('mods-marquee');
+  const track = document.getElementById('mods-track');
+  if(!marquee || !track) return;
 
-          <figure class="vd-card">
-            <!-- filename has a space; keep in quotes -->
-            <img src="images/Lost vape.png" alt="Lost Vape" loading="lazy" />
-            <figcaption>Lost Vape</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
+  // remove old clones if hot-reloaded
+  track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
 
-    <!-- SLIDER (gapless) -->
-    <section class="vd-strip vd-strip--light" aria-label="Featured Mods">
-      <div class="vd-container">
-        <h2 class="vd-title">Featured Mods</h2>
-        <p class="vd-sub">Smooth, gapless carousel — always in motion.</p>
-      </div>
-
-      <div class="marquee" id="mods-marquee" data-speed="28">
-        <ul class="marquee__track" id="mods-track">
-          <!-- Base items once; JS clones just enough to loop seamlessly -->
-          <li class="marq-item"><img src="images/Smok.png"                         alt="SMOK"></li>
-          <li class="marq-item"><img src="images/Geekvape.png"                     alt="Geekvape"></li>
-          <li class="marq-item"><img src="images/vaporesso-armour-g-black.webp"    alt="Vaporesso"></li>
-          <li class="marq-item"><img src="images/Lost vape.png"                    alt="Lost Vape"></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- BOTTOM CTA -->
-    <section class="vd-cta">
-      <div class="vd-container">
-        <h3>Looking for something specific?</h3>
-        <p>We stock more in-store than online. Call for today’s selection or swing by and we’ll help you pick the perfect setup.</p>
-        <div class="vd-actions">
-          <a class="vd-btn vd-btn--primary" href="tel:+14405582671">Call Now</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer (kept simple to match other pages) -->
-  <footer class="footer">
-    <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
-    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </footer>
-
-  <script>
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Desktop submenu hover is handled by your global CSS.
-    // Mobile: tap-to-open for Shop submenu (does nothing on desktop)
-    (function(){
-      const isTouch = matchMedia('(hover: none)').matches;
-      const shop = document.querySelector('nav .has-submenu');
-      if (!shop) return;
-      const link = shop.querySelector(':scope > a');
-      link.addEventListener('click', function(e){
-        if (isTouch) { e.preventDefault(); shop.classList.toggle('submenu-open'); }
+  const buffer = 40;
+  function fill(){
+    let containerW = marquee.clientWidth;
+    let w = track.scrollWidth;
+    while (w < containerW * 2 + buffer){
+      track.querySelectorAll(':scope > .item').forEach(it=>{
+        const c = it.cloneNode(true);
+        c.setAttribute('data-clone','1');
+        track.appendChild(c);
       });
-    })();
-
-    // Gapless marquee (no blink, no double stack)
-    (function () {
-      const marquee = document.getElementById('mods-marquee');
-      const baseTrack = document.getElementById('mods-track');
-      if (!marquee || !baseTrack) return;
-
-      // Clean old clones if re-saved
-      baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-
-      const containerWidth = marquee.clientWidth;
-      let contentWidth = baseTrack.scrollWidth;
-      const buffer = 40;
-
-      // Clone items until we exceed ~2x container width
-      while (contentWidth < containerWidth * 2 + buffer) {
-        baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-          const clone = item.cloneNode(true);
-          clone.setAttribute('data-clone', '1');
-          baseTrack.appendChild(clone);
-        });
-        contentWidth = baseTrack.scrollWidth;
-      }
-
-      // Set distance/duration from actual width for a perfect loop
-      const speed = Number(marquee.dataset.speed || 28);
-      baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
-      baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
-
-      // Rebuild on resize (e.g., rotate phone)
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-          const cw = marquee.clientWidth;
-          let w = baseTrack.scrollWidth;
-          while (w < cw * 2 + buffer) {
-            baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-              const clone = item.cloneNode(true);
-              clone.setAttribute('data-clone', '1');
-              baseTrack.appendChild(clone);
-            });
-            w = baseTrack.scrollWidth;
-          }
-          baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
-        }, 120);
-      }, { passive: true });
-    })();
-  </script>
+      w = track.scrollWidth;
+    }
+    track.style.setProperty('--dist', `-${w/2}px`);
+  }
+  fill();
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(()=>{
+      track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+      fill();
+    }, 120);
+  }, {passive:true});
+})();
+</script>
 </body>
 </html>
