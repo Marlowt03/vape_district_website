@@ -1,86 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vape District | Mods</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mods — Vape District</title>
+
+  <!-- Your global theme -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ===== Page-scoped styles (won’t touch your global theme) ===== */
+
+    /* HERO (keep the site look; smaller height like other pages) */
+    .vd-hero{
+      background:#0b0f14 url('images/device_package.jpg') center/cover no-repeat;
+      color:#fff; text-align:center; position:relative;
+      padding: 180px 16px 110px;  /* similar to disposables page height */
+    }
+    .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
+    .vd-hero .inner{ position:relative; z-index:1; max-width:1120px; margin:0 auto; }
+    .vd-hero h1{ margin:0 0 8px; font-size:3rem; font-weight:800; }
+    .vd-hero p{ margin:0; font-size:1.1rem; opacity:.95; }
+    .vd-actions{ margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .vd-btn{
+      appearance:none; border:0; border-radius:12px; padding:14px 22px;
+      font-weight:800; font-size:1rem; text-decoration:none; display:inline-flex;
+      align-items:center; justify-content:center;
+      transition:transform .08s, box-shadow .2s, background .2s, color .2s;
+    }
+    .vd-btn:active{ transform:translateY(1px); }
+    .vd-btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
+    .vd-btn--ghost:hover{ background:#f5f7fb; }
+
+    /* CONTENT WRAP */
+    .vd-container{ max-width:1120px; margin:0 auto; padding:0 16px; }
+
+    /* BRAND GRID */
+    .vd-grid-wrap{ padding:28px 0 6px; }
+    .vd-page-sub{
+      margin:0 0 18px; color:#2a3542;
+      font-size:1.125rem; font-weight:700; letter-spacing:.2px; text-align:center;
+    }
+    .vd-grid{
+      display:grid; gap:18px; grid-template-columns:repeat(2,1fr);
+      justify-items:center;
+    }
+    @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(4,1fr); } }
+    .vd-card{
+      width:100%; max-width:260px;
+      background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
+      box-shadow:0 8px 16px rgba(0,0,0,.08);
+    }
+    .vd-card img{
+      width:100%; height:120px; object-fit:contain; display:block;
+      background:#f6f7f9; border-radius:10px;
+    }
+    .vd-card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; font-size:.98rem; }
+
+    /* FEATURED SLIDER (light section) */
+    .vd-strip--light{ background:#fff; color:#111; padding:30px 0 22px; margin-top:28px; border-top:1px solid #eef2f7; }
+    .vd-title{ font-size:1.6rem; margin:0 0 6px; font-weight:800; color:#13293d; text-align:center; }
+    .vd-sub{ margin:0 0 10px; color:#495869; text-align:center; }
+
+    .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
+    .marquee__track{
+      display:inline-flex; align-items:center; gap:20px;
+      will-change:transform; backface-visibility:hidden;
+      animation: marquee linear infinite var(--marquee-duration, 28s);
+    }
+    .marq-item{
+      background:#fff; border-radius:16px; padding:14px; min-width:220px;
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .marq-item img{ height:150px; width:auto; object-fit:contain; display:block; }
+    @media (min-width:900px){ .marq-item{ min-width:250px; } .marq-item img{ height:170px; } }
+    @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(var(--marquee-distance,-100%)); } }
+    @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
+
+    /* BOTTOM CTA */
+    .vd-cta{
+      background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
+      padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5;
+    }
+    .vd-cta h3{ font-size:2.2rem; margin:0 0 10px; color:#13293d; font-weight:800; }
+    .vd-cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.1rem; }
+    .vd-cta .vd-btn{ font-size:1.05rem; padding:16px 26px; border-radius:14px; }
+    .vd-btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
+    .vd-btn--primary:hover{ background:#1567cf; }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
+
+  <!-- NAV — use your existing structure; no global CSS changes here -->
   <nav>
-    <a class="nav-logo" href="index.html">Vape District</a>
+    <a href="index.html" class="nav-logo">Vape District</a>
+    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li class="dropdown">
-        <a href="#">Shop</a>
-        <div class="dropdown-content">
-          <div class="submenu">
-            <a href="420.html" class="has-sub">420</a>
-            <div class="sub-dropdown">
-              <a href="420-wraps.html">Wraps</a>
-              <a href="420-cartridges.html">420 Cartridges</a>
-              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
-              <a href="420-glass.html">Glass</a>
-              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
-              <a href="420-batteries.html">Batteries</a>
-            </div>
-          </div>
-          <div class="submenu">
-            <a href="vapes.html" class="has-sub">Vapes</a>
-            <div class="sub-dropdown">
-              <a href="vape-juice.html">Vape Juice</a>
-              <a href="vape-devices.html">Devices</a>
-              <a href="vape-disposables.html">Disposables</a>
-              <a href="vape-mods.html">Mods</a>
-            </div>
-          </div>
-          <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
-          <a href="mystery-boxes.html">Mystery Boxes</a>
-        </div>
+
+      <li class="has-submenu">
+        <a href="#" onclick="return false;">Shop</a>
+        <ul class="submenu">
+          <li><a href="420.html">420 ▸</a></li>
+          <li><a href="vapes.html">Vapes ▸</a></li>
+          <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+          <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+        </ul>
       </li>
+
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="menu-toggle">☰</div>
   </nav>
-  <!-- Hero -->
-  <section class="hero" style="height: 60vh; background-image: url('images/mods.jpg');">
-    <div class="hero-content">
+
+  <!-- HERO -->
+  <header class="vd-hero">
+    <div class="inner">
       <h1>Mods</h1>
-      <p>Upgrade your vape with powerful mods for a customized experience.</p>
-    </div>
-  </section>
-  <!-- Mods Categories -->
-  <section class="categories-section">
-    <div class="about-text" style="flex:1 1 100%; text-align:center;">
-      <h2 class="section-title">Advanced Mods</h2>
-      <p>Explore high‑performance mods for a customized vaping experience.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="images/mods.jpg" alt="Box Mods">
-        <h3>Box Mods</h3>
-        <p>Powerful box mods with adjustable wattage and style.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/device_package.jpg" alt="Pod Mods">
-        <h3>Pod Mods</h3>
-        <p>Compact and versatile pod mods for on‑the‑go vaping.</p>
-      </div>
-      <div class="product-card">
-        <img src="images/batteries.png" alt="Accessories">
-        <h3>Accessories</h3>
-        <p>Batteries, tanks and coils to keep your mod performing.</p>
+      <p>SMOK, Geekvape, Vaporesso, Lost Vape & more.</p>
+
+      <div class="vd-actions">
+        <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
       </div>
     </div>
-  </section>
-  <!-- Footer -->
+  </header>
+
+  <main>
+    <!-- BRAND GRID -->
+    <section class="vd-grid-wrap">
+      <div class="vd-container">
+        <p class="vd-page-sub">Explore our most popular mod brands.</p>
+
+        <div class="vd-grid">
+          <figure class="vd-card">
+            <img src="images/Smok.png" alt="SMOK" loading="lazy" />
+            <figcaption>SMOK</figcaption>
+          </figure>
+
+          <figure class="vd-card">
+            <img src="images/Geekvape.png" alt="Geekvape" loading="lazy" />
+            <figcaption>Geekvape</figcaption>
+          </figure>
+
+          <figure class="vd-card">
+            <img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso" loading="lazy" />
+            <figcaption>Vaporesso</figcaption>
+          </figure>
+
+          <figure class="vd-card">
+            <!-- filename has a space; keep in quotes -->
+            <img src="images/Lost vape.png" alt="Lost Vape" loading="lazy" />
+            <figcaption>Lost Vape</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDER (gapless) -->
+    <section class="vd-strip vd-strip--light" aria-label="Featured Mods">
+      <div class="vd-container">
+        <h2 class="vd-title">Featured Mods</h2>
+        <p class="vd-sub">Smooth, gapless carousel — always in motion.</p>
+      </div>
+
+      <div class="marquee" id="mods-marquee" data-speed="28">
+        <ul class="marquee__track" id="mods-track">
+          <!-- Base items once; JS clones just enough to loop seamlessly -->
+          <li class="marq-item"><img src="images/Smok.png"                         alt="SMOK"></li>
+          <li class="marq-item"><img src="images/Geekvape.png"                     alt="Geekvape"></li>
+          <li class="marq-item"><img src="images/vaporesso-armour-g-black.webp"    alt="Vaporesso"></li>
+          <li class="marq-item"><img src="images/Lost vape.png"                    alt="Lost Vape"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BOTTOM CTA -->
+    <section class="vd-cta">
+      <div class="vd-container">
+        <h3>Looking for something specific?</h3>
+        <p>We stock more in-store than online. Call for today’s selection or swing by and we’ll help you pick the perfect setup.</p>
+        <div class="vd-actions">
+          <a class="vd-btn vd-btn--primary" href="tel:+14405582671">Call Now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (kept simple to match other pages) -->
   <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Desktop submenu hover is handled by your global CSS.
+    // Mobile: tap-to-open for Shop submenu (does nothing on desktop)
+    (function(){
+      const isTouch = matchMedia('(hover: none)').matches;
+      const shop = document.querySelector('nav .has-submenu');
+      if (!shop) return;
+      const link = shop.querySelector(':scope > a');
+      link.addEventListener('click', function(e){
+        if (isTouch) { e.preventDefault(); shop.classList.toggle('submenu-open'); }
+      });
+    })();
+
+    // Gapless marquee (no blink, no double stack)
+    (function () {
+      const marquee = document.getElementById('mods-marquee');
+      const baseTrack = document.getElementById('mods-track');
+      if (!marquee || !baseTrack) return;
+
+      // Clean old clones if re-saved
+      baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+
+      const containerWidth = marquee.clientWidth;
+      let contentWidth = baseTrack.scrollWidth;
+      const buffer = 40;
+
+      // Clone items until we exceed ~2x container width
+      while (contentWidth < containerWidth * 2 + buffer) {
+        baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+          const clone = item.cloneNode(true);
+          clone.setAttribute('data-clone', '1');
+          baseTrack.appendChild(clone);
+        });
+        contentWidth = baseTrack.scrollWidth;
+      }
+
+      // Set distance/duration from actual width for a perfect loop
+      const speed = Number(marquee.dataset.speed || 28);
+      baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
+      baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
+
+      // Rebuild on resize (e.g., rotate phone)
+      let t;
+      window.addEventListener('resize', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+          const cw = marquee.clientWidth;
+          let w = baseTrack.scrollWidth;
+          while (w < cw * 2 + buffer) {
+            baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+              const clone = item.cloneNode(true);
+              clone.setAttribute('data-clone', '1');
+              baseTrack.appendChild(clone);
+            });
+            w = baseTrack.scrollWidth;
+          }
+          baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
+        }, 120);
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
