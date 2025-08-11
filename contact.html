@@ -11,6 +11,10 @@
 
   <!-- Page-scoped fixes ONLY -->
   <style>
+    :root{
+      --nav-hover:#3AA3FF; /* lighter blue for hover */
+    }
+
     /* ----- NAV: submenu + non-clickable Shop (scoped to nav) ----- */
     nav .nav-links, nav .nav-links ul { list-style: none; margin: 0; padding: 0; }
     nav .has-submenu { position: relative; }
@@ -19,10 +23,10 @@
     nav .has-submenu > span.shop-label{
       display:inline-block; padding:10px 15px;
       color:inherit; text-decoration:none; font-weight:600;
-      cursor:default; user-select:none;
+      cursor:default; user-select:none; transition: color .2s ease;
     }
 
-    /* Submenu */
+    /* Submenu panel */
     nav .submenu {
       display: none;
       position: absolute; top: 100%; left: 0;
@@ -36,9 +40,12 @@
     }
     nav .submenu li a:hover { background: #f5f7fb; }
 
-    /* show on hover (desktop) */
-    @media (hover:hover) { nav .has-submenu:hover > .submenu { display: block; } }
-    /* mobile tap support (class is toggled by tiny script at bottom) */
+    /* Desktop: hover turns Shop blue & shows dropdown */
+    @media (hover:hover) {
+      nav .has-submenu:hover > span.shop-label { color: var(--nav-hover); }
+      nav .has-submenu:hover > .submenu { display: block; }
+    }
+    /* Mobile: class toggled by tiny script */
     nav .submenu-open > .submenu { display: block; }
 
     /* ----- CONTACT hero (same look as you had) ----- */
@@ -222,6 +229,9 @@
         });
       }
     })();
+
+    // Footer year (safety in case script tag above moves)
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
