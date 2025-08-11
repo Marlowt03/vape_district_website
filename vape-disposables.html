@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* ========== PAGE-SCOPED STYLES ONLY (won’t touch global nav styles) ========== */
+  /* ========== PAGE-SCOPED STYLES ONLY (won’t touch global nav) ========== */
   .vd-page { --max:1120px; --brand:#1a73e8; --brand2:#1567cf; --section-grey:#f7f8fa; }
 
   .vd-page .vd-hero{
@@ -58,14 +58,18 @@
   /* Simple footer wrapper so spacing matches site */
   .vd-page .footer .inner{max-width:var(--max); margin:0 auto; padding:18px 16px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between}
 
-  /* ====== NAV fix: make “Shop” NOT a link but still open dropdown ====== */
+  /* ===== NAV fix: non-clickable “Shop” that still hovers blue & opens ===== */
   nav .dropdown > span.shop-label{
     display:inline-block; padding:10px 15px;
-    color:inherit; text-decoration:none; font-weight:600; cursor:default; user-select:none;
+    font-weight:600; color:inherit; text-decoration:none;
+    cursor:default; user-select:none; transition:color .2s ease;
   }
-  /* If your global CSS shows dropdown on hover for .dropdown:hover .dropdown-content,
-     this keeps working because we’re still hovering the same <li>. */
-  /* Mobile/tap fallback via JS: .dropdown.open shows the panel */
+  /* Desktop hover: turn blue & show dropdown (matches your site) */
+  @media (hover:hover){
+    nav .dropdown:hover > span.shop-label{ color:#1a73e8; }
+    nav .dropdown:hover > .dropdown-content{ display:block; }
+  }
+  /* Mobile tap: JS toggles .open */
   nav .dropdown.open > .dropdown-content{ display:block; }
 </style>
 </head>
@@ -172,7 +176,7 @@
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile hamburger (keeps your existing pattern)
+  // Mobile hamburger (same pattern as your site)
   document.querySelector('.menu-toggle')?.addEventListener('click', function(){
     const nav = document.getElementById('main-nav');
     if (!nav) return;
