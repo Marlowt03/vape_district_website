@@ -11,15 +11,12 @@
 .page { --wrap:1120px; --pad:16px; --gap:24px; }
 
 /* HERO */
-.page .hero{
-  position:relative;
-  background:#0b0b0b url('images/mods.jpg') center/cover no-repeat;
-  color:#fff; 
-  text-align:center;
-  height: 370px; /* happy medium */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.page .hero {
+  position: relative;
+  background: #0b0b0b url('images/mods.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: clamp(60px, 16vh, 120px) var(--pad); /* Balanced height */
 }
 .page .hero::after{
   content:""; position:absolute; inset:0;
