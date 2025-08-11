@@ -6,73 +6,6 @@
   <title>Vape District | Home</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Disposable Vapes — Vape District</title>
-
-<!-- Use your global CSS exactly like index.html -->
-<link rel="stylesheet" href="style.css" />
-
-<style>
-  /* Page-only styling (NO nav overrides) */
-
-  :root{
-    --ink:#0f2233;
-    --brand:#1a73e8;
-    --brand-2:#1567cf;
-    --max:1120px;
-    --section-grey:#f7f8fa;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0}
-
-  /* HERO (same look as before) */
-  .vd-hero{
-    background:#101010 url('images/geek_bar.png') center/cover no-repeat;
-    color:#fff;text-align:center;position:relative;padding:320px 16px 160px;
-  }
-  .vd-hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
-  .vd-hero .inner{position:relative;z-index:1;max-width:var(--max);margin:0 auto}
-  .vd-hero h1{margin:0 0 8px;font-size:3rem;font-weight:800}
-  .vd-hero p{margin:0;font-size:1.1rem;opacity:.95}
-  .vd-actions{margin-top:18px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-  .vd-btn{appearance:none;border:0;border-radius:12px;padding:14px 22px;font-weight:800;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;transition:transform .08s,box-shadow .2s,background .2s,color .2s}
-  .vd-btn:active{transform:translateY(1px)}
-  .vd-btn--ghost{color:#0b1f33;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.16)}
-  .vd-btn--ghost:hover{background:#f5f7fb}
-
-  /* WRAP */
-  .vd-container{max-width:var(--max);margin:0 auto;padding:0 16px}
-
-  /* BRAND GRID — shorter cards + light grey section */
-  .vd-grid-wrap{padding:28px 0 6px;background:var(--section-grey)}
-  .vd-page-sub{margin:0 0 18px;color:#2a3542;font-size:1.125rem;font-weight:700;letter-spacing:.2px}
-  .vd-grid{display:grid;gap:22px;grid-template-columns:repeat(2,1fr)}
-  @media (min-width:680px){.vd-grid{grid-template-columns:repeat(3,1fr)}}
-  @media (min-width:980px){.vd-grid{grid-template-columns:repeat(5,1fr)}}
-  .vd-card{background:#fff;border-radius:16px;padding:16px 14px;text-align:center;box-shadow:0 10px 18px rgba(0,0,0,.08)}
-  .vd-card img{width:100%;height:110px;object-fit:contain;background:#f6f7f9;border-radius:12px}
-  .vd-card figcaption{margin-top:12px;font-weight:800;color:#1b2a3a;font-size:1.05rem}
-
-  /* FEATURED SLIDER (gapless) */
-  .vd-strip--light{background:#fff;color:#111;padding:30px 0 20px;margin-top:0;border-top:1px solid #eef2f7}
-  .vd-title{font-size:1.6rem;margin:0 0 4px;font-weight:800;color:#13293d}
-  .vd-sub{margin:0 0 8px;color:#495869}
-  .marquee{position:relative;overflow:hidden;padding:16px 0 24px}
-  .marquee__track{display:inline-flex;align-items:center;gap:20px;will-change:transform;backface-visibility:hidden;animation:marqueeX var(--dur,30s) linear infinite}
-  .marq-item{background:#fff;border-radius:16px;padding:14px;min-width:240px;box-shadow:0 10px 22px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
-  .marq-item img{height:140px;width:auto;object-fit:contain}
-  @keyframes marqueeX{from{transform:translateX(0)}to{transform:translateX(var(--dist,-100%))}}
-  @media (prefers-reduced-motion:reduce){.marquee__track{animation:none!important}}
-
-  /* CTA */
-  .vd-cta{background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%);padding:54px 16px;text-align:center;margin-top:36px;border-top:1px solid #e7edf5}
-  .vd-cta h3{font-size:2.2rem;margin:0 0 10px;color:#13293d;font-weight:800}
-  .vd-cta p{margin:0 auto 18px;max-width:860px;color:#495869;font-size:1.1rem}
-  .vd-cta .vd-btn{font-size:1.05rem;padding:16px 26px;border-radius:14px}
-  .vd-btn--primary{color:#fff;background:var(--brand);box-shadow:0 10px 28px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08)}
-  .vd-btn--primary:hover{background:var(--brand-2)}
-</style>
 </head>
 <body>
   <!-- Navigation -->
@@ -133,38 +66,8 @@
       <h2 class="section-title">About Us</h2>
       <p>Ohio’s go‑to spot for premium vapes, smoke gear, and more. Come check us out in <span class="gradient-text">Parma, Brunswick, or Willoughby</span> — we carry top brands, solid prices, and the <span class="gradient-text">best loyalty program</span> in the state.</p>
       <a href="tel:+14405582671" class="btn btn-primary">Call Us: (440) 558-2671</a>
-<!-- EXACT SAME NAV HTML AS index.html -->
-<!-- (If you ever change it on index, paste that same block here.) -->
-<nav>
-  <a href="index.html" class="nav-logo">Vape District</a>
-  <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li class="has-submenu">
-      <a href="shop.html">Shop</a>
-      <ul class="submenu">
-        <li><a href="420.html">420 ▸</a></li>
-        <li><a href="vapes.html">Vapes ▸</a></li>
-        <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
-        <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
-      </ul>
-    </li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<header class="vd-hero">
-  <div class="inner">
-    <h1>Disposable Vapes</h1>
-    <p>Off-Stamp, North 5K, FOGER, RAZ & more.</p>
-    <div class="vd-actions">
-      <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
     </div>
   </section>
-  </div>
-</header>
 
   <!-- Reviews Section with slider -->
   <section class="reviews-section">
@@ -187,32 +90,6 @@
       <div class="review-slide">
         <div class="stars">★★★★★</div>
         <p>Nas is a great man and very respectful. He keeps the shop clean and the atmosphere in the shop is very professional. He has the best prices and products I've seen by far. He always works with you to ensure you get what you want or what's best for your kit. I would give 10 stars if I could.</p>
-<main>
-  <!-- BRAND GRID -->
-  <section class="vd-grid-wrap">
-    <div class="vd-container">
-      <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
-      <div class="vd-grid">
-        <figure class="vd-card">
-          <img src="images/raz.png" alt="RAZ" loading="lazy" />
-          <figcaption>RAZ</figcaption>
-        </figure>
-        <figure class="vd-card">
-          <img src="images/geek_bar.png" alt="Geek Bar" loading="lazy" />
-          <figcaption>Geek Bar</figcaption>
-        </figure>
-        <figure class="vd-card">
-          <img src="images/off_stamp.png" alt="Off-Stamp" loading="lazy" />
-          <figcaption>Off-Stamp</figcaption>
-        </figure>
-        <figure class="vd-card">
-          <img src="images/north-5k.jpg" alt="North 5K" loading="lazy" />
-          <figcaption>North 5K</figcaption>
-        </figure>
-        <figure class="vd-card">
-          <img src="images/foger.jpg" alt="FOGER" loading="lazy" />
-          <figcaption>FOGER</figcaption>
-        </figure>
       </div>
       <div class="review-slide">
         <div class="stars">★★★★★</div>
@@ -264,19 +141,6 @@
         <p>Customizable mod devices for advanced vaping.</p>
         <a href="vape-mods.html">View Mods</a>
       </div>
-  <!-- SLIDER -->
-  <section class="vd-strip vd-strip--light" aria-label="Featured Disposables">
-    <div class="vd-container">
-      <h2 class="vd-title">Featured Disposables</h2>
-      <p class="vd-sub">Always moving — no gaps, no blinking.</p>
-    </div>
-    <div class="marquee" id="disp-marquee">
-      <ul class="marquee__track" id="disp-track">
-        <li class="marq-item"><img src="images/off_stamp.png"  alt="Off-Stamp"></li>
-        <li class="marq-item"><img src="images/north-5k.jpg"   alt="North 5K"></li>
-        <li class="marq-item"><img src="images/foger.jpg"      alt="FOGER"></li>
-        <li class="marq-item"><img src="images/raz.png"        alt="RAZ"></li>
-      </ul>
     </div>
   </section>
 
@@ -285,14 +149,6 @@
     <h2 class="section-title">Get In Touch</h2>
     <div class="contact-info">
       <p>Have a question? Send us a message!</p>
-  <!-- CTA -->
-  <section class="vd-cta">
-    <div class="vd-container">
-      <h3>Looking for something specific?</h3>
-      <p>We carry a much larger selection in-store than what’s shown here. Give us a quick call and we’ll check today’s case for flavors and brands in stock.</p>
-      <div class="vd-actions">
-        <a class="vd-btn vd-btn--primary" href="tel:+14405582671">Call Now</a>
-      </div>
     </div>
     <form class="contact-form" action="#" method="post">
       <input type="text" name="name" placeholder="Your Name" required>
@@ -301,57 +157,11 @@
       <button type="submit">Send Message</button>
     </form>
   </section>
-</main>
-
-<!-- Same footer as index -->
-<footer class="footer">
-  <div class="inner">
-    <p style="margin:0">&copy; <span id="year"></span> Vape District. All rights reserved.</p>
-    <p style="margin:0">6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </div>
-</footer>
-
-<script>
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Mobile submenu open on tap (does not change styles)
-  (function(){
-    const isTouch = matchMedia('(hover:none)').matches;
-    if(!isTouch) return;
-    const shop = document.querySelector('nav .has-submenu');
-    const link = shop?.querySelector(':scope > a');
-    link?.addEventListener('click', e=>{
-      e.preventDefault();
-      shop.classList.toggle('submenu-open');
-    });
-  })();
-
-  // Gapless marquee
-  (function () {
-    const marquee = document.getElementById('disp-marquee');
-    const track   = document.getElementById('disp-track');
-    if (!marquee || !track) return;
-
-    const BASE = track.innerHTML;
-    function build(){
-      track.innerHTML = BASE + BASE;              // two sequences
-      const seq = track.scrollWidth / 2;          // width of one
-      const pxPerSec = window.innerWidth >= 900 ? 80 : 60;
-      track.style.setProperty('--dist', `-${seq}px`);
-      track.style.setProperty('--dur',  `${seq/pxPerSec}s`);
-    }
-    if (document.readyState === 'complete') build();
-    else window.addEventListener('load', build, { once:true });
 
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
-    let t; window.addEventListener('resize', ()=>{clearTimeout(t); t=setTimeout(build,120)}, {passive:true});
-  })();
-</script>
 </body>
-</html>
 </html>
