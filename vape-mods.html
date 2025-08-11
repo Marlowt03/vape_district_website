@@ -5,32 +5,45 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Mods — Vape District</title>
 
-<!-- Use your global stylesheet (drives the nav look) -->
+<!-- Your global stylesheet (drives the nav look) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ===== Page-scoped styles only (no nav/button rules) ===== */
+/* ===== Page-scoped styles only (no nav overrides) ===== */
 .page { --wrap:1120px; --pad:16px; --gap:24px; }
 
-/* Hero — compact like your other category pages */
+/* HERO — compact, less than half the height you had */
 .page .hero{
   position:relative;
   background:#0b0b0b url('images/mods.jpg') center/cover no-repeat;
   color:#fff; text-align:center;
-  padding: clamp(18px,3.8vh,26px) var(--pad) clamp(14px,3vh,22px);
+  /* small, consistent header height */
+  padding: clamp(10px, 2.2vh, 14px) var(--pad) clamp(10px, 2vh, 14px);
 }
 .page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
 .page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.page .hero h1{ margin:0 0 6px; font-size:clamp(24px,4.2vw,36px); font-weight:900; }
-.page .hero p{ margin:0; opacity:.98; }
+.page .hero h1{ margin:0 0 6px; font-size:clamp(24px,4vw,34px); font-weight:900; }
+.page .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.8vw,16px); }
 .page .actions{ margin-top:12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+/* Light-touch button polish (scoped so it won't touch other pages) */
+.page .actions a{
+  display:inline-block; padding:12px 20px; border-radius:10px;
+  text-decoration:none; font-weight:700; font-size:0.97rem;
+  background:#ffffff; color:#0b1f33; box-shadow:0 8px 20px rgba(0,0,0,.14);
+  transition:background .2s, transform .08s;
+}
+.page .actions a:hover{ background:#f5f7fb; }
+.page .actions a:active{ transform:translateY(1px); }
 
-/* Content wrap */
+/* CONTENT WRAP */
 .page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
-/* Product cards grid */
+/* PRODUCT CARDS */
 .page .section{ padding:22px 0 8px; }
-.page .section h2{ margin:0 0 8px; font-size:clamp(18px,3.6vw,24px); color:#223041; font-weight:800; text-align:center; }
+.page .section h2{
+  margin:0 0 8px; font-size:clamp(17px,3.2vw,22px); /* tiny bit smaller */
+  color:#223041; font-weight:800; text-align:center;
+}
 .page .section p.lead{ margin:0 0 16px; color:#526173; text-align:center; }
 
 .page .grid{
@@ -52,13 +65,13 @@
 .page .card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
 .page .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
 
-/* Featured strip (centered) */
-.page .strip{ background:#fff; color:#111; padding:20px 0 16px; margin-top:6px; border-top:1px solid #eef2f7; }
+/* FEATURED STRIP (centered) */
+.page .strip{ background:#fff; color:#111; padding:18px 0 14px; margin-top:6px; border-top:1px solid #eef2f7; }
 .page .strip .wrap{ text-align:center; }
 .page .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
 .page .strip p{ margin:0 0 10px; color:#526173; }
 
-/* Gapless marquee */
+/* GAPLESS MARQUEE */
 .page .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
 .page .track{
   display:inline-flex; align-items:center; gap:16px;
@@ -75,23 +88,21 @@
 @keyframes page-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
 @media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
 
-/* Bottom CTA */
+/* BOTTOM CTA */
 .page .cta{
   background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:44px var(--pad); margin-top:26px; border-top:1px solid #e7edf5; text-align:center;
+  padding:38px var(--pad); margin-top:22px; border-top:1px solid #e7edf5; text-align:center;
 }
-.page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,30px); color:#13293d; font-weight:900; }
-.page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.04rem; }
+.page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
+.page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.02rem; }
 
-/* Tiny safety override to guarantee compact hero on this page */
-@layer overrides {
-  .page .hero{ padding:18px 16px 14px !important; }
-}
+/* Tiny safety override to guarantee compact hero on THIS page only */
+@layer overrides { .page .hero{ padding:12px 16px 12px !important; } }
 </style>
 </head>
 <body class="page">
 
-<!-- NAV — EXACTLY your index structure (no CSS changes here) -->
+<!-- NAV — EXACTLY your index structure -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
