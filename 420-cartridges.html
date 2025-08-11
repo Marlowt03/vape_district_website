@@ -5,101 +5,106 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Disposable Cartridges — Vape District</title>
 
-<!-- Your global CSS (nav, base styles, etc.) -->
+<!-- Your global site CSS (this carries the correct nav look) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* Page-scoped only — does NOT touch your nav styles */
-.dc { --wrap: 1120px; --pad: 16px; --brand-gap: 28px; }
+/* ---------- Page-scoped styles (namespaced) ---------- */
+.dc { --wrap: 1120px; --pad: 16px; }
 
-/* HERO (smaller + restrained) */
+/* HERO: smaller height + your background image */
 .dc .hero{
   position:relative;
   background:#0b0b0b url('images/test_chapo.png') center/cover no-repeat;
   color:#fff; text-align:center;
-  /* much smaller than before */
-  padding: clamp(72px, 12vh, 96px) var(--pad) clamp(36px, 6vh, 48px);
+  /* quite a bit shorter now */
+  padding: clamp(48px, 8.5vh, 64px) var(--pad) clamp(22px, 4.8vh, 32px);
 }
 .dc .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.15)); }
 .dc .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.dc .hero h1{ margin:0 0 6px; font-size: clamp(28px, 5vw, 44px); font-weight:900; }
-.dc .hero p{ margin:0; opacity:.95; }
-.dc .hero .actions{ margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.dc .hero h1{ margin:0 0 6px; font-size:clamp(26px,4.6vw,40px); font-weight:900; }
+.dc .hero p{ margin:0; opacity:.98; }
+
+/* Buttons: a touch larger than before */
+.dc .actions{ margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 .dc .btn{
-  appearance:none; border:0; border-radius:12px; padding:12px 18px;
-  font-weight:800; font-size:1rem; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+  appearance:none; border:0; border-radius:12px;
+  padding:14px 22px;               /* bigger */
+  font-weight:800; font-size:1.06rem; /* bigger */
+  text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
   transition:transform .08s, box-shadow .2s, background .2s, color .2s;
 }
 .dc .btn:active{ transform:translateY(1px); }
 .dc .btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
 .dc .btn--ghost:hover{ background:#f5f7fb; }
+.dc .btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
+.dc .btn--primary:hover{ background:#1567cf; }
 
-/* Wrap */
+/* Layout wrap */
 .dc .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
 /* Brand grid (centered) */
-.dc .brands{ padding:28px 0 10px; }
+.dc .brands{ padding:26px 0 8px; }
 .dc .brands h2{
   margin:0 0 10px; font-size:clamp(18px,3.6vw,24px); color:#223041; font-weight:800; text-align:center;
 }
 .dc .brand-grid{
-  display:grid; gap:var(--brand-gap);
+  display:grid; gap:24px;
   grid-template-columns:repeat(2, minmax(0,1fr));
   justify-items:center;
 }
 @media (min-width:740px){ .dc .brand-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-
 .dc .card{
-  width:100%; max-width:260px;
+  width:100%; max-width:248px;
   background:#fff; border-radius:18px; padding:16px 16px 14px; text-align:center;
   box-shadow:0 10px 22px rgba(0,0,0,.10);
 }
 .dc .card .thumb{
   background:#f6f7f9; border-radius:14px; padding:14px;
-  display:flex; align-items:center; justify-content:center; height:160px;
+  display:flex; align-items:center; justify-content:center; height:156px;
 }
-.dc .card img{ max-height:130px; width:auto; height:auto; object-fit:contain; display:block; }
-.dc .card h3{ margin:12px 0 0; font-size:20px; color:#0f2436; font-weight:800; }
+.dc .card img{ max-height:126px; width:auto; object-fit:contain; display:block; }
+.dc .card h3{ margin:12px 0 0; font-size:19px; color:#0f2436; font-weight:800; }
 
-/* Featured strip + slider */
-.dc .strip{ background:#fff; color:#111; padding:28px 0 24px; margin-top:10px; }
+/* Featured slider block (centered) */
+.dc .strip{ background:#fff; color:#111; padding:22px 0 18px; margin-top:6px; }
 .dc .strip .wrap{ text-align:center; }
-.dc .strip h3{ margin:0 0 6px; font-size:24px; font-weight:800; color:#13293d; }
+.dc .strip h3{ margin:0 0 6px; font-size:22px; font-weight:800; color:#13293d; }
 .dc .strip p{ margin:0 0 10px; color:#526173; }
 
-.dc .marquee{ position:relative; overflow:hidden; padding:10px 0 22px; }
+/* Gapless marquee */
+.dc .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
 .dc .track{
-  display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden;
-  animation: dc-mar linear infinite var(--dur, 28s);
+  display:inline-flex; align-items:center; gap:18px;
+  will-change:transform; backface-visibility:hidden;
+  animation: dc-mar linear infinite var(--dur, 26s);
 }
 .dc .mitem{
   background:#fff; border-radius:16px; padding:14px; min-width:220px;
   box-shadow:0 10px 22px rgba(0,0,0,.12);
   display:flex; align-items:center; justify-content:center;
 }
-.dc .mitem img{ height:140px; width:auto; object-fit:contain; display:block; }
-@media (min-width:900px){ .dc .mitem{ min-width:250px; } .dc .mitem img{ height:165px; } }
+.dc .mitem img{ height:136px; width:auto; object-fit:contain; display:block; }
+@media (min-width:900px){ .dc .mitem{ min-width:248px; } .dc .mitem img{ height:158px; } }
 @keyframes dc-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
 @media (prefers-reduced-motion: reduce){ .dc .track{ animation:none !important; } }
 
-/* Bottom CTA (full-width) */
+/* Bottom CTA (full width) */
 .dc .cta{
   background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:60px var(--pad); margin-top:36px; border-top:1px solid #e7edf5; text-align:center;
+  padding:50px var(--pad); margin-top:30px; border-top:1px solid #e7edf5; text-align:center;
 }
-.dc .cta h4{ margin:0 0 10px; font-size:clamp(22px,4.2vw,34px); color:#13293d; font-weight:900; }
+.dc .cta h4{ margin:0 0 10px; font-size:clamp(22px,4.2vw,32px); color:#13293d; font-weight:900; }
 .dc .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
-.dc .btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
-.dc .btn--primary:hover{ background:#1567cf; }
 
-/* Footer */
-.dc .foot{ text-align:center; padding:36px var(--pad); color:#5a6a7a; font-size:14px; }
+/* Footer (unchanged, light) */
+.dc .foot{ text-align:center; padding:32px var(--pad); color:#5a6a7a; font-size:14px; }
 .dc .foot a{ color:#1a73e8; text-decoration:none; }
 </style>
 </head>
 <body class="dc">
 
-<!-- Global nav (unchanged; same structure as index) -->
+<!-- Use your existing global nav exactly as-is -->
 <nav>
   <a href="index.html" class="nav-logo">Vape District</a>
   <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
@@ -108,6 +113,7 @@
     <li><a href="about.html">About</a></li>
 
     <li class="has-submenu">
+      <!-- prevent navigation; dropdown only -->
       <a href="shop.html" onclick="return false">Shop</a>
       <ul class="submenu">
         <li><a href="420.html">420 ▸</a></li>
@@ -168,14 +174,14 @@
     </div>
   </section>
 
-  <!-- FEATURED (centered) -->
+  <!-- FEATURED (centered, gapless) -->
   <section class="strip" aria-label="Featured Disposable Cartridges">
     <div class="wrap">
       <h3>Featured Disposable Cartridges</h3>
       <p>Smooth, gapless carousel — always in motion.</p>
     </div>
 
-    <div class="marquee" id="dcMarquee" data-speed="28">
+    <div class="marquee" id="dcMarquee" data-speed="26">
       <ul class="track" id="dcTrack">
         <li class="mitem"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></li>
         <li class="mitem"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></li>
@@ -187,7 +193,7 @@
 
   <!-- BOTTOM CTA -->
   <section class="cta">
-    <div class="wrap" style="text-align:center">
+    <div class="wrap">
       <h4>Looking for something specific?</h4>
       <p>We stock more in-store than online. Call for today’s stock.</p>
       <a class="btn btn--primary" href="tel:+14405582671">Call Now</a>
@@ -201,19 +207,8 @@
 </footer>
 
 <script>
-  // Footer year
+  // Year
   document.getElementById('y').textContent = new Date().getFullYear();
-
-  // Mobile: tap to open Shop submenu (no nav CSS changed)
-  (function(){
-    const isTouch = matchMedia('(hover: none)').matches;
-    const li = document.querySelector('nav .has-submenu');
-    if (!li) return;
-    const link = li.querySelector(':scope > a');
-    link.addEventListener('click', (e) => {
-      if (isTouch){ e.preventDefault(); li.classList.toggle('submenu-open'); }
-    });
-  })();
 
   // Gapless marquee
   (function(){
@@ -221,41 +216,28 @@
     const track = document.getElementById('dcTrack');
     if(!mq || !track) return;
 
-    track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-
     const pad = 40;
-    const cw = mq.clientWidth;
-    let w = track.scrollWidth;
-
-    while (w < cw * 2 + pad) {
-      track.querySelectorAll(':scope > .mitem').forEach(item => {
-        const c = item.cloneNode(true);
-        c.setAttribute('data-clone','1');
-        track.appendChild(c);
-      });
-      w = track.scrollWidth;
-    }
-    const speed = Number(mq.dataset.speed || 28);
-    track.style.setProperty('--dist', `-${w/2}px`);
-    track.style.setProperty('--dur', `${speed}s`);
+    const refill = () => {
+      // remove previous clones
+      track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+      let w = track.scrollWidth;
+      const need = mq.clientWidth * 2 + pad;
+      while (w < need) {
+        track.querySelectorAll(':scope > .mitem').forEach(item => {
+          const c = item.cloneNode(true);
+          c.setAttribute('data-clone','1');
+          track.appendChild(c);
+        });
+        w = track.scrollWidth;
+      }
+      track.style.setProperty('--dist', `-${w/2}px`);
+    };
+    refill();
 
     let t;
     window.addEventListener('resize', () => {
       clearTimeout(t);
-      t = setTimeout(() => {
-        track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-        const ncw = mq.clientWidth;
-        let nw = track.scrollWidth;
-        while (nw < ncw * 2 + pad) {
-          track.querySelectorAll(':scope > .mitem').forEach(item => {
-            const c = item.cloneNode(true);
-            c.setAttribute('data-clone','1');
-            track.appendChild(c);
-          });
-          nw = track.scrollWidth;
-        }
-        track.style.setProperty('--dist', `-${nw/2}px`);
-      }, 120);
+      t = setTimeout(refill, 120);
     }, { passive:true });
   })();
 </script>
