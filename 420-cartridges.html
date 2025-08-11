@@ -5,32 +5,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Disposable Cartridges — Vape District</title>
 
-<!-- Your global site CSS (this carries the correct nav look) -->
+<!-- Use your global CSS (this controls the nav look) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ---------- Page-scoped styles (namespaced) ---------- */
-.dc { --wrap: 1120px; --pad: 16px; }
+/* ===== Page-scoped styles only (no nav rules) ===== */
+.dc { --wrap:1120px; --pad:16px; }
 
-/* HERO: smaller height + your background image */
+/* HERO — ~1/3 shorter than last version */
 .dc .hero{
   position:relative;
   background:#0b0b0b url('images/test_chapo.png') center/cover no-repeat;
   color:#fff; text-align:center;
-  /* quite a bit shorter now */
-  padding: clamp(48px, 8.5vh, 64px) var(--pad) clamp(22px, 4.8vh, 32px);
+  /* much smaller height now */
+  padding: clamp(28px, 6vh, 44px) var(--pad) clamp(14px, 3vh, 22px);
 }
 .dc .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.15)); }
 .dc .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.dc .hero h1{ margin:0 0 6px; font-size:clamp(26px,4.6vw,40px); font-weight:900; }
+.dc .hero h1{ margin:0 0 6px; font-size:clamp(24px,4.2vw,36px); font-weight:900; }
 .dc .hero p{ margin:0; opacity:.98; }
 
-/* Buttons: a touch larger than before */
-.dc .actions{ margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+/* Buttons a touch larger */
+.dc .actions{ margin-top:12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 .dc .btn{
   appearance:none; border:0; border-radius:12px;
-  padding:14px 22px;               /* bigger */
-  font-weight:800; font-size:1.06rem; /* bigger */
+  padding:14px 22px; font-weight:800; font-size:1.06rem;
   text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
   transition:transform .08s, box-shadow .2s, background .2s, color .2s;
 }
@@ -40,80 +39,74 @@
 .dc .btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
 .dc .btn--primary:hover{ background:#1567cf; }
 
-/* Layout wrap */
 .dc .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
 /* Brand grid (centered) */
-.dc .brands{ padding:26px 0 8px; }
-.dc .brands h2{
-  margin:0 0 10px; font-size:clamp(18px,3.6vw,24px); color:#223041; font-weight:800; text-align:center;
-}
+.dc .brands{ padding:22px 0 6px; }
+.dc .brands h2{ margin:0 0 10px; font-size:clamp(18px,3.6vw,24px); color:#223041; font-weight:800; text-align:center; }
 .dc .brand-grid{
-  display:grid; gap:24px;
+  display:grid; gap:22px;
   grid-template-columns:repeat(2, minmax(0,1fr));
   justify-items:center;
 }
 @media (min-width:740px){ .dc .brand-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
 .dc .card{
-  width:100%; max-width:248px;
-  background:#fff; border-radius:18px; padding:16px 16px 14px; text-align:center;
+  width:100%; max-width:238px;
+  background:#fff; border-radius:18px; padding:14px 14px 12px; text-align:center;
   box-shadow:0 10px 22px rgba(0,0,0,.10);
 }
 .dc .card .thumb{
-  background:#f6f7f9; border-radius:14px; padding:14px;
-  display:flex; align-items:center; justify-content:center; height:156px;
+  background:#f6f7f9; border-radius:14px; padding:12px;
+  display:flex; align-items:center; justify-content:center; height:142px;
 }
-.dc .card img{ max-height:126px; width:auto; object-fit:contain; display:block; }
-.dc .card h3{ margin:12px 0 0; font-size:19px; color:#0f2436; font-weight:800; }
+.dc .card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
+.dc .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
 
-/* Featured slider block (centered) */
-.dc .strip{ background:#fff; color:#111; padding:22px 0 18px; margin-top:6px; }
+/* Featured slider (centered) */
+.dc .strip{ background:#fff; color:#111; padding:20px 0 16px; margin-top:4px; }
 .dc .strip .wrap{ text-align:center; }
-.dc .strip h3{ margin:0 0 6px; font-size:22px; font-weight:800; color:#13293d; }
+.dc .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
 .dc .strip p{ margin:0 0 10px; color:#526173; }
 
 /* Gapless marquee */
-.dc .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+.dc .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
 .dc .track{
-  display:inline-flex; align-items:center; gap:18px;
+  display:inline-flex; align-items:center; gap:16px;
   will-change:transform; backface-visibility:hidden;
-  animation: dc-mar linear infinite var(--dur, 26s);
+  animation: dc-mar linear infinite var(--dur, 25s);
 }
 .dc .mitem{
-  background:#fff; border-radius:16px; padding:14px; min-width:220px;
+  background:#fff; border-radius:16px; padding:12px; min-width:210px;
   box-shadow:0 10px 22px rgba(0,0,0,.12);
   display:flex; align-items:center; justify-content:center;
 }
-.dc .mitem img{ height:136px; width:auto; object-fit:contain; display:block; }
-@media (min-width:900px){ .dc .mitem{ min-width:248px; } .dc .mitem img{ height:158px; } }
+.dc .mitem img{ height:130px; width:auto; object-fit:contain; display:block; }
+@media (min-width:900px){ .dc .mitem{ min-width:236px; } .dc .mitem img{ height:150px; } }
 @keyframes dc-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
 @media (prefers-reduced-motion: reduce){ .dc .track{ animation:none !important; } }
 
-/* Bottom CTA (full width) */
+/* Bottom CTA */
 .dc .cta{
   background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:50px var(--pad); margin-top:30px; border-top:1px solid #e7edf5; text-align:center;
+  padding:44px var(--pad); margin-top:26px; border-top:1px solid #e7edf5; text-align:center;
 }
-.dc .cta h4{ margin:0 0 10px; font-size:clamp(22px,4.2vw,32px); color:#13293d; font-weight:900; }
-.dc .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
+.dc .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,30px); color:#13293d; font-weight:900; }
+.dc .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.04rem; }
 
-/* Footer (unchanged, light) */
-.dc .foot{ text-align:center; padding:32px var(--pad); color:#5a6a7a; font-size:14px; }
+.dc .foot{ text-align:center; padding:28px var(--pad); color:#5a6a7a; font-size:14px; }
 .dc .foot a{ color:#1a73e8; text-decoration:none; }
 </style>
 </head>
 <body class="dc">
 
-<!-- Use your existing global nav exactly as-is -->
+<!-- Your global nav (unchanged) -->
 <nav>
   <a href="index.html" class="nav-logo">Vape District</a>
   <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
-
     <li class="has-submenu">
-      <!-- prevent navigation; dropdown only -->
       <a href="shop.html" onclick="return false">Shop</a>
       <ul class="submenu">
         <li><a href="420.html">420 ▸</a></li>
@@ -122,12 +115,10 @@
         <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
       </ul>
     </li>
-
     <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO (smaller) -->
 <header class="hero">
   <div class="inner">
     <h1>Disposable Cartridges</h1>
@@ -139,49 +130,35 @@
 </header>
 
 <main>
-  <!-- BRANDS -->
   <section class="brands wrap" aria-label="Popular disposable cartridge brands">
     <h2>Explore our most popular disposable cartridge brands.</h2>
-
     <div class="brand-grid">
       <figure class="card">
-        <div class="thumb">
-          <img src="images/Space%20Gods%20Png.webp" alt="Space Gods">
-        </div>
+        <div class="thumb"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></div>
         <h3>Space Gods</h3>
       </figure>
-
       <figure class="card">
-        <div class="thumb">
-          <img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills">
-        </div>
+        <div class="thumb"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></div>
         <h3>Hidden Hills</h3>
       </figure>
-
       <figure class="card">
-        <div class="thumb">
-          <img src="images/Torch.png" alt="Torch">
-        </div>
+        <div class="thumb"><img src="images/Torch.png" alt="Torch"></div>
         <h3>Torch</h3>
       </figure>
-
       <figure class="card">
-        <div class="thumb">
-          <img src="images/Loose%20Change.png" alt="Loose Change">
-        </div>
+        <div class="thumb"><img src="images/Loose%20Change.png" alt="Loose Change"></div>
         <h3>Loose Change</h3>
       </figure>
     </div>
   </section>
 
-  <!-- FEATURED (centered, gapless) -->
   <section class="strip" aria-label="Featured Disposable Cartridges">
     <div class="wrap">
       <h3>Featured Disposable Cartridges</h3>
       <p>Smooth, gapless carousel — always in motion.</p>
     </div>
 
-    <div class="marquee" id="dcMarquee" data-speed="26">
+    <div class="marquee" id="dcMarquee" data-speed="25">
       <ul class="track" id="dcTrack">
         <li class="mitem"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></li>
         <li class="mitem"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></li>
@@ -191,7 +168,6 @@
     </div>
   </section>
 
-  <!-- BOTTOM CTA -->
   <section class="cta">
     <div class="wrap">
       <h4>Looking for something specific?</h4>
@@ -218,7 +194,6 @@
 
     const pad = 40;
     const refill = () => {
-      // remove previous clones
       track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
       let w = track.scrollWidth;
       const need = mq.clientWidth * 2 + pad;
