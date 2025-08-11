@@ -3,115 +3,119 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Vape Juice (Freebase & Salt Nic) — Vape District</title>
+<title>Vape Juice — Vape District</title>
 
-<!-- Global site stylesheet (leave as-is so nav stays consistent) -->
+<!-- Global site CSS (your existing theme) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ===== Page-scoped styles (won’t fight your global theme) ===== */
-.page { --wrap:1120px; --pad:16px; --gap:22px; }
+/* ---------- Page-scoped styles (won’t disturb the rest of the site) ---------- */
+.vj { --wrap:1120px; --pad:16px; --gap:22px; }
 
-/* HERO — compact, readable, responsive */
-.page .hero{
+/* HERO — compact, readable, with white button */
+.vj .hero{
   position:relative;
-  background:#0b0b0b url('images/BLUERAZZLEMONADEFREEZE.webp') center/cover no-repeat;
-  color:#fff; text-align:center;
-  padding: clamp(56px, 14vh, 180px) var(--pad);   /* “a little less than half screen” look */
+  background:#0b0b0b url('images/vapejuice.png') center/cover no-repeat;
+  color:#fff;
+  text-align:center;
+  /* compact but visible (a little less than half screen on desktop) */
+  min-height: clamp(160px, 28vh, 280px);
+  display:flex; align-items:center; justify-content:center;
+  padding: 14px var(--pad);
 }
-.page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.40),rgba(0,0,0,.18)); }
-.page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.page .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; }
-.page .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.6vw,17px); }
-.page .actions{ margin-top:14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-.page .btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:12px 20px; border-radius:12px; font-weight:800; text-decoration:none;
-  transition:transform .08s, background .2s, color .2s, box-shadow .2s;
+.vj .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.35)); }
+.vj .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
+.vj .hero h1{ margin:0 0 6px; font-weight:900; font-size:clamp(26px,4.4vw,40px); }
+.vj .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.6vw,18px); }
+.vj .actions{ margin-top:12px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.vj .btn{
+  display:inline-block; padding:12px 20px; border-radius:12px;
+  text-decoration:none; font-weight:800; font-size:0.98rem;
+  transition:transform .08s, box-shadow .2s, background .2s, color .2s, border-color .2s;
 }
-.page .btn:active{ transform:translateY(1px); }
-.page .btn--ghost{ background:#fff; color:#0d2237; box-shadow:0 8px 20px rgba(0,0,0,.16); }
-.page .btn--ghost:hover{ background:#f5f7fb; }
-.page .btn--primary{ background:#1a73e8; color:#fff; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
-.page .btn--primary:hover{ background:#1567cf; }
+.vj .btn:active{ transform:translateY(1px); }
+.vj .btn--ghost{
+  background:#fff; color:#0b1f33;
+  box-shadow:0 8px 20px rgba(0,0,0,.14);
+}
+.vj .btn--ghost:hover{ background:#f5f7fb; }
 
-/* WRAP */
-.page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
-
-/* SECTION HEADERS */
-.page .section{ padding:26px 0 10px; }
-.page .section h2{
-  margin:0 0 8px; font-size:clamp(20px,3.4vw,26px);
-  color:#223041; font-weight:900; text-align:center;
-}
-.page .section p.lead{ margin:0 0 18px; color:#526173; text-align:center; }
+/* CONTENT WRAP */
+.vj .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
 /* PRODUCT GRID */
-.page .grid{
+.vj .section{ padding:26px 0 10px; }
+.vj .section h2{
+  margin:0 0 6px; text-align:center; color:#203245;
+  font-size:clamp(18px,3.2vw,24px); font-weight:900;
+}
+.vj .section .lead{ margin:0 0 16px; text-align:center; color:#556575; }
+
+.vj .grid{
   display:grid; gap:var(--gap);
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(2, minmax(0,1fr));
   justify-items:center;
 }
-@media (min-width:720px){ .page .grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media (min-width:740px){ .vj .grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
 
-.page .card{
-  width:100%; max-width:250px; background:#fff; border-radius:18px;
-  padding:14px 14px 12px; text-align:center;
+.vj .card{
+  width:100%; max-width:250px;
+  background:#fff; border-radius:18px; padding:14px 14px 12px; text-align:center;
   box-shadow:0 10px 22px rgba(0,0,0,.10);
 }
-.page .thumb{
-  background:#f6f7f9; border-radius:14px; height:160px;
-  display:flex; align-items:center; justify-content:center; overflow:hidden;
+.vj .thumb{
+  background:#f6f7f9; border-radius:14px; padding:12px;
+  height:150px; display:flex; align-items:center; justify-content:center;
 }
-.page .thumb img{
-  width:auto; height:160px; object-fit:contain; display:block;
-  transform:scale(1.06); /* tasteful “zoom in” so cards feel fuller */
-}
-.page .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
+.vj .card img{ max-height:122px; width:auto; object-fit:contain; display:block; }
+.vj .card h3{ margin:10px 0 0; font-size:17px; color:#0f2436; font-weight:800; }
 
-/* STRIP + MARQUEE */
-.page .strip{ background:#fff; color:#111; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
-.page .strip .wrap{ text-align:center; }
-.page .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
-.page .strip p{ margin:0 0 10px; color:#526173; }
+/* FEATURED STRIP + MARQUEE */
+.vj .strip{ background:#fff; color:#111; padding:20px 0 14px; margin-top:10px; border-top:1px solid #eef2f7; }
+.vj .strip .wrap{ text-align:center; }
+.vj .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
+.vj .strip p{ margin:0 0 10px; color:#526173; }
 
-.page .marquee{ position:relative; overflow:hidden; padding:10px 0 18px; }
-.page .track{
-  display:inline-flex; align-items:center; gap:18px;
+.vj .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
+.vj .track{
+  display:inline-flex; align-items:center; gap:16px;
   will-change:transform; backface-visibility:hidden;
-  animation: juice-mar linear infinite var(--dur, 26s);
+  animation: vj-mar linear infinite var(--dur, 26s);
 }
-.page .item{
-  background:#fff; border-radius:16px; padding:12px; min-width:220px;
+.vj .item{
+  background:#fff; border-radius:16px; padding:12px; min-width:210px;
   box-shadow:0 10px 22px rgba(0,0,0,.12);
   display:flex; align-items:center; justify-content:center;
 }
-.page .item img{ height:150px; width:auto; object-fit:contain; display:block; }
-@media (min-width:900px){ .page .item{ min-width:250px; } .page .item img{ height:170px; } }
+.vj .item img{ height:130px; width:auto; object-fit:contain; display:block; }
+@media (min-width:900px){ .vj .item{ min-width:236px; } .vj .item img{ height:150px; } }
+@keyframes vj-mar{ from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
+@media (prefers-reduced-motion: reduce){ .vj .track{ animation:none !important; } }
 
-@keyframes juice-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist,-100%)); } }
-@media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
-
-/* CTA */
-.page .cta{
+/* BOTTOM CTA */
+.vj .cta{
   background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:46px var(--pad); margin-top:26px; border-top:1px solid #e7edf5; text-align:center;
+  padding:42px var(--pad); margin-top:24px; border-top:1px solid #e7edf5; text-align:center;
 }
-.page .cta h4{ margin:0 0 12px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
-.page .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.02rem; }
+.vj .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
+.vj .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.04rem; }
+.vj .btn--primary{
+  background:#1a73e8; color:#fff; box-shadow:0 10px 28px rgba(26,115,232,.32), 0 2px 6px rgba(0,0,0,.08);
+}
+.vj .btn--primary:hover{ background:#1567cf; }
 
-/* FOOTER — dark blue bar to match other pages */
-.footer{
-  background:linear-gradient(180deg,#0a2b36 0%, #07232c 100%);
-  color:#d6e2ea; text-align:center; padding:46px 16px 52px; margin-top:0;
+/* FOOTER (dark blue like the others) */
+.site-foot{
+  background:linear-gradient(180deg,#082734 0%, #06232e 100%);
+  color:#d8e6ef; text-align:center; padding:40px 16px;
 }
-.footer a{ color:#7ec3ff; text-decoration:none; }
-.footer a:hover{ text-decoration:underline; }
+.site-foot a{ color:#8fc8ff; text-decoration:none; }
+.site-foot a:hover{ text-decoration:underline; }
 </style>
 </head>
-<body class="page">
+<body class="vj">
 
-<!-- NAV (unchanged structure so it looks exactly like index) -->
+<!-- NAV — same structure you use on index -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -153,7 +157,7 @@
 <header class="hero">
   <div class="inner">
     <h1>Vape Juice</h1>
-    <p>Freebase &amp; Salt Nic favorites — fresh flavors, top brands.</p>
+    <p>Freebase &amp; salt nic favorites — fresh flavors daily.</p>
     <div class="actions">
       <a class="btn btn--ghost" href="contact.html">Call or Visit</a>
     </div>
@@ -161,61 +165,53 @@
 </header>
 
 <main>
-  <!-- FREEBASE -->
-  <section class="section wrap" aria-label="Freebase juices">
-    <h2>Freebase Juice</h2>
-    <p class="lead">Smooth classics and new best-sellers. Ask us about today’s flavors.</p>
+  <!-- PRODUCT GRID -->
+  <section class="section wrap" aria-label="Popular Juices">
+    <h2>Explore our most popular vape juices.</h2>
+    <p class="lead">Top freebase and salt nic picks — ready to pour.</p>
 
     <div class="grid">
+      <!-- Freebase (examples) -->
       <article class="card">
-        <div class="thumb"><img src="images/BLUERAZZLEMONADEFREEZE.webp" alt="Pod Juice Blue Razz Lemonade Freeeze"></div>
+        <div class="thumb"><img src="images/BLUERAZZLEMONADEFREEZE.webp" alt="Pod Juice Blue Razz Lemonade (Freebase)"></div>
         <h3>Pod Juice — Blue Razz Lemonade</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/Hi-Drip-Iced-Freebase-Vape-Juice-Mango-Lemonade.webp" alt="Hi Drip Mango Lemonade Freebase"></div>
-        <h3>Hi Drip — Mango Lemonade</h3>
+        <div class="thumb"><img src="images/Hi-Drip-Iced-Freebase-Vape-Juice-Mango-Lemonade.webp" alt="Hi-Drip Mango Lemonade (Freebase)"></div>
+        <h3>Hi-Drip — Mango Lemonade</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/images%20(1).jpeg" alt="Loon Juice Berry Freeze"></div>
+        <div class="thumb"><img src="images/images%20(1).jpeg" alt="Loon Berry Freeze (Freebase)"></div>
         <h3>Loon — Berry Freeze</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/Juice_Head_Series_E-Liquid_100mL_Freebase_cake_batter_600x.webp" alt="Juice Head Desserts Cake Batter"></div>
-        <h3>Juice Head Desserts — Cake Batter</h3>
+        <div class="thumb"><img src="images/Juice_Head_Series_E-Liquid_100mL_Freebase_cake_batter_600x.webp" alt="Juice Head Cake Batter (Freebase)"></div>
+        <h3>Juice Head — Cake Batter</h3>
       </article>
-      <article class="card">
-        <div class="thumb"><img src="images/PJ-100ml-JMINT-W-ASSETS-0MG_800x.webp" alt="Pod Juice Jewel Mint 100ml"></div>
-        <h3>Pod Juice — Jewel Mint (100ml)</h3>
-      </article>
-    </div>
-  </section>
 
-  <!-- SALT NIC -->
-  <section class="section wrap" aria-label="Salt Nic juices">
-    <h2>Salt Nic Juice</h2>
-    <p class="lead">High-nic options for pods. Nicely balanced, big flavor.</p>
-
-    <div class="grid">
+      <!-- Salt Nic (examples) -->
       <article class="card">
-        <div class="thumb"><img src="images/Salt%20nic%201.webp" alt="Candy King on Salt"></div>
-        <h3>Candy King on Salt</h3>
+        <div class="thumb"><img src="images/PJ-100ml-JMINT-W-ASSETS-0MG_800x.webp" alt="Pod Juice Jewel Mint"></div>
+        <h3>Pod Juice — Jewel Mint</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/Salt%20nic%202.webp" alt="Pod Juice Jewel Mint Salt"></div>
-        <h3>Pod Juice — Jewel Mint (Salt)</h3>
+        <div class="thumb"><img src="images/Salt%20nic%201.webp" alt="Candy King on Salt Gush"></div>
+        <h3>Candy King on Salt — Gush</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/Salt%20nic%203.webp" alt="Juice Head Salts Blueberry Lemon"></div>
+        <div class="thumb"><img src="images/Salt%20nic%202.webp" alt="Juice Head Salts Blueberry Lemon"></div>
         <h3>Juice Head Salts — Blueberry Lemon</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/Salt%20nic%204.webp" alt="Fruitia Extra Ice Sweet Peach"></div>
-        <h3>Fruitia Extra Ice — Sweet Peach</h3>
+        <div class="thumb"><img src="images/Salt%20nic%203.webp" alt="Fruitia Sweet Peach Ice"></div>
+        <h3>Fruitia — Sweet Peach Ice</h3>
       </article>
+      <!-- add more as you like:
       <article class="card">
-        <div class="thumb"><img src="images/salt%20nic%205.webp" alt="Juice Head Salts Raspberry Lemonade Freeze"></div>
-        <h3>Juice Head Salts — Raspberry Lemonade (Freeze)</h3>
+        <div class="thumb"><img src="images/Salt%20nic%204.webp" alt="Juice Head Salts Raspberry Lemonade"></div>
+        <h3>Juice Head Salts — Raspberry Lemonade</h3>
       </article>
+      -->
     </div>
   </section>
 
@@ -226,21 +222,16 @@
       <p>Smooth, gapless carousel — always in motion.</p>
     </div>
 
-    <div class="marquee" id="juiceMarquee" data-speed="26">
-      <ul class="track" id="juiceTrack">
-        <!-- Base items once; JS clones just enough to loop seamlessly -->
-        <!-- Freebase -->
-        <li class="item"><img src="images/BLUERAZZLEMONADEFREEZE.webp" alt=""></li>
-        <li class="item"><img src="images/Hi-Drip-Iced-Freebase-Vape-Juice-Mango-Lemonade.webp" alt=""></li>
-        <li class="item"><img src="images/images%20(1).jpeg" alt=""></li>
-        <li class="item"><img src="images/Juice_Head_Series_E-Liquid_100mL_Freebase_cake_batter_600x.webp" alt=""></li>
-        <li class="item"><img src="images/PJ-100ml-JMINT-W-ASSETS-0MG_800x.webp" alt=""></li>
-        <!-- Salt Nic -->
-        <li class="item"><img src="images/Salt%20nic%201.webp" alt=""></li>
-        <li class="item"><img src="images/Salt%20nic%202.webp" alt=""></li>
-        <li class="item"><img src="images/Salt%20nic%203.webp" alt=""></li>
-        <li class="item"><img src="images/Salt%20nic%204.webp" alt=""></li>
-        <li class="item"><img src="images/salt%20nic%205.webp" alt=""></li>
+    <div class="marquee" id="vjMarquee" data-speed="26">
+      <ul class="track" id="vjTrack">
+        <!-- Base items once — JS clones enough to loop perfectly -->
+        <li class="item"><img src="images/BLUERAZZLEMONADEFREEZE.webp" alt="Pod Juice Blue Razz Lemonade"></li>
+        <li class="item"><img src="images/Hi-Drip-Iced-Freebase-Vape-Juice-Mango-Lemonade.webp" alt="Hi-Drip Mango Lemonade"></li>
+        <li class="item"><img src="images/images%20(1).jpeg" alt="Loon Berry Freeze"></li>
+        <li class="item"><img src="images/Juice_Head_Series_E-Liquid_100mL_Freebase_cake_batter_600x.webp" alt="Juice Head Cake Batter"></li>
+        <li class="item"><img src="images/Salt%20nic%201.webp" alt="Candy King on Salt"></li>
+        <li class="item"><img src="images/Salt%20nic%202.webp" alt="Juice Head Salts Blueberry Lemon"></li>
+        <li class="item"><img src="images/Salt%20nic%203.webp" alt="Fruitia Sweet Peach Ice"></li>
       </ul>
     </div>
   </section>
@@ -248,8 +239,8 @@
   <!-- CTA -->
   <section class="cta">
     <div class="wrap">
-      <h4>Not seeing your flavor or nic strength?</h4>
-      <p>We carry a lot more in-store than what’s listed here. Call us and we’ll check the shelf for you.</p>
+      <h4>Looking for a specific flavor?</h4>
+      <p>We carry way more in-store than what’s shown here. Call and we’ll check today’s stock for your nic strength and flavor.</p>
       <div class="actions">
         <a class="btn btn--primary" href="tel:+14405582671">Call Now</a>
         <a class="btn btn--ghost" href="contact.html">Call or Visit</a>
@@ -258,49 +249,44 @@
   </section>
 </main>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
+<!-- FOOTER (dark blue) -->
+<footer class="site-foot">
+  <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
 </footer>
 
 <script>
-  // Footer year
-  document.getElementById('y').textContent = new Date().getFullYear();
+/* Year */
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Gapless marquee (no blink, no double stack)
-  (function () {
-    const mq = document.getElementById('juiceMarquee');
-    const track = document.getElementById('juiceTrack');
-    if (!mq || !track) return;
+/* Gapless marquee clone logic */
+(function(){
+  const mq = document.getElementById('vjMarquee');
+  const track = document.getElementById('vjTrack');
+  if(!mq || !track) return;
 
-    const pad = 40;
+  function build(){
+    // remove old clones if any
+    track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
 
-    function refill(){
-      // remove old clones if any
-      track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+    const need = mq.clientWidth * 2 + 40; // fill ~2x width + buffer
+    let w = track.scrollWidth;
 
-      const need = mq.clientWidth * 2 + pad;
-      let w = track.scrollWidth;
-      while (w < need){
-        track.querySelectorAll(':scope > .item').forEach(item => {
-          const c = item.cloneNode(true);
-          c.setAttribute('data-clone','1');
-          track.appendChild(c);
-        });
-        w = track.scrollWidth;
-      }
-      // animate exact half-width for seamless loop
-      track.style.setProperty('--dist', `-${w/2}px`);
-      track.style.setProperty('--dur', `${Number(mq.dataset.speed || 26)}s`);
+    while(w < need){
+      track.querySelectorAll(':scope > .item').forEach(it=>{
+        const c = it.cloneNode(true);
+        c.setAttribute('data-clone','1');
+        track.appendChild(c);
+      });
+      w = track.scrollWidth;
     }
-
-    refill();
-    let t;
-    window.addEventListener('resize', () => {
-      clearTimeout(t); t = setTimeout(refill, 120);
-    }, { passive:true });
-  })();
+    track.style.setProperty('--dist', `-${w/2}px`);
+    const sp = Number(mq.dataset.speed || 26);
+    track.style.setProperty('--dur', `${sp}s`);
+  }
+  build();
+  let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+})();
 </script>
 </body>
 </html>
