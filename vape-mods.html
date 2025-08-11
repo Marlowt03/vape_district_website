@@ -12,11 +12,27 @@
 .page { --wrap:1120px; --pad:16px; --gap:24px; }
 
 /* HERO — ~20% smaller than the last medium */
+/* FORCE a compact hero height */
 .page .hero{
-  position:relative;
-  background:#0b0b0b url('images/mods.jpg') center/cover no-repeat;
-  color:#fff; text-align:center;
-  padding: clamp(36px, 9vh, 68px) var(--pad); /* was 60/14vh/100 */
+  position: relative;
+  background: #0b0b0b url('images/mods.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+
+  /* fixed height: desktop + mobile */
+  height: 260px !important;          /* desktop/tablet */
+  display: flex; align-items: center; justify-content: center;
+
+  /* remove extra space */
+  padding: 0 !important;
+}
+.page .hero .inner{ padding: 10px 16px; }
+.page .hero h1{ margin: 0 0 6px; }
+.page .hero p{ margin: 0; }
+
+/* Smaller on phones */
+@media (max-width: 768px){
+  .page .hero{ height: 190px !important; }
 }
 .page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
 .page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
