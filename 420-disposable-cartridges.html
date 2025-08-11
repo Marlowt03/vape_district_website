@@ -21,13 +21,9 @@
 /* HERO — compact, and safely below the sticky nav */
 .hero{
   position: relative;
-  margin-top: var(--nav-h);
-  height: 400px;                           /* keep the bigger hero */
-  background-image: url("images/21-_DSC5504.jpg");
-  background-position: center 45%;         /* nudge framing a bit upward */
-  background-repeat: no-repeat;
-  background-size: 95%;                    /* ← gentle zoom‑out (was cover/100%) */
-  background-color: #0b0b0b;               /* fills any tiny edge space if needed */
+  margin-top: var(--nav-h);        /* pushes hero below sticky nav */
+  height: 240px;                   /* compact; adjust if you want taller/shorter */
+  background: url("images/21-_DSC5504.jpg") center 52% / cover no-repeat;
   color: #fff;
   text-align: center;
   display:flex;
@@ -234,6 +230,7 @@
       <p>We stock more in-store than online. Call and we’ll check today’s case for flavors and brands in stock.</p>
       <div class="actions">
         <a class="btn-blue" href="tel:+14405582671">Call Now</a>
+        <a class="btn-ghost" href="contact.html">Call or Visit</a>
       </div>
     </div>
   </section>
