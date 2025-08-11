@@ -2,135 +2,120 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Glass — Vape District</title>
 
+<!-- Your global stylesheet (drives the nav look, fonts, etc.) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* PAGE WRAP */
-.page { --wrap:1120px; --pad:16px; --gap:24px; }
+  /* ===== Page-scoped styles only. Do not touch global nav styles. ===== */
+  :root{
+    --wrap: 1120px;
+    --pad: 16px;
+    --blue-900: #07242E;
+    --blue-800: #0C3442;
+    --accent: #1a73e8;
+  }
 
-/* HERO */
-.page .hero {
-  position:relative;
-  background:#0b0b0b url('images/7f06b8cb-6a15-45bf-854a-9b12952fdba0.png') center/cover no-repeat;
-  color:#fff; 
-  height:600px; /* height you liked */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.page .hero::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15));
-}
-.page .hero .inner {
-  position:relative;
-  z-index:1;
-  max-width:var(--wrap);
-  padding:0 var(--pad);
-}
-.page .hero h1 {
-  margin:0 0 10px;
-  font-size:clamp(32px,5vw,46px);
-  font-weight:900;
-}
-.page .hero p {
-  margin:0 0 18px;
-  opacity:.98;
-  font-size:clamp(15px,2.8vw,18px);
-}
-.page .actions a {
-  display:inline-block;
-  padding:12px 20px;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:700;
-  font-size:0.97rem;
-  background:#ffffff;
-  color:#0b1f33;
-  box-shadow:0 8px 20px rgba(0,0,0,.14);
-  transition:background .2s, transform .08s;
-}
-.page .actions a:hover{ background:#f5f7fb; }
-.page .actions a:active{ transform:translateY(1px); }
+  /* HERO */
+  .glass-hero{
+    position: relative;
+    height: 600px;                 /* the size you said worked */
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    background: url("images/7f06b8cb-6a15-45bf-854a-9b12952fdba0.png") center / cover no-repeat;
+    margin: 0;
+  }
+  .glass-hero::after{
+    content:"";
+    position:absolute; inset:0;
+    /* soft dark overlay so text reads on top of the photo */
+    background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35));
+  }
+  .glass-hero .inner{
+    position: relative; z-index: 1;
+    max-width: var(--wrap); padding: 0 var(--pad);
+  }
+  .glass-hero h1{ margin:0 0 8px; font-weight:900; font-size: clamp(28px, 5vw, 48px); }
+  .glass-hero p.sub{ margin:0; font-size: clamp(14px, 2.6vw, 18px); opacity:.98; }
 
-/* CONTENT WRAP */
-.page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+  .glass-actions{ margin-top: 14px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .glass-btn{
+    display:inline-block; padding:12px 20px; border-radius:10px;
+    text-decoration:none; font-weight:800; font-size:1rem;
+    background: var(--accent); color:#fff;
+    box-shadow: 0 10px 26px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.12);
+    transition: transform .08s, background .2s, box-shadow .2s;
+  }
+  .glass-btn:hover{ background:#1666cf; box-shadow: 0 12px 30px rgba(26,115,232,.45), 0 2px 6px rgba(0,0,0,.16); }
+  .glass-btn:active{ transform: translateY(1px); }
 
-/* PRODUCT SECTION */
-.page .section{ padding:40px 0; }
-.page .section h2 {
-  margin:0 0 8px;
-  font-size:clamp(20px,3.2vw,26px);
-  color:#223041;
-  font-weight:800;
-  text-align:center;
-}
-.page .section p.lead {
-  margin:0 0 16px;
-  color:#526173;
-  text-align:center;
-}
+  .glass-hero p.note{
+    margin:12px auto 0; max-width: 640px;
+    font-size: 15px; color:#fff;
+  }
 
-/* PRODUCT GRID */
-.page .grid{
-  display:grid;
-  gap:var(--gap);
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-  justify-items:center;
-}
-.page .card{
-  width:100%;
-  max-width:320px;
-  background:#fff;
-  border-radius:18px;
-  padding:14px;
-  text-align:center;
-  box-shadow:0 10px 22px rgba(0,0,0,.10);
-}
-.page .thumb{
-  background:#f6f7f9;
-  border-radius:14px;
-  padding:0;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:240px;
-}
-.page .card img{
-  width:120%;
-  height:120%;
-  object-fit:cover;
-  display:block;
-}
-.page .card h3{
-  margin:10px 0 0;
-  font-size:18px;
-  color:#0f2436;
-  font-weight:800;
-}
+  /* CONTENT WRAP */
+  .wrap{ max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
 
-/* FOOTER */
-footer.foot {
-  background-color:#08232e;
-  color:#fff;
-  padding:26px 0;
-  text-align:center;
-  font-size:14px;
-}
-footer.foot a { color:#1e90ff; text-decoration:none; }
-footer.foot a:hover { text-decoration:underline; }
+  /* SECTION HEADING */
+  .glass-section{ padding: 28px 0 8px; }
+  .glass-section h2{
+    margin:0 0 8px; text-align:center;
+    color:#223041; font-weight:900; letter-spacing:.2px;
+    font-size: clamp(18px, 3.4vw, 26px);
+  }
+  .glass-section p.lead{
+    margin:0 0 16px; text-align:center; color:#526173;
+  }
+
+  /* PRODUCT GRID */
+  .glass-grid{
+    display:grid; gap:20px;
+    grid-template-columns: repeat(1, minmax(0,1fr));
+  }
+  @media (min-width:640px){ .glass-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width:980px){ .glass-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+  .glass-card{
+    background:#fff; border-radius:18px; padding:14px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.10);
+  }
+  .glass-thumb{
+    height: 220px;                /* shows more of the photo */
+    border-radius:14px; overflow:hidden;
+    background:#f1f4f7;
+    display:flex; align-items:center; justify-content:center;
+  }
+  /* “Zoomed in” image fit (fills the frame cleanly) */
+  .glass-thumb img{
+    width:100%; height:100%; object-fit: cover; display:block;
+    transform: scale(1.06);
+    transition: transform .35s ease;
+  }
+  .glass-card:hover .glass-thumb img{ transform: scale(1.12); }
+
+  .glass-card h3{
+    margin:10px 6px 0; font-size: 18px; color:#0f2436; font-weight:800; text-align:center;
+  }
+
+  /* BLUE FOOTER (taller & full-bleed) */
+  .blue-foot{
+    margin:0; padding: 56px 16px;  /* nice height */
+    background: linear-gradient(180deg, var(--blue-800) 0%, var(--blue-900) 100%);
+    color:#eaf2f7; text-align:center; font-size:14px;
+  }
+  .blue-foot a{ color:#7bb2ff; text-decoration:none; }
+  .blue-foot a:hover{ text-decoration:underline; }
+
 </style>
 </head>
-<body class="page">
+<body>
 
-<!-- NAV -->
+<!-- NAV (exactly like your index — no style overrides here) -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -169,47 +154,67 @@ footer.foot a:hover { text-decoration:underline; }
 </nav>
 
 <!-- HERO -->
-<header class="hero">
+<header class="glass-hero">
   <div class="inner">
     <h1>Glass</h1>
-    <p>Premium glassware for every style</p>
-    <div class="actions">
-      <a href="contact.html">Call or Visit</a>
+    <p class="sub">Premium glass pieces for every style.</p>
+    <div class="glass-actions">
+      <a class="glass-btn" href="contact.html">Call or Visit</a>
     </div>
+    <p class="note">
+      We carry many more glass pieces in-store than what’s shown here. Call us if you’re curious about sizes, colors, and what’s new today.
+    </p>
   </div>
 </header>
 
 <main>
-  <!-- PRODUCT CARDS -->
-  <section class="section wrap" aria-label="Glass Products">
-    <h2>Explore our premium glassware.</h2>
-    <p class="lead">Durable, stylish, and built to last.</p>
+  <section class="glass-section wrap" aria-label="Glass selection">
+    <h2>Explore our most popular glass pieces.</h2>
+    <p class="lead">Clean function, great colors, and solid build quality.</p>
 
-    <div class="grid">
-      <article class="card">
-        <div class="thumb"><img src="images/green_rifle3.jpg" alt="Green Rifle"></div>
+    <div class="glass-grid">
+      <article class="glass-card">
+        <div class="glass-thumb">
+          <img src="images/green_rifle3.jpg" alt="Green glass rifle-style piece">
+        </div>
         <h3>Green Rifle</h3>
       </article>
-      <article class="card">
-        <div class="thumb"><img src="images/glass_face.jpg" alt="Glass Face"></div>
-        <h3>Glass Face</h3>
+
+      <article class="glass-card">
+        <div class="glass-thumb">
+          <img src="images/glass_face.jpg" alt="Heady face glass piece">
+        </div>
+        <h3>Heady Face Piece</h3>
       </article>
-      <article class="card">
-        <div class="thumb"><img src="images/colorful_bongs2.jpg" alt="Colorful Bongs"></div>
-        <h3>Colorful Bongs</h3>
+
+      <article class="glass-card">
+        <div class="glass-thumb">
+          <img src="images/colorful_bongs2.jpg" alt="Colorful beaker bongs">
+        </div>
+        <h3>Colorful Beakers</h3>
       </article>
     </div>
   </section>
 </main>
 
-<footer class="foot wrap">
-  <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
-  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+<!-- FOOTER (blue, taller, full width) -->
+<footer class="blue-foot">
+  <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp;
+     <a href="tel:+14405582671">(440) 558-2671</a>
+  </p>
 </footer>
 
 <script>
-document.getElementById('y').textContent = new Date().getFullYear();
-</script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Optional: simple mobile menu opener if your style.css expects it
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('nav');
+  if (toggle){
+    toggle.addEventListener('click', ()=> nav.classList.toggle('open'));
+  }
+</script>
 </body>
 </html>
