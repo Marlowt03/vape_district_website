@@ -1,108 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mods — Vape District</title>
-
-<!-- Your global stylesheet (drives the nav look) -->
 <link rel="stylesheet" href="style.css" />
-
 <style>
-/* ===== Page-scoped styles only (no nav overrides) ===== */
-.page { --wrap:1120px; --pad:16px; --gap:24px; }
-
-/* HERO — compact, less than half the height you had */
-.page .hero{
-  position:relative;
-  background:#0b0b0b url('images/mods.jpg') center/cover no-repeat;
-  color:#fff; text-align:center;
-  /* small, consistent header height */
-  padding: clamp(10px, 2.2vh, 14px) var(--pad) clamp(10px, 2vh, 14px);
+/* Header Section */
+.header {
+  background: url('images/mods.jpg') center/cover no-repeat;
+  height: 40vh; /* Smaller header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  position: relative;
 }
-.page .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.15)); }
-.page .hero .inner{ position:relative; z-index:1; max-width:var(--wrap); margin:0 auto; }
-.page .hero h1{ margin:0 0 6px; font-size:clamp(24px,4vw,34px); font-weight:900; }
-.page .hero p{ margin:0; opacity:.98; font-size:clamp(14px,2.8vw,16px); }
-.page .actions{ margin-top:12px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-/* Light-touch button polish (scoped so it won't touch other pages) */
-.page .actions a{
-  display:inline-block; padding:12px 20px; border-radius:10px;
-  text-decoration:none; font-weight:700; font-size:0.97rem;
-  background:#ffffff; color:#0b1f33; box-shadow:0 8px 20px rgba(0,0,0,.14);
-  transition:background .2s, transform .08s;
+.header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
 }
-.page .actions a:hover{ background:#f5f7fb; }
-.page .actions a:active{ transform:translateY(1px); }
-
-/* CONTENT WRAP */
-.page .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
-
-/* PRODUCT CARDS */
-.page .section{ padding:22px 0 8px; }
-.page .section h2{
-  margin:0 0 8px; font-size:clamp(17px,3.2vw,22px); /* tiny bit smaller */
-  color:#223041; font-weight:800; text-align:center;
+.header .inner {
+  position: relative;
+  z-index: 1;
 }
-.page .section p.lead{ margin:0 0 16px; color:#526173; text-align:center; }
-
-.page .grid{
-  display:grid; gap:var(--gap);
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  justify-items:center;
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
-@media (min-width:740px){ .page .grid{ grid-template-columns:repeat(4, minmax(0,1fr)); } }
-
-.page .card{
-  width:100%; max-width:240px;
-  background:#fff; border-radius:18px; padding:14px 14px 12px; text-align:center;
-  box-shadow:0 10px 22px rgba(0,0,0,.10);
+.header p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
-.page .thumb{
-  background:#f6f7f9; border-radius:14px; padding:12px;
-  display:flex; align-items:center; justify-content:center; height:142px;
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.page .card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
-.page .card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
-
-/* FEATURED STRIP (centered) */
-.page .strip{ background:#fff; color:#111; padding:18px 0 14px; margin-top:6px; border-top:1px solid #eef2f7; }
-.page .strip .wrap{ text-align:center; }
-.page .strip h3{ margin:0 0 6px; font-size:21px; font-weight:800; color:#13293d; }
-.page .strip p{ margin:0 0 10px; color:#526173; }
-
-/* GAPLESS MARQUEE */
-.page .marquee{ position:relative; overflow:hidden; padding:8px 0 18px; }
-.page .track{
-  display:inline-flex; align-items:center; gap:16px;
-  will-change:transform; backface-visibility:hidden;
-  animation: page-mar linear infinite var(--dur, 25s);
+.actions a {
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
 }
-.page .item{
-  background:#fff; border-radius:16px; padding:12px; min-width:210px;
-  box-shadow:0 10px 22px rgba(0,0,0,.12);
-  display:flex; align-items:center; justify-content:center;
+.actions a.call-btn {
+  background: #007bff; /* Blue */
+  color: white;
 }
-.page .item img{ height:130px; width:auto; object-fit:contain; display:block; }
-@media (min-width:900px){ .page .item{ min-width:236px; } .page .item img{ height:150px; } }
-@keyframes page-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
-@media (prefers-reduced-motion: reduce){ .page .track{ animation:none !important; } }
-
-/* BOTTOM CTA */
-.page .cta{
-  background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding:38px var(--pad); margin-top:22px; border-top:1px solid #e7edf5; text-align:center;
+.actions a.call-btn:hover {
+  background: #0056b3;
 }
-.page .cta h4{ margin:0 0 10px; font-size:clamp(22px,4vw,28px); color:#13293d; font-weight:900; }
-.page .cta p{ margin:0 auto 16px; max-width:860px; color:#495869; font-size:1.02rem; }
+.actions a.visit-btn {
+  background: white;
+  color: black;
+}
+.actions a.visit-btn:hover {
+  background: #f5f5f5;
+}
 
-/* Tiny safety override to guarantee compact hero on THIS page only */
-@layer overrides { .page .hero{ padding:12px 16px 12px !important; } }
+/* Container */
+.container {
+  max-width: 1120px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1.1rem; /* Slightly smaller */
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Product grid */
+.product-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+.product-card {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+.product-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  background: #f6f7f9;
+  border-radius: 10px;
+}
+.product-card figcaption {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Carousel Section */
+.carousel-section {
+  background: white;
+  padding: 30px 0;
+  margin-top: 28px;
+}
+.carousel-section h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.carousel-section p {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #495869;
+}
+.marquee {
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  animation: marquee 25s linear infinite;
+}
+.marquee-item {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+.marquee-item img {
+  height: 140px;
+  object-fit: contain;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Bottom CTA */
+.cta {
+  background: linear-gradient(180deg, #f7f9fc 0%, #eef3f9 100%);
+  padding: 40px 16px;
+  text-align: center;
+  margin-top: 36px;
+  border-top: 1px solid #e7edf5;
+}
+.cta h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.cta p {
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+}
 </style>
 </head>
-<body class="page">
+<body>
 
-<!-- NAV — EXACTLY your index structure -->
+<!-- Navigation -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -116,7 +179,7 @@
           <div class="sub-dropdown">
             <a href="420-wraps.html">Wraps</a>
             <a href="420-cartridges.html">420 Cartridges</a>
-            <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+            <a href="420-grinders.html">Grinders & Ash Trays</a>
             <a href="420-glass.html">Glass</a>
             <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
             <a href="420-batteries.html">Batteries</a>
@@ -139,109 +202,73 @@
   </ul>
   <div class="menu-toggle">☰</div>
 </nav>
-<!-- END NAV -->
 
-<!-- HERO -->
-<header class="hero">
+<!-- Header -->
+<header class="header">
   <div class="inner">
     <h1>Mods</h1>
-    <p>Smok, Geekvape, Vaporesso, Lost Vape & more.</p>
+    <p>Smok, Geekvape, Vaporesso & more.</p>
     <div class="actions">
-      <a href="contact.html">Call or Visit</a>
+      <a href="tel:+14405582671" class="call-btn">Call Now</a>
+      <a href="contact.html" class="visit-btn">Call or Visit</a>
     </div>
   </div>
 </header>
 
+<!-- Main Content -->
 <main>
-  <!-- PRODUCT CARDS -->
-  <section class="section wrap" aria-label="Popular mod brands">
-    <h2>Explore our most popular mod brands.</h2>
-    <p class="lead">Top-tier performance devices in stock today.</p>
-
-    <div class="grid">
-      <article class="card">
-        <div class="thumb"><img src="images/Smok.png" alt="Smok"></div>
-        <h3>Smok</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/Geekvape.png" alt="Geekvape"></div>
-        <h3>Geekvape</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso Armour"></div>
-        <h3>Vaporesso</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/Lost%20vape.png" alt="Lost Vape"></div>
-        <h3>Lost Vape</h3>
-      </article>
+  <section class="container">
+    <p class="section-title">Explore our most popular mod brands.</p>
+    <div class="product-grid">
+      <figure class="product-card">
+        <img src="images/Smok.png" alt="Smok" />
+        <figcaption>Smok</figcaption>
+      </figure>
+      <figure class="product-card">
+        <img src="images/Geekvape.png" alt="Geekvape" />
+        <figcaption>Geekvape</figcaption>
+      </figure>
+      <figure class="product-card">
+        <img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso Armour" />
+        <figcaption>Vaporesso Armour</figcaption>
+      </figure>
+      <figure class="product-card">
+        <img src="images/Lost vape.png" alt="Lost Vape" />
+        <figcaption>Lost Vape</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- FEATURED CAROUSEL -->
-  <section class="strip" aria-label="Featured Mods">
-    <div class="wrap">
-      <h3>Featured Mods</h3>
-      <p>Smooth, gapless carousel — always in motion.</p>
-    </div>
-
-    <div class="marquee" id="modsMarquee" data-speed="25">
-      <ul class="track" id="modsTrack">
-        <li class="item"><img src="images/Smok.png" alt="Smok"></li>
-        <li class="item"><img src="images/Geekvape.png" alt="Geekvape"></li>
-        <li class="item"><img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso"></li>
-        <li class="item"><img src="images/Lost%20vape.png" alt="Lost Vape"></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- BOTTOM CTA -->
-  <section class="cta">
-    <div class="wrap">
-      <h4>Looking for something specific?</h4>
-      <p>We stock more in-store than online. Call and we’ll check today’s case for the colors and kits you want.</p>
-      <div class="actions">
-        <a href="tel:+14405582671">Call Now</a>
-        <a href="contact.html">Call or Visit</a>
+  <!-- Carousel -->
+  <section class="carousel-section">
+    <h2>Featured Mods</h2>
+    <p>Premium devices for every vaper.</p>
+    <div class="marquee">
+      <div class="marquee-track">
+        <div class="marquee-item"><img src="images/Smok.png" alt="Smok" /></div>
+        <div class="marquee-item"><img src="images/Geekvape.png" alt="Geekvape" /></div>
+        <div class="marquee-item"><img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso Armour" /></div>
+        <div class="marquee-item"><img src="images/Lost vape.png" alt="Lost Vape" /></div>
+        <!-- Clones for smooth loop -->
+        <div class="marquee-item"><img src="images/Smok.png" alt="Smok" /></div>
+        <div class="marquee-item"><img src="images/Geekvape.png" alt="Geekvape" /></div>
+        <div class="marquee-item"><img src="images/vaporesso-armour-g-black.webp" alt="Vaporesso Armour" /></div>
+        <div class="marquee-item"><img src="images/Lost vape.png" alt="Lost Vape" /></div>
       </div>
     </div>
   </section>
+
+  <!-- Bottom CTA -->
+  <section class="cta">
+    <h3>Looking for something specific?</h3>
+    <p>We stock more in-store than online. Call for today’s stock.</p>
+    <a href="tel:+14405582671" class="call-btn" style="display:inline-block; padding:14px 22px; border-radius:10px; font-weight:bold; background:#007bff; color:white;">Call Now</a>
+  </section>
 </main>
 
-<footer class="foot wrap" style="text-align:center; padding:26px 0; color:#5a6a7a; font-size:14px;">
-  <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
-  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+<footer class="footer">
+  <p>&copy; 2025 Vape District. All rights reserved.</p>
 </footer>
 
-<script>
-// Footer year
-document.getElementById('y').textContent = new Date().getFullYear();
-
-// Gapless marquee
-(function(){
-  const mq = document.getElementById('modsMarquee');
-  const track = document.getElementById('modsTrack');
-  if(!mq || !track) return;
-
-  const pad = 40;
-  function refill(){
-    track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
-    let w = track.scrollWidth;
-    const need = mq.clientWidth * 2 + pad;
-    while (w < need){
-      track.querySelectorAll(':scope > .item').forEach(item=>{
-        const c = item.cloneNode(true);
-        c.setAttribute('data-clone','1');
-        track.appendChild(c);
-      });
-      w = track.scrollWidth;
-    }
-    track.style.setProperty('--dist', `-${w/2}px`);
-    track.style.setProperty('--dur', `${Number(mq.dataset.speed||25)}s`);
-  }
-  refill();
-  let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(refill,120); }, {passive:true});
-})();
-</script>
 </body>
 </html>
