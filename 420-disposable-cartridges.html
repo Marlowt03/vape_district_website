@@ -4,137 +4,118 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Disposable Cartridges — Vape District</title>
-
-<!-- keep your global theme (nav etc.) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ========= Page-scoped styles (won’t mess with your global theme) ========= */
+  /* --- Page scope only (won’t clobber global nav) --- */
+  :root{ --wrap:1120px; --pad:16px; --nav-h:72px; }
 
-:root{
-  /* if your sticky nav is taller/shorter, tweak this number */
-  --nav-h: 72px;
-  --wrap: 1120px;
-  --pad: 16px;
-}
+  /* HERO */
+  .hero{
+    position:relative;
+    margin-top:var(--nav-h);
+    height:400px; /* bigger per your request */
+    background-image:url("images/21-_DSC5504.jpg");
+    background-position:center 45%;
+    background-repeat:no-repeat;
+    background-size:95%;            /* gentle zoom-out */
+    background-color:#0b0b0b;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; color:#fff;
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background:rgba(0,0,0,.22);     /* lighter overlay so it’s not greyed out */
+    pointer-events:none;            /* overlay will never block clicks */
+  }
+  .hero .inner{ position:relative; z-index:2; max-width:var(--wrap); padding:0 var(--pad); }
+  .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .hero p{ margin:0 0 14px; font-size:clamp(14px,2.8vw,18px); opacity:.98; text-shadow:0 2px 6px rgba(0,0,0,.35); }
 
-/* HERO — compact, and safely below the sticky nav */
-.hero{
-  position: relative;
-  margin-top: var(--nav-h);
-  height: 400px;                           /* keep the bigger hero */
-  background-image: url("images/21-_DSC5504.jpg");
-  background-position: center 45%;         /* nudge framing a bit upward */
-  background-repeat: no-repeat;
-  background-size: 95%;                    /* ← gentle zoom‑out (was cover/100%) */
-  background-color: #0b0b0b;               /* fills any tiny edge space if needed */
-  color: #fff;
-  text-align: center;
-  display:flex;
-  align-items:center;
-}
-.hero::after{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15));
-  pointer-events: none;            /* overlay won’t block clicks */
-}
-.hero .inner{
-  position: relative; z-index: 2;
-  max-width: var(--wrap);
-  margin: 0 auto;
-  padding: 0 var(--pad);
-}
-.hero h1{ margin: 0 0 6px; font-size: clamp(26px, 4vw, 36px); font-weight: 900; }
-.hero p{  margin: 0; font-size: clamp(14px, 2.6vw, 16px); opacity:.98; }
-.actions{ margin-top: 12px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
-.btn-ghost{
-  position: relative; z-index: 3;  /* above overlay */
-  display:inline-block; padding:12px 20px; border-radius:12px;
-  background:#fff; color:#0b1f33; text-decoration:none; font-weight:800;
-  box-shadow:0 8px 20px rgba(0,0,0,.16);
-}
-.btn-ghost:hover{ background:#f5f7fb; }
+  .actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
-/* CONTENT WRAP */
-.wrap{ max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
+  /* TOP ghost button (white) */
+  .btn{
+    appearance:none; border:0; border-radius:12px; padding:12px 20px;
+    font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    transition:transform .08s, box-shadow .2s, background .2s, color .2s;
+    cursor:pointer;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn-ghost-white{ background:#fff; color:#0b1f33; box-shadow:0 10px 24px rgba(0,0,0,.18); }
+  .btn-ghost-white:hover{ background:#f5f7fb; }
 
-/* BRAND GRID */
-.section{ padding: 26px 0 8px; }
-.section h2{
-  margin:0 0 6px; text-align:center;
-  font-size: clamp(18px, 3.1vw, 24px); font-weight: 900; color:#1b2a3a;
-}
-.section .lead{ margin:0 0 18px; text-align:center; color:#516173; }
+  /* CONTENT WRAP */
+  .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
-.grid{
-  display:grid; gap:20px;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  justify-items:center;
-}
-@media (min-width:740px){ .grid{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  /* HEADERS ABOVE GRID */
+  .page-title{ margin:26px 0 4px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
+  .page-sub{ margin:0 0 16px; text-align:center; color:#526173; }
 
-.card{
-  width:100%; max-width:240px;
-  background:#fff; border-radius:18px; padding:14px 14px 12px;
-  text-align:center; box-shadow:0 10px 22px rgba(0,0,0,.10);
-}
-.thumb{
-  background:#f6f7f9; border-radius:14px; height:142px; overflow:hidden;
-  display:flex; align-items:center; justify-content:center;
-}
-.card img{ max-height:116px; width:auto; object-fit:contain; display:block; }
-.card h3{ margin:10px 0 0; font-size:18px; color:#0f2436; font-weight:800; }
+  /* BRAND GRID */
+  .grid{
+    display:grid; gap:22px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    justify-items:center;
+  }
+  @media (min-width:760px){ .grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-/* FEATURED STRIP + GAPLESS MARQUEE */
-.strip{ background:#fff; color:#111; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
-.strip .wrap{ text-align:center; }
-.strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
-.strip p{ margin:0 0 10px; color:#526173; }
+  .card{
+    width:100%; max-width:240px;
+    background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10);
+    text-align:center; padding:14px;
+  }
+  .thumb{
+    height:148px; background:#f6f7f9; border-radius:14px;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .thumb img{ width:auto; height:130px; object-fit:contain; display:block; }
+  .card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
 
-.marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
-.track{
-  display:inline-flex; align-items:center; gap:18px;
-  will-change: transform; backface-visibility:hidden;
-  animation: mar linear infinite var(--dur, 26s);
-}
-.item{
-  background:#fff; border-radius:16px; padding:12px; min-width:210px;
-  box-shadow:0 10px 22px rgba(0,0,0,.12);
-  display:flex; align-items:center; justify-content:center;
-}
-.item img{ height:130px; width:auto; object-fit:contain; display:block; }
-@media (min-width:900px){ .item{ min-width:240px; } .item img{ height:160px; } }
-@keyframes mar{ from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
-@media (prefers-reduced-motion: reduce){ .track{ animation:none !important; } }
+  /* FEATURED STRIP + MARQUEE */
+  .strip{ background:#fff; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
+  .strip h2{ margin:0 0 6px; text-align:center; font-size:1.4rem; font-weight:900; color:#13293d; }
+  .strip p{ margin:0 0 10px; text-align:center; color:#526173; }
 
-/* BOTTOM CTA */
-.cta{
-  background: linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-  padding: 48px var(--pad); margin-top: 26px; border-top:1px solid #e7edf5; text-align:center;
-}
-.cta h4{ margin:0 0 12px; font-size: clamp(22px, 4vw, 28px); color:#13293d; font-weight:900; }
-.cta p{  margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
-.btn-blue{
-  display:inline-block; padding:14px 24px; border-radius:14px;
-  background:#1a73e8; color:#fff; text-decoration:none; font-weight:800;
-  box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08);
-}
-.btn-blue:hover{ background:#1567cf; }
+  .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+  .track{
+    display:inline-flex; align-items:center; gap:18px;
+    will-change:transform; backface-visibility:hidden;
+    animation: roll linear infinite var(--dur,26s);
+  }
+  .item{
+    background:#fff; border-radius:16px; padding:12px; min-width:220px;
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .item img{ height:140px; width:auto; object-fit:contain; display:block; }
+  @keyframes roll{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
 
-/* FOOTER (dark blue), medium height */
-.footer{
-  margin-top: 26px;
-  background: linear-gradient(180deg, #062734 0%, #041c26 100%);
-  color:#dbe6ee; text-align:center; padding: 28px 16px 36px;
-}
-.footer a{ color:#6fb6ff; text-decoration:none; }
-.footer a:hover{ text-decoration:underline; }
+  /* BOTTOM CTA */
+  .cta{
+    background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
+    padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px;
+  }
+  .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
+  .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
+  .btn-blue{
+    background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08);
+  }
+  .btn-blue:hover{ background:#1567cf; }
+
+  /* FOOTER (dark blue) */
+  .footer{
+    background:linear-gradient(180deg,#0b2a36 0%, #06212b 100%);
+    color:#e7f2f9; text-align:center; padding:34px var(--pad) 44px;
+    margin-top:22px;
+  }
+  .footer a{ color:#7fc3ff; text-decoration:none; }
+  .footer a:hover{ text-decoration:underline; }
 </style>
 </head>
 <body>
 
-<!-- NAV (same structure as index; pulled from your site) -->
+<!-- NAV: uses your site’s global nav styles in style.css -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -178,117 +159,82 @@
     <h1>Disposable Cartridges</h1>
     <p>High quality, great flavors, ready to use.</p>
     <div class="actions">
-      <a class="btn-ghost" href="contact.html">Call or Visit</a>
+      <a class="btn btn-ghost-white" href="contact.html">Call or Visit</a>
     </div>
   </div>
 </header>
 
-<main>
-  <!-- BRAND CARDS -->
-  <section class="section wrap" aria-label="Popular disposable cartridge brands">
-    <h2>Explore our most popular disposable cartridges.</h2>
-    <p class="lead">High quality, great flavors, ready to use.</p>
+<main class="wrap">
+  <h2 class="page-title">Explore our most popular disposable cartridges.</h2>
+  <p class="page-sub">High quality, great flavors, ready to use.</p>
 
-    <div class="grid">
-      <article class="card">
-        <div class="thumb"><img src="images/Space Gods Png.webp" alt="Space Gods" loading="lazy"></div>
-        <h3>Space Gods</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills" loading="lazy"></div>
-        <h3>Hidden Hills</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/Torch.png" alt="Torch" loading="lazy"></div>
-        <h3>Torch</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/Loose Change.png" alt="Loose Change" loading="lazy"></div>
-        <h3>Loose Change</h3>
-      </article>
-    </div>
-  </section>
-
-  <!-- FEATURED CAROUSEL (gapless) -->
-  <section class="strip" aria-label="Featured Disposable Cartridges">
-    <div class="wrap">
-      <h3>Featured Disposable Cartridges</h3>
-      <p>Smooth, gapless carousel — always in motion.</p>
-    </div>
-
-    <div class="marquee" id="dcMarquee" data-speed="26">
-      <ul class="track" id="dcTrack">
-        <!-- Base items once; JS will clone just enough to loop perfectly -->
-        <li class="item"><img src="images/Space Gods Png.webp" alt="Space Gods"></li>
-        <li class="item"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills"></li>
-        <li class="item"><img src="images/Torch.png" alt="Torch"></li>
-        <li class="item"><img src="images/Loose Change.png" alt="Loose Change"></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- BOTTOM CTA -->
-  <section class="cta">
-    <div class="wrap">
-      <h4>Looking for something specific?</h4>
-      <p>We stock more in-store than online. Call and we’ll check today’s case for flavors and brands in stock.</p>
-      <div class="actions">
-        <a class="btn-blue" href="tel:+14405582671">Call Now</a>
-        <a class="btn-ghost" href="contact.html">Call or Visit</a>
-      </div>
-    </div>
+  <!-- Brand cards (keep your images) -->
+  <section class="grid" aria-label="Popular brands">
+    <article class="card"><div class="thumb"><img src="images/Space Gods Png.webp" alt="Space Gods"></div><h3>Space Gods</h3></article>
+    <article class="card"><div class="thumb"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills"></div><h3>Hidden Hills</h3></article>
+    <article class="card"><div class="thumb"><img src="images/Torch.png" alt="Torch"></div><h3>Torch</h3></article>
+    <article class="card"><div class="thumb"><img src="images/Loose Change.png" alt="Loose Change"></div><h3>Loose Change</h3></article>
   </section>
 </main>
 
-<!-- FOOTER -->
+<!-- Featured slider (kept gapless) -->
+<section class="strip" aria-label="Featured Disposables">
+  <div class="wrap">
+    <h2>Featured Disposables</h2>
+    <p>Smooth, gapless carousel — always in motion.</p>
+  </div>
+  <div class="marquee" id="marq" data-speed="26">
+    <ul class="track" id="track">
+      <li class="item"><img src="images/Space Gods Png.webp" alt="Space Gods"></li>
+      <li class="item"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills"></li>
+      <li class="item"><img src="images/Torch.png" alt="Torch"></li>
+      <li class="item"><img src="images/Loose Change.png" alt="Loose Change"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h3>Looking for something specific?</h3>
+    <p>We stock more in-store than online. Call and we’ll check today’s case for flavors and brands in stock.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href="tel:+14405582671">Call Now</a>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
 </footer>
 
 <script>
-  // Year
+  // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile submenu tap-open (non-desktop only)
+  // Gapless marquee (keeps your no-blank behavior)
   (function(){
-    const isTouch = matchMedia('(hover: none)').matches;
-    const shop = document.querySelector('nav .dropdown');
-    if (!shop || !isTouch) return;
-    const trigger = shop.querySelector(':scope > a');
-    trigger.addEventListener('click', (e)=>{ e.preventDefault(); shop.classList.toggle('open'); });
-  })();
-
-  // Gapless marquee
-  (function(){
-    const mq = document.getElementById('dcMarquee');
-    const track = document.getElementById('dcTrack');
+    const mq = document.getElementById('marq');
+    const track = document.getElementById('track');
     if(!mq || !track) return;
 
-    function build(){
-      // remove previous clones if any
+    function fill(){
+      // remove old clones
       track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
-
-      const need = mq.clientWidth * 2 + 40; // 2x container + small buffer
+      const need = mq.clientWidth * 2 + 40; // fill 2x width + buffer
       let w = track.scrollWidth;
-
       while (w < need){
-        track.querySelectorAll(':scope > .item').forEach(item=>{
-          const c = item.cloneNode(true);
-          c.setAttribute('data-clone','1');
-          track.appendChild(c);
+        track.querySelectorAll(':scope > .item').forEach(i=>{
+          const c = i.cloneNode(true); c.setAttribute('data-clone','1'); track.appendChild(c);
         });
         w = track.scrollWidth;
       }
-
-      // animate exactly half the track width for a seamless loop
       track.style.setProperty('--dist', `-${w/2}px`);
-      track.style.setProperty('--dur', `${Number(mq.dataset.speed || 26)}s`);
+      track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
     }
-
-    build();
-    let t;
-    window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build, 120); }, {passive:true});
+    fill();
+    let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(fill,120); }, {passive:true});
   })();
 </script>
 </body>
