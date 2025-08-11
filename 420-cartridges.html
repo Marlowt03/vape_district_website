@@ -4,110 +4,94 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Disposable Cartridges — Vape District</title>
+
+<!-- Your site CSS (nav, base, buttons, etc.) -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-/* ============ PAGE-SCOPED STYLES (won’t override your site) ============ */
-.dc-page { --wrap: 1120px; --pad: 16px; --brand-gap: 22px; }
+/* ---------- Page-scoped styles (do NOT touch your nav) ---------- */
+.dc { --wrap: 1120px; --pad: 16px; --brand-gap: 28px; }
 
-/* ------- NAV (scoped so it can't break other pages) ------- */
-.dc-page .vd-nav {
-  max-width: var(--wrap); margin: 0 auto; padding: 14px var(--pad);
-  display: flex; align-items: center; gap: 24px;
-}
-.dc-page .vd-logo { font-weight: 900; font-size: 28px; color: #1a73e8; text-decoration: none; }
-.dc-page .vd-links { margin-left: auto; display: flex; gap: 28px; align-items: center; }
-.dc-page .vd-links > li { list-style: none; position: relative; }
-.dc-page .vd-links a { text-decoration: none; color: #111; font-weight: 700; }
-.dc-page .has-sub > a { pointer-events: none; cursor: default; } /* Shop is not clickable */
-.dc-page .submenu {
-  position: absolute; left: 0; top: 100%; display: none; background: #fff;
-  border-radius: 12px; padding: 8px 0; box-shadow: 0 10px 24px rgba(0,0,0,.12); min-width: 220px; z-index: 40;
-}
-@media (hover:hover){ .dc-page .has-sub:hover .submenu{ display:block; } }
-.dc-page .submenu a{
-  display:block; padding:10px 16px; color:#111; font-weight:500; white-space:nowrap; text-decoration:none;
-}
-.dc-page .submenu a:hover{ background:#f5f7fb; }
-
-/* ------- HERO ------- */
-.dc-page .hero {
+/* HERO (smaller) */
+.dc .hero {
   position: relative;
-  background: #0c0c0c url('images/test_chapo.png') center/cover no-repeat;
+  background: #0b0b0b url('images/test_chapo.png') center/cover no-repeat;
   color: #fff;
-  padding: clamp(140px, 22vh, 220px) var(--pad) clamp(60px, 8vh, 90px);
   text-align: center;
+  padding: clamp(120px, 18vh, 160px) var(--pad) clamp(48px, 8vh, 72px);
 }
-.dc-page .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,.15)); }
-.dc-page .hero > .inner { position: relative; z-index: 1; max-width: var(--wrap); margin: 0 auto; }
-.dc-page .hero h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 48px); font-weight: 900; }
-.dc-page .hero p  { margin: 0; opacity: .95; }
+.dc .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.15)); }
+.dc .hero > .inner { position:relative; z-index:1; max-width: var(--wrap); margin: 0 auto; }
+.dc .hero h1 { margin:0 0 6px; font-size: clamp(28px, 5vw, 44px); font-weight: 900; }
+.dc .hero p { margin:0; opacity:.95; }
 
-/* ------- CONTAINER ------- */
-.dc-page .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
+/* container */
+.dc .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
 
-/* ------- BRAND CARDS (centered, tighter) ------- */
-.dc-page .brands { padding: 28px 0 10px; }
-.dc-page .brands h2{
+/* BRAND CARDS (centered + a touch more spacing) */
+.dc .brands { padding: 28px 0 10px; }
+.dc .brands h2{
   margin: 0 0 10px; font-size: clamp(18px, 3.6vw, 24px); color:#223041; font-weight: 800; text-align:center;
 }
-.dc-page .brand-grid{
+.dc .brand-grid{
   display: grid; gap: var(--brand-gap);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-items: center;
 }
-@media (min-width: 740px){ .dc-page .brand-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.dc-page .card{
+@media (min-width: 740px){ .dc .brand-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.dc .card{
   width: 100%; max-width: 260px;
-  background: #fff; border-radius: 18px; padding: 16px 16px 14px;
-  text-align: center; box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  background:#fff; border-radius:18px; padding:16px 16px 14px; text-align:center;
+  box-shadow:0 10px 22px rgba(0,0,0,.10);
 }
-.dc-page .card .thumb{
-  background: #f6f7f9; border-radius: 14px; padding: 14px;
-  display:flex; align-items:center; justify-content:center; height: 160px;
+.dc .card .thumb{
+  background:#f6f7f9; border-radius:14px; padding:14px;
+  display:flex; align-items:center; justify-content:center; height:160px;
 }
-.dc-page .card img{ max-height: 130px; width: auto; height: auto; object-fit: contain; display: block; }
-.dc-page .card h3{
-  margin: 12px 0 0; font-size: 20px; color:#0f2436; font-weight: 800;
-}
+.dc .card img{ max-height:130px; width:auto; height:auto; object-fit:contain; display:block; }
+.dc .card h3{ margin:12px 0 0; font-size:20px; color:#0f2436; font-weight:800; }
 
-/* ------- FEATURED SLIDER (gapless) ------- */
-.dc-page .strip { background:#fff; color:#111; padding: 28px 0 24px; margin-top: 10px; }
-.dc-page .strip h3{ margin:0 0 4px; font-size: 24px; font-weight: 800; color:#13293d; }
-.dc-page .strip p{ margin:0 0 10px; color:#526173; }
+/* FEATURED (centered headings) */
+.dc .strip{ background:#fff; color:#111; padding:28px 0 24px; margin-top:10px; }
+.dc .strip .wrap{ text-align:center; }
+.dc .strip h3{ margin:0 0 6px; font-size:24px; font-weight:800; color:#13293d; }
+.dc .strip p{ margin:0 0 10px; color:#526173; }
 
-.dc-page .marquee { position: relative; overflow: hidden; padding: 10px 0 22px; }
-.dc-page .track{
-  display: inline-flex; align-items: center; gap: 18px; will-change: transform; backface-visibility: hidden;
+/* Gapless marquee */
+.dc .marquee{ position:relative; overflow:hidden; padding:10px 0 22px; }
+.dc .track{
+  display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden;
   animation: dc-mar linear infinite var(--dur, 28s);
 }
-.dc-page .mitem{
-  background:#fff; border-radius:16px; padding:14px; min-width: 220px;
-  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+.dc .mitem{
+  background:#fff; border-radius:16px; padding:14px; min-width:220px;
+  box-shadow:0 10px 22px rgba(0,0,0,.12);
   display:flex; align-items:center; justify-content:center;
 }
-.dc-page .mitem img{ height: 140px; width: auto; object-fit: contain; display:block; }
-@media (min-width: 900px){ .dc-page .mitem{ min-width: 250px; } .dc-page .mitem img{ height: 165px; } }
+.dc .mitem img{ height:140px; width:auto; object-fit:contain; display:block; }
+@media (min-width:900px){ .dc .mitem{ min-width:250px; } .dc .mitem img{ height:165px; } }
 
-@keyframes dc-mar { from{ transform: translateX(0); } to{ transform: translateX(var(--dist, -100%)); } }
-@media (prefers-reduced-motion: reduce){ .dc-page .track{ animation: none !important; } }
+@keyframes dc-mar { from{ transform:translateX(0); } to{ transform:translateX(var(--dist, -100%)); } }
+@media (prefers-reduced-motion: reduce){ .dc .track{ animation:none !important; } }
 
-/* ------- FOOTER (kept super light) ------- */
-.dc-page .vd-footer { text-align:center; padding: 36px var(--pad); color:#5a6a7a; font-size: 14px; }
-.dc-page .vd-footer a{ color:#1a73e8; text-decoration:none; }
+/* Footer (light) */
+.dc .foot { text-align:center; padding:36px var(--pad); color:#5a6a7a; font-size:14px; }
+.dc .foot a { color:#1a73e8; text-decoration:none; }
 </style>
 </head>
-<body class="dc-page">
+<body class="dc">
 
-<!-- NAV (scoped clone of your site pattern) -->
-<nav class="vd-nav">
-  <a class="vd-logo" href="index.html">Vape District</a>
-  <ul class="vd-links">
+<!-- Use your GLOBAL nav exactly as-is (no page CSS touches it). -->
+<nav>
+  <a href="index.html" class="nav-logo">Vape District</a>
+  <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
 
-    <li class="has-sub">
-      <a aria-label="Shop menu">Shop</a>
+    <li class="has-submenu">
+      <a href="shop.html" onclick="return false">Shop</a>
       <ul class="submenu">
         <li><a href="420.html">420 ▸</a></li>
         <li><a href="vapes.html">Vapes ▸</a></li>
@@ -120,7 +104,7 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO (smaller) -->
 <header class="hero">
   <div class="inner">
     <h1>Disposable Cartridges</h1>
@@ -129,7 +113,7 @@
 </header>
 
 <main>
-  <!-- BRANDS (CENTERED, tighter gaps) -->
+  <!-- BRANDS -->
   <section class="brands wrap" aria-label="Popular disposable cartridge brands">
     <h2>Explore our most popular disposable cartridge brands.</h2>
 
@@ -164,7 +148,7 @@
     </div>
   </section>
 
-  <!-- FEATURED, GAPLESS SLIDER -->
+  <!-- FEATURED (centered) -->
   <section class="strip" aria-label="Featured Disposable Cartridges">
     <div class="wrap">
       <h3>Featured Disposable Cartridges</h3>
@@ -173,7 +157,6 @@
 
     <div class="marquee" id="dcMarquee" data-speed="28">
       <ul class="track" id="dcTrack">
-        <!-- Base items once; JS repeats just enough for seamless loop -->
         <li class="mitem"><img src="images/Space%20Gods%20Png.webp" alt="Space Gods"></li>
         <li class="mitem"><img src="images/Hidden%20Hills%20Png.webp" alt="Hidden Hills"></li>
         <li class="mitem"><img src="images/Torch.png" alt="Torch"></li>
@@ -183,42 +166,39 @@
   </section>
 </main>
 
-<footer class="vd-footer">
+<footer class="foot">
   <p>&copy; <span id="y"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
 </footer>
 
 <script>
-  // year
+  // Footer year
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // Mobile touch open for submenu (does nothing on desktop)
+  // On touch devices, let “Shop” open/close the submenu without navigating
   (function(){
     const isTouch = matchMedia('(hover: none)').matches;
-    const shop = document.querySelector('.dc-page .has-sub');
-    if (!shop) return;
-    const link = shop.querySelector(':scope > a');
-    link.addEventListener('click', (e) => { if (isTouch) { e.preventDefault(); shop.classList.toggle('open'); }});
-    // When open, show submenu
-    const css = document.createElement('style');
-    css.textContent = `.dc-page .has-sub.open .submenu { display:block; }`;
-    document.head.appendChild(css);
+    const li = document.querySelector('nav .has-submenu');
+    if (!li) return;
+    const link = li.querySelector(':scope > a');
+    link.addEventListener('click', function(e){
+      if (isTouch){ e.preventDefault(); li.classList.toggle('submenu-open'); }
+    });
   })();
 
-  // Gapless marquee (no gaps, no blinking, no double rows)
+  // Gapless marquee
   (function(){
     const mq = document.getElementById('dcMarquee');
     const track = document.getElementById('dcTrack');
     if(!mq || !track) return;
 
-    // Clean any previous clones
+    // Remove old clones (if hot-reloaded)
     track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
 
     const pad = 40;
     const cw = mq.clientWidth;
     let w = track.scrollWidth;
 
-    // Duplicate items until content ~2x container width
     while (w < cw * 2 + pad) {
       track.querySelectorAll(':scope > .mitem').forEach(item => {
         const c = item.cloneNode(true);
@@ -228,28 +208,26 @@
       w = track.scrollWidth;
     }
 
-    // Set actual distance/duration based on final width
     const speed = Number(mq.dataset.speed || 28);
     track.style.setProperty('--dist', `-${w/2}px`);
     track.style.setProperty('--dur', `${speed}s`);
 
-    // Rebuild on resize for phones
     let t;
     window.addEventListener('resize', () => {
       clearTimeout(t);
       t = setTimeout(() => {
         track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-        const newCW = mq.clientWidth;
-        let curW = track.scrollWidth;
-        while (curW < newCW * 2 + pad) {
+        const ncw = mq.clientWidth;
+        let nw = track.scrollWidth;
+        while (nw < ncw * 2 + pad) {
           track.querySelectorAll(':scope > .mitem').forEach(item => {
             const c = item.cloneNode(true);
             c.setAttribute('data-clone','1');
             track.appendChild(c);
           });
-          curW = track.scrollWidth;
+          nw = track.scrollWidth;
         }
-        track.style.setProperty('--dist', `-${curW/2}px`);
+        track.style.setProperty('--dist', `-${nw/2}px`);
       }, 120);
     }, { passive: true });
   })();
