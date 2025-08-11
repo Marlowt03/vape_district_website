@@ -4,190 +4,190 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>420 (Pre-Rolls) — Vape District</title>
+
+<!-- Global theme -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* ---------- NAV (matches index look/behavior) ---------- */
-  nav{position:sticky;top:0;z-index:1000;background:#fff;backdrop-filter:saturate(180%) blur(8px);
-      border-bottom:1px solid rgba(0,0,0,.06);}
-  nav .wrap{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:14px 16px;}
-  .nav-logo{font-weight:900;font-size:1.6rem;color:#1a73e8;text-decoration:none;margin-right:auto;}
-  .nav-links{display:flex;align-items:center;gap:28px;margin:0;padding:0;list-style:none;}
-  .nav-links > li > a{font-weight:800;color:#222;text-decoration:none;}
-  .menu-toggle{display:none;cursor:pointer;}
+  /* ===== Page-scoped tweaks to match disposables page ===== */
 
-  /* submenu: Shop not clickable; dropdown only */
-  .has-submenu{position:relative;}
-  .has-submenu > a{pointer-events:none;cursor:default;opacity:.85;}
-  .submenu{position:absolute;left:0;top:100%;display:none;min-width:240px;background:#fff;border-radius:12px;
-           box-shadow:0 12px 28px rgba(0,0,0,.12);padding:8px 0;}
-  .submenu a{display:block;padding:10px 16px;text-decoration:none;color:#111;font-weight:600;}
-  .submenu a:hover{background:#f5f7fb;}
-  @media (hover:hover){ .has-submenu:hover .submenu{display:block;} }
-
-  @media (max-width:820px){
-    .menu-toggle{display:block;}
-    .nav-links{display:none;flex-direction:column;align-items:flex-start;gap:12px;padding:12px 2px;}
-    .nav-open .nav-links{display:flex;}
-    .has-submenu{width:100%;}
-    .submenu{position:static;display:block;box-shadow:none;padding:6px 0 0}
-    .has-submenu > a{pointer-events:none;}
+  /* Submenu (same behavior as other pages) */
+  nav .nav-links, nav .nav-links ul { list-style:none; margin:0; padding:0; }
+  nav .has-submenu { position:relative; }
+  nav .has-submenu > a { cursor:default; } /* not clickable */
+  nav .submenu{
+    display:none; position:absolute; top:100%; left:0; min-width:220px;
+    background:#fff; border-radius:12px; padding:8px 0;
+    box-shadow:0 10px 24px rgba(0,0,0,.12); z-index:1000;
   }
+  @media (hover:hover){ nav .has-submenu:hover > .submenu { display:block; } }
+  nav .submenu a{ display:block; padding:10px 16px; color:#111; text-decoration:none; font-weight:500; white-space:nowrap; }
+  nav .submenu a:hover{ background:#f5f7fb; }
+  /* Mobile: tap to open submenu */
+  nav .submenu-open > .submenu { display:block; }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    background:#0b0d10 url('images/420.jpg') center/cover no-repeat;
-    color:#fff;text-align:center;position:relative;
-    height:240px;       /* compact header */
-    padding:32px 16px;  /* even spacing */
+  /* HERO — same sizing treatment as disposables */
+  .vd-hero{
+    background:#101010 url('images/420.jpg') center/cover no-repeat;
+    color:#fff; text-align:center; position:relative;
+    padding: 320px 16px 160px;           /* mirror disposables */
   }
-  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.25));}
-  .hero .inner{position:relative;z-index:1;max-width:1120px;margin:0 auto;}
-  .hero h1{margin:0 0 6px;font-size:2.25rem;font-weight:900;letter-spacing:.2px;}
-  .hero p{margin:0;font-weight:600;opacity:.95;}
+  .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
+  .vd-hero .inner{ position:relative; z-index:1; max-width:1120px; margin:0 auto; }
+  .vd-hero h1{ margin:0 0 8px; font-size:3rem; font-weight:800; }
+  .vd-hero p{ margin:0; font-size:1.1rem; opacity:.95; }
+  .vd-actions{ margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .vd-btn{
+    appearance:none; border:0; border-radius:12px; padding:14px 22px;
+    font-weight:800; font-size:1rem; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    transition:transform .08s, box-shadow .2s, background .2s, color .2s;
+  }
+  .vd-btn:active{ transform:translateY(1px); }
+  .vd-btn--ghost{ color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16); }
+  .vd-btn--ghost:hover{ background:#f5f7fb; }
+  .vd-btn--primary{ color:#fff; background:#1a73e8; box-shadow:0 10px 28px rgba(26,115,232,.35), 0 2px 6px rgba(0,0,0,.08); }
+  .vd-btn--primary:hover{ background:#1567cf; }
 
-  .container{max-width:1120px;margin:0 auto;padding:0 16px;}
+  .vd-container{ max-width:1120px; margin:0 auto; padding:0 16px; }
 
-  /* ---------- PRODUCT GRID ---------- */
-  .grid-wrap{padding:26px 0 12px;}
-  .section-lead{margin:0 0 18px;color:#1a2a3b;font-weight:900;font-size:1.6rem;}
-  .grid{display:grid;gap:18px;grid-template-columns:repeat(1,1fr);}
-  @media (min-width:680px){.grid{grid-template-columns:repeat(3,1fr);}}
-  .card{background:#fff;border-radius:16px;box-shadow:0 10px 22px rgba(0,0,0,.08);padding:14px}
-  .card figure{margin:0;text-align:center}
-  .card img{width:100%;height:180px;object-fit:contain;background:#f6f7f9;border-radius:12px;display:block}
-  .card h3{margin:10px 8px 6px;font-weight:900;color:#13293d}
-  .card p{margin:0 8px 10px;color:#546274}
+  /* Product brand grid */
+  .vd-grid-wrap{ padding:28px 0 6px; }
+  .vd-page-sub{ margin:0 0 18px; color:#2a3542; font-size:1.125rem; font-weight:700; letter-spacing:.2px; }
+  .vd-grid{ display:grid; gap:18px; grid-template-columns:repeat(2,1fr); }
+  @media (min-width:680px){ .vd-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (min-width:980px){ .vd-grid{ grid-template-columns:repeat(4,1fr); } }
+  .vd-card{
+    background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
+    box-shadow:0 8px 16px rgba(0,0,0,.08);
+  }
+  .vd-card img{
+    width:100%; height:160px; object-fit:contain; display:block;
+    background:#f6f7f9; border-radius:10px;
+  }
+  .vd-card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; font-size:.98rem; }
 
-  /* ---------- CAROUSEL (Gapless) ---------- */
-  .strip{padding:28px 0;border-top:1px solid #eef2f6;margin-top:18px}
-  .title{font-weight:900;color:#13293d;margin:0 0 4px;font-size:1.4rem}
-  .sub{margin:0 0 10px;color:#4b5968}
-  .marquee{position:relative;overflow:hidden;padding:12px 0 18px}
-  .track{display:inline-flex;gap:22px;will-change:transform;animation:scroll var(--dur,28s) linear infinite}
-  .item{background:#fff;border-radius:18px;min-width:260px;display:flex;justify-content:center;align-items:center;
-        box-shadow:0 12px 26px rgba(0,0,0,.12);padding:18px}
-  .item img{height:160px;width:auto;object-fit:contain;display:block}
-  @keyframes scroll{from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))}}
-  @media (max-width:900px){ .item{min-width:220px}.item img{height:140px} }
+  /* Featured carousel (light section) */
+  .vd-strip--light{ background:#fff; color:#111; padding:30px 0 20px; margin-top:28px; border-top:1px solid #eef2f7; }
+  .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
+  .vd-sub{ margin:0 0 8px; color:#495869; }
 
-  /* ---------- FULL-BLEED CTA ---------- */
-  .cta-bleed{
-    /* edge-to-edge trick */
-    --bleed: calc(50vw - 50%);
-    margin-left: calc(-1 * var(--bleed));
-    margin-right: calc(-1 * var(--bleed));
-    width: 100vw;
+  .marquee{ position:relative; overflow:hidden; padding:16px 0 24px; }
+  .marquee__track{
+    display:inline-flex; align-items:center; gap:20px;
+    will-change:transform; backface-visibility:hidden;
+    animation: marquee linear infinite var(--marquee-duration, 28s);
+  }
+  .marq-item{
+    background:#fff; border-radius:16px; padding:14px; min-width:220px;
+    box-shadow:0 10px 22px rgba(0,0,0,.12);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .marq-item img{ height:140px; width:auto; object-fit:contain; display:block; }
+  @media (min-width:900px){ .marq-item{ min-width:260px; } .marq-item img{ height:170px; } }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(var(--marquee-distance,-100%)); } }
+  @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
 
+  /* Bottom CTA (keep same height/feel as disposables) */
+  .vd-cta{
     background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-    border-top:1px solid #e7edf5;
-    padding:64px 16px;
-    text-align:center;
+    padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5;
   }
-  .cta-bleed .inner{max-width:1120px;margin:0 auto}
-  .cta-bleed h2{margin:0 0 10px;font-size:2.35rem;font-weight:900;color:#13293d}
-  .cta-bleed p{margin:0 auto 18px;max-width:860px;color:#4b5968;font-size:1.06rem}
-  .btn{appearance:none;border:0;border-radius:14px;padding:16px 26px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-block}
-  .btn-primary{background:#1a73e8;color:#fff;box-shadow:0 10px 28px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08)}
-  .btn-primary:hover{background:#1567cf}
+  .vd-cta h3{ font-size:2.2rem; margin:0 0 10px; color:#13293d; font-weight:800; }
+  .vd-cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.1rem; }
+  .vd-cta .vd-btn{ font-size:1.05rem; padding:16px 26px; border-radius:14px; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="site-nav">
-  <div class="wrap">
-    <a href="index.html" class="nav-logo">Vape District</a>
-    <div class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
+<!-- NAV (same structure as disposables) -->
+<nav>
+  <a href="index.html" class="nav-logo">Vape District</a>
+  <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
 
-      <li class="has-submenu">
-        <a href="#" aria-haspopup="true" aria-expanded="false">Shop</a>
-        <ul class="submenu" aria-label="Shop submenu">
-          <li><a href="420.html">420 ▸</a></li>
-          <li><a href="vapes.html">Vapes ▸</a></li>
-          <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
-          <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
-        </ul>
-      </li>
+    <li class="has-submenu">
+      <a href="#" aria-haspopup="true" aria-expanded="false">Shop</a>
+      <ul class="submenu" role="menu">
+        <li><a href="420.html">420 ▸</a></li>
+        <li><a href="vapes.html">Vapes ▸</a></li>
+        <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+        <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+      </ul>
+    </li>
 
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </div>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
-<header class="hero">
+<header class="vd-hero">
   <div class="inner">
     <h1>420 (Pre-Rolls)</h1>
-    <p>Explore our most popular pre-roll brands.</p>
+    <p>Explore our most popular pre-rolled options.</p>
+    <div class="vd-actions">
+      <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
+    </div>
   </div>
 </header>
 
 <main>
-  <!-- PRODUCT CARDS -->
-  <section class="grid-wrap">
-    <div class="container">
-      <h2 class="section-lead">Popular Pre-Rolls</h2>
+  <!-- BRAND GRID -->
+  <section class="vd-grid-wrap">
+    <div class="vd-container">
+      <p class="vd-page-sub">Explore our most popular Pre-Rolls.</p>
 
-      <div class="grid">
-        <article class="card">
-          <figure>
-            <img src="images/zour-stash.webp" alt="Zour Stash pre-rolls">
-          </figure>
-          <h3>Zour Stash</h3>
-          <p>Liquid diamonds, smooth draw, bold flavor.</p>
-        </article>
+      <div class="vd-grid">
+        <figure class="vd-card">
+          <img src="images/Zour%20Stash%20png.webp" alt="Zour Stash" loading="lazy" />
+          <figcaption>Zour Stash</figcaption>
+        </figure>
 
-        <article class="card">
-          <figure>
-            <img src="images/curvana.png" alt="Curvana pre-rolls">
-          </figure>
-          <h3>Curvana</h3>
-          <p>THC-A enhanced options in classic strains.</p>
-        </article>
+        <figure class="vd-card">
+          <img src="images/Curvana%20Png.png" alt="Curvana" loading="lazy" />
+          <figcaption>Curvana</figcaption>
+        </figure>
 
-        <article class="card">
-          <figure>
-            <img src="images/dank-leaf.png" alt="Dank Leaf wraps / pre-rolls">
-          </figure>
-          <h3>Dank Leaf</h3>
-          <p>Natural hemp wraps and infused pre-rolls.</p>
-        </article>
+        <figure class="vd-card">
+          <img src="images/Dank%20Leaf%20Png.png" alt="Dank Leaf" loading="lazy" />
+          <figcaption>Dank Leaf</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- CAROUSEL -->
-  <section class="strip" aria-label="Featured Pre-Rolls">
-    <div class="container">
-      <h3 class="title">Featured Pre-Rolls</h3>
-      <p class="sub">Smooth, gapless carousel — always in motion.</p>
+  <!-- FEATURED SLIDER -->
+  <section class="vd-strip vd-strip--light" aria-label="Featured Pre-Rolls">
+    <div class="vd-container">
+      <h2 class="vd-title">Featured Pre-Rolls</h2>
+      <p class="vd-sub">Smooth, gapless carousel — always in motion.</p>
     </div>
 
     <div class="marquee" id="pr-marquee" data-speed="28">
-      <ul class="track" id="pr-track">
-        <li class="item"><img src="images/curvana.png"    alt="Curvana"></li>
-        <li class="item"><img src="images/dank-leaf.png"  alt="Dank Leaf"></li>
-        <li class="item"><img src="images/zour-stash.webp" alt="Zour Stash"></li>
-        <li class="item"><img src="images/curvana.png"    alt="Curvana"></li>
+      <ul class="marquee__track" id="pr-track">
+        <!-- Base items (JS clones as needed for seamless loop) -->
+        <li class="marq-item"><img src="images/Dank%20Leaf%20Png.png"  alt="Dank Leaf"></li>
+        <li class="marq-item"><img src="images/Zour%20Stash%20png.webp" alt="Zour Stash"></li>
+        <li class="marq-item"><img src="images/Curvana%20Png.png"      alt="Curvana"></li>
       </ul>
     </div>
   </section>
 
-  <!-- FULL-BLEED CTA (edge-to-edge) -->
-  <section class="cta-bleed">
-    <div class="inner">
-      <h2>Looking for a specific strain?</h2>
+  <!-- BOTTOM CTA -->
+  <section class="vd-cta">
+    <div class="vd-container">
+      <h3>Looking for a specific strain?</h3>
       <p>Inventory rotates daily. Call the shop and we’ll check today’s case for you.</p>
-      <a class="btn btn-primary" href="tel:+14405582671">Call Now</a>
+      <div class="vd-actions">
+        <a class="vd-btn vd-btn--primary" href="tel:+14405582671">Call Now</a>
+        <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
+      </div>
     </div>
   </section>
 </main>
 
-<!-- FOOTER -->
+<!-- Footer (uses your site’s styling) -->
 <footer class="footer">
   <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
@@ -197,62 +197,63 @@
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile nav toggle
-  const toggle = document.getElementById('menuToggle');
-  const nav = document.getElementById('site-nav');
-  toggle?.addEventListener('click', () => {
-    nav.classList.toggle('nav-open');
-    const open = nav.classList.contains('nav-open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+  // Mobile: toggle the Shop submenu (Shop itself is not a link)
+  (function(){
+    const isTouch = matchMedia('(hover: none)').matches;
+    const shop = document.querySelector('nav .has-submenu');
+    if (!shop) return;
+    const trigger = shop.querySelector(':scope > a');
+    trigger.addEventListener('click', function(e){
+      e.preventDefault();
+      if (isTouch) shop.classList.toggle('submenu-open');
+    });
+  })();
 
-  // Gapless carousel logic (no blink, no gaps)
+  // Gapless marquee build (no gaps, no blinking)
   (function () {
     const marquee = document.getElementById('pr-marquee');
-    const track = document.getElementById('pr-track');
-    if (!marquee || !track) return;
+    const baseTrack = document.getElementById('pr-track');
+    if (!marquee || !baseTrack) return;
 
-    // remove prior clones if hot-reloaded
-    track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+    baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
 
     const containerWidth = marquee.clientWidth;
-    let contentWidth = track.scrollWidth;
+    let contentWidth = baseTrack.scrollWidth;
     const buffer = 40;
 
-    // Clone until ~2x container width
+    // Duplicate until we exceed ~2x container width
     while (contentWidth < containerWidth * 2 + buffer) {
-      track.querySelectorAll(':scope > .item').forEach((it) => {
-        const c = it.cloneNode(true);
-        c.setAttribute('data-clone','1');
-        track.appendChild(c);
+      baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+        const clone = item.cloneNode(true);
+        clone.setAttribute('data-clone', '1');
+        baseTrack.appendChild(clone);
       });
-      contentWidth = track.scrollWidth;
+      contentWidth = baseTrack.scrollWidth;
     }
 
-    // Drive distance/duration from width
     const speed = Number(marquee.dataset.speed || 28);
-    track.style.setProperty('--dist', `-${contentWidth / 2}px`);
-    track.style.setProperty('--dur', `${speed}s`);
+    baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
+    baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
 
-    // Rebuild on resize/rotate
+    // Rebuild on resize
     let t;
     window.addEventListener('resize', () => {
       clearTimeout(t);
       t = setTimeout(() => {
-        track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+        baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
         const cw = marquee.clientWidth;
-        let w = track.scrollWidth;
+        let w = baseTrack.scrollWidth;
         while (w < cw * 2 + buffer) {
-          track.querySelectorAll(':scope > .item').forEach((it) => {
-            const c = it.cloneNode(true);
-            c.setAttribute('data-clone', '1');
-            track.appendChild(c);
+          baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
+            const c = item.cloneNode(true);
+            c.setAttribute('data-clone','1');
+            baseTrack.appendChild(c);
           });
-          w = track.scrollWidth;
+          w = baseTrack.scrollWidth;
         }
-        track.style.setProperty('--dist', `-${w / 2}px`);
+        baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
       }, 120);
-    }, { passive: true });
+    }, { passive:true });
   })();
 </script>
 </body>
