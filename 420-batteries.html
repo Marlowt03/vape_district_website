@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vape District | Batteries</title>
+
+  <!-- site-wide css + js (same as your other pages) -->
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
+
+  <!-- tiny page-only styles (matches 420 page patterns) -->
   <style>
-    .strip { background:#fff; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
-    .strip .inner{ text-align:center; max-width:1120px; margin:0 auto; padding:0 16px; }
-    .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
-    .strip p{ margin:0 0 10px; color:#526173; }
-    .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
-    .track{ display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden; animation: mar linear infinite var(--dur,26s); }
-    .item{ background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
-    .item img{ height:140px; width:auto; object-fit:contain; display:block; }
-    @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
+    .strip{background:#fff;padding:22px 0 16px;margin-top:8px;border-top:1px solid #eef2f7}
+    .strip .inner{max-width:1120px;margin:0 auto;padding:0 16px;text-align:center}
+    .strip h3{margin:0 0 6px;font-size:22px;font-weight:900;color:#13293d}
+    .strip p{margin:0 0 10px;color:#526173}
+    .marquee{position:relative;overflow:hidden;padding:10px 0 20px}
+    .track{display:inline-flex;align-items:center;gap:18px;will-change:transform;backface-visibility:hidden;animation:mar linear infinite var(--dur,26s)}
+    .item{background:#fff;border-radius:16px;padding:12px;min-width:220px;box-shadow:0 10px 22px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
+    .item img{height:140px;width:auto;object-fit:contain;display:block}
+    @keyframes mar{from{transform:translateX(0)}to{transform:translateX(var(--dist,-100%))}}
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Navigation (unchanged, same as other pages) -->
   <nav>
     <a class="nav-logo" href="index.html">Vape District</a>
     <ul class="nav-links">
@@ -42,10 +46,10 @@
           <div class="submenu">
             <a href="vapes.html" class="has-sub">Vapes</a>
             <div class="sub-dropdown">
-@@ -39,48 +50,92 @@
+              <!-- keep your existing vape sublinks here if present -->
+            </div>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
@@ -53,52 +57,54 @@
     </ul>
     <div class="menu-toggle">☰</div>
   </nav>
-  <!-- Hero -->
-  <section class="hero" style="height: 60vh; background-image: url('images/dubcharge_sync.png');">
+
+  <!-- Hero (uses Yocan case photo you supplied) -->
+  <section class="hero" style="height:60vh; background-image:url('images/Yocan%20Png.webp');">
     <div class="hero-content">
       <h1>Batteries</h1>
-      <p>Power your cartridges and devices with our dependable batteries.</p>
+      <p>Power your cartridges and devices with dependable 510 batteries & chargers.</p>
     </div>
   </section>
-  <!-- Content -->
+
+  <!-- Copy block + product cards (same structure as 420 page) -->
   <section class="categories-section">
     <div class="about-text" style="flex:1 1 100%; text-align:center;">
       <h2 class="section-title">Reliable Power</h2>
-      <p>Pick up rechargeable and disposable batteries compatible with a variety of cartridges and devices. Our team can help you choose the right battery for your setup.</p>
+      <p>Pick up rechargeable and novelty batteries compatible with a variety of cartridges and devices. Our team can help you choose the right battery for your setup.</p>
     </div>
+
     <div class="product-grid">
+      <!-- Yocan case -->
       <div class="product-card">
-        <img src="images/dubcharge_sync.png" alt="Standard Batteries">
-        <h3>Standard Batteries</h3>
-        <p>Everyday power for your favourite carts and pens.</p>
-        <img src="images/battery_case.png" alt="Battery Case">
-        <h3>Battery Case</h3>
-        <p>Portable charging case to keep your cart ready.</p>
+        <img src="images/Yocan%20Png.webp" alt="Yocan charging case">
+        <h3>Yocan Charging Case</h3>
+        <p>Portable charging case to keep your cart ready on the go.</p>
       </div>
+
+      <!-- Grenade -->
       <div class="product-card">
-        <img src="images/hulf_flat_mini.png" alt="High Capacity Batteries">
-        <h3>High Capacity</h3>
-        <p>Long‑lasting batteries for extended sessions.</p>
-        <img src="images/battery_grenade.png" alt="Grenade Battery">
-        <h3>Grenade Battery</h3>
+        <img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery">
+        <h3>Grenade 510 Battery</h3>
         <p>Explosive style with dependable 510 power.</p>
       </div>
+
+      <!-- Plumber (Mario look) -->
       <div class="product-card">
-        <img src="images/dubcharger_510.png" alt="Chargers">
-        <h3>Chargers</h3>
-        <p>Reliable chargers to keep your batteries ready to go.</p>
-        <img src="images/battery_mario.png" alt="Mario Battery">
-        <h3>Mario Battery</h3>
+        <img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery">
+        <h3>Plumber 510 Battery</h3>
         <p>Character battery that keeps the fun going.</p>
       </div>
+
+      <!-- Unicorn -->
       <div class="product-card">
-        <img src="images/battery_unicorn.png" alt="Unicorn Battery">
-        <h3>Unicorn Battery</h3>
+        <img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery">
+        <h3>Unicorn 510 Battery</h3>
         <p>Whimsical design with reliable performance.</p>
       </div>
     </div>
   </section>
-  <!-- Featured Carousel -->
+
+  <!-- Featured carousel (identical behavior to 420 page) -->
   <section class="strip" aria-label="Featured Batteries">
     <div class="inner">
       <h3>Featured Batteries</h3>
@@ -106,27 +112,32 @@
     </div>
     <div class="marquee" id="batMarquee" data-speed="26">
       <ul class="track" id="batTrack">
-        <li class="item"><img src="images/battery_case.png" alt="Battery Case"></li>
-        <li class="item"><img src="images/battery_grenade.png" alt="Grenade Battery"></li>
-        <li class="item"><img src="images/battery_mario.png" alt="Mario Battery"></li>
-        <li class="item"><img src="images/battery_unicorn.png" alt="Unicorn Battery"></li>
+        <li class="item"><img src="images/Yocan%20Png.webp" alt="Yocan charging case"></li>
+        <li class="item"><img src="images/iconic%20grenade%20510%20battery.png" alt="Grenade 510 battery"></li>
+        <li class="item"><img src="images/iconic%20plumber%20510%20battery.png" alt="Plumber 510 battery"></li>
+        <li class="item"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Unicorn 510 battery"></li>
       </ul>
     </div>
   </section>
+
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
+
+  <!-- Carousel script (same pattern as your prerolls page) -->
   <script>
     (function(){
       const mq = document.getElementById('batMarquee');
       const track = document.getElementById('batTrack');
-      if(!mq || !track) return;
+      if (!mq || !track) return;
+
       function build(){
         track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
-        const need = mq.clientWidth * 2 + 40;
+        const need = mq.clientWidth * 2 + 40;      // ensure gapless repeat
         let w = track.scrollWidth;
+
         while (w < need){
           track.querySelectorAll(':scope > .item').forEach(item=>{
             const c = item.cloneNode(true);
@@ -138,10 +149,11 @@
         track.style.setProperty('--dist', `-${w/2}px`);
         track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
       }
+
       build();
-      let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+      let t;
+      window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
     })();
   </script>
 </body>
-</html>
 </html>
