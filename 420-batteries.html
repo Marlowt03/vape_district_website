@@ -1,159 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vape District | Batteries</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Batteries — Vape District</title>
 
-  <!-- site-wide css + js (same as your other pages) -->
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+<link rel="stylesheet" href="style.css" />
 
-  <!-- tiny page-only styles (matches 420 page patterns) -->
-  <style>
-    .strip{background:#fff;padding:22px 0 16px;margin-top:8px;border-top:1px solid #eef2f7}
-    .strip .inner{max-width:1120px;margin:0 auto;padding:0 16px;text-align:center}
-    .strip h3{margin:0 0 6px;font-size:22px;font-weight:900;color:#13293d}
-    .strip p{margin:0 0 10px;color:#526173}
-    .marquee{position:relative;overflow:hidden;padding:10px 0 20px}
-    .track{display:inline-flex;align-items:center;gap:18px;will-change:transform;backface-visibility:hidden;animation:mar linear infinite var(--dur,26s)}
-    .item{background:#fff;border-radius:16px;padding:12px;min-width:220px;box-shadow:0 10px 22px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
-    .item img{height:140px;width:auto;object-fit:contain;display:block}
-    @keyframes mar{from{transform:translateX(0)}to{transform:translateX(var(--dist,-100%))}}
-  </style>
+<style>
+  /* Page scope only */
+  :root{ --wrap:1120px; --pad:16px; --nav-h:72px; }
+
+  /* HERO (uses dubcharge_sync.png) */
+  .hero{
+    position:relative;
+    margin-top:var(--nav-h);
+    height:380px;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; color:#fff;
+    background:url("images/dubcharge_sync.png") center 50% / cover no-repeat;
+    background-color:#0b0b0b;
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18));
+    pointer-events:none;
+  }
+  .hero .inner{ position:relative; z-index:2; max-width:var(--wrap); padding:0 var(--pad); }
+  .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .hero p{ margin:0 0 14px; font-size:clamp(14px,2.8vw,18px); text-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn{ appearance:none; border:0; border-radius:12px; padding:12px 20px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; transition:transform .08s, box-shadow .2s, background .2s, color .2s; cursor:pointer; }
+  .btn:active{ transform:translateY(1px); }
+  .btn-ghost-white{ background:#fff; color:#0b1f33; box-shadow:0 10px 24px rgba(0,0,0,.18); }
+  .btn-ghost-white:hover{ background:#f5f7fb; }
+
+  /* WRAP */
+  .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+  /* GRID */
+  .section{ padding:26px 0 8px; }
+  .section h2{ margin:0 0 6px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
+  .section .lead{ margin:0 0 18px; text-align:center; color:#526173; }
+
+  .grid{
+    display:grid; gap:22px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    justify-items:center;
+  }
+  @media (min-width:760px){ .grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+
+  .card{ width:100%; max-width:240px; background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10); text-align:center; padding:14px; }
+  .thumb{ height:148px; background:#f6f7f9; border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .thumb img{ width:auto; height:130px; object-fit:contain; display:block; }
+  .card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
+
+  /* FEATURED STRIP + GAPLESS MARQUEE */
+  .strip{ background:#fff; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
+  .strip .wrap{ text-align:center; }
+  .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
+  .strip p{ margin:0 0 10px; color:#526173; }
+
+  .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+  .track{ display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden; animation: mar linear infinite var(--dur,26s); }
+  .item{ background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
+  .item img{ height:140px; width:auto; object-fit:contain; display:block; }
+  @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
+
+  /* CTA */
+  .cta{ background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%); padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px; }
+  .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
+  .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
+  .btn-blue{ background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08); }
+  .btn-blue:hover{ background:#1567cf; }
+
+  /* FOOTER */
+  .footer{ background:linear-gradient(180deg,#0b2a36 0%, #06212b 100%); color:#e7f2f9; text-align:center; padding:34px var(--pad) 44px; margin-top:22px; }
+  .footer a{ color:#7fc3ff; text-decoration:none; }
+  .footer a:hover{ text-decoration:underline; }
+</style>
 </head>
 <body>
-  <!-- Navigation (unchanged, same as other pages) -->
-  <nav>
-    <a class="nav-logo" href="index.html">Vape District</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li class="dropdown">
-        <a href="#">Shop</a>
-        <div class="dropdown-content">
-          <div class="submenu">
-            <a href="420.html" class="has-sub">420</a>
-            <div class="sub-dropdown">
-              <a href="420-wraps.html">Wraps</a>
-              <a href="420-cartridges.html">420 Cartridges</a>
-              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
-              <a href="420-glass.html">Glass</a>
-              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
-              <a href="420-batteries.html">Batteries</a>
-            </div>
+
+<!-- NAV (same structure as other pages) -->
+<nav>
+  <a class="nav-logo" href="index.html">Vape District</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li class="dropdown">
+      <a href="#">Shop</a>
+      <div class="dropdown-content">
+        <div class="submenu">
+          <a href="420.html" class="has-sub">420</a>
+          <div class="sub-dropdown">
+            <a href="420-wraps.html">Wraps</a>
+            <a href="420-cartridges.html">420 Cartridges</a>
+            <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+            <a href="420-glass.html">Glass</a>
+            <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+            <a href="420-batteries.html">Batteries</a>
           </div>
-          <div class="submenu">
-            <a href="vapes.html" class="has-sub">Vapes</a>
-            <div class="sub-dropdown">
-              <!-- keep your existing vape sublinks here if present -->
-            </div>
-          </div>
-          <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
-      </li>
-      <li><a href="contact.html">Contact</a></li>
+        <div class="submenu">
+          <a href="vapes.html" class="has-sub">Vapes</a>
+          <div class="sub-dropdown">
+            <a href="vape-juice.html">Vape Juice</a>
+            <a href="vape-devices.html">Devices</a>
+            <a href="vape-disposables.html">Disposables</a>
+            <a href="vape-mods.html">Mods</a>
+          </div>
+        </div>
+        <a href="detox.html">Pass A Dr*g Test / Detox</a>
+        <a href="mystery-boxes.html">Mystery Boxes</a>
+      </div>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="menu-toggle">☰</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="inner">
+    <h1>Batteries</h1>
+    <p>Power your cartridges and devices with reliable 510 batteries and chargers.</p>
+    <div class="actions">
+      <a class="btn btn-ghost-white" href="contact.html">Call or Visit</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section" aria-label="Popular battery options">
+    <h2>Explore our most popular batteries & accessories.</h2>
+    <p class="lead">From simple stick batteries to fun character styles and cases.</p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="thumb"><img src="images/dubcharge_sync.png" alt="Standard batteries"></div>
+        <h3>Standard Batteries</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/battery_case.png" alt="Battery charging case"></div>
+        <h3>Battery Case</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/hulf_flat_mini.png" alt="High capacity battery"></div>
+        <h3>High Capacity</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/battery_grenade.png" alt="Grenade 510 battery"></div>
+        <h3>Grenade Battery</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/dubcharger_510.png" alt="510 chargers"></div>
+        <h3>Chargers</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/battery_mario.png" alt="Character 510 battery"></div>
+        <h3>Mario Battery</h3>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img src="images/battery_unicorn.png" alt="Unicorn 510 battery"></div>
+        <h3>Unicorn Battery</h3>
+      </article>
+    </div>
+  </section>
+</main>
+
+<!-- FEATURED CAROUSEL (gapless) -->
+<section class="strip" aria-label="Featured Batteries">
+  <div class="wrap">
+    <h3>Featured Batteries</h3>
+    <p>Smooth, gapless carousel — always in motion.</p>
+  </div>
+  <div class="marquee" id="batMarquee" data-speed="26">
+    <ul class="track" id="batTrack">
+      <li class="item"><img src="images/battery_case.png" alt="Battery Case"></li>
+      <li class="item"><img src="images/battery_grenade.png" alt="Grenade Battery"></li>
+      <li class="item"><img src="images/battery_mario.png" alt="Mario Battery"></li>
+      <li class="item"><img src="images/battery_unicorn.png" alt="Unicorn Battery"></li>
     </ul>
-    <div class="menu-toggle">☰</div>
-  </nav>
+  </div>
+</section>
 
-  <!-- Hero (uses Yocan case photo you supplied) -->
-  <section class="hero" style="height:60vh; background-image:url('images/Yocan%20Png.webp');">
-    <div class="hero-content">
-      <h1>Batteries</h1>
-      <p>Power your cartridges and devices with dependable 510 batteries & chargers.</p>
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h3>Need help choosing a battery?</h3>
+    <p>Tell us your cart type and preferred size — we’ll match you with the best battery and charger.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href="tel:+14405582671">Call Now</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Copy block + product cards (same structure as 420 page) -->
-  <section class="categories-section">
-    <div class="about-text" style="flex:1 1 100%; text-align:center;">
-      <h2 class="section-title">Reliable Power</h2>
-      <p>Pick up rechargeable and novelty batteries compatible with a variety of cartridges and devices. Our team can help you choose the right battery for your setup.</p>
-    </div>
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+  <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
+</footer>
 
-    <div class="product-grid">
-      <!-- Yocan case -->
-      <div class="product-card">
-        <img src="images/Yocan%20Png.webp" alt="Yocan charging case">
-        <h3>Yocan Charging Case</h3>
-        <p>Portable charging case to keep your cart ready on the go.</p>
-      </div>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-      <!-- Grenade -->
-      <div class="product-card">
-        <img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery">
-        <h3>Grenade 510 Battery</h3>
-        <p>Explosive style with dependable 510 power.</p>
-      </div>
+  // Gapless marquee — clones until 2x width so there are never gaps
+  (function(){
+    const mq = document.getElementById('batMarquee');
+    const track = document.getElementById('batTrack');
+    if(!mq || !track) return;
 
-      <!-- Plumber (Mario look) -->
-      <div class="product-card">
-        <img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery">
-        <h3>Plumber 510 Battery</h3>
-        <p>Character battery that keeps the fun going.</p>
-      </div>
-
-      <!-- Unicorn -->
-      <div class="product-card">
-        <img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery">
-        <h3>Unicorn 510 Battery</h3>
-        <p>Whimsical design with reliable performance.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured carousel (identical behavior to 420 page) -->
-  <section class="strip" aria-label="Featured Batteries">
-    <div class="inner">
-      <h3>Featured Batteries</h3>
-      <p>Gapless carousel — always in motion.</p>
-    </div>
-    <div class="marquee" id="batMarquee" data-speed="26">
-      <ul class="track" id="batTrack">
-        <li class="item"><img src="images/Yocan%20Png.webp" alt="Yocan charging case"></li>
-        <li class="item"><img src="images/iconic%20grenade%20510%20battery.png" alt="Grenade 510 battery"></li>
-        <li class="item"><img src="images/iconic%20plumber%20510%20battery.png" alt="Plumber 510 battery"></li>
-        <li class="item"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Unicorn 510 battery"></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
-    <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </footer>
-
-  <!-- Carousel script (same pattern as your prerolls page) -->
-  <script>
-    (function(){
-      const mq = document.getElementById('batMarquee');
-      const track = document.getElementById('batTrack');
-      if (!mq || !track) return;
-
-      function build(){
-        track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
-        const need = mq.clientWidth * 2 + 40;      // ensure gapless repeat
-        let w = track.scrollWidth;
-
-        while (w < need){
-          track.querySelectorAll(':scope > .item').forEach(item=>{
-            const c = item.cloneNode(true);
-            c.setAttribute('data-clone','1');
-            track.appendChild(c);
-          });
-          w = track.scrollWidth;
-        }
-        track.style.setProperty('--dist', `-${w/2}px`);
-        track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
+    function build(){
+      track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+      const need = mq.clientWidth * 2 + 40;
+      let w = track.scrollWidth;
+      while (w < need){
+        track.querySelectorAll(':scope > .item').forEach(item=>{
+          const c = item.cloneNode(true);
+          c.setAttribute('data-clone','1');
+          track.appendChild(c);
+        });
+        w = track.scrollWidth;
       }
-
-      build();
-      let t;
-      window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
-    })();
-  </script>
+      track.style.setProperty('--dist', `-${w/2}px`);
+      track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
+    }
+    build();
+    let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+  })();
+</script>
 </body>
 </html>
