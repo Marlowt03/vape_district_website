@@ -6,6 +6,17 @@
   <title>Vape District | Batteries</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
+  <style>
+    .strip { background:#fff; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
+    .strip .inner{ text-align:center; max-width:1120px; margin:0 auto; padding:0 16px; }
+    .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
+    .strip p{ margin:0 0 10px; color:#526173; }
+    .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+    .track{ display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden; animation: mar linear infinite var(--dur,26s); }
+    .item{ background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
+    .item img{ height:140px; width:auto; object-fit:contain; display:block; }
+    @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -31,11 +42,7 @@
           <div class="submenu">
             <a href="vapes.html" class="has-sub">Vapes</a>
             <div class="sub-dropdown">
-              <a href="vape-juice.html">Vape Juice</a>
-              <a href="vape-devices.html">Devices</a>
-              <a href="vape-disposables.html">Disposables</a>
-              <a href="vape-mods.html">Mods</a>
-            </div>
+@@ -39,48 +50,92 @@
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
           <!-- Hookah page removed -->
@@ -64,17 +71,46 @@
         <img src="images/dubcharge_sync.png" alt="Standard Batteries">
         <h3>Standard Batteries</h3>
         <p>Everyday power for your favourite carts and pens.</p>
+        <img src="images/battery_case.png" alt="Battery Case">
+        <h3>Battery Case</h3>
+        <p>Portable charging case to keep your cart ready.</p>
       </div>
       <div class="product-card">
         <img src="images/hulf_flat_mini.png" alt="High Capacity Batteries">
         <h3>High Capacity</h3>
         <p>Long‑lasting batteries for extended sessions.</p>
+        <img src="images/battery_grenade.png" alt="Grenade Battery">
+        <h3>Grenade Battery</h3>
+        <p>Explosive style with dependable 510 power.</p>
       </div>
       <div class="product-card">
         <img src="images/dubcharger_510.png" alt="Chargers">
         <h3>Chargers</h3>
         <p>Reliable chargers to keep your batteries ready to go.</p>
+        <img src="images/battery_mario.png" alt="Mario Battery">
+        <h3>Mario Battery</h3>
+        <p>Character battery that keeps the fun going.</p>
       </div>
+      <div class="product-card">
+        <img src="images/battery_unicorn.png" alt="Unicorn Battery">
+        <h3>Unicorn Battery</h3>
+        <p>Whimsical design with reliable performance.</p>
+      </div>
+    </div>
+  </section>
+  <!-- Featured Carousel -->
+  <section class="strip" aria-label="Featured Batteries">
+    <div class="inner">
+      <h3>Featured Batteries</h3>
+      <p>Gapless carousel — always in motion.</p>
+    </div>
+    <div class="marquee" id="batMarquee" data-speed="26">
+      <ul class="track" id="batTrack">
+        <li class="item"><img src="images/battery_case.png" alt="Battery Case"></li>
+        <li class="item"><img src="images/battery_grenade.png" alt="Grenade Battery"></li>
+        <li class="item"><img src="images/battery_mario.png" alt="Mario Battery"></li>
+        <li class="item"><img src="images/battery_unicorn.png" alt="Unicorn Battery"></li>
+      </ul>
     </div>
   </section>
   <!-- Footer -->
@@ -82,5 +118,30 @@
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
+  <script>
+    (function(){
+      const mq = document.getElementById('batMarquee');
+      const track = document.getElementById('batTrack');
+      if(!mq || !track) return;
+      function build(){
+        track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+        const need = mq.clientWidth * 2 + 40;
+        let w = track.scrollWidth;
+        while (w < need){
+          track.querySelectorAll(':scope > .item').forEach(item=>{
+            const c = item.cloneNode(true);
+            c.setAttribute('data-clone','1');
+            track.appendChild(c);
+          });
+          w = track.scrollWidth;
+        }
+        track.style.setProperty('--dist', `-${w/2}px`);
+        track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
+      }
+      build();
+      let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+    })();
+  </script>
 </body>
+</html>
 </html>
