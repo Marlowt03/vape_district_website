@@ -5,16 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>420 (Pre-Rolls) — Vape District</title>
 
-<!-- Global theme -->
 <link rel="stylesheet" href="style.css" />
 
 <style>
-  /* ===== Page-scoped tweaks to match disposables page ===== */
-
-  /* Submenu (same behavior as other pages) */
+  /* Submenu */
   nav .nav-links, nav .nav-links ul { list-style:none; margin:0; padding:0; }
   nav .has-submenu { position:relative; }
-  nav .has-submenu > a { cursor:default; } /* not clickable */
+  nav .has-submenu > a { cursor:default; }
   nav .submenu{
     display:none; position:absolute; top:100%; left:0; min-width:220px;
     background:#fff; border-radius:12px; padding:8px 0;
@@ -23,14 +20,13 @@
   @media (hover:hover){ nav .has-submenu:hover > .submenu { display:block; } }
   nav .submenu a{ display:block; padding:10px 16px; color:#111; text-decoration:none; font-weight:500; white-space:nowrap; }
   nav .submenu a:hover{ background:#f5f7fb; }
-  /* Mobile: tap to open submenu */
   nav .submenu-open > .submenu { display:block; }
 
-  /* HERO — same sizing treatment as disposables */
+  /* HERO */
   .vd-hero{
     background:#101010 url('images/420.jpg') center/cover no-repeat;
     color:#fff; text-align:center; position:relative;
-    padding: 320px 16px 160px;           /* mirror disposables */
+    padding: 320px 16px 160px;
   }
   .vd-hero::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
   .vd-hero .inner{ position:relative; z-index:1; max-width:1120px; margin:0 auto; }
@@ -53,26 +49,13 @@
   /* Product brand grid */
   .vd-grid-wrap{ padding:28px 0 6px; }
   .vd-page-sub{ margin:0 0 18px; color:#2a3542; font-size:1.125rem; font-weight:700; letter-spacing:.2px; }
-.vd-grid {
-  display: flex;
-  justify-content: center; /* Center the cards */
-  flex-wrap: wrap;
-  gap: 18px;
-}
-.vd-card {
-  flex: 0 1 220px; /* Keeps consistent card width */
-}
-  .vd-card{
-    background:#fff; border-radius:14px; padding:14px 12px; text-align:center;
-    box-shadow:0 8px 16px rgba(0,0,0,.08);
-  }
-  .vd-card img{
-    width:100%; height:160px; object-fit:contain; display:block;
-    background:#f6f7f9; border-radius:10px;
-  }
+
+  .vd-grid{ display:flex; justify-content:center; flex-wrap:wrap; gap:18px; }
+  .vd-card{ flex:0 1 220px; background:#fff; border-radius:14px; padding:14px 12px; text-align:center; box-shadow:0 8px 16px rgba(0,0,0,.08); }
+  .vd-card img{ width:100%; height:160px; object-fit:contain; display:block; background:#f6f7f9; border-radius:10px; }
   .vd-card figcaption{ margin-top:10px; font-weight:800; color:#1b2a3a; font-size:.98rem; }
 
-  /* Featured carousel (light section) */
+  /* Carousel */
   .vd-strip--light{ background:#fff; color:#111; padding:30px 0 20px; margin-top:28px; border-top:1px solid #eef2f7; }
   .vd-title{ font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d; }
   .vd-sub{ margin:0 0 8px; color:#495869; }
@@ -83,17 +66,13 @@
     will-change:transform; backface-visibility:hidden;
     animation: marquee linear infinite var(--marquee-duration, 28s);
   }
-  .marq-item{
-    background:#fff; border-radius:16px; padding:14px; min-width:220px;
-    box-shadow:0 10px 22px rgba(0,0,0,.12);
-    display:flex; align-items:center; justify-content:center;
-  }
+  .marq-item{ background:#fff; border-radius:16px; padding:14px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
   .marq-item img{ height:140px; width:auto; object-fit:contain; display:block; }
   @media (min-width:900px){ .marq-item{ min-width:260px; } .marq-item img{ height:170px; } }
   @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(var(--marquee-distance,-100%)); } }
   @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none !important; } }
 
-  /* Bottom CTA (keep same height/feel as disposables) */
+  /* CTA */
   .vd-cta{
     background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
     padding:54px 16px; text-align:center; margin-top:36px; border-top:1px solid #e7edf5;
@@ -105,7 +84,7 @@
 </head>
 <body>
 
-<!-- NAV (same structure as disposables) -->
+<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Vape District</a>
   <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
@@ -145,6 +124,7 @@
       <p class="vd-page-sub">Explore our most popular Pre-Rolls.</p>
 
       <div class="vd-grid">
+        <!-- Keep existing (except Dank Leaf removed) -->
         <figure class="vd-card">
           <img src="images/Zour%20Stash%20png.webp" alt="Zour Stash" loading="lazy" />
           <figcaption>Zour Stash</figcaption>
@@ -155,9 +135,30 @@
           <figcaption>Curvana</figcaption>
         </figure>
 
+        <!-- NEW FIVE -->
         <figure class="vd-card">
-          <img src="images/Dank%20Leaf%20Png.png" alt="Dank Leaf" loading="lazy" />
-          <figcaption>Dank Leaf</figcaption>
+          <img src="images/Crownzen%20Bang%20Bang.png" alt="Crownzen Bang Bang" loading="lazy" />
+          <figcaption>Crownzen Bang Bang</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/Viva%20Lahemp.png" alt="Viva LaHemp" loading="lazy" />
+          <figcaption>Viva LaHemp</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/Flying%20Monkey%20Pre%20Rolls.png" alt="Flying Monkey Pre-Rolls" loading="lazy" />
+          <figcaption>Flying Monkey Pre-Rolls</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/D8%20Flight%20F%2Ackin%20Hitter%20Doobies%20preroll.png" alt="D8 Flight Doobies (F*ckin Hitter)" loading="lazy" />
+          <figcaption>D8 Flight Doobies</figcaption>
+        </figure>
+
+        <figure class="vd-card">
+          <img src="images/Astro%20Eight.png" alt="Astro Eight" loading="lazy" />
+          <figcaption>Astro Eight</figcaption>
         </figure>
       </div>
     </div>
@@ -172,15 +173,19 @@
 
     <div class="marquee" id="pr-marquee" data-speed="28">
       <ul class="marquee__track" id="pr-track">
-        <!-- Base items (JS clones as needed for seamless loop) -->
-        <li class="marq-item"><img src="images/Dank%20Leaf%20Png.png"  alt="Dank Leaf"></li>
+        <!-- All items except Dank Leaf -->
         <li class="marq-item"><img src="images/Zour%20Stash%20png.webp" alt="Zour Stash"></li>
-        <li class="marq-item"><img src="images/Curvana%20Png.png"      alt="Curvana"></li>
+        <li class="marq-item"><img src="images/Curvana%20Png.png" alt="Curvana"></li>
+        <li class="marq-item"><img src="images/Crownzen%20Bang%20Bang.png" alt="Crownzen Bang Bang"></li>
+        <li class="marq-item"><img src="images/Viva%20Lahemp.png" alt="Viva LaHemp"></li>
+        <li class="marq-item"><img src="images/Flying%20Monkey%20Pre%20Rolls.png" alt="Flying Monkey Pre-Rolls"></li>
+        <li class="marq-item"><img src="images/D8%20Flight%20F%2Ackin%20Hitter%20Doobies%20preroll.png" alt="D8 Flight Doobies"></li>
+        <li class="marq-item"><img src="images/Astro%20Eight.png" alt="Astro Eight"></li>
       </ul>
     </div>
   </section>
 
-  <!-- BOTTOM CTA -->
+  <!-- CTA -->
   <section class="vd-cta">
     <div class="vd-container">
       <h3>Looking for a specific strain?</h3>
@@ -192,7 +197,6 @@
   </section>
 </main>
 
-<!-- Footer (uses your site’s styling) -->
 <footer class="footer">
   <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
   <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
@@ -202,7 +206,7 @@
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Mobile: toggle the Shop submenu (Shop itself is not a link)
+  // Mobile submenu toggle
   (function(){
     const isTouch = matchMedia('(hover: none)').matches;
     const shop = document.querySelector('nav .has-submenu');
@@ -214,51 +218,29 @@
     });
   })();
 
-  // Gapless marquee build (no gaps, no blinking)
+  // Gapless marquee build
   (function () {
     const marquee = document.getElementById('pr-marquee');
-    const baseTrack = document.getElementById('pr-track');
-    if (!marquee || !baseTrack) return;
+    const track = document.getElementById('pr-track');
+    if (!marquee || !track) return;
 
-    baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-
-    const containerWidth = marquee.clientWidth;
-    let contentWidth = baseTrack.scrollWidth;
-    const buffer = 40;
-
-    // Duplicate until we exceed ~2x container width
-    while (contentWidth < containerWidth * 2 + buffer) {
-      baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-        const clone = item.cloneNode(true);
-        clone.setAttribute('data-clone', '1');
-        baseTrack.appendChild(clone);
-      });
-      contentWidth = baseTrack.scrollWidth;
+    function build(){
+      track.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
+      const need = marquee.clientWidth * 2 + 40;
+      let w = track.scrollWidth;
+      while (w < need){
+        track.querySelectorAll(':scope > .marq-item').forEach(item=>{
+          const c = item.cloneNode(true);
+          c.setAttribute('data-clone','1');
+          track.appendChild(c);
+        });
+        w = track.scrollWidth;
+      }
+      track.style.setProperty('--marquee-distance', `-${w/2}px`);
+      track.style.setProperty('--marquee-duration', `${Number(marquee.dataset.speed||28)}s`);
     }
-
-    const speed = Number(marquee.dataset.speed || 28);
-    baseTrack.style.setProperty('--marquee-distance', `-${contentWidth / 2}px`);
-    baseTrack.style.setProperty('--marquee-duration', `${speed}s`);
-
-    // Rebuild on resize
-    let t;
-    window.addEventListener('resize', () => {
-      clearTimeout(t);
-      t = setTimeout(() => {
-        baseTrack.querySelectorAll('[data-clone="1"]').forEach(n => n.remove());
-        const cw = marquee.clientWidth;
-        let w = baseTrack.scrollWidth;
-        while (w < cw * 2 + buffer) {
-          baseTrack.querySelectorAll(':scope > .marq-item').forEach((item) => {
-            const c = item.cloneNode(true);
-            c.setAttribute('data-clone','1');
-            baseTrack.appendChild(c);
-          });
-          w = baseTrack.scrollWidth;
-        }
-        baseTrack.style.setProperty('--marquee-distance', `-${w / 2}px`);
-      }, 120);
-    }, { passive:true });
+    build();
+    let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
   })();
 </script>
 </body>
