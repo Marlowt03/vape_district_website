@@ -6,6 +6,48 @@
   <title>Vape District | Grinders &amp; Ash Trays</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
+
+  <!-- Page-scoped styles (carousel + tidy grid) -->
+  <style>
+    :root{ --wrap:1120px; --pad:16px; }
+
+    /* keep your hero */
+    .hero{ background-position:center 50%; background-size:cover; }
+
+    /* center the last row, regardless of count */
+    .product-grid{
+      display:flex; flex-wrap:wrap; gap:22px;
+      justify-content:center; align-items:stretch;
+    }
+    .product-card{
+      width:240px; max-width:100%;
+      text-align:center;
+    }
+    .product-card .contain-img{
+      width:100%; height:180px; object-fit:contain; display:block;
+      background:#f6f7f9; border-radius:14px; padding:8px;
+    }
+
+    /* featured strip + gapless marquee */
+    .strip{ background:#fff; padding:22px 0 16px; border-top:1px solid #eef2f7; margin-top:8px; }
+    .strip .inner{ text-align:center; max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+    .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
+    .strip p{ margin:0 0 10px; color:#526173; }
+
+    .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+    .track{
+      display:inline-flex; align-items:center; gap:18px;
+      will-change:transform; backface-visibility:hidden;
+      animation: mar linear infinite var(--dur,26s);
+    }
+    .item{
+      background:#fff; border-radius:16px; padding:12px; min-width:220px;
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .item img{ height:140px; width:auto; object-fit:contain; display:block; }
+    @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -38,7 +80,6 @@
             </div>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
@@ -46,6 +87,7 @@
     </ul>
     <div class="menu-toggle">☰</div>
   </nav>
+
   <!-- Hero -->
   <section class="hero" style="height: 60vh; background-image: url('images/grinders.png');">
     <div class="hero-content">
@@ -53,17 +95,20 @@
       <p>Keep your sessions clean and easy with our durable grinders and ash trays.</p>
     </div>
   </section>
+
   <!-- Content -->
   <section class="categories-section">
     <div class="about-text" style="flex:1 1 100%; text-align:center;">
-      <h2 class="section-title">High‑Quality Gear</h2>
+      <h2 class="section-title">High-Quality Gear</h2>
       <p>Find metal, plastic and acrylic grinders alongside stylish ash trays. We stock a range of sizes and designs to suit your taste.</p>
     </div>
+
     <div class="product-grid">
+      <!-- Keep existing three -->
       <div class="product-card">
         <img class="contain-img" src="images/metal_grinder_crop.jpg" alt="Metal Grinders">
         <h3>Metal Grinders</h3>
-        <p>Durable aluminium and steel grinders with razor‑sharp teeth.</p>
+        <p>Durable aluminium and steel grinders with razor-sharp teeth.</p>
       </div>
       <div class="product-card">
         <img class="contain-img" src="images/plastic_grinder_crop.jpg" alt="Plastic Grinders">
@@ -75,12 +120,72 @@
         <h3>Ash Trays</h3>
         <p>Stylish ash trays to keep your space clean.</p>
       </div>
+
+      <!-- Add the two new grinders -->
+      <div class="product-card">
+        <img class="contain-img" src="images/Grinder%20png%204.webp" alt="Metal Grinder — Silver">
+        <h3>Metal Grinder — Silver</h3>
+        <p>4-piece aluminum grinder with precision teeth and pollen screen.</p>
+      </div>
+      <div class="product-card">
+        <img class="contain-img" src="images/Grinder%20png.webp" alt="Metal Grinder — Black">
+        <h3>Metal Grinder — Black</h3>
+        <p>Sleek black finish, smooth threads, and strong magnetic lid.</p>
+      </div>
     </div>
   </section>
+
+  <!-- Featured carousel -->
+  <section class="strip" aria-label="Featured Grinders & Ash Trays">
+    <div class="inner">
+      <h3>Featured Grinders &amp; Ash Trays</h3>
+      <p>Gapless scrolling carousel showcasing what’s in stock.</p>
+    </div>
+    <div class="marquee" id="grMarquee" data-speed="26">
+      <ul class="track" id="grTrack">
+        <!-- use the same images as above so everything loads -->
+        <li class="item"><img src="images/metal_grinder_crop.jpg" alt="Metal Grinder"></li>
+        <li class="item"><img src="images/plastic_grinder_crop.jpg" alt="Plastic Grinder"></li>
+        <li class="item"><img src="images/ashtray_crop.jpg" alt="Ash Tray"></li>
+        <li class="item"><img src="images/Grinder%20png%204.webp" alt="Metal Grinder — Silver"></li>
+        <li class="item"><img src="images/Grinder%20png.webp" alt="Metal Grinder — Black"></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
+
+  <!-- Gapless marquee builder -->
+  <script>
+    (function(){
+      const mq = document.getElementById('grMarquee');
+      const track = document.getElementById('grTrack');
+      if(!mq || !track) return;
+
+      function build(){
+        // remove prior clones
+        track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+        // clone until at least 2x container width to avoid gaps
+        const need = mq.clientWidth * 2 + 40;
+        let w = track.scrollWidth;
+        while (w < need){
+          track.querySelectorAll(':scope > .item').forEach(item=>{
+            const c = item.cloneNode(true);
+            c.setAttribute('data-clone','1');
+            track.appendChild(c);
+          });
+          w = track.scrollWidth;
+        }
+        track.style.setProperty('--dist', `-${w/2}px`);
+        track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
+      }
+      build();
+      let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+    })();
+  </script>
 </body>
 </html>
