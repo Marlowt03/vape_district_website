@@ -10,7 +10,7 @@
 <style>
   :root{ --wrap:1120px; --pad:16px; --nav-h:72px; }
 
-  /* HERO (original) */
+  /* HERO */
   .hero{
     position:relative; margin-top:var(--nav-h); height:380px;
     display:flex; align-items:center; justify-content:center;
@@ -24,12 +24,14 @@
   .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
   .hero p{ margin:0 0 14px; font-size:clamp(14px,2.8vw,18px); text-shadow:0 2px 6px rgba(0,0,0,.35); }
 
+  /* WRAP */
   .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
-  /* Cards: flex so last row centers cleanly */
+  /* GRID (flex so last row centers) */
   .section{ padding:26px 0 8px; }
   .section h2{ margin:0 0 6px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
   .section .lead{ margin:0 0 18px; text-align:center; color:#526173; }
+
   .grid{ display:flex; flex-wrap:wrap; gap:22px; justify-content:center; }
   .card{
     width:240px; max-width:100%;
@@ -43,18 +45,19 @@
   .thumb img{ width:auto; height:130px; object-fit:contain; display:block; }
   .card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
 
-  /* Featured strip + marquee */
+  /* FEATURED STRIP + MARQUEE */
   .strip{ background:#fff; padding:22px 0 16px; margin-top:8px; border-top:1px solid #eef2f7; }
   .strip .wrap{ text-align:center; }
   .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
   .strip p{ margin:0 0 10px; color:#526173; }
+
   .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
   .track{ display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden; animation: mar linear infinite var(--dur,26s); }
   .item{ background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
   .item img{ height:140px; width:auto; object-fit:contain; display:block; }
   @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
 
-  /* CTA + footer */
+  /* CTA + FOOTER */
   .cta{ background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%); padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px; }
   .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
   .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
@@ -116,40 +119,24 @@
 <main class="wrap">
   <section class="section" aria-label="Popular battery options">
     <h2>Explore our most popular batteries & accessories.</h2>
-    <p class="lead">From simple stick batteries to character styles and charging accessories.</p>
+    <p class="lead">Legacy best-sellers plus new character batteries and a travel case.</p>
 
     <div class="grid">
-      <!-- ORIGINAL SEVEN -->
+      <!-- WORKING ORIGINALS -->
       <article class="card">
         <div class="thumb"><img src="images/dubcharge_sync.png" alt="Standard batteries"></div>
         <h3>Standard Batteries</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/battery_case.png" alt="Battery charging case"></div>
-        <h3>Battery Case</h3>
       </article>
       <article class="card">
         <div class="thumb"><img src="images/hulf_flat_mini.png" alt="High capacity battery"></div>
         <h3>High Capacity</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/battery_grenade.png" alt="Grenade 510 battery"></div>
-        <h3>Grenade Battery</h3>
-      </article>
-      <article class="card">
         <div class="thumb"><img src="images/dubcharger_510.png" alt="510 chargers"></div>
         <h3>Chargers</h3>
       </article>
-      <article class="card">
-        <div class="thumb"><img src="images/battery_mario.png" alt="Character 510 battery"></div>
-        <h3>Mario Battery</h3>
-      </article>
-      <article class="card">
-        <div class="thumb"><img src="images/battery_unicorn.png" alt="Unicorn 510 battery"></div>
-        <h3>Unicorn Battery</h3>
-      </article>
 
-      <!-- NEW FOUR (exact filenames) -->
+      <!-- NEW ITEMS (exact filenames you provided) -->
       <article class="card">
         <div class="thumb"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery"></div>
         <h3>Iconic Unicorn 510</h3>
@@ -159,7 +146,12 @@
         <h3>Iconic Plumber 510</h3>
       </article>
       <article class="card">
-        <div class="thumb"><img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery"></div>
+        <div class="thumb">
+          <picture>
+            <source srcset="images/iconic%20grenade%20510%20battery%20png.webp" type="image/webp">
+            <img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery">
+          </picture>
+        </div>
         <h3>Iconic Grenade 510</h3>
       </article>
       <article class="card">
@@ -180,7 +172,12 @@
       <li class="item"><img src="images/dubcharge_sync.png" alt="Dubcharge battery" title="Dubcharge"></li>
       <li class="item"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery"></li>
       <li class="item"><img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery"></li>
-      <li class="item"><img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery"></li>
+      <li class="item">
+        <picture>
+          <source srcset="images/iconic%20grenade%20510%20battery%20png.webp" type="image/webp">
+          <img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery">
+        </picture>
+      </li>
       <li class="item"><img src="images/Yocan%20Png.webp" alt="Yocan charging case"></li>
     </ul>
   </div>
