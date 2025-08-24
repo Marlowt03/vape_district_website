@@ -11,7 +11,7 @@
   /* Page scope only */
   :root{ --wrap:1120px; --pad:16px; --nav-h:72px; }
 
-  /* HERO (uses dubcharge_sync.png) */
+  /* HERO (keep original dubcharge image) */
   .hero{
     position:relative;
     margin-top:var(--nav-h);
@@ -21,37 +21,29 @@
     background:url("images/dubcharge_sync.png") center 50% / cover no-repeat;
     background-color:#0b0b0b;
   }
-  .hero::after{
-    content:""; position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18));
-    pointer-events:none;
-  }
+  .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18)); pointer-events:none; }
   .hero .inner{ position:relative; z-index:2; max-width:var(--wrap); padding:0 var(--pad); }
   .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
   .hero p{ margin:0 0 14px; font-size:clamp(14px,2.8vw,18px); text-shadow:0 2px 6px rgba(0,0,0,.35); }
-  .actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-  .btn{ appearance:none; border:0; border-radius:12px; padding:12px 20px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; transition:transform .08s, box-shadow .2s, background .2s, color .2s; cursor:pointer; }
-  .btn:active{ transform:translateY(1px); }
-  .btn-ghost-white{ background:#fff; color:#0b1f33; box-shadow:0 10px 24px rgba(0,0,0,.18); }
-  .btn-ghost-white:hover{ background:#f5f7fb; }
 
   /* WRAP */
   .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
-  /* GRID */
+  /* CARDS — switched to flex so last row centers */
   .section{ padding:26px 0 8px; }
   .section h2{ margin:0 0 6px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
   .section .lead{ margin:0 0 18px; text-align:center; color:#526173; }
 
-  .grid{
-    display:grid; gap:22px;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    justify-items:center;
+  .grid{ display:flex; flex-wrap:wrap; gap:22px; justify-content:center; }
+  .card{
+    width:240px; max-width:100%;
+    background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10);
+    text-align:center; padding:14px;
   }
-  @media (min-width:760px){ .grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
-
-  .card{ width:100%; max-width:240px; background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10); text-align:center; padding:14px; }
-  .thumb{ height:148px; background:#f6f7f9; border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .thumb{
+    height:148px; background:#f6f7f9; border-radius:14px;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
   .thumb img{ width:auto; height:130px; object-fit:contain; display:block; }
   .card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
 
@@ -67,14 +59,14 @@
   .item img{ height:140px; width:auto; object-fit:contain; display:block; }
   @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
 
-  /* CTA */
+  /* CTA + FOOTER */
   .cta{ background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%); padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px; }
   .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
   .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
+  .btn{ appearance:none; border:0; border-radius:12px; padding:12px 20px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; }
   .btn-blue{ background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08); }
   .btn-blue:hover{ background:#1567cf; }
 
-  /* FOOTER */
   .footer{ background:linear-gradient(180deg,#0b2a36 0%, #06212b 100%); color:#e7f2f9; text-align:center; padding:34px var(--pad) 44px; margin-top:22px; }
   .footer a{ color:#7fc3ff; text-decoration:none; }
   .footer a:hover{ text-decoration:underline; }
@@ -82,7 +74,7 @@
 </head>
 <body>
 
-<!-- NAV (same structure as other pages) -->
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -125,9 +117,6 @@
   <div class="inner">
     <h1>Batteries</h1>
     <p>Power your cartridges and devices with reliable 510 batteries and chargers.</p>
-    <div class="actions">
-      <a class="btn btn-ghost-white" href="contact.html">Call or Visit</a>
-    </div>
   </div>
 </header>
 
@@ -137,45 +126,58 @@
     <p class="lead">From simple stick batteries to fun character styles and cases.</p>
 
     <div class="grid">
+      <!-- Existing batteries (old page) -->
       <article class="card">
         <div class="thumb"><img src="images/dubcharge_sync.png" alt="Standard batteries"></div>
         <h3>Standard Batteries</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_case.png" alt="Battery charging case"></div>
         <h3>Battery Case</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/hulf_flat_mini.png" alt="High capacity battery"></div>
         <h3>High Capacity</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_grenade.png" alt="Grenade 510 battery"></div>
         <h3>Grenade Battery</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/dubcharger_510.png" alt="510 chargers"></div>
         <h3>Chargers</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_mario.png" alt="Character 510 battery"></div>
         <h3>Mario Battery</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_unicorn.png" alt="Unicorn 510 battery"></div>
         <h3>Unicorn Battery</h3>
+      </article>
+
+      <!-- New batteries (using exact filenames; spaces URL-encoded) -->
+      <article class="card">
+        <div class="thumb"><img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery"></div>
+        <h3>Iconic Grenade 510</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery"></div>
+        <h3>Iconic Plumber 510</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery"></div>
+        <h3>Iconic Unicorn 510</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/Yocan%20Png.webp" alt="Yocan charging case"></div>
+        <h3>Yocan Charging Case</h3>
       </article>
     </div>
   </section>
 </main>
 
-<!-- FEATURED CAROUSEL (gapless) -->
+<!-- FEATURED CAROUSEL (now includes Dubcharge) -->
 <section class="strip" aria-label="Featured Batteries">
   <div class="wrap">
     <h3>Featured Batteries</h3>
@@ -184,9 +186,10 @@
   <div class="marquee" id="batMarquee" data-speed="26">
     <ul class="track" id="batTrack">
       <li class="item"><img src="images/battery_case.png" alt="Battery Case"></li>
-      <li class="item"><img src="images/battery_grenade.png" alt="Grenade Battery"></li>
-      <li class="item"><img src="images/battery_mario.png" alt="Mario Battery"></li>
-      <li class="item"><img src="images/battery_unicorn.png" alt="Unicorn Battery"></li>
+      <li class="item"><img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery"></li>
+      <li class="item"><img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery"></li>
+      <li class="item"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery"></li>
+      <li class="item"><img src="images/dubcharge_sync.png" alt="Dubcharge battery" title="Dubcharge"></li>
     </ul>
   </div>
 </section>
