@@ -1,14 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vape District | Mystery Boxes</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mystery Boxes — Vape District</title>
+
+  <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
+
+  <!-- Page-scoped tweaks -->
+  <style>
+    :root{ --wrap:1120px; --pad:16px; --nav-h:72px; }
+
+    /* HERO */
+    .hero{
+      position:relative; margin-top:var(--nav-h); height:50vh;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; color:#fff;
+      background:url("images/IMG_8705.JPG") center 45% / cover no-repeat;
+      background-color:#0b0b0b;
+    }
+    .hero::after{ content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.32), rgba(0,0,0,.18));
+      pointer-events:none;
+    }
+    .hero .hero-content{ position:relative; z-index:1; padding:0 var(--pad); }
+    .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+    .hero p{ margin:0; font-size:clamp(14px,2.8vw,18px); text-shadow:0 2px 6px rgba(0,0,0,.35); }
+
+    /* CONTENT WRAP */
+    .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+    /* Product grid — center last row and keep spacing consistent */
+    .product-grid{
+      display:flex; flex-wrap:wrap; gap:22px; justify-content:center; align-items:stretch;
+    }
+    .product-card{
+      width:240px; max-width:100%; text-align:center;
+      background:#fff; border-radius:18px; padding:14px;
+      box-shadow:0 10px 22px rgba(0,0,0,.10);
+    }
+    .product-card .contain-img{
+      width:100%; height:180px; object-fit:contain; display:block;
+      background:#f6f7f9; border-radius:14px; padding:8px;
+    }
+    .product-card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
+    .product-card p{ margin:6px 0 0; color:#526173; }
+
+    /* CTA */
+    .cta{
+      background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
+      padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px;
+    }
+    .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
+    .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
+    .btn{ appearance:none; border:0; border-radius:12px; padding:12px 20px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; }
+    .btn-blue{ background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08); }
+    .btn-blue:hover{ background:#1567cf; }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
+
+  <!-- Navigation (same site header) -->
   <nav>
     <a class="nav-logo" href="index.html">Vape District</a>
     <ul class="nav-links">
@@ -38,7 +91,6 @@
             </div>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
@@ -48,44 +100,63 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero" style="height: 60vh; background-image: url('images/mystery_box.png');">
+  <section class="hero">
     <div class="hero-content">
       <h1>Mystery Boxes</h1>
-      <p>Unlock a surprise bundle of vape and smoke products curated just for you.</p>
+      <p>Hand-picked surprises, curated by the Vape District team.</p>
     </div>
   </section>
 
   <!-- Content -->
-  <section class="categories-section">
-    <div class="about-text" style="flex:1 1 100%; text-align:center;">
-      <h2 class="section-title">What’s Inside?</h2>
-      <p>Our mystery boxes are packed with an exciting assortment of products from across our store — think vape juice, devices, accessories, glass pieces and more. Each box offers great value and a fun way to discover new favorites.</p>
-      <p>Stop in to pick one up or give us a call to learn more.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="images/mystery_box.png" alt="Mystery Box Vape">
-        <h3>Vape Mystery Box</h3>
-        <p>A curated selection of e‑juice and devices to surprise and delight.</p>
+  <main class="wrap">
+    <section class="categories-section">
+      <div class="about-text" style="flex:1 1 100%; text-align:center;">
+        <h2 class="section-title">What’s inside?</h2>
+        <p>Each Mystery Box is packed with customer-favorite items. Choose a size and let us surprise you.</p>
       </div>
-      <div class="product-card">
-        <img src="images/mystery_box.png" alt="Mystery Box 420">
-        <h3>420 Mystery Box</h3>
-        <p>An assortment of wraps, glass and 420 gear – you never know what you’ll get!</p>
+
+      <div class="product-grid">
+        <!-- Using your close-up chest photo for the cards -->
+        <div class="product-card">
+          <img class="contain-img" src="images/IMG_8702.JPG" alt="Small Mystery Box" />
+          <h3>Small Mystery Box</h3>
+          <p>A fun assortment of essentials and goodies.</p>
+        </div>
+
+        <div class="product-card">
+          <img class="contain-img" src="images/IMG_8702.JPG" alt="Medium Mystery Box" />
+          <h3>Medium Mystery Box</h3>
+          <p>More variety and value—our most popular pick.</p>
+        </div>
+
+        <div class="product-card">
+          <img class="contain-img" src="images/IMG_8702.JPG" alt="Large Mystery Box" />
+          <h3>Large Mystery Box</h3>
+          <p>Loaded with premium items and extras.</p>
+        </div>
       </div>
-      <div class="product-card">
-        <img src="images/mystery_box.png" alt="Mixed Mystery Box">
-        <h3>Mixed Mystery Box</h3>
-        <p>A little bit of everything: vapes, 420 products and accessories.</p>
+    </section>
+  </main>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <h3>Curious About Our Mystery Boxes?</h3>
+      <p>Give us a ring or stop by—we’ll walk you through what’s in stock today and help you pick the perfect box.</p>
+      <div class="actions">
+        <a class="btn btn-blue" href="contact.html">Call now.</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <p>&copy; 2025 Vape District. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
 
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
