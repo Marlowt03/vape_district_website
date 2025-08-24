@@ -26,11 +26,10 @@
 
   .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
 
-  /* Cards: flex so last row centers */
+  /* Cards: flex so last row centers cleanly */
   .section{ padding:26px 0 8px; }
   .section h2{ margin:0 0 6px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
   .section .lead{ margin:0 0 18px; text-align:center; color:#526173; }
-
   .grid{ display:flex; flex-wrap:wrap; gap:22px; justify-content:center; }
   .card{
     width:240px; max-width:100%;
@@ -49,7 +48,6 @@
   .strip .wrap{ text-align:center; }
   .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
   .strip p{ margin:0 0 10px; color:#526173; }
-
   .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
   .track{ display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden; animation: mar linear infinite var(--dur,26s); }
   .item{ background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
@@ -121,39 +119,52 @@
     <p class="lead">From simple stick batteries to character styles and charging accessories.</p>
 
     <div class="grid">
+      <!-- ORIGINAL SEVEN -->
       <article class="card">
         <div class="thumb"><img src="images/dubcharge_sync.png" alt="Standard batteries"></div>
         <h3>Standard Batteries</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_case.png" alt="Battery charging case"></div>
         <h3>Battery Case</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/hulf_flat_mini.png" alt="High capacity battery"></div>
         <h3>High Capacity</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_grenade.png" alt="Grenade 510 battery"></div>
         <h3>Grenade Battery</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/dubcharger_510.png" alt="510 chargers"></div>
         <h3>Chargers</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_mario.png" alt="Character 510 battery"></div>
         <h3>Mario Battery</h3>
       </article>
-
       <article class="card">
         <div class="thumb"><img src="images/battery_unicorn.png" alt="Unicorn 510 battery"></div>
         <h3>Unicorn Battery</h3>
+      </article>
+
+      <!-- NEW FOUR (exact filenames) -->
+      <article class="card">
+        <div class="thumb"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery"></div>
+        <h3>Iconic Unicorn 510</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery"></div>
+        <h3>Iconic Plumber 510</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery"></div>
+        <h3>Iconic Grenade 510</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/Yocan%20Png.webp" alt="Yocan charging case"></div>
+        <h3>Yocan Charging Case</h3>
       </article>
     </div>
   </section>
@@ -166,11 +177,11 @@
   </div>
   <div class="marquee" id="batMarquee" data-speed="26">
     <ul class="track" id="batTrack">
-      <li class="item"><img src="images/battery_case.png" alt="Battery Case"></li>
-      <li class="item"><img src="images/battery_grenade.png" alt="Grenade Battery"></li>
-      <li class="item"><img src="images/battery_mario.png" alt="Mario Battery"></li>
-      <li class="item"><img src="images/battery_unicorn.png" alt="Unicorn Battery"></li>
       <li class="item"><img src="images/dubcharge_sync.png" alt="Dubcharge battery" title="Dubcharge"></li>
+      <li class="item"><img src="images/iconic%20unicorn%20510%20battery%20png.png" alt="Iconic Unicorn 510 battery"></li>
+      <li class="item"><img src="images/iconic%20plumber%20510%20battery.png" alt="Iconic Plumber 510 battery"></li>
+      <li class="item"><img src="images/iconic%20grenade%20510%20battery.png" alt="Iconic Grenade 510 battery"></li>
+      <li class="item"><img src="images/Yocan%20Png.webp" alt="Yocan charging case"></li>
     </ul>
   </div>
 </section>
