@@ -14,8 +14,8 @@
   /* HERO (uses test_chapo.png) */
   .hero{
     position:relative;
-    margin-top:var(--nav-h);            /* keep clear of sticky nav */
-    height:380px;                       /* solid medium height */
+    margin-top:var(--nav-h);
+    height:380px;
     display:flex; align-items:center; justify-content:center;
     text-align:center; color:#fff;
     background:url("images/test_chapo.png") center 50% / cover no-repeat;
@@ -24,26 +24,13 @@
   .hero::after{
     content:""; position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18));
-    pointer-events:none;                /* overlay won’t block clicks */
+    pointer-events:none;
   }
-  .hero .inner{
-    position:relative; z-index:2;
-    max-width:var(--wrap); padding:0 var(--pad);
-  }
-  .hero h1{
-    margin:0 0 8px; font-size:clamp(28px,4.6vw,40px);
-    font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35);
-  }
-  .hero p{
-    margin:0 0 14px; font-size:clamp(14px,2.8vw,18px);
-    text-shadow:0 2px 6px rgba(0,0,0,.35);
-  }
+  .hero .inner{ position:relative; z-index:2; max-width:var(--wrap); padding:0 var(--pad); }
+  .hero h1{ margin:0 0 8px; font-size:clamp(28px,4.6vw,40px); font-weight:900; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .hero p{ margin:0 0 14px; font-size:clamp(14px,2.8vw,18px); text-shadow:0 2px 6px rgba(0,0,0,.35); }
   .actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-  .btn{
-    appearance:none; border:0; border-radius:12px; padding:12px 20px;
-    font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-    transition:transform .08s, box-shadow .2s, background .2s, color .2s; cursor:pointer;
-  }
+  .btn{ appearance:none; border:0; border-radius:12px; padding:12px 20px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; transition:transform .08s, box-shadow .2s, background .2s, color .2s; cursor:pointer; }
   .btn:active{ transform:translateY(1px); }
   .btn-ghost-white{ background:#fff; color:#0b1f33; box-shadow:0 10px 24px rgba(0,0,0,.18); }
   .btn-ghost-white:hover{ background:#f5f7fb; }
@@ -63,15 +50,8 @@
   }
   @media (min-width:760px){ .grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
-  .card{
-    width:100%; max-width:240px;
-    background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10);
-    text-align:center; padding:14px;
-  }
-  .thumb{
-    height:148px; background:#f6f7f9; border-radius:14px;
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
-  }
+  .card{ width:100%; max-width:240px; background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10); text-align:center; padding:14px; }
+  .thumb{ height:148px; background:#f6f7f9; border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
   .thumb img{ width:auto; height:130px; object-fit:contain; display:block; }
   .card h3{ margin:10px 0 0; font-size:18px; font-weight:800; color:#0f2436; }
 
@@ -82,44 +62,27 @@
   .strip p{ margin:0 0 10px; color:#526173; }
 
   .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
-  .track{
-    display:inline-flex; align-items:center; gap:18px;
-    will-change:transform; backface-visibility:hidden;
-    animation: mar linear infinite var(--dur,26s);
-  }
-  .item{
-    background:#fff; border-radius:16px; padding:12px; min-width:220px;
-    box-shadow:0 10px 22px rgba(0,0,0,.12);
-    display:flex; align-items:center; justify-content:center;
-  }
+  .track{ display:inline-flex; align-items:center; gap:18px; will-change:transform; backface-visibility:hidden; animation: mar linear infinite var(--dur,26s); }
+  .item{ background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center; }
   .item img{ height:140px; width:auto; object-fit:contain; display:block; }
   @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
 
   /* CTA */
-  .cta{
-    background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%);
-    padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px;
-  }
+  .cta{ background:linear-gradient(180deg,#f7f9fc 0%, #eef3f9 100%); padding:42px var(--pad); text-align:center; border-top:1px solid #e7edf5; margin-top:24px; }
   .cta h3{ margin:0 0 10px; font-size:2rem; font-weight:900; color:#13293d; }
   .cta p{ margin:0 auto 18px; max-width:860px; color:#495869; font-size:1.05rem; }
-  .btn-blue{
-    background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08);
-  }
+  .btn-blue{ background:#1a73e8; color:#fff; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08); }
   .btn-blue:hover{ background:#1567cf; }
 
-  /* FOOTER (dark blue) */
-  .footer{
-    background:linear-gradient(180deg,#0b2a36 0%, #06212b 100%);
-    color:#e7f2f9; text-align:center; padding:34px var(--pad) 44px;
-    margin-top:22px;
-  }
+  /* FOOTER */
+  .footer{ background:linear-gradient(180deg,#0b2a36 0%, #06212b 100%); color:#e7f2f9; text-align:center; padding:34px var(--pad) 44px; margin-top:22px; }
   .footer a{ color:#7fc3ff; text-decoration:none; }
   .footer a:hover{ text-decoration:underline; }
 </style>
 </head>
 <body>
 
-<!-- NAV (same structure as index) -->
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">Vape District</a>
   <ul class="nav-links">
@@ -174,6 +137,7 @@
     <p class="lead">Sauced, Ripped, Mellow Fellow and more — fresh selection in-store.</p>
 
     <div class="grid">
+      <!-- EXISTING FOUR -->
       <article class="card">
         <div class="thumb"><img src="images/Sauced1.png" alt="Sauced"></div>
         <h3>Sauced</h3>
@@ -190,6 +154,20 @@
         <div class="thumb"><img src="images/Adobe%20Express%20-%20file%20(12).png" alt="Brand"></div>
         <h3>Featured Brand</h3>
       </article>
+
+      <!-- NEW THREE -->
+      <article class="card">
+        <div class="thumb"><img src="images/Chapo%20Cartridge.png" alt="Chapo Blood Diamonds cartridge"></div>
+        <h3>Chapo Blood Diamonds</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/hidden%20hills%20cartridge%20png.webp" alt="Hidden Hills live resin cart"></div>
+        <h3>Hidden Hills</h3>
+      </article>
+      <article class="card">
+        <div class="thumb"><img src="images/Torch%20Cartridge.png" alt="Torch THCA cartridge"></div>
+        <h3>Torch</h3>
+      </article>
     </div>
   </section>
 </main>
@@ -202,10 +180,15 @@
   </div>
   <div class="marquee" id="cartMarquee" data-speed="26">
     <ul class="track" id="cartTrack">
+      <!-- EXISTING -->
       <li class="item"><img src="images/Sauced1.png" alt="Sauced"></li>
       <li class="item"><img src="images/Ripped.png" alt="Ripped"></li>
       <li class="item"><img src="images/Mellow%20Fellow.png" alt="Mellow Fellow"></li>
       <li class="item"><img src="images/Adobe%20Express%20-%20file%20(12).png" alt="Brand"></li>
+      <!-- NEW -->
+      <li class="item"><img src="images/Chapo%20Cartridge.png" alt="Chapo Blood Diamonds cartridge"></li>
+      <li class="item"><img src="images/hidden%20hills%20cartridge%20png.webp" alt="Hidden Hills live resin cart"></li>
+      <li class="item"><img src="images/Torch%20Cartridge.png" alt="Torch THCA cartridge"></li>
     </ul>
   </div>
 </section>
