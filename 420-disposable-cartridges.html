@@ -52,9 +52,10 @@
   .page-title{ margin:26px 0 4px; text-align:center; font-size:1.6rem; font-weight:900; color:#13293d; }
   .page-sub{ margin:0 0 16px; text-align:center; color:#526173; }
 
-  /* BRAND GRID */
+  /* BRAND GRID — more breathing room */
   .grid{
-    display:grid; gap:22px;
+    display:grid;
+    gap: clamp(28px, 3vw, 56px);     /* was 22px */
     grid-template-columns:repeat(2,minmax(0,1fr));
     justify-items:center;
   }
@@ -63,7 +64,7 @@
   .card{
     width:100%; max-width:240px;
     background:#fff; border-radius:18px; box-shadow:0 10px 22px rgba(0,0,0,.10);
-    text-align:center; padding:14px;
+    text-align:center; padding:20px;   /* was 14px */
   }
   .thumb{
     height:148px; background:#f6f7f9; border-radius:14px;
@@ -158,7 +159,7 @@
   <div class="inner">
     <h1>Disposable Cartridges</h1>
     <p>High quality, great flavors, ready to use.</p>
-    <div class="actions">
+    <div class="actions>
       <a class="btn btn-ghost-white" href="contact.html">Call or Visit</a>
     </div>
   </div>
@@ -168,7 +169,7 @@
   <h2 class="page-title">Explore our most popular disposable cartridges.</h2>
   <p class="page-sub">High quality, great flavors, ready to use.</p>
 
-  <!-- Brand cards (keep your images) -->
+  <!-- Brand cards -->
   <section class="grid" aria-label="Popular brands">
     <article class="card"><div class="thumb"><img src="images/Space Gods Png.webp" alt="Space Gods"></div><h3>Space Gods</h3></article>
     <article class="card"><div class="thumb"><img src="images/Hidden Hills Png.webp" alt="Hidden Hills"></div><h3>Hidden Hills</h3></article>
@@ -177,7 +178,7 @@
   </section>
 </main>
 
-<!-- Featured slider (kept gapless) -->
+<!-- Featured slider (gapless) -->
 <section class="strip" aria-label="Featured Disposables">
   <div class="wrap">
     <h2>Featured Disposables</h2>
