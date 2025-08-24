@@ -6,6 +6,28 @@
   <title>Vape District | Wraps</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
+
+  <!-- Page-scoped styles for the carousel -->
+  <style>
+    .strip{ background:#fff; padding:22px 0 16px; border-top:1px solid #eef2f7; margin-top:8px; }
+    .strip .inner{ text-align:center; max-width:1120px; margin:0 auto; padding:0 16px; }
+    .strip h3{ margin:0 0 6px; font-size:22px; font-weight:900; color:#13293d; }
+    .strip p{ margin:0 0 10px; color:#526173; }
+
+    .marquee{ position:relative; overflow:hidden; padding:10px 0 20px; }
+    .track{
+      display:inline-flex; align-items:center; gap:18px;
+      will-change:transform; backface-visibility:hidden;
+      animation: mar linear infinite var(--dur,26s);
+    }
+    .item{
+      background:#fff; border-radius:16px; padding:12px; min-width:220px;
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .item img{ height:140px; width:auto; object-fit:contain; display:block; }
+    @keyframes mar{ from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))} }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -46,32 +68,34 @@
     </ul>
     <div class="menu-toggle">☰</div>
   </nav>
+
   <!-- Hero -->
-  <!-- Use our new high‑quality RAW cones image as the hero background for the wraps page. -->
+  <!-- Use our new high-quality RAW cones image as the hero background for the wraps page. -->
   <section class="hero" style="height: 50vh; background-image: url('images/raw_cones_pack.jpg');">
     <div class="hero-content">
       <h1>Wraps</h1>
       <p>Choose from a variety of wraps including hemp, flavored and more.</p>
     </div>
   </section>
+
   <!-- Content -->
   <section class="categories-section">
     <div class="about-text" style="flex:1 1 100%; text-align:center;">
       <h2 class="section-title">Wraps Collection</h2>
-      <p>Our wraps come in all shapes, sizes and flavors. Whether you’re looking for classic, tobacco‑free or terpene‑infused, we’ve got something to suit your style.</p>
+      <p>Our wraps come in all shapes, sizes and flavors. Whether you’re looking for classic, tobacco-free or terpene-infused, we’ve got something to suit your style.</p>
     </div>
     <div class="product-grid">
       <!-- RAW Black & Classic cone packs -->
       <div class="product-card">
         <img src="images/raw_cones_pack.jpg" alt="RAW Classic and Black cone packs">
         <h3>RAW Black &amp; Classic Cones</h3>
-        <p>20‑count packs of RAW Black and RAW Classic cones for the perfect burn.</p>
+        <p>20-count packs of RAW Black and RAW Classic cones for the perfect burn.</p>
       </div>
-      <!-- Pre‑rolled RAW cones -->
+      <!-- Pre-rolled RAW cones -->
       <div class="product-card">
-        <img src="images/raw_cones_pair.jpg" alt="Pre‑rolled RAW cones">
-        <h3>Pre‑Rolled RAW Cones</h3>
-        <p>Organic hemp and classic pre‑rolled cones ready to fill and enjoy.</p>
+        <img src="images/raw_cones_pair.jpg" alt="Pre-rolled RAW cones">
+        <h3>Pre-Rolled RAW Cones</h3>
+        <p>Organic hemp and classic pre-rolled cones ready to fill and enjoy.</p>
       </div>
       <!-- Camo Grape wraps -->
       <div class="product-card">
@@ -99,10 +123,58 @@
       </div>
     </div>
   </section>
+
+  <!-- Featured carousel -->
+  <section class="strip" aria-label="Featured Wraps">
+    <div class="inner">
+      <h3>Featured Wraps</h3>
+      <p>Gapless scrolling carousel of popular wraps and cones.</p>
+    </div>
+    <div class="marquee" id="wrapMarquee" data-speed="26">
+      <ul class="track" id="wrapTrack">
+        <li class="item"><img src="images/raw_cones_pack.jpg" alt="RAW Black & Classic cone packs"></li>
+        <li class="item"><img src="images/raw_cones_pair.jpg" alt="Pre-Rolled RAW Cones"></li>
+        <li class="item"><img src="images/camo_grape.jpg" alt="Camo Grape Wraps"></li>
+        <li class="item"><img src="images/camo_blueberry.jpg" alt="Camo Blueberry Wraps"></li>
+        <li class="item"><img src="images/camo_mango.jpg" alt="Camo Mango Wraps"></li>
+        <li class="item"><img src="images/wraps.jpg" alt="RAW x Lyrical Lemonade wraps"></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
+
+  <!-- Gapless marquee builder -->
+  <script>
+    (function(){
+      const mq = document.getElementById('wrapMarquee');
+      const track = document.getElementById('wrapTrack');
+      if(!mq || !track) return;
+
+      function build(){
+        // remove any prior clones
+        track.querySelectorAll('[data-clone="1"]').forEach(n=>n.remove());
+        // clone items until at least 2x container width (prevents gaps)
+        const need = mq.clientWidth * 2 + 40;
+        let w = track.scrollWidth;
+        while (w < need){
+          track.querySelectorAll(':scope > .item').forEach(item=>{
+            const c = item.cloneNode(true);
+            c.setAttribute('data-clone','1');
+            track.appendChild(c);
+          });
+          w = track.scrollWidth;
+        }
+        track.style.setProperty('--dist', `-${w/2}px`);
+        track.style.setProperty('--dur', `${Number(mq.dataset.speed||26)}s`);
+      }
+      build();
+      let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
+    })();
+  </script>
 </body>
 </html>
