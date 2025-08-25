@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | Home</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 
-  <!-- Page-scoped styles for the embedded contact section -->
+  <!-- Map slice (compact) -->
   <style>
-    :root { --wrap:1120px; --pad:16px; }
-
-    .contact-embed-wrap{
-      max-width: var(--wrap);
-      margin: 28px auto 0;
-      padding: 0 var(--pad);
+    :root{ --wrap:1120px; --pad:16px; }
+    .map-slice{ padding: 8px 0 0; background:#fff; }
+    .map-slice .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+    .map-embed{
+      width:100%; height:420px; border:0; border-radius:16px;
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
-    #contactEmbed{
-      width: 100%;
-      border: 0;
-      border-radius: 18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
-      min-height: 1200px; /* fallback before autosize runs */
-      background: #fff;
-    }
+    @media (max-width:640px){ .map-embed{ height:360px; } }
   </style>
 </head>
 <body>
@@ -57,7 +51,6 @@
             </div>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
@@ -66,20 +59,20 @@
     <div class="menu-toggle">☰</div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
       <h1>Ohio’s #1 Vape &amp; Smoke Shop</h1>
       <p>Parma, Brunswick and Willoughby. Premium products. Top brands. No shortcuts.</p>
       <div class="button-group">
         <a href="products.html" class="btn btn-primary">Shop Now</a>
-        <a href="#contact" class="btn btn-outline">Contact Us</a>
+        <a href="#map" class="btn btn-outline">Contact / Map</a>
       </div>
     </div>
   </section>
 
-  <!-- About Section (Parallax) -->
-  <section class="about parallax" style="background-image: url('images/glass_mural2.jpg');">
+  <!-- About -->
+  <section class="about parallax" style="background-image:url('images/glass_mural2.jpg');">
     <div class="overlay">
       <h2 class="section-title">About Us</h2>
       <p>Ohio’s go-to spot for premium vapes, smoke gear, and more. Come check us out in <span class="gradient-text">Parma, Brunswick, or Willoughby</span> — we carry top brands, solid prices, and the <span class="gradient-text">best loyalty program</span> in the state.</p>
@@ -87,7 +80,7 @@
     </div>
   </section>
 
-  <!-- Reviews Section with slider -->
+  <!-- Reviews -->
   <section class="reviews-section">
     <h2 class="section-title">What Our Customers Say</h2>
     <div class="reviews-slider">
@@ -96,35 +89,17 @@
         <div class="stars">★★★★★</div>
         <p>I come here for all my basic needs and they've always had the best priced products. They’re also super quick while helping me every time while also answering all my questions. Oliver was also very kind and very patient while helping me the other day – thank you guys so much :)</p>
       </div>
-      <div class="review-slide">
-        <div class="stars">★★★★★</div>
-        <p>There was a slight misunderstanding about a device that was bought. Nick came in and did an outstanding job as far as taking care of this misunderstanding. Have visited this store a lot and have always had nothing but positive things to say about the staff and services.</p>
-      </div>
-      <div class="review-slide">
-        <div class="stars">★★★★★</div>
-        <p>Decent prices. The owner is a very knowledgeable guy. I recommend highly. I personally don't understand the 1 star reviews. The multiple items I bought from Nas have been priced reasonably and were genuine. Welcome to the neighborhood and best of luck. 🙏</p>
-      </div>
-      <div class="review-slide">
-        <div class="stars">★★★★★</div>
-        <p>Nas is a great man and very respectful. He keeps the shop clean and the atmosphere in the shop is very professional. He has the best prices and products I've seen by far. He always works with you to ensure you get what you want or what's best for your kit. I would give 10 stars if I could.</p>
-      </div>
-      <div class="review-slide">
-        <div class="stars">★★★★★</div>
-        <p>Love coming here and the new one in Brunswick. They are very nice, cheap prices and amazing staff! Best vape shop around. 🙏❤️</p>
-      </div>
-      <div class="review-slide">
-        <div class="stars">★★★★★</div>
-        <p>Aleisha is awesome! Her and Brandon made me feel super welcome. They laughed at ALL my jokes, which has literally never happened in my life because I'm typically only funny to myself. I was honestly having kind of a rough day and felt better after my experience. #grateful 🙏</p>
-      </div>
-      <div class="review-slide">
-        <div class="stars">★★★★★</div>
-        <p>I’ve been knowing the owner Niko for a while and it’s about time he did his own thing! Great service, cheapest prices and wide selection of everything you need. The whole family comes here so I highly recommend coming here.</p>
-      </div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>There was a slight misunderstanding about a device that was bought. Nick came in and did an outstanding job as far as taking care of this misunderstanding. Have visited this store a lot and have always had nothing but positive things to say about the staff and services.</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>Decent prices. The owner is a very knowledgeable guy. I recommend highly. I personally don't understand the 1 star reviews. The multiple items I bought from Nas have been priced reasonably and were genuine. Welcome to the neighborhood and best of luck. 🙏</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>Nas is a great man and very respectful. He keeps the shop clean and the atmosphere in the shop is very professional. He has the best prices and products I've seen by far. He always works with you to ensure you get what you want or what's best for your kit. I would give 10 stars if I could.</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>Love coming here and the new one in Brunswick. They are very nice, cheap prices and amazing staff! Best vape shop around. 🙏❤️</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>Aleisha is awesome! Her and Brandon made me feel super welcome. They laughed at ALL my jokes, which has literally never happened in my life because I'm typically only funny to myself. I was honestly having kind of a rough day and felt better after my experience. #grateful 🙏</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>I’ve been knowing the owner Niko for a while and it’s about time he did his own thing! Great service, cheapest prices and wide selection of everything you need. The whole family comes here so I highly recommend coming here.</p></div>
       <button class="next" aria-label="Next review">&#10095;</button>
     </div>
   </section>
 
-  <!-- Products Section -->
+  <!-- Categories -->
   <section class="products">
     <h2 class="section-title">Our Top Categories</h2>
     <div class="product-grid">
@@ -161,15 +136,17 @@
     </div>
   </section>
 
-  <!-- CONTACT: embed ONLY the stores + phone numbers + map from contact.html -->
-  <section id="contact" class="contact-embed-wrap">
-    <iframe
-      id="contactEmbed"
-      src="contact.html"
-      title="Vape District — Stores & Map"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+  <!-- MAP (compact, minimal padding) -->
+  <section id="map" class="map-slice" aria-label="Parma Heights Map">
+    <div class="wrap">
+      <iframe
+        class="map-embed"
+        src="https://www.google.com/maps?q=6420+Pearl+Rd,+Parma+Heights,+OH+44130&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -177,68 +154,5 @@
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
-
-  <!-- Trim the iframe down to ONLY the stores + map (no edits to contact.html needed) -->
-  <script>
-    (function(){
-      const fr = document.getElementById('contactEmbed');
-      if(!fr) return;
-
-      function keepStoresOnly(){
-        try{
-          const d = fr.contentDocument || fr.contentWindow.document;
-          if(!d) return;
-
-          // 1) Try to find the "Our Stores" heading/section
-          const heads = Array.from(d.querySelectorAll('h1,h2,h3'));
-          let storesHead = heads.find(h => /our\s+stores/i.test(h.textContent.trim()));
-          let storesWrap = storesHead ? (storesHead.closest('section,main,div') || storesHead.parentElement) : null;
-
-          // Fallback: section that has "Get Directions" buttons
-          if(!storesWrap){
-            const dirBtn = Array.from(d.querySelectorAll('a,button')).find(el => /get\s+directions/i.test(el.textContent));
-            if(dirBtn) storesWrap = dirBtn.closest('section,div,main');
-          }
-
-          // 2) Find a Google Maps iframe for the map section
-          let mapIframe = d.querySelector('iframe[src*="google.com/maps"], iframe[src*="maps.google"]');
-          let mapWrap = mapIframe ? (mapIframe.closest('section,div') || mapIframe) : null;
-
-          // 3) Hide everything except the stores + map containers
-          const keep = new Set([storesWrap, mapWrap].filter(Boolean));
-          Array.from(d.body.children).forEach(ch => {
-            if(!keep.has(ch)) ch.style.display = 'none';
-          });
-
-          // 4) Tidy spacing
-          if(storesWrap) storesWrap.style.marginTop = '0';
-          if(mapWrap) mapWrap.style.marginTop = '16px';
-
-          // 5) Minimal style normalization inside the iframe
-          const style = d.createElement('style');
-          style.textContent = `
-            html,body{background:#fff;}
-            /* Make inner content use the iframe's full width */
-            body > *{max-width:none !important;}
-          `;
-          d.head.appendChild(style);
-
-          // 6) Resize iframe height to fit content
-          fr.style.height = d.documentElement.scrollHeight + 'px';
-        }catch(e){
-          /* Will work on same-origin (GitHub Pages). If different origin, cannot trim. */
-        }
-      }
-
-      fr.addEventListener('load', () => {
-        keepStoresOnly();
-        // Run again after a tick in case images/maps load later
-        setTimeout(keepStoresOnly, 400);
-        setTimeout(keepStoresOnly, 1000);
-      });
-
-      window.addEventListener('resize', ()=>setTimeout(keepStoresOnly,120), {passive:true});
-    })();
-  </script>
 </body>
 </html>
