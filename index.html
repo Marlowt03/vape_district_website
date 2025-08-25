@@ -21,7 +21,7 @@
       border: 0;
       border-radius: 18px;
       box-shadow: 0 10px 24px rgba(0,0,0,.08);
-      min-height: 1100px; /* fallback before autosize runs */
+      min-height: 1200px; /* fallback before autosize runs */
       background: #fff;
     }
   </style>
@@ -57,7 +57,6 @@
             </div>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
-          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
@@ -161,12 +160,12 @@
     </div>
   </section>
 
-  <!-- Contact Section (embedded contact page) -->
+  <!-- CONTACT: embed ONLY the stores + phone numbers + map -->
   <section id="contact" class="contact-embed-wrap">
     <iframe
       id="contactEmbed"
-      src="contact.html#embedded"
-      title="Vape District — Contact & Locations"
+      src="contact.html?embed=stores"
+      title="Vape District — Stores & Map"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade">
     </iframe>
@@ -178,7 +177,7 @@
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
 
-  <!-- Auto-size the embedded contact page to avoid inner scrollbars -->
+  <!-- Auto-size the embedded stores section so there’s no inner scrollbar -->
   <script>
     (function(){
       const fr = document.getElementById('contactEmbed');
