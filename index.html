@@ -4,10 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | Home</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- your global files -->
+  <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 
-  <!-- Page-scoped styles for the Stores cards + Map -->
+  <!-- Page-scoped styles for Stores + Map (lightweight, won’t clash) -->
   <style>
     /* Our Stores */
     .locations{ max-width:1120px; margin:40px auto 24px; padding:0 16px; }
@@ -40,13 +42,14 @@
     }
     .btn-ghost:hover{ background:#dbe7ff; transform:translateY(-2px); }
 
-    /* Map */
-    .map-wrap{ max-width:1120px; margin:24px auto 12px; padding:0 16px; }
+    /* Map (tight to stores, minimal bottom) */
+    .map-wrap{ max-width:1120px; margin:24px auto 8px; padding:0 16px; }
     .map-card{ background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,.06); }
     .map-card header{ background:#13293d; color:#fff; padding:14px 16px; font-weight:800; font-size:1.1rem; }
     .map-iframe{ border:0; width:100%; height:350px; display:block; }
-    /* keep footer tight */
-    .footer{ margin-top:18px; }
+
+    /* Keep footer tight so there’s no blank space */
+    .footer{ margin-top:12px; }
   </style>
 </head>
 <body>
@@ -88,7 +91,7 @@
     <div class="menu-toggle">☰</div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
       <h1>Ohio’s #1 Vape &amp; Smoke Shop</h1>
@@ -100,8 +103,8 @@
     </div>
   </section>
 
-  <!-- About Parallax -->
-  <section class="about parallax" style="background-image: url('images/glass_mural2.jpg');">
+  <!-- About (parallax) -->
+  <section class="about parallax" style="background-image:url('images/glass_mural2.jpg');">
     <div class="overlay">
       <h2 class="section-title">About Us</h2>
       <p>Ohio’s go-to spot for premium vapes, smoke gear, and more. Come check us out in <span class="gradient-text">Parma, Brunswick, or Willoughby</span> — we carry top brands, solid prices, and the <span class="gradient-text">best loyalty program</span> in the state.</p>
@@ -109,39 +112,47 @@
     </div>
   </section>
 
-  <!-- Reviews -->
+  <!-- Reviews (FULL text restored) -->
   <section class="reviews-section">
     <h2 class="section-title">What Our Customers Say</h2>
     <div class="reviews-slider">
       <button class="prev" aria-label="Previous review">&#10094;</button>
+
       <div class="review-slide active">
         <div class="stars">★★★★★</div>
-        <p>I come here for all my basic needs and they've always had the best priced products…</p>
+        <p>I come here for all my basic needs and they've always had the best priced products. They’re also super quick while helping me every time while also answering all my questions. Oliver was also very kind and very patient while helping me the other day – thank you guys so much :)</p>
       </div>
+
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>There was a slight misunderstanding… Nick came in and did an outstanding job…</p>
+        <p>There was a slight misunderstanding about a device that was bought. Nick came in and did an outstanding job as far as taking care of this misunderstanding. Have visited this store a lot and have always had nothing but positive things to say about the staff and services.</p>
       </div>
+
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>Decent prices. The owner is a very knowledgeable guy…</p>
+        <p>Decent prices. The owner is a very knowledgeable guy. I recommend highly. I personally don't understand the 1 star reviews. The multiple items I bought from Nas have been priced reasonably and were genuine. Welcome to the neighborhood and best of luck. 🙏</p>
       </div>
+
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>Nas is a great man and very respectful…</p>
+        <p>Nas is a great man and very respectful. He keeps the shop clean and the atmosphere in the shop is very professional. He has the best prices and products I've seen by far. He always works with you to ensure you get what you want or what's best for your kit. I would give 10 stars if I could.</p>
       </div>
+
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>Love coming here and the new one in Brunswick…</p>
+        <p>Love coming here and the new one in Brunswick. They are very nice, cheap prices and amazing staff! Best vape shop around. 🙏❤️</p>
       </div>
+
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>Aleisha is awesome! Her and Brandon made me feel super welcome…</p>
+        <p>Aleisha is awesome! Her and Brandon made me feel super welcome. They laughed at ALL my jokes, which has literally never happened in my life because I'm typically only funny to myself. I was honestly having kind of a rough day and felt better after my experience. #grateful 🙏</p>
       </div>
+
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>I’ve been knowing the owner Niko for a while…</p>
+        <p>I’ve been knowing the owner Niko for a while and it’s about time he did his own thing! Great service, cheapest prices and wide selection of everything you need. The whole family comes here so I highly recommend coming here.</p>
       </div>
+
       <button class="next" aria-label="Next review">&#10095;</button>
     </div>
   </section>
@@ -151,31 +162,31 @@
     <h2 class="section-title">Our Top Categories</h2>
     <div class="product-grid">
       <div class="product-card">
-        <img src="images/420.jpg" alt="420 Products">
+        <img src="images/420.jpg" alt="420 Products" />
         <h3>420</h3>
         <p>Your one-stop shop for all things 420.</p>
         <a href="420.html">Explore 420</a>
       </div>
       <div class="product-card">
-        <img src="images/disposables.jpg" alt="Disposable Vapes">
+        <img src="images/disposables.jpg" alt="Disposable Vapes" />
         <h3>Disposables</h3>
         <p>Convenient, ready-to-use vapes in a variety of flavors.</p>
         <a href="vape-disposables.html">Shop Disposables</a>
       </div>
       <div class="product-card">
-        <img src="images/colorful_bongs.jpg" alt="Glass Products">
+        <img src="images/colorful_bongs.jpg" alt="Glass Products" />
         <h3>Glass</h3>
         <p>Hand-blown pieces, rigs and more.</p>
         <a href="420-glass.html">See Glass</a>
       </div>
       <div class="product-card">
-        <img src="images/wraps.jpg" alt="Wraps">
+        <img src="images/wraps.jpg" alt="Wraps" />
         <h3>Wraps</h3>
         <p>Flavored and unflavored wraps in every style.</p>
         <a href="420-wraps.html">Browse Wraps</a>
       </div>
       <div class="product-card">
-        <img src="images/mods.jpg" alt="Mods">
+        <img src="images/mods.jpg" alt="Mods" />
         <h3>Mods</h3>
         <p>Customizable mod devices for advanced vaping.</p>
         <a href="vape-mods.html">View Mods</a>
@@ -183,7 +194,7 @@
     </div>
   </section>
 
-  <!-- Our Stores (uses correct filenames) -->
+  <!-- Our Stores (uses the EXACT filenames from your contact page) -->
   <section id="stores" class="locations" aria-label="Our Stores">
     <h2 class="locations-title">Our Stores</h2>
 
@@ -191,7 +202,13 @@
       <!-- Brunswick -->
       <article class="loc-card">
         <div class="loc-media">
-          <img src="images/27EEC06C-3C40-4C57-B7A1-2CA241A0387A_4.jpg" alt="Vape District — Brunswick storefront" />
+          <img class="store-img"
+               alt="Vape District — Brunswick storefront"
+               data-sources="
+                 images/27EEC06C-3C40-4C57-B7A1-2CA241A0387A_4.jpg|
+                 images/27EEC06C-3C40-4C57-B7A1-2CA241A0387A_4.JPG|
+                 images/27EEC06C-3C40-4C57-B7A1-2CA241A0387A_4.jpeg
+               ">
           <div class="loc-chip">Brunswick</div>
         </div>
         <div class="loc-body">
@@ -206,7 +223,13 @@
       <!-- Willoughby -->
       <article class="loc-card">
         <div class="loc-media">
-          <img src="images/Screenshot_2025-08-10_at_12.29.55_AM.jpg" alt="Vape District — Willoughby storefront" />
+          <img class="store-img"
+               alt="Vape District — Willoughby storefront"
+               data-sources="
+                 images/Screenshot_2025-08-10_at_12.29.55_AM.jpg|
+                 images/Screenshot_2025-08-10_at_12.29.55_AM.JPG|
+                 images/Screenshot_2025-08-10_at_12.29.55_AM.jpeg
+               ">
           <div class="loc-chip">Willoughby</div>
         </div>
         <div class="loc-body">
@@ -221,7 +244,13 @@
       <!-- Parma Heights -->
       <article class="loc-card">
         <div class="loc-media">
-          <img src="images/Screenshot_2025-08-10_at_12.30.03_AM.jpg" alt="Vape District — Parma Heights storefront" />
+          <img class="store-img"
+               alt="Vape District — Parma Heights storefront"
+               data-sources="
+                 images/Screenshot_2025-08-10_at_12.30.03_AM.jpg|
+                 images/Screenshot_2025-08-10_at_12.30.03_AM.JPG|
+                 images/Screenshot_2025-08-10_at_12.30.03_AM.jpeg
+               ">
           <div class="loc-chip">Parma Heights</div>
         </div>
         <div class="loc-body">
@@ -254,9 +283,28 @@
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
 
+  <!-- Storefront image fallback loader (handles .JPG/.jpeg/case) -->
   <script>
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    (function () {
+      function loadWithFallback(img) {
+        const list = (img.getAttribute('data-sources') || '')
+          .split('|').map(s => s.trim()).filter(Boolean);
+        if (!list.length) return;
+        let i = 0;
+        function tryNext(){
+          if (i >= list.length) return;
+          const src = list[i++];
+          // cache-bust to avoid a sticky 404
+          img.src = src + (src.includes('?') ? '' : ('?v=' + Date.now()));
+        }
+        img.addEventListener('error', tryNext);
+        img.addEventListener('load', () => img.removeEventListener('error', tryNext), { once:true });
+        tryNext();
+      }
+      document.querySelectorAll('img.store-img').forEach(loadWithFallback);
+      // Footer year safety
+      const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    })();
   </script>
 </body>
 </html>
