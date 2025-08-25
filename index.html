@@ -57,6 +57,7 @@
             </div>
           </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
+          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
@@ -160,11 +161,11 @@
     </div>
   </section>
 
-  <!-- CONTACT: embed ONLY the stores + phone numbers + map -->
+  <!-- CONTACT: embed ONLY the stores + phone numbers + map from contact.html -->
   <section id="contact" class="contact-embed-wrap">
     <iframe
       id="contactEmbed"
-      src="contact.html?embed=stores"
+      src="contact.html"
       title="Vape District — Stores & Map"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade">
@@ -177,21 +178,66 @@
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
 
-  <!-- Auto-size the embedded stores section so there’s no inner scrollbar -->
+  <!-- Trim the iframe down to ONLY the stores + map (no edits to contact.html needed) -->
   <script>
     (function(){
       const fr = document.getElementById('contactEmbed');
       if(!fr) return;
-      function resize(){
+
+      function keepStoresOnly(){
         try{
-          const doc = fr.contentDocument || fr.contentWindow.document;
-          if (!doc) return;
-          fr.style.height = doc.documentElement.scrollHeight + 'px';
-        }catch(e){ /* same-origin on GitHub Pages -> should work */ }
+          const d = fr.contentDocument || fr.contentWindow.document;
+          if(!d) return;
+
+          // 1) Try to find the "Our Stores" heading/section
+          const heads = Array.from(d.querySelectorAll('h1,h2,h3'));
+          let storesHead = heads.find(h => /our\s+stores/i.test(h.textContent.trim()));
+          let storesWrap = storesHead ? (storesHead.closest('section,main,div') || storesHead.parentElement) : null;
+
+          // Fallback: section that has "Get Directions" buttons
+          if(!storesWrap){
+            const dirBtn = Array.from(d.querySelectorAll('a,button')).find(el => /get\s+directions/i.test(el.textContent));
+            if(dirBtn) storesWrap = dirBtn.closest('section,div,main');
+          }
+
+          // 2) Find a Google Maps iframe for the map section
+          let mapIframe = d.querySelector('iframe[src*="google.com/maps"], iframe[src*="maps.google"]');
+          let mapWrap = mapIframe ? (mapIframe.closest('section,div') || mapIframe) : null;
+
+          // 3) Hide everything except the stores + map containers
+          const keep = new Set([storesWrap, mapWrap].filter(Boolean));
+          Array.from(d.body.children).forEach(ch => {
+            if(!keep.has(ch)) ch.style.display = 'none';
+          });
+
+          // 4) Tidy spacing
+          if(storesWrap) storesWrap.style.marginTop = '0';
+          if(mapWrap) mapWrap.style.marginTop = '16px';
+
+          // 5) Minimal style normalization inside the iframe
+          const style = d.createElement('style');
+          style.textContent = `
+            html,body{background:#fff;}
+            /* Make inner content use the iframe's full width */
+            body > *{max-width:none !important;}
+          `;
+          d.head.appendChild(style);
+
+          // 6) Resize iframe height to fit content
+          fr.style.height = d.documentElement.scrollHeight + 'px';
+        }catch(e){
+          /* Will work on same-origin (GitHub Pages). If different origin, cannot trim. */
+        }
       }
-      fr.addEventListener('load', resize);
-      window.addEventListener('resize', ()=>setTimeout(resize,120), {passive:true});
-      let tries = 0; const iv = setInterval(()=>{ resize(); if(++tries>20) clearInterval(iv); }, 600);
+
+      fr.addEventListener('load', () => {
+        keepStoresOnly();
+        // Run again after a tick in case images/maps load later
+        setTimeout(keepStoresOnly, 400);
+        setTimeout(keepStoresOnly, 1000);
+      });
+
+      window.addEventListener('resize', ()=>setTimeout(keepStoresOnly,120), {passive:true});
     })();
   </script>
 </body>
