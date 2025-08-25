@@ -6,6 +6,25 @@
   <title>Vape District | Home</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
+
+  <!-- Page-scoped styles for the embedded contact section -->
+  <style>
+    :root { --wrap:1120px; --pad:16px; }
+
+    .contact-embed-wrap{
+      max-width: var(--wrap);
+      margin: 28px auto 0;
+      padding: 0 var(--pad);
+    }
+    #contactEmbed{
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      min-height: 1100px; /* fallback before autosize runs */
+      background: #fff;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -60,11 +79,10 @@
   </section>
 
   <!-- About Section (Parallax) -->
-  <!-- Parallax about section uses a store photo provided by the client for a rich backdrop -->
   <section class="about parallax" style="background-image: url('images/glass_mural2.jpg');">
     <div class="overlay">
       <h2 class="section-title">About Us</h2>
-      <p>Ohio’s go‑to spot for premium vapes, smoke gear, and more. Come check us out in <span class="gradient-text">Parma, Brunswick, or Willoughby</span> — we carry top brands, solid prices, and the <span class="gradient-text">best loyalty program</span> in the state.</p>
+      <p>Ohio’s go-to spot for premium vapes, smoke gear, and more. Come check us out in <span class="gradient-text">Parma, Brunswick, or Willoughby</span> — we carry top brands, solid prices, and the <span class="gradient-text">best loyalty program</span> in the state.</p>
       <a href="tel:+14405582671" class="btn btn-primary">Call Us: (440) 558-2671</a>
     </div>
   </section>
@@ -74,10 +92,9 @@
     <h2 class="section-title">What Our Customers Say</h2>
     <div class="reviews-slider">
       <button class="prev" aria-label="Previous review">&#10094;</button>
-      <!-- Each review-slide holds one customer review -->
       <div class="review-slide active">
         <div class="stars">★★★★★</div>
-        <p>I come here for all my basic needs and they've always had the best priced products. They’re also super quick while helping me every time while also answering all my questions. Oliver was also very kind and very patient while helping me the other day – thank you guys so much :)</p>
+        <p>I come here for all my basic needs and they've always had the best priced products. They’re also super quick while helping me every time while also answering all my questions. Oliver was also very kind and very patient while helping me the other day – thank you guys so much :)</p>
       </div>
       <div class="review-slide">
         <div class="stars">★★★★★</div>
@@ -85,7 +102,7 @@
       </div>
       <div class="review-slide">
         <div class="stars">★★★★★</div>
-        <p>Decent prices. The owner is a very knowledgeable guy. I recommend highly. I personally don't understand the 1 star reviews. The multiple items I bought from Nas have been priced reasonably and were genuine. Welcome to the neighborhood and best of luck. 🙏</p>
+        <p>Decent prices. The owner is a very knowledgeable guy. I recommend highly. I personally don't understand the 1 star reviews. The multiple items I bought from Nas have been priced reasonably and were genuine. Welcome to the neighborhood and best of luck. 🙏</p>
       </div>
       <div class="review-slide">
         <div class="stars">★★★★★</div>
@@ -114,19 +131,19 @@
       <div class="product-card">
         <img src="images/420.jpg" alt="420 Products">
         <h3>420</h3>
-        <p>Your one‑stop shop for all things 420.</p>
+        <p>Your one-stop shop for all things 420.</p>
         <a href="420.html">Explore 420</a>
       </div>
       <div class="product-card">
         <img src="images/disposables.jpg" alt="Disposable Vapes">
         <h3>Disposables</h3>
-        <p>Convenient, ready‑to‑use vapes in a variety of flavors.</p>
+        <p>Convenient, ready-to-use vapes in a variety of flavors.</p>
         <a href="vape-disposables.html">Shop Disposables</a>
       </div>
       <div class="product-card">
         <img src="images/colorful_bongs.jpg" alt="Glass Products">
         <h3>Glass</h3>
-        <p>Hand‑blown pieces, rigs and more.</p>
+        <p>Hand-blown pieces, rigs and more.</p>
         <a href="420-glass.html">See Glass</a>
       </div>
       <div class="product-card">
@@ -144,18 +161,15 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-    <h2 class="section-title">Get In Touch</h2>
-    <div class="contact-info">
-      <p>Have a question? Send us a message!</p>
-    </div>
-    <form class="contact-form" action="#" method="post">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <!-- Contact Section (embedded contact page) -->
+  <section id="contact" class="contact-embed-wrap">
+    <iframe
+      id="contactEmbed"
+      src="contact.html#embedded"
+      title="Vape District — Contact & Locations"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
   </section>
 
   <!-- Footer -->
@@ -163,5 +177,23 @@
     <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
   </footer>
+
+  <!-- Auto-size the embedded contact page to avoid inner scrollbars -->
+  <script>
+    (function(){
+      const fr = document.getElementById('contactEmbed');
+      if(!fr) return;
+      function resize(){
+        try{
+          const doc = fr.contentDocument || fr.contentWindow.document;
+          if (!doc) return;
+          fr.style.height = doc.documentElement.scrollHeight + 'px';
+        }catch(e){ /* same-origin on GitHub Pages -> should work */ }
+      }
+      fr.addEventListener('load', resize);
+      window.addEventListener('resize', ()=>setTimeout(resize,120), {passive:true});
+      let tries = 0; const iv = setInterval(()=>{ resize(); if(++tries>20) clearInterval(iv); }, 600);
+    })();
+  </script>
 </body>
 </html>
