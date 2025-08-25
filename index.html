@@ -8,16 +8,58 @@
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
 
-  <!-- Map slice (compact) -->
+  <!-- Scoped tweaks for the Stores+Map slice -->
   <style>
     :root{ --wrap:1120px; --pad:16px; }
-    .map-slice{ padding: 8px 0 0; background:#fff; }
-    .map-slice .wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+
+    /* Our Stores cards */
+    .stores-wrap{ max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); }
+    .stores{ padding:24px 0 6px; }
+    .stores h2{ text-align:center; margin:0 0 18px; font-size:2rem; font-weight:900; color:#13293d; }
+    .store-grid{
+      display:grid; gap:26px;
+      grid-template-columns:repeat(1,minmax(0,1fr));
+    }
+    @media (min-width:860px){ .store-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+    .store-card{
+      background:#fff; border-radius:18px; box-shadow:0 16px 34px rgba(0,0,0,.10);
+      overflow:hidden;
+    }
+    .store-media{ position:relative; height:220px; background:#f6f7f9; }
+    .store-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .chip{
+      position:absolute; left:16px; bottom:16px;
+      background:rgba(0,0,0,.7); color:#fff; padding:8px 12px; border-radius:12px;
+      font-weight:800;
+    }
+    .store-body{ padding:16px 18px 18px; }
+    .store-body h3{ margin:0 0 12px; font-size:1.25rem; color:#13293d; }
+    .store-body p{ margin:0 0 14px; color:#334256; font-weight:700; }
+
+    .btn-wide{
+      display:block; text-align:center; font-weight:800;
+      color:#fff; background:#1a73e8; text-decoration:none;
+      border-radius:12px; padding:14px 16px; box-shadow:0 10px 26px rgba(26,115,232,.35),0 2px 6px rgba(0,0,0,.08);
+    }
+    .btn-wide:hover{ background:#1567cf; }
+
+    .phone-bar{
+      margin-top:12px; text-align:center; padding:14px 16px; border-radius:12px;
+      background:#eaf1ff; color:#0b57d0; font-weight:800;
+    }
+
+    /* Map slice – minimal spacing, sits tight above footer */
+    .map-slice{ padding:0 0 0; }
+    .map-slice .wrap{ max-width:var(--wrap); margin:0 auto; padding:8px var(--pad) 0; }
     .map-embed{
       width:100%; height:420px; border:0; border-radius:16px;
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
+      box-shadow:0 10px 24px rgba(0,0,0,.08); display:block;
     }
     @media (max-width:640px){ .map-embed{ height:360px; } }
+
+    /* Kill any big footer top margin that might add blank space */
+    .footer{ margin-top:8px !important; }
   </style>
 </head>
 <body>
@@ -66,7 +108,7 @@
       <p>Parma, Brunswick and Willoughby. Premium products. Top brands. No shortcuts.</p>
       <div class="button-group">
         <a href="products.html" class="btn btn-primary">Shop Now</a>
-        <a href="#map" class="btn btn-outline">Contact / Map</a>
+        <a href="#stores" class="btn btn-outline">Find a Store</a>
       </div>
     </div>
   </section>
@@ -85,16 +127,13 @@
     <h2 class="section-title">What Our Customers Say</h2>
     <div class="reviews-slider">
       <button class="prev" aria-label="Previous review">&#10094;</button>
-      <div class="review-slide active">
-        <div class="stars">★★★★★</div>
-        <p>I come here for all my basic needs and they've always had the best priced products. They’re also super quick while helping me every time while also answering all my questions. Oliver was also very kind and very patient while helping me the other day – thank you guys so much :)</p>
-      </div>
+      <div class="review-slide active"><div class="stars">★★★★★</div><p>I come here for all my basic needs and they've always had the best priced products. They’re also super quick while helping me every time while also answering all my questions. Oliver was also very kind and very patient while helping me the other day – thank you guys so much :)</p></div>
       <div class="review-slide"><div class="stars">★★★★★</div><p>There was a slight misunderstanding about a device that was bought. Nick came in and did an outstanding job as far as taking care of this misunderstanding. Have visited this store a lot and have always had nothing but positive things to say about the staff and services.</p></div>
       <div class="review-slide"><div class="stars">★★★★★</div><p>Decent prices. The owner is a very knowledgeable guy. I recommend highly. I personally don't understand the 1 star reviews. The multiple items I bought from Nas have been priced reasonably and were genuine. Welcome to the neighborhood and best of luck. 🙏</p></div>
       <div class="review-slide"><div class="stars">★★★★★</div><p>Nas is a great man and very respectful. He keeps the shop clean and the atmosphere in the shop is very professional. He has the best prices and products I've seen by far. He always works with you to ensure you get what you want or what's best for your kit. I would give 10 stars if I could.</p></div>
       <div class="review-slide"><div class="stars">★★★★★</div><p>Love coming here and the new one in Brunswick. They are very nice, cheap prices and amazing staff! Best vape shop around. 🙏❤️</p></div>
-      <div class="review-slide"><div class="stars">★★★★★</div><p>Aleisha is awesome! Her and Brandon made me feel super welcome. They laughed at ALL my jokes, which has literally never happened in my life because I'm typically only funny to myself. I was honestly having kind of a rough day and felt better after my experience. #grateful 🙏</p></div>
-      <div class="review-slide"><div class="stars">★★★★★</div><p>I’ve been knowing the owner Niko for a while and it’s about time he did his own thing! Great service, cheapest prices and wide selection of everything you need. The whole family comes here so I highly recommend coming here.</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>Aleisha is awesome! Her and Brandon made me feel super welcome. They laughed at ALL my jokes… #grateful 🙏</p></div>
+      <div class="review-slide"><div class="stars">★★★★★</div><p>I’ve been knowing the owner Niko for a while and it’s about time he did his own thing! Great service, cheapest prices and wide selection of everything you need.</p></div>
       <button class="next" aria-label="Next review">&#10095;</button>
     </div>
   </section>
@@ -104,31 +143,31 @@
     <h2 class="section-title">Our Top Categories</h2>
     <div class="product-grid">
       <div class="product-card">
-        <img src="images/420.jpg" alt="420 Products">
+        <img src="images/420.jpg" alt="420 Products" />
         <h3>420</h3>
         <p>Your one-stop shop for all things 420.</p>
         <a href="420.html">Explore 420</a>
       </div>
       <div class="product-card">
-        <img src="images/disposables.jpg" alt="Disposable Vapes">
+        <img src="images/disposables.jpg" alt="Disposable Vapes" />
         <h3>Disposables</h3>
         <p>Convenient, ready-to-use vapes in a variety of flavors.</p>
         <a href="vape-disposables.html">Shop Disposables</a>
       </div>
       <div class="product-card">
-        <img src="images/colorful_bongs.jpg" alt="Glass Products">
+        <img src="images/colorful_bongs.jpg" alt="Glass Products" />
         <h3>Glass</h3>
         <p>Hand-blown pieces, rigs and more.</p>
         <a href="420-glass.html">See Glass</a>
       </div>
       <div class="product-card">
-        <img src="images/wraps.jpg" alt="Wraps">
+        <img src="images/wraps.jpg" alt="Wraps" />
         <h3>Wraps</h3>
         <p>Flavored and unflavored wraps in every style.</p>
         <a href="420-wraps.html">Browse Wraps</a>
       </div>
       <div class="product-card">
-        <img src="images/mods.jpg" alt="Mods">
+        <img src="images/mods.jpg" alt="Mods" />
         <h3>Mods</h3>
         <p>Customizable mod devices for advanced vaping.</p>
         <a href="vape-mods.html">View Mods</a>
@@ -136,7 +175,54 @@
     </div>
   </section>
 
-  <!-- MAP (compact, minimal padding) -->
+  <!-- OUR STORES (cards) -->
+  <section id="stores" class="stores">
+    <div class="stores-wrap">
+      <h2>Our Stores</h2>
+      <div class="store-grid">
+        <!-- Brunswick -->
+        <article class="store-card">
+          <div class="store-media">
+            <img src="images/store_brunswick.jpg" alt="Brunswick storefront" />
+            <span class="chip">Brunswick</span>
+          </div>
+          <div class="store-body">
+            <h3>809 Pearl Rd, Brunswick, OH 44212</h3>
+            <a class="btn-wide" href="https://maps.google.com/?q=809+Pearl+Rd,+Brunswick,+OH+44212" target="_blank" rel="noopener">Get Directions</a>
+            <div class="phone-bar"><a href="tel:+13304603287" style="text-decoration:none; color:#0b57d0">(330) 460-3287</a></div>
+          </div>
+        </article>
+
+        <!-- Willoughby -->
+        <article class="store-card">
+          <div class="store-media">
+            <img src="images/store_willoughby.jpg" alt="Willoughby storefront" />
+            <span class="chip">Willoughby</span>
+          </div>
+          <div class="store-body">
+            <h3>36301 Euclid Ave, Willoughby, OH 44094</h3>
+            <a class="btn-wide" href="https://maps.google.com/?q=36301+Euclid+Ave,+Willoughby,+OH+44094" target="_blank" rel="noopener">Get Directions</a>
+            <div class="phone-bar"><a href="tel:+14407106027" style="text-decoration:none; color:#0b57d0">(440) 710-6027</a></div>
+          </div>
+        </article>
+
+        <!-- Parma Heights -->
+        <article class="store-card">
+          <div class="store-media">
+            <img src="images/store_parma.jpg" alt="Parma Heights storefront" />
+            <span class="chip">Parma Heights</span>
+          </div>
+          <div class="store-body">
+            <h3>6420 Pearl Rd, Cleveland, OH 44130</h3>
+            <a class="btn-wide" href="https://maps.google.com/?q=6420+Pearl+Rd,+Cleveland,+OH+44130" target="_blank" rel="noopener">Get Directions</a>
+            <div class="phone-bar"><a href="tel:+14405582671" style="text-decoration:none; color:#0b57d0">(440) 558-2671</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP (tight to cards, minimal padding, no blank space) -->
   <section id="map" class="map-slice" aria-label="Parma Heights Map">
     <div class="wrap">
       <iframe
