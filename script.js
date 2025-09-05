@@ -4,53 +4,50 @@ const navLinks   = document.querySelector('.nav-links');
 
 if (menuToggle && navLinks) {
   menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-    menuToggle.setAttribute(
-      'aria-expanded',
-      navLinks.classList.contains('show') ? 'true' : 'false'
-    );
+    const now = navLinks.classList.toggle('show');
+    menuToggle.setAttribute('aria-expanded', now ? 'true' : 'false');
   });
 }
 
-// === Shop dropdown: open/close on tap (TOP-LEVEL ONLY) ===
+// === Only the TOP-LEVEL "Shop" toggles a dropdown ===
 (function () {
-  // IMPORTANT: this ONLY matches the top-level "Shop" in the main nav
-  const triggers = document.querySelectorAll('nav > .nav-links > .dropdown > a');
+  const shopTrigger = document.querySelector('nav .dropdown > .shop-toggle');
+  if (!shopTrigger) return;
 
-  triggers.forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const li = trigger.parentElement; // the .dropdown <li>
-      const nowOpen = li.classList.toggle('open');
+  shopTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();                // don’t let other handlers close it
+    const li = shopTrigger.parentElement;
+    const nowOpen = li.classList.toggle('open');
+    shopTrigger.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
 
-      // close any other open dropdowns
-      document.querySelectorAll('nav .dropdown.open').forEach(other => {
-        if (other !== li) other.classList.remove('open');
-      });
-
-      trigger.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+    // close other open dropdowns if you ever add more
+    document.querySelectorAll('nav .dropdown.open').forEach(other => {
+      if (other !== li) other.classList.remove('open');
     });
   });
 
-  // Click outside to close
+  // Close dropdown on outside click
   document.addEventListener('click', (e) => {
-    document.querySelectorAll('nav .dropdown.open').forEach(li => {
-      if (!li.contains(e.target)) li.classList.remove('open');
-    });
+    const li = shopTrigger.parentElement;
+    if (li.classList.contains('open') && !li.contains(e.target)) {
+      li.classList.remove('open');
+      shopTrigger.setAttribute('aria-expanded', 'false');
+    }
   });
 
-  // Close the mobile menu after clicking a REAL link (but not the Shop trigger)
-  if (navLinks) {
-    navLinks.querySelectorAll('a[href]').forEach(a => {
-      a.addEventListener('click', () => {
-        const isTopLevelShop = a.matches('nav > .nav-links > .dropdown > a');
-        if (isTopLevelShop) return; // let the toggle above handle it
-        if (navLinks.classList.contains('show')) {
-          navLinks.classList.remove('show');
-          if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
+  // Close everything after clicking a REAL link in the dropdown
+  document.querySelectorAll('nav .dropdown .dropdown-content a[href]').forEach(link => {
+    link.addEventListener('click', () => {
+      // close dropdown
+      const li = link.closest('.dropdown');
+      if (li) li.classList.remove('open');
+      shopTrigger.setAttribute('aria-expanded', 'false');
+      // close mobile menu if it’s open
+      if (navLinks && navLinks.classList.contains('show')) {
+        navLinks.classList.remove('show');
+        menuToggle?.setAttribute('aria-expanded','false');
+      }
     });
-  }
+  });
 })();
