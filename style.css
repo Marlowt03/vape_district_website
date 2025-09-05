@@ -1216,3 +1216,40 @@ nav .nav-links > li > .shop-label {
   position: relative;
   top: 3px;   /* bump down – adjust to 3px if it still looks high */
 }
+/* === NAV: make "Shop" (a <span>) look/align exactly like the links === */
+
+/* 1) Normalize the span */
+nav .nav-links > li > .shop-label{
+  all: unset;                 /* wipe page-scoped pill styles */
+  display: inline;            /* same flow as <a> */
+  font: inherit;
+  font-weight: 600;           /* same weight as your links */
+  line-height: 1.2;           /* match the link line-height */
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 2) Ensure every nav item vertically centers its first child */
+nav .nav-links { align-items: center; }
+nav .nav-links > li{
+  display: flex;
+  align-items: center;        /* centers <a> and the Shop <span> identically */
+}
+
+/* 3) Kill any leftover "pill" styling that might still be injected on Contact */
+@media (min-width: 769px){
+  nav .has-submenu > .shop-label{
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* 4) Micro-nudge (only if you still see it 1px high on some browsers) */
+nav .nav-links > li > .shop-label{ position: relative; top: 1px; }
+@media (min-width: 769px){
+  /* You can set this to 0px if it's perfect without the nudge on desktop */
+  nav .nav-links > li > .shop-label{ top: 0px; }
+}
