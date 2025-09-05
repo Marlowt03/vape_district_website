@@ -1,59 +1,69 @@
-// === Mobile hamburger toggle (kept as-is if you already have similar) ===
+// === 1) Mobile hamburger ===
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks   = document.querySelector('.nav-links');
 
 if (menuToggle && navLinks) {
   menuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('show');
-    menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('show') ? 'true' : 'false');
+    menuToggle.setAttribute(
+      'aria-expanded',
+      navLinks.classList.contains('show') ? 'true' : 'false'
+    );
   });
 }
 
-// === Shop dropdown: open/close on click without closing the whole menu ===
-(function () {
-  const dropdownTriggers = document.querySelectorAll('nav .dropdown > a');
-
-  dropdownTriggers.forEach(a => {
+// === 2) Guard the "close on link click" so it IGNORES the Shop trigger ===
+if (navLinks) {
+  navLinks.querySelectorAll('a[href]').forEach(a => {
     a.addEventListener('click', (e) => {
-      // Prevent page jump / closing the overlay
-      e.preventDefault();
-      e.stopPropagation();
+      // If this is the Shop trigger (nav .dropdown > a), DON'T close the menu here
+      const isShopTrigger =
+        a.closest('.dropdown') &&
+        a.parentElement.classList.contains('dropdown') &&
+        a.nextElementSibling &&
+        a.nextElementSibling.classList.contains('dropdown-content');
 
-      const li = a.parentElement; // the .dropdown <li>
-      const isOpen = li.classList.toggle('open');
+      if (isShopTrigger) {
+        // Let the Shop toggle handler deal with it
+        return;
+      }
 
-      // Close any other open dropdowns
-      document.querySelectorAll('nav .dropdown.open').forEach(other => {
-        if (other !== li) other.classList.remove('open');
-      });
-    });
-  });
-
-  // Click outside to close
-  document.addEventListener('click', (e) => {
-    document.querySelectorAll('nav .dropdown.open').forEach(li => {
-      if (!li.contains(e.target)) li.classList.remove('open');
-    });
-  });
-
-  // When a real link inside dropdown is clicked, let it navigate and
-  // (optionally) close the mobile menu if it's open.
-  document.querySelectorAll('nav .dropdown .dropdown-content a[href]').forEach(link => {
-    link.addEventListener('click', () => {
-      // Close the dropdown state
-      const li = link.closest('.dropdown');
-      if (li) li.classList.remove('open');
-
-      // Close the mobile menu overlay if visible
-      if (navLinks && navLinks.classList.contains('show')) {
+      // Real link: close the mobile menu after navigating
+      if (navLinks.classList.contains('show')) {
         navLinks.classList.remove('show');
         if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
       }
     });
   });
+}
 
-  // IMPORTANT: Don’t auto-close the mobile menu when clicking the Shop trigger
-  // If you have a "close on any link click" handler elsewhere, make sure it ignores:
-  //   link.closest('.dropdown')
-  // so the Shop button doesn’t immediately close the menu.
+// === 3) Shop dropdown: open/close on tap, and close other open dropdowns ===
+(function () {
+  const triggers = document.querySelectorAll('nav .dropdown > a');
+
+  triggers.forEach(trigger => {
+    // ensure it doesn’t navigate or bubble
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const li = trigger.parentElement; // the .dropdown <li>
+      const nowOpen = li.classList.toggle('open');
+
+      // close any other dropdowns
+      document.querySelectorAll('nav .dropdown.open').forEach(other => {
+        if (other !== li) other.classList.remove('open');
+      });
+
+      // keep aria in sync (optional)
+      trigger.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+    });
+  });
+
+  // Click outside to close any open dropdown
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('nav .dropdown.open').forEach(li => {
+      if (!li.contains(e.target)) li.classList.remove('open');
+    });
+  });
 })();
