@@ -1,32 +1,71 @@
 // ==========================
+// Create (once) a backdrop overlay we can click to close
+// ==========================
+let overlay = document.getElementById('navOverlay');
+if (!overlay) {
+  overlay = document.createElement('div');
+  overlay.id = 'navOverlay';
+  overlay.className = 'nav-overlay'; // uses your existing CSS class
+  document.body.appendChild(overlay);
+}
+
+// ==========================
 // Mobile hamburger
 // ==========================
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks   = document.querySelector('.nav-links');
 
+function openMenu() {
+  if (!navLinks) return;
+  navLinks.classList.add('show');
+  overlay.classList.add('show');
+  document.body.classList.add('no-scroll');
+  menuToggle && menuToggle.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  if (!navLinks) return;
+  navLinks.classList.remove('show');
+  overlay.classList.remove('show');
+  document.body.classList.remove('no-scroll');
+  menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
+}
+
 if (menuToggle && navLinks) {
   menuToggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('show');
-    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.classList.toggle('no-scroll', open);
+    const isOpen = navLinks.classList.contains('show');
+    isOpen ? closeMenu() : openMenu();
   });
 }
 
+// Close via overlay click
+overlay.addEventListener('click', closeMenu);
+
+// Close when clicking anywhere outside the popup and the toggle
+document.addEventListener('click', (e) => {
+  if (!navLinks) return;
+  const isOpen = navLinks.classList.contains('show');
+  if (!isOpen) return;
+
+  const clickedInsideMenu   = navLinks.contains(e.target);
+  const clickedToggleButton = menuToggle && menuToggle.contains(e.target);
+
+  if (!clickedInsideMenu && !clickedToggleButton) {
+    closeMenu();
+  }
+}, true);
+
+// Close on Esc
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMenu();
+});
+
 // ==========================
 // Shop dropdown (supports BOTH nav variants)
-// - Variant A (most pages):
-//   <li class="dropdown">
-//     <a href="#">Shop</a>
-//     <div class="dropdown-content">…</div>
-//   </li>
-// - Variant B (contact page):
-//   <li class="has-submenu">
-//     <span class="shop-label">Shop</span>
-//     <ul class="submenu">…</ul>
-//   </li>
+// - Variant A: <li class="dropdown"><a>Shop</a><div class="dropdown-content">…</div></li>
+// - Variant B: <li class="has-submenu"><span class="shop-label">Shop</span><ul class="submenu">…</ul></li>
 // ==========================
 (function () {
-  // Grab possible variants
+  // Try to find either variant
   const ddLi   = document.querySelector('nav li.dropdown');
   const ddTrig = ddLi ? ddLi.querySelector(':scope > .shop-toggle, :scope > a, :scope > button, :scope > span') : null;
   const ddPane = ddLi ? ddLi.querySelector(':scope > .dropdown-content') : null;
@@ -35,10 +74,9 @@ if (menuToggle && navLinks) {
   const hsTrig = hsLi ? hsLi.querySelector(':scope > .shop-label, :scope > a, :scope > button, :scope > span') : null;
   const hsPane = hsLi ? hsLi.querySelector(':scope > .submenu') : null;
 
-  // nothing to do if neither exists
+  // If neither exists, bail
   if (!ddTrig && !hsTrig) return;
 
-  // helpers
   function isOpen() {
     return (ddLi && ddLi.classList.contains('open')) ||
            (hsLi && hsLi.classList.contains('submenu-open'));
@@ -49,58 +87,58 @@ if (menuToggle && navLinks) {
     if (ddTrig) ddTrig.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (hsTrig) hsTrig.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
-  function closeAll() { setOpen(false); }
 
-  // Make triggers accessible
+  // Prepare triggers
   [ddTrig, hsTrig].filter(Boolean).forEach(t => {
     t.setAttribute('role', 'button');
     t.setAttribute('tabindex', '0');
     t.setAttribute('aria-expanded', 'false');
 
-    const doToggle = (e) => {
+    const toggle = (e) => {
       e.preventDefault();
       e.stopPropagation();
       setOpen(!isOpen());
+      // ensure overlay is visible when the drawer is open
+      if (navLinks && navLinks.classList.contains('show')) {
+        overlay.classList.add('show');
+      }
     };
 
-    t.addEventListener('click', doToggle);
+    t.addEventListener('click', toggle);
     t.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') doToggle(e);
+      if (e.key === 'Enter' || e.key === ' ') toggle(e);
     });
   });
 
-  // Click outside closes (use capture to win against bubbling)
-  document.addEventListener('click', (e) => {
-    const inside =
-      (ddLi && ddLi.contains(e.target)) ||
-      (hsLi && hsLi.contains(e.target));
-    if (!inside) closeAll();
-  }, true);
-
-  // Esc key closes
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAll();
-  });
-
-  // Clicking a real link inside the panel closes dropdown + mobile menu
+  // Clicking a real link inside closes dropdown and (if open) the drawer
   [ddPane, hsPane].filter(Boolean).forEach(panel => {
     panel.querySelectorAll('a[href]').forEach(a => {
       a.addEventListener('click', () => {
-        closeAll();
-        if (navLinks && navLinks.classList.contains('show')) {
-          navLinks.classList.remove('show');
-          menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
-          document.body.classList.remove('no-scroll');
-        }
+        setOpen(false);
+        if (navLinks && navLinks.classList.contains('show')) closeMenu();
       });
     });
   });
 
-  // On touch devices, ensure "420" & "Vapes" act as plain links (no nested dropdown behavior)
+  // Clicking *outside* the dropdown closes it (and does not touch the drawer state)
+  document.addEventListener('click', (e) => {
+    const clickedInside =
+      (ddLi && ddLi.contains(e.target)) ||
+      (hsLi && hsLi.contains(e.target));
+    if (!clickedInside) setOpen(false);
+  }, true);
+})();
+
+// ==========================
+// Make "420" and "Vapes" act as plain links on touch (no sub-dropdown)
+// ==========================
+(function(){
+  const isTouch = matchMedia('(hover: none)').matches;
+  if (!isTouch) return;
   document.querySelectorAll('nav .submenu .has-sub').forEach(a => {
     a.addEventListener('click', (e) => {
-      // allow navigation for real hrefs, but don't let the click toggle/propagate
       const href = (a.getAttribute('href') || '').trim();
+      // allow real navigation; just stop bubbling so it doesn't toggle Shop
       if (href === '' || href === '#') e.preventDefault();
       e.stopPropagation();
     }, true);
