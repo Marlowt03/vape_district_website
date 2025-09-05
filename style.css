@@ -1102,3 +1102,50 @@ nav .has-submenu .submenu a:hover { background: #f5f7fb; }
 nav { display: grid; grid-template-columns: 1fr auto; align-items: center; }
 .menu-toggle { display: none; }
 @media (max-width: 1024px){ .menu-toggle { display:block; font-size: 2rem; color: #3db2ff; } }
+/* --- Unify the Shop button on the Contact page --- */
+nav .has-submenu > .shop-label {
+    display: inline-block;
+    padding: 10px 12px;
+    font-weight: 600;
+    color: #333;
+    border-radius: 8px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+nav .has-submenu > .shop-label:hover {
+    color: var(--primary-blue);
+}
+
+/* --- Keep dropdown open when hovering down --- */
+nav li.dropdown,
+nav li.has-submenu {
+    position: relative;
+    padding-bottom: 8px;        /* extend hover area to cover the gap */
+}
+nav li.dropdown > .dropdown-content,
+nav li.has-submenu > .submenu {
+    margin-top: -8px;           /* pull dropdown up to overlap the hover area */
+}
+
+/* If your CSS uses ::after pseudo-elements, ensure pointer-events don’t interfere */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 8px;
+    pointer-events: none;
+}
+
+/* Always keep dropdown visible when hovering over it */
+@media (hover:hover) {
+  nav .dropdown:hover > .dropdown-content,
+  nav .dropdown.open > .dropdown-content,
+  nav .has-submenu:hover > .submenu,
+  nav .has-submenu.submenu-open > .submenu {
+      display: block;
+  }
+}
