@@ -941,3 +941,59 @@ nav .dropdown.open > .dropdown-content { display: block; }
   nav .submenu .sub-dropdown { display: none !important; }
   nav .submenu .has-sub::after { content: ""; } /* remove the little ▸ caret on touch */
 }
+/* === Global nav fixes (append at end) === */
+
+/* Prevent horizontal scroll if a panel misbehaves */
+html, body { overflow-x: hidden; }
+
+/* Keep dropdown panel inside frame + consistent white UI */
+nav .dropdown { position: relative; }
+nav .dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  max-width: min(92vw, 320px);
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  padding: 8px 0;
+  z-index: 999;
+}
+nav .dropdown.open > .dropdown-content { display: block; }
+
+nav .dropdown .dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  color: #111;
+  text-decoration: none;
+  font-weight: 600;
+}
+nav .dropdown .dropdown-content a:hover {
+  background: #f5f7fb;
+}
+
+/* MOBILE: dropdown becomes an inline white list inside the menu, never off-screen */
+@media (max-width: 1024px) {
+  nav .dropdown .dropdown-content {
+    position: static;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e8e8e8;
+    box-shadow: none;
+    margin-top: 6px;
+  }
+}
+
+/* Kill nested submenus everywhere (so 420/Vapes are NOT dropdowns) */
+nav .submenu .sub-dropdown { display: none !important; }
+nav .submenu .has-sub::after { content: '' !important; }
+
+/* Optional: slightly tighter mobile menu alignment */
+@media (max-width: 1024px) {
+  .nav-links.show { align-items: stretch; }
+  .nav-links.show > li { width: 100%; }
+}
