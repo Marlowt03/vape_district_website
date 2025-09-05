@@ -913,3 +913,21 @@ html, body { overflow-x: hidden; }
 @media (min-width: 769px){
   .nav-overlay, .mobile-menu{ display: none !important; }
 }
+/* Make Shop open/close on click via a class, not only hover */
+nav .dropdown.open > .dropdown-content { display: block; }
+
+/* Keep hover working on desktop too */
+@media (hover:hover) {
+  nav .dropdown:hover > .dropdown-content { display: block; }
+}
+
+/* Ensure the dropdown stays inside the viewport on mobile */
+@media (max-width: 1024px) {
+  nav .dropdown { position: static; }
+  nav .dropdown .dropdown-content {
+    position: static;          /* stack inside the flow */
+    width: 100%;               /* match the menu width */
+    box-shadow: none;          /* match your mobile menu look */
+    border: 0;                 /* (optional) match the mobile style */
+  }
+}
