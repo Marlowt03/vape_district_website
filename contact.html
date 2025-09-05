@@ -5,26 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vape District | Contact</title>
 
-  <!-- your global files -->
+  <!-- Global CSS/JS -->
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <script defer src="script.js"></script>
 
-  <!-- Page-scoped fixes ONLY -->
+  <!-- Page-scoped styles (hero + locations only) -->
   <style>
-    :root{
-      --nav-hover:#3AA3FF; /* lighter blue for hover */
-    }
-
-/* Use the global nav; just style the Contact page's <span class="shop-label"> to match */
-nav .has-submenu > .shop-label{
-  display:block; width:100%;
-  padding:16px 14px;
-  border:1px solid #e9edf2; border-radius:14px;
-  background:#f8fafc; color:#111; font-weight:900;
-  cursor:pointer; user-select:none;
-}
-
-    /* ----- CONTACT hero (same look as you had) ----- */
+    /* ----- CONTACT hero ----- */
     .contact-hero{
       background:url('images/hero.jpg') center/cover no-repeat;
       color:#fff; text-align:center; position:relative;
@@ -67,37 +54,48 @@ nav .has-submenu > .shop-label{
       flex:1 1 140px; text-align:center;
     }
     .btn-ghost:hover{ background:#dbe7ff; transform:translateY(-2px); }
-
-    /* ----- Map ----- */
-    .map-wrap{ max-width:1120px; margin:40px auto 80px; padding:0 16px; }
-    .map-card{ background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,.06); }
-    .map-card header{ background:#13293d; color:#fff; padding:14px 16px; font-weight:800; font-size:1.1rem; }
-    .map-iframe{ border:0; width:100%; height:350px; display:block; }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- Navigation (IDENTICAL structure to Home/About) -->
   <nav>
-    <a href="index.html" class="nav-logo">Vape District</a>
-    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
+    <a class="nav-logo" href="index.html">Vape District</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
 
-      <!-- Shop: NOT clickable; still opens submenu on hover/tap -->
-      <li class="has-submenu">
-        <span class="shop-label" aria-haspopup="true" aria-expanded="false">Shop</span>
-        <ul class="submenu" aria-label="Shop submenu">
-          <li><a href="420.html">420 ▸</a></li>
-          <li><a href="vapes.html">Vapes ▸</a></li>
-          <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
-          <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
-        </ul>
+      <li class="dropdown">
+        <a href="#" class="shop-toggle">Shop</a>
+        <div class="dropdown-content">
+          <div class="submenu">
+            <a href="420.html" class="has-sub">420</a>
+            <div class="sub-dropdown">
+              <a href="420-wraps.html">Wraps</a>
+              <a href="420-cartridges.html">420 Cartridges</a>
+              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+              <a href="420-glass.html">Glass</a>
+              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+              <a href="420-batteries.html">Batteries</a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a href="vapes.html" class="has-sub">Vapes</a>
+            <div class="sub-dropdown">
+              <a href="vape-juice.html">Vape Juice</a>
+              <a href="vape-devices.html">Devices</a>
+              <a href="vape-disposables.html">Disposables</a>
+              <a href="vape-mods.html">Mods</a>
+            </div>
+          </div>
+          <a href="detox.html">Pass A Dr*g Test / Detox</a>
+          <a href="mystery-boxes.html">Mystery Boxes</a>
+        </div>
       </li>
 
       <li><a class="active" href="contact.html">Contact</a></li>
     </ul>
+    <div class="menu-toggle" aria-label="Menu" aria-expanded="false">☰</div>
   </nav>
 
   <!-- HERO -->
@@ -160,15 +158,11 @@ nav .has-submenu > .shop-label{
     </div>
   </section>
 
-  <!-- keep your global footer if you have it; simple fallback below -->
-  <footer>
-    <div class="container footer-inner">
-      <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
-    </div>
-    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
   </footer>
-
-    // Footer year (safety in case script tag above moves)
+  <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
