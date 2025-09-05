@@ -931,3 +931,13 @@ nav .dropdown.open > .dropdown-content { display: block; }
     border: 0;                 /* (optional) match the mobile style */
   }
 }
+/* Only show nested submenus (420, Vapes) on devices that support hover (desktop) */
+@media (hover:hover) {
+  nav .submenu:hover > .sub-dropdown { display: block; }
+}
+
+/* On touch devices, make 420/Vapes just normal links (no dropdown) */
+@media (hover:none) {
+  nav .submenu .sub-dropdown { display: none !important; }
+  nav .submenu .has-sub::after { content: ""; } /* remove the little ▸ caret on touch */
+}
