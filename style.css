@@ -916,6 +916,7 @@ html, body { overflow-x: hidden; }
 /* Make Shop open/close on click via a class, not only hover */
 nav .dropdown.open > .dropdown-content { display: block; }
 
+
 /* Keep hover working on desktop too */
 @media (hover:hover) {
   nav .dropdown:hover > .dropdown-content { display: block; }
@@ -997,3 +998,107 @@ nav .submenu .has-sub::after { content: '' !important; }
   .nav-links.show { align-items: stretch; }
   .nav-links.show > li { width: 100%; }
 }
+/* ===== NAV COMPAT LAYER (append at very bottom) ===== */
+
+/* Never allow sideways scroll */
+html, body { overflow-x: hidden; }
+
+/* Keep panel inside frame and white on desktop */
+nav .dropdown,
+nav .has-submenu { position: relative; }
+
+nav .dropdown .dropdown-content,
+nav .has-submenu .submenu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 240px;
+  max-width: min(92vw, 320px);
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  padding: 8px;
+  z-index: 999;
+}
+
+/* Show panel for BOTH class and data-attr states */
+nav .dropdown.open > .dropdown-content,
+nav .dropdown[data-open="true"] > .dropdown-content,
+nav .has-submenu.submenu-open > .submenu,
+nav .has-submenu[data-open="true"] > .submenu { display: block; }
+
+/* Links look like clear buttons */
+nav .dropdown .dropdown-content a,
+nav .has-submenu .submenu a {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e9edf2;
+  background: #fff;
+  font-weight: 700;
+  color: #111;
+  margin: 6px 0;
+}
+nav .dropdown .dropdown-content a:hover,
+nav .has-submenu .submenu a:hover { background: #f5f7fb; }
+
+/* MOBILE: dropdown becomes inline, never off-screen */
+@media (max-width: 1024px) {
+  /* Centered drawer UL (works with your existing .show toggle) */
+  nav .nav-links{
+    position: fixed;
+    left: 50%;
+    top: 12px;
+    transform: translateX(-50%) translateY(8px);
+    width: min(92vw, 480px);
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 1001;
+  }
+  nav .nav-links.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Big tap targets */
+  nav .nav-links > li > a{
+    display: block; width: 100%;
+    padding: 16px 14px;
+    border: 1px solid #e9edf2; border-radius: 14px;
+    background: #f8fafc; color: #111; font-weight: 900;
+  }
+
+  /* Panels inline in drawer */
+  nav .dropdown .dropdown-content,
+  nav .has-submenu .submenu{
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e8e8e8;
+    box-shadow: none;
+    margin-top: 8px;
+  }
+
+  /* Kill nested flyouts everywhere on touch */
+  nav .submenu .sub-dropdown { display: none !important; }
+  nav .submenu .has-sub::after { content: '' !important; }
+}
+
+/* Nice alignment for the header bar */
+nav { display: grid; grid-template-columns: 1fr auto; align-items: center; }
+.menu-toggle { display: none; }
+@media (max-width: 1024px){ .menu-toggle { display:block; font-size: 2rem; color: #3db2ff; } }
