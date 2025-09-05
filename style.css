@@ -1253,3 +1253,114 @@ nav .nav-links > li > .shop-label{ position: relative; top: 1px; }
   /* You can set this to 0px if it's perfect without the nudge on desktop */
   nav .nav-links > li > .shop-label{ top: 0px; }
 }
+/* ===== NAV HOT-FIX (append at end of style.css) ===== */
+
+/* 1) Make anchors and the Shop <span> identical */
+nav .nav-links { align-items: center; }
+nav .nav-links > li { display: flex; align-items: center; }
+
+nav .nav-links > li > a,
+nav .nav-links > li > .shop-label {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  line-height: 1.2;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  background: none;
+  border: 0;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+nav .nav-links > li > a:hover,
+nav .nav-links > li > .shop-label:hover { color: var(--primary-blue); }
+
+/* Kill any old “nudges” that were pushing Shop up */
+nav .nav-links > li > .shop-label{
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+/* 2) Desktop dropdown positioning + anti-gap */
+@media (hover:hover){
+  nav li.has-submenu,
+  nav li.dropdown { position: relative; padding-bottom: 8px; }
+
+  nav li.has-submenu > .submenu,
+  nav li.dropdown > .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% - 8px);    /* overlaps the 8px hover area */
+    left: 0;
+    min-width: 240px;
+    max-width: min(92vw, 320px);
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    padding: 8px 0;
+    z-index: 999;
+  }
+
+  /* keep open while moving from button to panel */
+  nav li.has-submenu:hover > .submenu,
+  nav li.has-submenu.submenu-open > .submenu,
+  nav li.dropdown:hover > .dropdown-content,
+  nav li.dropdown.open > .dropdown-content { display: block; }
+
+  nav .has-submenu > .submenu a,
+  nav .dropdown > .dropdown-content a{
+    display:block; padding:12px 14px; margin:6px 0;
+    font-weight:600; color:#111;
+    border:1px solid #e9edf2; border-radius:12px; background:#fff;
+    text-decoration:none;
+  }
+  nav .has-submenu > .submenu a:hover,
+  nav .dropdown > .dropdown-content a:hover{ background:#f5f7fb; }
+}
+
+/* 3) Mobile drawer: panels stack inline, nothing shifts */
+@media (max-width: 1024px){
+  nav .nav-links.show { transform: translateX(-50%) translateY(0); } /* keep your drawer behavior */
+
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    width: 100%;
+    padding: 16px 14px;
+    background: #f8fafc;
+    border: 1px solid #e9edf2;
+    border-radius: 14px;
+    color: #111;
+    font-weight: 800;
+  }
+
+  nav li.has-submenu > .submenu,
+  nav li.dropdown > .dropdown-content{
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 10px;
+    border: 1px solid #e8e8e8;
+    box-shadow: none;
+    margin-top: 8px;
+    display: none;
+  }
+  nav li.has-submenu.submenu-open > .submenu,
+  nav li.dropdown.open > .dropdown-content{ display: block; }
+
+  /* disable nested flyouts (420/Vapes) on touch */
+  nav .submenu .sub-dropdown{ display: none !important; }
+  nav .submenu .has-sub::after{ content:'' !important; }
+}
+
+/* 4) Contact page pill cleanup (in case inline CSS sneaks in again) */
+nav .has-submenu > .shop-label{
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
