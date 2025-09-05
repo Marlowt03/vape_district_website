@@ -1211,3 +1211,8 @@ nav .nav-links > li > .shop-label {
 
 /* keep the hover color the same for the Shop label */
 nav .nav-links > li > .shop-label:hover { color: var(--primary-blue); }
+/* Fine-tune Shop label vertical alignment */
+nav .nav-links > li > .shop-label {
+  position: relative;
+  top: 2px;   /* bump down – adjust to 3px if it still looks high */
+}
