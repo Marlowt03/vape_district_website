@@ -1191,3 +1191,23 @@ nav .has-submenu > .shop-label {
 nav .has-submenu > .shop-label:hover {
   color: var(--primary-blue);          /* same hover as anchors */
 }
+/* === Perfectly align the top-level nav items (Home/About/Shop/Contact) === */
+nav .nav-links > li {
+  display: flex;                 /* center children inside each li */
+  align-items: center;
+}
+
+nav .nav-links > li > a,
+nav .nav-links > li > .shop-label {
+  display: inline-block;
+  margin: 0;
+  padding: 0.75rem 1rem;         /* same padding as your anchors */
+  line-height: 1;                /* kill baseline drift */
+  vertical-align: middle;
+  font-weight: 600;              /* match anchors */
+  font-size: 1.4rem;             /* match anchors */
+  color: #333;                   /* match anchors */
+}
+
+/* keep the hover color the same for the Shop label */
+nav .nav-links > li > .shop-label:hover { color: var(--primary-blue); }
