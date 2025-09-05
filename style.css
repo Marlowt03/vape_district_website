@@ -1149,3 +1149,17 @@ nav .has-submenu > .shop-label::after {
       display: block;
   }
 }
+/* --- Normalize "Shop" link so it matches other nav links --- */
+nav .dropdown > a.shop-toggle {
+  display: inline-block;
+  padding: 0;             /* remove any extra padding */
+  line-height: 1.4;       /* match text vertical alignment */
+  font-weight: 600;       /* same as other links */
+  font-size: 1.4rem;      /* same as nav-links font size */
+  color: inherit;
+}
+
+nav .dropdown > a.shop-toggle:hover {
+  color: var(--primary-blue);
+  background: none;       /* prevent box effect */
+}
