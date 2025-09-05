@@ -1178,10 +1178,16 @@ nav .has-submenu > .shop-label {
   background: none;             /* strip weird bg */
   border: none;                 /* remove leftover borders */
 }
+/* === Force Shop label to match normal nav links === */
 nav .has-submenu > .shop-label {
-  all: unset;
+  all: unset;                          /* reset any overrides */
   display: inline-block;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1rem;               /* match other nav links */
   font: 600 1.4rem/1.2 Arial, Helvetica, sans-serif;
+  color: #333;                         /* same color as other links */
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+nav .has-submenu > .shop-label:hover {
+  color: var(--primary-blue);          /* same hover as anchors */
 }
