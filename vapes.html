@@ -1,258 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Disposable Vapes — Vape District</title>
-<link rel="icon" href="data:," />
-<link rel="stylesheet" href="style.css" />
-
-<style>
-/* ----- essential resets for mobile overflow ----- */
-*,*::before,*::after{box-sizing:border-box}
-html,body{max-width:100%; overflow-x:hidden;}
-
-/* ====== NAV: desktop ====== */
-nav{position:sticky; top:0; z-index:100; background:#0b0b0b; color:#fff;}
-nav .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px clamp(12px,3vw,20px);}
-nav .nav-logo{color:#fff; text-decoration:none; font-weight:900; font-size:1.5rem;}
-nav .menu-toggle{display:none; border:0; background:#e9eef6; color:#0b0b0b; border-radius:999px; padding:8px 12px; font-weight:700;}
-nav ul.nav-links{display:flex; gap:18px; list-style:none; margin:0; padding:0;}
-nav .nav-links a{color:#fff; text-decoration:none; padding:8px 10px; border-radius:8px;}
-nav .nav-links a:hover{background:#151515;}
-nav .dropdown{position:relative;}
-nav .dropdown > button,
-nav .dropdown > span{background:none; border:0; color:#fff; padding:8px 10px; border-radius:8px; font:inherit; cursor:pointer;}
-nav .dropdown:hover > .dropdown-content{display:block;}
-nav .dropdown-content{display:none; position:absolute; top:100%; left:0; background:#121212; border:1px solid #222; border-radius:12px; padding:10px; min-width:220px;}
-nav .dropdown-content a{display:block; padding:10px 12px; border-radius:10px; background:#0f0f0f; border:1px solid #1f1f1f;}
-nav .dropdown-content a + a{margin-top:8px;}
-nav .dropdown-content a:hover{background:#151515}
-
-/* ====== NAV: mobile drawer ====== */
-@media (max-width: 768px){
-  nav .menu-toggle{display:inline-block;}
-  nav ul.nav-links{display:none;}
-  /* the drawer */
-  .drawer{
-    position:fixed; top:0; right:0; height:100dvh;
-    width:min(88vw,360px); max-width:100%;
-    background:#0C0C0C; border-left:1px solid #222;
-    transform:translateX(100%); transition:transform .25s ease;
-    padding:16px; z-index:120;
-    display:flex; flex-direction:column; gap:10px;
-  }
-  .drawerHeader{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;}
-  .drawer.open{transform:translateX(0)}
-  .drawer a, .drawer button{
-    display:block; width:100%;
-    text-align:left; text-decoration:none;
-    padding:12px 14px; border-radius:12px; border:1px solid #1f1f1f;
-    background:#121212; color:#fff; font-weight:700;
-  }
-  .drawer a:active, .drawer button:active{transform:translateY(1px)}
-  /* nested (accordion) */
-  .acc{margin-top:6px; display:grid; gap:8px; padding-left:6px;}
-  .acc a{background:#171717;}
-  /* overlay to block page scroll when open */
-  .scrim{
-    position:fixed; inset:0; background:rgba(0,0,0,.4);
-    opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:110;
-  }
-  .scrim.show{opacity:1; pointer-events:auto;}
-}
-
-/* ====== PAGE bits (kept light) ====== */
-.vd-page{--max:1120px; --brand:#1a73e8; --brand2:#1567cf; --section-grey:#f7f8fa;}
-.vd-hero{background:#101010 url('images/geek_bar.png') center/cover no-repeat; color:#fff; text-align:center; position:relative; padding:260px 16px 120px;}
-.vd-hero::after{content:""; position:absolute; inset:0; background:rgba(0,0,0,.35)}
-.vd-hero .inner{position:relative; z-index:1; max-width:var(--max); margin:0 auto}
-.vd-hero h1{margin:0 0 8px; font-size:clamp(28px,5vw,48px); font-weight:800}
-.vd-hero p{margin:0; font-size:clamp(15px,2.8vw,18px); opacity:.95}
-.vd-actions{margin-top:18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
-.vd-btn{border:0; border-radius:12px; padding:12px 18px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; justify-content:center}
-.vd-btn--ghost{color:#0b1f33; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.16)}
-.vd-container{max-width:var(--max); margin:0 auto; padding:0 16px}
-.vd-grid-wrap{padding:28px 0 6px; background:var(--section-grey)}
-.vd-grid{display:grid; gap:18px; grid-template-columns:repeat(2,1fr)}
-@media (min-width:680px){.vd-grid{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:980px){.vd-grid{grid-template-columns:repeat(5,1fr)}}
-.vd-card{background:#fff; border-radius:16px; padding:14px; text-align:center; box-shadow:0 10px 18px rgba(0,0,0,.08)}
-.vd-card img{width:100%; height:110px; object-fit:contain; background:#f6f7f9; border-radius:12px}
-.vd-card figcaption{margin-top:10px; font-weight:800; color:#1b2a3a; font-size:1.05rem}
-.vd-strip{background:#fff; color:#111; padding:26px 0 18px; border-top:1px solid #eef2f7}
-.vd-title{font-size:1.6rem; margin:0 0 4px; font-weight:800; color:#13293d}
-.vd-sub{margin:0 0 8px; color:#495869}
-.marquee{position:relative; overflow:hidden; padding:12px 0 20px}
-.marquee__track{display:inline-flex; align-items:center; gap:18px; will-change:transform; animation:marX var(--dur,30s) linear infinite}
-.marq-item{background:#fff; border-radius:16px; padding:12px; min-width:220px; box-shadow:0 10px 22px rgba(0,0,0,.12); display:flex; align-items:center; justify-content:center}
-.marq-item img{height:130px; width:auto; object-fit:contain}
-@keyframes marX{from{transform:translateX(0)} to{transform:translateX(var(--dist,-100%))}}
-@media (prefers-reduced-motion:reduce){.marquee__track{animation:none !important}}
-.vd-cta{background:linear-gradient(180deg,#f7f9fc 0%,#eef3f9 100%); padding:46px 16px; text-align:center; margin-top:30px; border-top:1px solid #e7edf5}
-.vd-cta .vd-btn{background:var(--brand); color:#fff;}
-.vd-cta .vd-btn:hover{background:var(--brand2)}
-.footer .inner{max-width:var(--max); margin:0 auto; padding:18px 16px; text-align:center; color:#9fb0c6}
-.footer a{color:#9fb0c6}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vape District | Vapes</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
-<body class="vd-page">
-
-<!-- NAV -->
-<nav>
-  <div class="wrap">
-    <a href="index.html" class="nav-logo">Vape District</a>
-    <button class="menu-toggle" id="menuBtn" aria-expanded="false" aria-controls="drawer">Menu</button>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a class="nav-logo" href="index.html">Vape District</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li class="dropdown">
-        <span>Shop</span>
+        <a href="#">Shop</a>
         <div class="dropdown-content">
-          <a href="420.html">420</a>
-          <a href="vapes.html">Vapes</a>
+          <div class="submenu">
+            <a href="420.html" class="has-sub">420</a>
+            <div class="sub-dropdown">
+              <a href="420-wraps.html">Wraps</a>
+              <a href="420-cartridges.html">420 Cartridges</a>
+              <a href="420-grinders.html">Grinders &amp; Ash Trays</a>
+              <a href="420-glass.html">Glass</a>
+              <a href="420-disposable-cartridges.html">Disposable Cartridges</a>
+              <a href="420-batteries.html">Batteries</a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a href="vapes.html" class="has-sub">Vapes</a>
+            <div class="sub-dropdown">
+              <a href="vape-juice.html">Vape Juice</a>
+              <a href="vape-devices.html">Devices</a>
+              <a href="vape-disposables.html">Disposables</a>
+              <a href="vape-mods.html">Mods</a>
+            </div>
+          </div>
           <a href="detox.html">Pass A Dr*g Test / Detox</a>
+          <!-- Hookah page removed -->
           <a href="mystery-boxes.html">Mystery Boxes</a>
         </div>
       </li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-  </div>
+    <div class="menu-toggle">☰</div>
+  </nav>
 
-  <!-- Mobile drawer + scrim -->
-  <div class="scrim" id="scrim"></div>
-  <aside class="drawer" id="drawer" aria-hidden="true">
-    <div class="drawerHeader">
-      <strong>Menu</strong>
-      <button id="closeDrawer" aria-label="Close">Close</button>
+  <!-- Hero -->
+  <section class="hero" style="height: 60vh; background-image: url('images/device_package.jpg');">
+    <div class="hero-content">
+      <h1>Vapes</h1>
+      <p>Everything you need for the perfect vape session, from juice to devices and beyond.</p>
     </div>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
+  </section>
 
-    <button id="accShop" aria-expanded="false">Shop ▾</button>
-    <div class="acc" id="accPanel" hidden>
-      <a href="420.html">420</a>
-      <a href="vapes.html">Vapes</a>
-      <a href="detox.html">Pass A Dr*g Test / Detox</a>
-      <a href="mystery-boxes.html">Mystery Boxes</a>
+  <!-- Subcategories in grid format -->
+  <section class="categories-section">
+    <div class="about-text" style="flex:1 1 100%; text-align:center;">
+      <h2 class="section-title">Explore Vapes</h2>
+      <p>Find your favourite flavour or device by choosing a sub category below.</p>
     </div>
-
-    <a href="contact.html">Contact</a>
-  </aside>
-</nav>
-<!-- /NAV -->
-
-<header class="vd-hero">
-  <div class="inner">
-    <h1>Disposable Vapes</h1>
-    <p>Off-Stamp, North 5K, FOGER, RAZ & more.</p>
-    <div class="vd-actions">
-      <a class="vd-btn vd-btn--ghost" href="contact.html">Call or Visit</a>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="vd-grid-wrap">
-    <div class="vd-container">
-      <p class="vd-page-sub">Explore our most popular disposable vape brands.</p>
-      <div class="vd-grid">
-        <figure class="vd-card"><img src="images/raz.png" alt="RAZ" loading="lazy" /><figcaption>RAZ</figcaption></figure>
-        <figure class="vd-card"><img src="images/geek_bar.png" alt="Geek Bar" loading="lazy" /><figcaption>Geek Bar</figcaption></figure>
-        <figure class="vd-card"><img src="images/off_stamp.png" alt="Off-Stamp" loading="lazy" /><figcaption>Off-Stamp</figcaption></figure>
-        <figure class="vd-card"><img src="images/north-5k.jpg" alt="North 5K" loading="lazy" /><figcaption>North 5K</figcaption></figure>
-        <figure class="vd-card"><img src="images/foger.jpg" alt="FOGER" loading="lazy" /><figcaption>FOGER</figcaption></figure>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="images/vapejuice.jpg" alt="Vape Juice">
+        <h3>Vape Juice</h3>
+        <p>Premium e‑liquids in a huge range of flavours and nicotine strengths.</p>
+        <a href="vape-juice.html">Shop Vape Juice</a>
+      </div>
+      <div class="product-card">
+        <img src="images/device_package.jpg" alt="Vape Devices">
+        <h3>Devices</h3>
+        <p>Starter kits, pod systems and advanced devices for every level.</p>
+        <a href="vape-devices.html">Browse Devices</a>
+      </div>
+      <div class="product-card">
+        <img src="images/disposables.jpg" alt="Disposables">
+        <h3>Disposables</h3>
+        <p>Convenient disposables in delicious flavours.</p>
+        <a href="vape-disposables.html">Shop Disposables</a>
+      </div>
+      <div class="product-card">
+        <img src="images/mods.jpg" alt="Mods">
+        <h3>Mods</h3>
+        <p>High‑end mods for custom vaping experiences.</p>
+        <a href="vape-mods.html">View Mods</a>
       </div>
     </div>
   </section>
 
-  <section class="vd-strip" aria-label="Featured Disposables">
-    <div class="vd-container">
-      <h2 class="vd-title">Featured Disposables</h2>
-      <p class="vd-sub">Grab, puff, and enjoy — premium disposables in stock.</p>
-    </div>
-    <div class="marquee" id="disp-marquee">
-      <ul class="marquee__track" id="disp-track">
-        <li class="marq-item"><img src="images/off_stamp.png" alt="Off-Stamp"></li>
-        <li class="marq-item"><img src="images/north-5k.jpg"  alt="North 5K"></li>
-        <li class="marq-item"><img src="images/foger.jpg"     alt="FOGER"></li>
-        <li class="marq-item"><img src="images/raz.png"       alt="RAZ"></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="vd-cta">
-    <div class="vd-container">
-      <h3>Looking for something specific?</h3>
-      <p>We carry a much larger selection in-store than what’s shown here. Call and we’ll check today’s case for flavors and brands in stock.</p>
-      <a class="vd-btn" href="tel:+14405582671">Call Now</a>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="inner">
-    <p>&copy; <span id="year"></span> Vape District. All rights reserved.</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Vape District. All rights reserved.</p>
     <p>6420 Pearl Rd, Parma Heights, OH 44130 &nbsp;|&nbsp; <a href="tel:+14405582671">(440) 558-2671</a></p>
-  </div>
-</footer>
+  </footer>
 
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ===== Mobile drawer behavior ===== */
-const drawer = document.getElementById('drawer');
-const scrim  = document.getElementById('scrim');
-const menuBtn= document.getElementById('menuBtn');
-const closeBtn=document.getElementById('closeDrawer');
-
-function openDrawer(){
-  drawer.classList.add('open');
-  drawer.setAttribute('aria-hidden','false');
-  scrim.classList.add('show');
-  document.body.style.overflow='hidden'; // no background scroll
-}
-function closeDrawer(){
-  drawer.classList.remove('open');
-  drawer.setAttribute('aria-hidden','true');
-  scrim.classList.remove('show');
-  document.body.style.overflow='';
-}
-
-menuBtn.addEventListener('click', openDrawer);
-closeBtn.addEventListener('click', closeDrawer);
-scrim.addEventListener('click', closeDrawer);
-window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
-
-/* Accordion for Shop in drawer */
-const accBtn = document.getElementById('accShop');
-const accPanel = document.getElementById('accPanel');
-accBtn.addEventListener('click', ()=>{
-  const open = accBtn.getAttribute('aria-expanded') === 'true';
-  accBtn.setAttribute('aria-expanded', String(!open));
-  accPanel.hidden = open;
-});
-
-/* Close drawer after clicking a link */
-drawer.querySelectorAll('a[href]').forEach(a=>{
-  a.addEventListener('click', closeDrawer);
-});
-
-/* ===== Seamless marquee ===== */
-(function () {
-  const track = document.getElementById('disp-track');
-  if (!track) return;
-  const base = track.innerHTML;
-  function build(){
-    track.innerHTML = base + base;
-    const seq = track.scrollWidth / 2;
-    const pxPerSec = window.innerWidth >= 900 ? 80 : 60;
-    track.style.setProperty('--dist', `-${seq}px`);
-    track.style.setProperty('--dur',  `${seq/pxPerSec}s`);
-  }
-  if (document.readyState === 'complete') build(); else addEventListener('load', build, {once:true});
-  let t; addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(build,120); }, {passive:true});
-})();
-</script>
 </body>
 </html>
