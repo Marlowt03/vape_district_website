@@ -753,3 +753,94 @@ section {
     display: none;
   }
 }
+/* === MOBILE NAV PATCH (non-destructive; overrides earlier rules) === */
+
+/* Safety: never allow sideways scroll */
+html, body { overflow-x: hidden; }
+
+/* Drawer overlay (injected via JS) */
+.nav-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 999; /* below the drawer, above page content */
+}
+.nav-overlay.show{ opacity: 1; pointer-events: auto; }
+
+/* Make links inside dropdowns look like clear “buttons” on white */
+nav .dropdown-content a{
+  display: block; padding: 12px 14px;
+  border-radius: 12px; border: 1px solid #e9edf2;
+  background: #fff; font-weight: 600; color: #222;
+  margin: 6px 0;
+}
+nav .dropdown-content a:hover{ background:#f5f7fb; }
+
+/* Desktop: keep your current hover behavior exactly the same */
+@media (min-width: 769px){
+  nav .dropdown:hover > .dropdown-content{ display:block; }
+  nav .submenu:hover > .sub-dropdown{ display:block; }
+}
+
+/* Mobile drawer: centered, in-frame, white panel */
+@media (max-width: 768px){
+  /* Your header stays fixed; we convert the UL into a drawer */
+  nav .nav-links{
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    width: min(92vw, 480px);
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+    background: #fff;
+    color: #101418;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    padding: 16px;
+    gap: 10px;
+
+    /* hidden by default — your .show class will reveal it */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 1000; /* above overlay */
+  }
+  nav .nav-links.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Each item looks like a big tap target */
+  nav .nav-links > li > a{
+    display: block; width: 100%;
+    padding: 16px 14px;
+    border: 1px solid #e9edf2; border-radius: 14px;
+    background: #f8fafc; font-weight: 700; color: #111;
+  }
+
+  /* Turn hover dropdowns into collapsibles on mobile */
+  nav .dropdown-content{
+    position: static; display: none; border: 0; box-shadow: none; padding: 0; margin-top: 8px;
+  }
+  nav .dropdown[data-open="true"] > .dropdown-content{ display: block; }
+
+  nav .submenu .sub-dropdown{
+    display: none; margin: 8px 0 0 10px; padding-left: 10px; border-left: 2px solid #eef2f7;
+  }
+  nav .submenu[data-open="true"] .sub-dropdown{ display: block; }
+
+  /* When drawer is open, prevent page scroll bounce */
+  body.no-scroll{ height: 100dvh; overflow: hidden; }
+}
+
+/* Optional: keep nav logo + toggle aligned */
+nav{
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+}
+
+/* Ensure media never causes overflow */
+img, video, canvas, svg { max-width: 100%; height: auto; display: block; }
