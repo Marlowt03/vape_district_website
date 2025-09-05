@@ -1,17 +1,31 @@
-// ==========================
-// Create (once) a backdrop overlay we can click to close
-// ==========================
+// ==============================================
+// Vape District: Unified Navigation & Mobile Menu
+// This script provides consistent behaviour for the
+// navigation menu across all pages. It supports
+// both the standard "dropdown" markup used on most
+// pages and the alternative "has-submenu" markup
+// used on the Contact page. It also adds a
+// semi‑transparent overlay behind the mobile menu
+// and dropdowns so that tapping outside closes
+// everything gracefully.
+
+// Create a backdrop overlay once (if it doesn’t
+// already exist). The overlay is used for closing
+// the mobile drawer and dropdown when clicking
+// outside of them.
 let overlay = document.getElementById('navOverlay');
 if (!overlay) {
   overlay = document.createElement('div');
   overlay.id = 'navOverlay';
-  overlay.className = 'nav-overlay'; // uses your existing CSS class
+  overlay.className = 'nav-overlay';
   document.body.appendChild(overlay);
 }
 
-// ==========================
-// Mobile hamburger
-// ==========================
+// Get references to the hamburger toggle and the
+// menu UL for later use. When the hamburger is
+// clicked, we toggle a `.show` class on the UL and
+// also add/remove `.no-scroll` on the body to
+// prevent scrolling while the menu is open.
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks   = document.querySelector('.nav-links');
 
@@ -20,16 +34,18 @@ function openMenu() {
   navLinks.classList.add('show');
   overlay.classList.add('show');
   document.body.classList.add('no-scroll');
-  menuToggle && menuToggle.setAttribute('aria-expanded', 'true');
+  if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
 }
+
 function closeMenu() {
   if (!navLinks) return;
   navLinks.classList.remove('show');
   overlay.classList.remove('show');
   document.body.classList.remove('no-scroll');
-  menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
+  if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
 }
 
+// Attach hamburger handler
 if (menuToggle && navLinks) {
   menuToggle.addEventListener('click', () => {
     const isOpen = navLinks.classList.contains('show');
@@ -37,35 +53,35 @@ if (menuToggle && navLinks) {
   });
 }
 
-// Close via overlay click
+// Close menu via overlay click
 overlay.addEventListener('click', closeMenu);
 
-// Close when clicking anywhere outside the popup and the toggle
+// Close menu when clicking outside of nav items on
+// mobile. This ensures a tap on the page background
+// will dismiss the drawer.
 document.addEventListener('click', (e) => {
   if (!navLinks) return;
   const isOpen = navLinks.classList.contains('show');
   if (!isOpen) return;
-
   const clickedInsideMenu   = navLinks.contains(e.target);
   const clickedToggleButton = menuToggle && menuToggle.contains(e.target);
-
   if (!clickedInsideMenu && !clickedToggleButton) {
     closeMenu();
   }
 }, true);
 
-// Close on Esc
+// Close menu on Esc key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeMenu();
 });
 
 // ==========================
-// Shop dropdown (supports BOTH nav variants)
-// - Variant A: <li class="dropdown"><a>Shop</a><div class="dropdown-content">…</div></li>
-// - Variant B: <li class="has-submenu"><span class="shop-label">Shop</span><ul class="submenu">…</ul></li>
+// Shop dropdown: support for both nav patterns
 // ==========================
 (function () {
-  // Try to find either variant
+  // Find the two possible structures:
+  // Pattern A: <li class="dropdown"><a>Shop</a><div class="dropdown-content">…</div>
+  // Pattern B: <li class="has-submenu"><span class="shop-label">Shop</span><ul class="submenu">…</ul>
   const ddLi   = document.querySelector('nav li.dropdown');
   const ddTrig = ddLi ? ddLi.querySelector(':scope > .shop-toggle, :scope > a, :scope > button, :scope > span') : null;
   const ddPane = ddLi ? ddLi.querySelector(':scope > .dropdown-content') : null;
@@ -74,73 +90,91 @@ document.addEventListener('keydown', (e) => {
   const hsTrig = hsLi ? hsLi.querySelector(':scope > .shop-label, :scope > a, :scope > button, :scope > span') : null;
   const hsPane = hsLi ? hsLi.querySelector(':scope > .submenu') : null;
 
-  // If neither exists, bail
+  // If neither pattern is found, exit quietly
   if (!ddTrig && !hsTrig) return;
 
+  // Determine if a dropdown is open
   function isOpen() {
     return (ddLi && ddLi.classList.contains('open')) ||
-           (hsLi && hsLi.classList.contains('submenu-open'));
+           (hsLi && hsLi.classList.contains('submenu-open')) ||
+           (ddLi && ddLi.getAttribute('data-open') === 'true') ||
+           (hsLi && hsLi.getAttribute('data-open') === 'true');
   }
+
+  // Toggle open state; update both class and data-* so
+  // either CSS convention works
   function setOpen(open) {
-    if (ddLi) ddLi.classList.toggle('open', open);
-    if (hsLi) hsLi.classList.toggle('submenu-open', open);
+    if (ddLi) {
+      ddLi.classList.toggle('open', open);
+      ddLi.setAttribute('data-open', String(open));
+    }
+    if (hsLi) {
+      hsLi.classList.toggle('submenu-open', open);
+      hsLi.setAttribute('data-open', String(open));
+    }
     if (ddTrig) ddTrig.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (hsTrig) hsTrig.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
-  // Prepare triggers
-  [ddTrig, hsTrig].filter(Boolean).forEach(t => {
-    t.setAttribute('role', 'button');
-    t.setAttribute('tabindex', '0');
-    t.setAttribute('aria-expanded', 'false');
+  // Make triggers accessible and attach event handlers
+  [ddTrig, hsTrig].filter(Boolean).forEach(trigger => {
+    trigger.setAttribute('role', 'button');
+    trigger.setAttribute('tabindex', '0');
+    trigger.setAttribute('aria-expanded', 'false');
 
-    const toggle = (e) => {
+    const doToggle = (e) => {
       e.preventDefault();
       e.stopPropagation();
       setOpen(!isOpen());
-      // ensure overlay is visible when the drawer is open
+      // Ensure overlay is visible when menu is open on mobile
       if (navLinks && navLinks.classList.contains('show')) {
         overlay.classList.add('show');
       }
     };
 
-    t.addEventListener('click', toggle);
-    t.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') toggle(e);
+    trigger.addEventListener('click', doToggle);
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') doToggle(e);
     });
   });
 
-  // Clicking a real link inside closes dropdown and (if open) the drawer
-  [ddPane, hsPane].filter(Boolean).forEach(panel => {
-    panel.querySelectorAll('a[href]').forEach(a => {
-      a.addEventListener('click', () => {
-        setOpen(false);
-        if (navLinks && navLinks.classList.contains('show')) closeMenu();
-      });
-    });
-  });
-
-  // Clicking *outside* the dropdown closes it (and does not touch the drawer state)
+  // Close dropdown when clicking outside the dropdown area
   document.addEventListener('click', (e) => {
     const clickedInside =
       (ddLi && ddLi.contains(e.target)) ||
       (hsLi && hsLi.contains(e.target));
     if (!clickedInside) setOpen(false);
   }, true);
-})();
 
-// ==========================
-// Make "420" and "Vapes" act as plain links on touch (no sub-dropdown)
-// ==========================
-(function(){
-  const isTouch = matchMedia('(hover: none)').matches;
-  if (!isTouch) return;
-  document.querySelectorAll('nav .submenu .has-sub').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const href = (a.getAttribute('href') || '').trim();
-      // allow real navigation; just stop bubbling so it doesn't toggle Shop
-      if (href === '' || href === '#') e.preventDefault();
-      e.stopPropagation();
-    }, true);
+  // Close on Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
   });
+
+  // Close dropdown and menu when a real link inside the panel is clicked
+  [ddPane, hsPane].filter(Boolean).forEach(panel => {
+    panel.querySelectorAll('a[href]').forEach(anchor => {
+      anchor.addEventListener('click', () => {
+        setOpen(false);
+        if (navLinks && navLinks.classList.contains('show')) {
+          closeMenu();
+        }
+      });
+    });
+  });
+
+  // On touch devices, ensure second-level items
+  // (e.g., "420" and "Vapes") behave like plain links
+  (function(){
+    const isTouch = matchMedia('(hover: none)').matches;
+    if (!isTouch) return;
+    document.querySelectorAll('nav .submenu .has-sub').forEach(el => {
+      el.addEventListener('click', (e) => {
+        // If href is empty or '#', prevent default; otherwise allow navigation
+        const href = (el.getAttribute('href') || '').trim();
+        if (!href || href === '#') e.preventDefault();
+        e.stopPropagation();
+      }, true);
+    });
+  })();
 })();
