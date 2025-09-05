@@ -1,74 +1,76 @@
-/* ===== Mobile/desktop nav behavior (surgical; works with your HTML) ===== */
-(function () {
-  const nav       = document.querySelector('nav');
-  const toggleBtn = document.querySelector('.menu-toggle');
-  const navLinks  = document.querySelector('.nav-links');
-  if (!nav || !toggleBtn || !navLinks) return;
+// Mobile menu open/close
+(function(){
+  const toggle = document.querySelector('.menu-toggle');      // your existing hamburger
+  if (!toggle) return;
 
-  // Create backdrop overlay for the drawer
-  const overlay = document.createElement('div');
-  overlay.className = 'nav-overlay';
-  document.body.appendChild(overlay);
+  // Inject overlay/panel once (safe on every page)
+  if (!document.getElementById('navOverlay')){
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay'; overlay.id = 'navOverlay';
+    const panel = document.createElement('nav');
+    panel.className = 'mobile-menu'; panel.id = 'mobileMenu';
+    panel.innerHTML = `
+      <div class="menu-head">
+        <div class="menu-title">Menu</div>
+        <button class="menu-close" aria-label="Close" title="Close">×</button>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
 
-  const mqMobile = window.matchMedia('(max-width: 768px)');
+        <li>
+          <a href="#" id="shopToggle" aria-expanded="false">Shop</a>
+          <ul id="shopSub">
+            <li><a href="420.html">420</a></li>
+            <li><a href="vapes.html">Vapes</a></li>
+            <li><a href="detox.html">Pass A Dr*g Test / Detox</a></li>
+            <li><a href="mystery-boxes.html">Mystery Boxes</a></li>
+          </ul>
+        </li>
 
-  function openNav(){
-    navLinks.classList.add('show');
-    overlay.classList.add('show');
-    document.body.classList.add('no-scroll');
-    toggleBtn.setAttribute('aria-expanded', 'true');
-    toggleBtn.textContent = '✕';
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    `;
+    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
   }
-  function closeNav(){
-    navLinks.classList.remove('show');
-    overlay.classList.remove('show');
-    document.body.classList.remove('no-scroll');
-    toggleBtn.setAttribute('aria-expanded', 'false');
-    toggleBtn.textContent = '☰';
-    // collapse any open mobile dropdowns/submenus
-    nav.querySelectorAll('.dropdown[data-open="true"], .submenu[data-open="true"]')
-       .forEach(el => el.setAttribute('data-open', 'false'));
-  }
-  function toggleNav(){
-    navLinks.classList.contains('show') ? closeNav() : openNav();
-  }
 
-  toggleBtn.addEventListener('click', toggleNav);
-  overlay.addEventListener('click', closeNav);
-  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeNav(); });
+  const overlay = document.getElementById('navOverlay');
+  const panel   = document.getElementById('mobileMenu');
+  const closeBtn = panel.querySelector('.menu-close');
+  const shopToggle = panel.querySelector('#shopToggle');
+  const shopSub = panel.querySelector('#shopSub');
 
-  // Close drawer when any real link is tapped
-  navLinks.addEventListener('click', (e)=>{
-    const link = e.target.closest('a[href]');
-    if (!link) return;
-    if (mqMobile.matches) closeNav();
+  const open = () => {
+    document.body.classList.add('menu-open');
+    toggle.setAttribute('aria-expanded','true');
+  };
+  const close = () => {
+    document.body.classList.remove('menu-open');
+    toggle.setAttribute('aria-expanded','false');
+    shopSub.setAttribute('data-open','false');
+    shopToggle.setAttribute('data-open','false');
+    shopToggle.setAttribute('aria-expanded','false');
+  };
+
+  toggle.addEventListener('click', () => {
+    if (document.body.classList.contains('menu-open')) close();
+    else open();
+  });
+  overlay.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
+
+  // tap-to-toggle “Shop”
+  shopToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isOpen = shopSub.getAttribute('data-open') === 'true';
+    shopSub.setAttribute('data-open', String(!isOpen));
+    shopToggle.setAttribute('data-open', String(!isOpen));
+    shopToggle.setAttribute('aria-expanded', String(!isOpen));
   });
 
-  // MOBILE: make “Shop” and nested headings toggle on tap
-  function wireMobileDropdowns(){
-    // Top-level dropdown: .dropdown > a
-    nav.querySelectorAll('.dropdown > a').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        if (!mqMobile.matches) return; // desktop still uses hover
-        e.preventDefault();
-        const li = a.parentElement;
-        const open = li.getAttribute('data-open') === 'true';
-        li.setAttribute('data-open', String(!open));
-      });
-    });
-    // 2nd level: .submenu > .has-sub
-    nav.querySelectorAll('.submenu > .has-sub').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        if (!mqMobile.matches) return;
-        e.preventDefault();
-        const sub = a.closest('.submenu');
-        const open = sub.getAttribute('data-open') === 'true';
-        sub.setAttribute('data-open', String(!open));
-      });
-    });
-  }
-  wireMobileDropdowns();
-
-  // If resizing from mobile back to desktop, make sure everything is reset
-  mqMobile.addEventListener('change', closeNav);
+  // close menu after navigating
+  panel.querySelectorAll('a[href]').forEach(a=>{
+    a.addEventListener('click', () => setTimeout(close, 0));
+  });
 })();
