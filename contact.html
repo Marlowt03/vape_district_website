@@ -15,34 +15,14 @@
       --nav-hover:#3AA3FF; /* lighter blue for hover */
     }
 
-    /* Make the "Shop" label look like a link but not act like one */
-    nav .has-submenu > span.shop-label{
-      display:inline-block; padding:10px 15px;
-      color:inherit; text-decoration:none; font-weight:600;
-      cursor:default; user-select:none; transition: color .2s ease;
-    }
-
-    /* Submenu panel */
-    nav .submenu {
-      display: none;
-      position: absolute; top: 100%; left: 0;
-      min-width: 220px; background: #fff; border-radius: 12px;
-      padding: 8px 0; box-shadow: 0 10px 24px rgba(0,0,0,.12); z-index: 1000;
-    }
-    nav .submenu li a {
-      display: block; padding: 10px 16px;
-      font-weight: 500 !important; /* ensure NOT bold inside dropdown */
-      color: #111; text-decoration: none; white-space: nowrap;
-    }
-    nav .submenu li a:hover { background: #f5f7fb; }
-
-    /* Desktop: hover turns Shop blue & shows dropdown */
-    @media (hover:hover) {
-      nav .has-submenu:hover > span.shop-label { color: var(--nav-hover); }
-      nav .has-submenu:hover > .submenu { display: block; }
-    }
-    /* Mobile: class toggled by tiny script */
-    nav .submenu-open > .submenu { display: block; }
+/* Use the global nav; just style the Contact page's <span class="shop-label"> to match */
+nav .has-submenu > .shop-label{
+  display:block; width:100%;
+  padding:16px 14px;
+  border:1px solid #e9edf2; border-radius:14px;
+  background:#f8fafc; color:#111; font-weight:900;
+  cursor:pointer; user-select:none;
+}
 
     /* ----- CONTACT hero (same look as you had) ----- */
     .contact-hero{
@@ -187,31 +167,6 @@
     </div>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
-
-  <!-- tiny helper for mobile submenu tap (works on the non-clickable <span>) -->
-  <script>
-    (function(){
-      const isTouch = matchMedia('(hover: none)').matches;
-      const shopItem = document.querySelector('nav .has-submenu');
-      if (!shopItem) return;
-      const label = shopItem.querySelector(':scope > span.shop-label');
-
-      if (isTouch && label){
-        label.setAttribute('role', 'button');
-        label.setAttribute('tabindex', '0');
-        label.addEventListener('click', function(){
-          const open = shopItem.classList.toggle('submenu-open');
-          label.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        label.addEventListener('keydown', function(e){
-          if (e.key === 'Enter' || e.key === ' '){
-            e.preventDefault();
-            const open = shopItem.classList.toggle('submenu-open');
-            label.setAttribute('aria-expanded', open ? 'true' : 'false');
-          }
-        });
-      }
-    })();
 
     // Footer year (safety in case script tag above moves)
     document.getElementById('year').textContent = new Date().getFullYear();
