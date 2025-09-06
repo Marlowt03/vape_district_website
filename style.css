@@ -813,7 +813,7 @@ html, body {
     background-color: rgba(255,255,255,0.95);
     backdrop-filter: blur(4px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    z-index: 1000;
+    z-index: 2000;
   }
   .menu-toggle {
     display: block !important;
@@ -1005,5 +1005,105 @@ html, body {
   .dropdown:hover .dropdown-content{ display:none !important; }
 
   /* Lock the page when drawer is open */
+  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
+}
+/* ===== NAV — CLEAN FINAL PATCH (no layout side-effects) ===== */
+
+/* 1) Put nav ABOVE the overlay so the drawer is clickable. 
+      Keep overlay above the page, but below the drawer/nav. */
+nav { z-index: 3001 !important; }
+.nav-overlay { z-index: 3000 !important; }
+
+/* 2) Desktop fixes (≥1025px): stop right-drift, keep text size */
+@media (min-width:1025px){
+  nav{
+    display:flex !important;
+    justify-content:space-between !important;   /* logo left, links right */
+    align-items:center !important;
+    /* keep your generous padding but make it fluid to avoid overflow on smaller laptops */
+    padding: 2rem clamp(24px, 4vw, 64px) !important;
+  }
+
+  /* Kill the shove and wrapping that pushes links off-screen */
+  .nav-links{
+    display:flex !important;
+    align-items:center !important;
+    gap: clamp(1.25rem, 3vw, 3rem) !important;
+    margin: 0 !important;            /* overrides margin-left: 3rem earlier */
+    padding: 0 !important;
+    list-style: none !important;
+    flex-wrap: nowrap !important;     /* prevents wrap-induced overflow */
+    font-size: 1.4rem !important;     /* keep your original desktop size */
+  }
+
+  .menu-toggle{ display:none !important; }
+}
+
+/* 3) Mobile & tablet (≤1024px): centered, clickable drawer */
+@media (max-width:1024px){
+  .menu-toggle{
+    display:block !important;
+    cursor:pointer; font-size:2rem; color:var(--primary-blue);
+  }
+
+  nav{
+    display:flex !important; justify-content:space-between !important; align-items:center !important;
+    position:fixed !important; top:0; left:0; width:100%;
+    padding: 1rem 1rem !important;
+    background-color: rgba(255,255,255,.95);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  }
+
+  /* Drawer sits ABOVE overlay (because nav z-index is higher) */
+  nav .nav-links{
+    position: fixed !important;
+    top: max(12px, env(safe-area-inset-top)) !important;
+    left: 0 !important; right: 0 !important;
+    margin: 0 auto !important;
+    width: min(92vw, 480px) !important;
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top)) !important;
+    overflow: auto !important;
+
+    display: flex !important; flex-direction: column !important; gap: 10px !important;
+    padding: 16px !important;
+    background: #fff !important; border: 1px solid #e9edf2 !important; border-radius: 16px !important;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25) !important;
+
+    opacity: 0; pointer-events: none; transform: translateY(8px);
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 3002 !important;           /* drawer above overlay+nav base */
+  }
+  nav .nav-links.show{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+  }
+
+  /* Big tap targets */
+  nav .nav-links > li{ width:100% !important; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display:block !important; width:100% !important;
+    padding:16px 14px !important;
+    background:#f8fafc !important; border:1px solid #e9edf2 !important; border-radius:14px !important;
+    color:#111 !important; font-weight:800 !important; text-decoration:none !important;
+  }
+
+  /* Submenu inline inside drawer */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    position: static !important; display: none;
+    margin-top: 8px !important; width: 100% !important; max-width: 100% !important;
+    background: #fff !important; border: 1px solid #e8e8e8 !important; border-radius: 10px !important;
+    box-shadow: none !important; padding: 6px !important;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu{ display: block !important; }
+
+  /* No hover menus on touch */
+  .dropdown:hover .dropdown-content{ display:none !important; }
+
+  /* Lock page when drawer is open */
   body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
 }
