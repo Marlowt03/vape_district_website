@@ -1,163 +1,113 @@
-/* ============================
-   Vape District — script.js
-   ============================ */
-(() => {
-  // ---------- helpers ----------
-  const qs  = (sel, root = document) => root.querySelector(sel);
-  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+// navigation & reviews
+(function() {
+  // Basic elements
+  const header  = document.querySelector('nav');
+  const drawer  = document.querySelector('nav .nav-links');
+  const toggle  = document.querySelector('.menu-toggle');
+  const overlay = document.querySelector('.nav-overlay') || (() => {
+    const div = document.createElement('div');
+    div.className = 'nav-overlay';
+    document.body.appendChild(div);
+    return div;
+  })();
 
-  const nav    = qs('nav');
-  const drawer = qs('nav .nav-links');
-  const toggle = qs('.menu-toggle');
+  // Helpers
+  const isMobile = () =>
+    window.matchMedia('(max-width:1024px),(hover:none)').matches;
 
-  if (!nav || !drawer) return;
-
-  // ---------- overlay (created once; inline styles prevent CSS conflicts) ----------
-  let overlay = qs('.nav-overlay');
-  if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.className = 'nav-overlay';
-    Object.assign(overlay.style, {
-      position: 'fixed',
-      inset: '0',
-      background: 'rgba(0,0,0,.45)',
-      zIndex: '2000',
-      display: 'none'
+  const closeSubmenus = () => {
+    document.querySelectorAll('nav .submenu-open, nav .open').forEach(li => {
+      li.classList.remove('submenu-open', 'open');
+      const trigger = li.querySelector(':scope > .shop-label, :scope > a');
+      if (trigger) trigger.setAttribute('aria-expanded','false');
     });
-    document.body.appendChild(overlay);
-  }
+  };
 
-  // ---------- drawer open/close ----------
-  function closeAllSubmenus() {
-    qsa('li.dropdown.open, li.has-submenu.submenu-open', nav).forEach(li => {
-      li.classList.remove('open', 'submenu-open');
-      const panel = qs(':scope > .dropdown-content, :scope > .submenu', li);
-      if (panel) panel.style.display = ''; // back to CSS default
-      const t = qs(':scope > a, :scope > .shop-label, :scope > button, :scope > span', li);
-      if (t) t.setAttribute('aria-expanded', 'false');
-    });
-  }
-
-  function openDrawer() {
+  const openDrawer = () => {
     drawer.classList.add('show');
-    overlay.style.display = 'block';
+    overlay.classList.add('show');
     document.body.classList.add('no-scroll');
-    toggle?.setAttribute('aria-expanded', 'true');
-  }
+    toggle.setAttribute('aria-expanded', 'true');
+  };
 
-  function closeDrawer() {
+  const closeDrawer = () => {
     drawer.classList.remove('show');
-    overlay.style.display = 'none';
+    overlay.classList.remove('show');
     document.body.classList.remove('no-scroll');
-    toggle?.setAttribute('aria-expanded', 'false');
-    closeAllSubmenus();
+    toggle.setAttribute('aria-expanded', 'false');
+    closeSubmenus();
+  };
+
+  // Toggle drawer
+  if (toggle) {
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      if (drawer.classList.contains('show')) closeDrawer();
+      else openDrawer();
+    });
   }
 
-  // hamburger
-  toggle?.addEventListener('click', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    drawer.classList.contains('show') ? closeDrawer() : openDrawer();
+  // Close drawer when clicking outside (mobile)
+  document.addEventListener('click', e => {
+    if (!isMobile()) return;
+    if (!drawer.classList.contains('show')) return;
+    if (
+      !drawer.contains(e.target) &&
+      !toggle.contains(e.target) &&
+      !(header && header.contains(e.target))
+    ) {
+      closeDrawer();
+    }
   });
 
-  // tap outside = close
   overlay.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-  // keep clicks inside drawer from bubbling to overlay
-  drawer.addEventListener('click', e => e.stopPropagation(), true);
-  drawer.addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
-
-  // close drawer after clicking any REAL link (not the Shop trigger)
-  qsa('.nav-links a[href]', nav).forEach(a => {
-    a.addEventListener('click', () => {
-      const href = (a.getAttribute('href') || '').trim();
-      const isTrigger =
-        a.closest('li.dropdown, li.has-submenu') &&
-        (href === '' || href === '#');
-      if (!isTrigger) closeDrawer();
-    });
-  });
-
-  // ---------- MOBILE "Shop" toggle (desktop still uses pure CSS hover) ----------
-  const shopLis = qsa('li.dropdown, li.has-submenu', nav).filter(li => {
-    const t = qs(':scope > .shop-label, :scope > .shop-toggle, :scope > a, :scope > span, :scope > button', li);
-    return t && (t.textContent || '').trim().toLowerCase() === 'shop';
-  });
-
-  shopLis.forEach(li => {
-    const trigger = qs(':scope > .shop-label, :scope > .shop-toggle, :scope > a, :scope > span, :scope > button', li);
-    const panel   = qs(':scope > .dropdown-content, :scope > .submenu', li);
-    if (!trigger || !panel) return;
-
-    // accessibility
-    trigger.setAttribute('role', 'button');
-    trigger.setAttribute('aria-expanded', 'false');
-
-    const inDrawer = () => drawer.classList.contains('show'); // treat “drawer open” as mobile
-
-    function openShop() {
-      // close other open dropdowns
-      shopLis.forEach(other => {
-        if (other !== li) {
-          other.classList.remove('open', 'submenu-open');
-          const p = qs(':scope > .dropdown-content, :scope > .submenu', other);
-          if (p) p.style.display = '';
-          const ot = qs(':scope > a, :scope > .shop-label, :scope > button, :scope > span', other);
-          if (ot) ot.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      li.classList.add('open', 'submenu-open');
-      panel.style.display = 'block';                 // defeat any CSS display:none on mobile
-      trigger.setAttribute('aria-expanded', 'true');
-      try { panel.scrollIntoView({ block: 'nearest' }); } catch {}
-    }
-
-    function closeShop() {
-      li.classList.remove('open', 'submenu-open');
-      panel.style.display = '';
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-
-    trigger.addEventListener('click', e => {
-      // Only intercept when drawer is open (mobile). Desktop = hover only.
-      if (!inDrawer()) return;
+  // Top-level Shop toggle (mobile)
+  const shopLi      = document.querySelector('nav li.dropdown, nav li.has-submenu');
+  const shopTrigger = shopLi?.querySelector(':scope > .shop-label, :scope > a');
+  if (shopLi && shopTrigger) {
+    shopTrigger.setAttribute('role','button');
+    shopTrigger.setAttribute('tabindex','0');
+    shopTrigger.setAttribute('aria-expanded','false');
+    shopTrigger.addEventListener('click', e => {
+      if (!isMobile()) return; // desktop uses hover
       e.preventDefault();
       e.stopPropagation();
-
-      const isOpen = li.classList.contains('open') || li.classList.contains('submenu-open');
-      isOpen ? closeShop() : openShop();
+      const open = !shopLi.classList.contains('submenu-open');
+      closeSubmenus();
+      shopLi.classList.toggle('submenu-open', open);
+      shopLi.classList.toggle('open', open);
+      shopTrigger.setAttribute('aria-expanded', open ? 'true':'false');
+      // If the drawer closed due to outside‑click earlier, reopen it
+      if (open && !drawer.classList.contains('show')) openDrawer();
     });
-
-    // keyboard inside drawer
-    trigger.addEventListener('keydown', e => {
-      if (!inDrawer()) return;
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+    shopTrigger.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && isMobile()) {
+        e.preventDefault(); shopTrigger.click();
+      }
     });
-  });
-
-  // ---------- Reviews slider ----------
-  const slider = qs('.reviews-slider');
-  if (slider) {
-    const slides = qsa('.review-slide', slider);
-    const prev   = qs('.prev', slider);
-    const next   = qs('.next', slider);
-    if (slides.length && prev && next) {
-      let i = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
-      const show = n => slides.forEach((s, k) => s.classList.toggle('active', k === n));
-      prev.addEventListener('click', e => { e.preventDefault(); i = (i - 1 + slides.length) % slides.length; show(i); });
-      next.addEventListener('click', e => { e.preventDefault(); i = (i + 1) % slides.length; show(i); });
-
-      // simple swipe on touch
-      let sx = null;
-      slider.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
-      slider.addEventListener('touchend',   e => {
-        if (sx == null) return;
-        const dx = e.changedTouches[0].clientX - sx;
-        if (Math.abs(dx) > 40) (dx > 0 ? prev : next).click();
-        sx = null;
-      });
-    }
   }
+
+  // Reviews slider
+  (function() {
+    const slider = document.querySelector('.reviews-slider');
+    if (!slider) return;
+    const slides = Array.from(slider.querySelectorAll('.review-slide'));
+    const prev   = slider.querySelector('.prev');
+    const next   = slider.querySelector('.next');
+    let index = slides.findIndex(s => s.classList.contains('active'));
+    if (index < 0) index = 0;
+
+    const show = i => {
+      slides.forEach((s, n) => s.classList.toggle('active', n === i));
+    };
+    prev.addEventListener('click', () => {
+      index = (index - 1 + slides.length) % slides.length;
+      show(index);
+    });
+    next.addEventListener('click', () => {
+      index = (index + 1) % slides.length;
+      show(index);
+    });
+  })();
 })();
