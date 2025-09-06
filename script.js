@@ -133,5 +133,10 @@
     }
   });
 })();
-// inside your IIFE where you set v:
-const v = 'finalfix4';  // <- bump this
+// Force-refresh ALL stylesheets (no filename guessing)
+const v = 'finalfix9';  // bump this whenever CSS changes
+document.querySelectorAll('link[rel="stylesheet"][href]').forEach(link => {
+  const url = new URL(link.href, location.href);
+  url.searchParams.set('v', v);
+  link.href = url.toString();
+});
