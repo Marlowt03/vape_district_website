@@ -1100,3 +1100,15 @@ nav .has-submenu > .shop-label::after{
 /* Kill any dropdown carets */
 nav .dropdown > a::after,
 nav .has-submenu > .shop-label::after { content: none !important; }
+/* Ensure drawer is above overlay on mobile */
+@media (max-width:1024px){
+  nav .nav-links.show { z-index: 2001 !important; }
+}
+
+/* The overlay can actually receive taps */
+.nav-overlay { display: none !important; }
+.nav-overlay.show { display: block !important; } /* extra hook if needed */
+
+/* Remove any little caret under “Shop” */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after { content: none !important; }
