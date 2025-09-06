@@ -1739,3 +1739,31 @@ nav {
   /* make sure the drawer doesn't clip expanded nested panels */
   nav .nav-links{ overflow: visible !important; }
 }
+@media (max-width:1024px){
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu {
+    position: static !important;
+    display: none;
+    margin-top: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #fff !important;
+    border: 1px solid #e8e8e8 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    padding: 6px !important;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu {
+    display: block !important;
+  }
+  /* nested panels inside the drawer */
+  nav li.submenu > .sub-dropdown,
+  nav li.submenu > .dropdown-content,
+  nav li.submenu > .submenu { display: none !important; position: static !important; width:100% !important; margin-top:8px !important; }
+  nav li.submenu.submenu-open > .sub-dropdown,
+  nav li.submenu.submenu-open > .dropdown-content,
+  nav li.submenu.submenu-open > .submenu { display:block !important; }
+
+  nav .nav-links { overflow: visible !important; }
+}
