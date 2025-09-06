@@ -871,3 +871,132 @@ nav{ display:grid !important; grid-template-columns: 1fr auto; align-items:cente
 /* Remove any tiny caret that might still appear on â€œShopâ€ */
 nav .dropdown > a::after,
 nav .has-submenu > .shop-label::after{ content:none !important; }
+/* =======================
+   NAV/UI FINAL PATCH (append to end of style.css)
+   ======================= */
+
+/* never allow sideways scroll */
+html, body { overflow-x: hidden !important; }
+
+/* ---------- Overlay (subtle) ---------- */
+.nav-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 2000; /* below drawer, above page */
+}
+.nav-overlay.show{ opacity: 1; pointer-events: auto; }
+
+/* ---------- Desktop hover: remove gap between button and panel ---------- */
+@media (hover:hover){
+  nav .dropdown,
+  nav .has-submenu{ position: relative; padding-bottom: 8px; }
+  nav .dropdown .dropdown-content,
+  nav .has-submenu > .submenu{
+    display: none;
+    position: absolute;
+    top: calc(100% - 8px);  /* overlaps 8px hover buffer */
+    left: 0;
+    min-width: 240px;
+    max-width: min(92vw, 340px);
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    padding: 8px;
+    z-index: 1500;
+  }
+  nav .dropdown:hover > .dropdown-content,
+  nav .dropdown.open  > .dropdown-content{ display: block; }
+  nav .has-submenu:hover > .submenu,
+  nav .has-submenu.submenu-open > .submenu{ display: block; }
+}
+
+/* Remove any caret on “Shop” */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after{ content: none !important; }
+
+/* ---------- Mobile drawer panel ---------- */
+@media (max-width: 1024px){
+  /* Turn the UL into a centered drawer */
+  nav .nav-links{
+    position: fixed !important;
+    top: max(12px, env(safe-area-inset-top)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(8px) !important;
+    width: min(92vw, 480px) !important;
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top)) !important;
+    overflow: auto !important;
+    background: #fff !important;
+    border: 1px solid #e9edf2 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25) !important;
+    padding: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 2001 !important;   /* above overlay */
+  }
+  nav .nav-links.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  /* Big tap targets */
+  nav .nav-links > li{ width: 100%; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display: block !important;
+    width: 100% !important;
+    padding: 16px 14px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e9edf2 !important;
+    border-radius: 14px !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+  }
+  nav .nav-links > li > a:active,
+  nav .nav-links > li > .shop-label:active{ transform: translateY(1px); }
+
+  /* Submenu lives inline below Shop */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    position: static !important;
+    display: none;
+    margin-top: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #fff !important;
+    border: 1px solid #e8e8e8 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    padding: 6px !important;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu{ display: block !important; }
+
+  /* Links inside the submenu */
+  nav .dropdown .dropdown-content a,
+  nav .has-submenu .submenu a{
+    display: block !important;
+    padding: 12px 14px !important;
+    margin: 6px 0 !important;
+    border: 1px solid #e9edf2 !important;
+    border-radius: 12px !important;
+    background: #fff !important;
+    color: #111 !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+  }
+
+  /* When drawer is open, prevent the page from scrolling */
+  body.no-scroll{ height: 100dvh; overflow: hidden !important; }
+}
