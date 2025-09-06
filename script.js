@@ -152,3 +152,54 @@
     if (e.key === 'ArrowRight') next.click();
   });
 })();
+/* === HOTFIX: mobile tap on "Shop" should NOT close the drawer === */
+(function () {
+  const mq = matchMedia('(max-width:1024px), (hover: none)');
+  const isMobile = () => mq.matches;
+
+  const nav    = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  if (!nav || !drawer) return;
+
+  // Find the top-level Shop item regardless of markup variant
+  const shopLi = nav.querySelector('li.dropdown, li.has-submenu');
+  const trigger = shopLi?.querySelector(':scope > .shop-label, :scope > .shop-toggle, :scope > a, :scope > span, :scope > button');
+  if (!shopLi || !trigger) return;
+
+  // Keep drawer clicks from bubbling up to any outside-closers (mobile only)
+  drawer.addEventListener('click', (e) => { if (isMobile()) e.stopPropagation(); }, true);
+
+  function openDrawer(){
+    drawer.classList.add('show');
+    document.body.classList.add('no-scroll');
+  }
+
+  function toggleShop(open){
+    shopLi.classList.toggle('open', open);
+    shopLi.classList.toggle('submenu-open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  trigger.addEventListener('click', (e) => {
+    if (!isMobile()) return;          // desktop still uses hover; untouched
+    e.preventDefault();               // ignore href="#" jump
+    e.stopPropagation();              // don't let outside-closers see this tap
+
+    const wantOpen = !(shopLi.classList.contains('open') || shopLi.classList.contains('submenu-open'));
+
+    // Run after any global listeners (including existing closers)
+    setTimeout(() => {
+      if (!drawer.classList.contains('show')) openDrawer();  // if something closed it, reopen
+      // Close other open dropdowns, if any
+      document.querySelectorAll('nav li.dropdown.open, nav li.has-submenu.submenu-open')
+        .forEach(li => { if (li !== shopLi) li.classList.remove('open','submenu-open'); });
+      toggleShop(wantOpen);
+    }, 0);
+  });
+
+  // Optional keyboard support in the drawer
+  trigger.addEventListener('keydown', (e) => {
+    if (!isMobile()) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+  });
+})();
