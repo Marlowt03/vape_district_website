@@ -1199,3 +1199,16 @@ nav { box-sizing: border-box !important; }
     font-size: 1.4rem !important;       /* keeps your size */
   }
 }
+/* make padding count inside the 100% width */
+nav { box-sizing: border-box !important; }
+
+/* keep links from being shoved right or wrapping */
+@media (min-width:1025px){
+  nav { justify-content: space-between !important; }
+  .nav-links{
+    margin: 0 !important;               /* kills margin-left:3rem shove */
+    flex-wrap: nowrap !important;       /* prevents wrap/overflow */
+    gap: clamp(1.25rem,3vw,3rem) !important;
+    font-size: 1.4rem !important;       /* keeps your size */
+  }
+}
