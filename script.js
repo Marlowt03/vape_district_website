@@ -330,39 +330,3 @@
     trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
   }, true); // capture
 })();
-// Mobile: force /420 and /vapes to navigate on first tap (no dropdown)
-(() => {
-  const nav = document.querySelector('nav');
-  if (!nav) return;
-
-  // Adjust these paths to match your actual slugs if different
-  const LINK_ONLY = new Set(['/420', '/vapes']);
-
-  const mq = matchMedia('(max-width:1024px),(hover: none)');
-  const isMobile = () => mq.matches;
-
-  nav.addEventListener('click', (e) => {
-    if (!isMobile()) return;
-
-    // Only intercept top-level submenu anchors with those hrefs
-    const a = e.target.closest('li.submenu > a[href]');
-    if (!a) return;
-
-    const url = new URL(a.getAttribute('href'), location.origin);
-    if (!LINK_ONLY.has(url.pathname)) return;
-
-    // Stop any dropdown togglers, then navigate immediately
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    e.stopPropagation();
-
-    // Close the drawer cleanly
-    const drawer = nav.querySelector('.nav-links');
-    drawer?.classList.remove('show');
-    document.body.classList.remove('no-scroll');
-    document.querySelector('.nav-overlay')?.classList.remove('show');
-
-    // Go!
-    location.assign(url.pathname + url.search + url.hash);
-  }, true); // capture so nothing else re-handles the tap
-})();
