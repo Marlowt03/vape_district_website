@@ -975,3 +975,96 @@ nav .dropdown .dropdown-content a {
 nav .dropdown .dropdown-content a:hover {
   background: #f5f7fb;
 }
+/* ===== Mobile drawer fixes (append at END) ===== */
+
+/* overlay to close on outside tap */
+.nav-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 1000;
+}
+.nav-overlay.show{ opacity: 1; pointer-events: auto; }
+
+/* prevent page scroll when drawer is open */
+body.no-scroll{ height: 100dvh; overflow: hidden; }
+
+/* drawer panel (your UL) */
+@media (max-width:1024px){
+  nav .nav-links{
+    position: fixed;
+    left: 50%;
+    top: max(12px, env(safe-area-inset-top));
+    transform: translateX(-50%) translateY(8px);
+    width: min(92vw, 480px);
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
+    overflow: auto;
+    background: #fff;
+    color: #101418;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 1001;
+  }
+  nav .nav-links.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* top-level items look identical (including the Shop <span>) */
+  nav .nav-links > li{ width: 100%; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display: block; width: 100%;
+    padding: 16px 14px;
+    background: #f8fafc;
+    border: 1px solid #e9edf2; border-radius: 14px;
+    color: #111; font-weight: 800; text-decoration: none;
+  }
+  nav .nav-links > li > a:hover,
+  nav .nav-links > li > .shop-label:hover{ background: #f5f7fb; }
+
+  /* submenu opens inline, full width, no sideways push */
+  nav li.has-submenu > .submenu,
+  nav li.dropdown > .dropdown-content{
+    position: static !important;
+    display: none;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 8px;
+    padding: 6px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    box-shadow: none;
+    background: #fff;
+  }
+  nav li.has-submenu.submenu-open > .submenu,
+  nav li.dropdown.open > .dropdown-content{ display: block; }
+
+  /* links inside the submenu */
+  nav .has-submenu > .submenu a,
+  nav .dropdown > .dropdown-content a{
+    display:block; padding:12px 14px; margin:6px 0;
+    font-weight:700; color:#111; text-decoration:none;
+    background:#fff; border:1px solid #e9edf2; border-radius:12px;
+  }
+  nav .has-submenu > .submenu a:hover,
+  nav .dropdown > .dropdown-content a:hover{ background:#f5f7fb; }
+
+  /* kill any leftover pill/outline that sometimes appears on the Shop span */
+  nav .has-submenu > .shop-label{
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
