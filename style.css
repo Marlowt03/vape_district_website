@@ -1740,3 +1740,22 @@ nav {
   /* make sure the drawer doesn't clip expanded nested panels */
   nav .nav-links{ overflow: visible !important; }
 }
+/* Mobile: treat /420 and /vapes as plain links (no dropdown UI) */
+@media (max-width:1024px){
+  /* Hide their dropdown panels, if present */
+  nav li.submenu > a[href="/420"] + .sub-dropdown,
+  nav li.submenu > a[href="/420"] + .dropdown-content,
+  nav li.submenu > a[href="/vapes"] + .sub-dropdown,
+  nav li.submenu > a[href="/vapes"] + .dropdown-content {
+    display: none !important;
+  }
+
+  /* Remove the little caret/arrow for these two */
+  nav li.submenu > a[href="/420"]::after,
+  nav li.submenu > a[href="/vapes"]::after {
+    content: none !important;
+  }
+
+  /* Make sure the drawer never clips content */
+  nav .nav-links { overflow: visible !important; }
+}
