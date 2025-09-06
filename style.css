@@ -707,6 +707,717 @@ section {
   text-decoration: underline;
 }
 
+/* Base style sheet for Vape District website */
+
+/* Define colour palette */
+:root {
+  --light-blue: #e0f4ff;
+  --primary-blue: #3db2ff;
+  --dark-blue: #012a36;
+  --gradient: linear-gradient(45deg, #1da2ff, #0f528e);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222;
+  scroll-behavior: smooth;
+}
+
+/* Navigation bar */
+nav {
+  /* Keep the navigation fixed to the top of the page and full width */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  /* A subtle backdrop and shadow for depth */
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  /* Increase the overall height of the nav bar and horizontal padding so it takes up more of the top area */
+  padding: 1.5rem 4rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Generous padding and spacing so the nav stretches across the screen */
+  /* Increase the height and horizontal padding so the navigation takes up more of the top */
+  padding: 2rem 4rem;
+  justify-content: flex-start;
+}
+
+/* Parallax About Section */
+.about.parallax {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  position: relative;
+  /* Reduce the height of the parallax about section further so it doesn't dominate the page */
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.about.parallax .overlay {
+  background: rgba(0, 0, 0, 0.5);
+  /* Reduce padding in the overlay to make the about card smaller */
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+  max-width: 800px;
+}
+
+.about.parallax h2,
+.about.parallax p {
+  color: #fff;
+}
+
+/* Reviews Slider */
+.reviews-section {
+  padding: 4rem 2rem;
+  background-color: #f7f9fc;
+  text-align: center;
+}
+
+.reviews-slider {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.review-slide {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.review-slide.active {
+  display: block;
+  opacity: 1;
+}
+
+.review-slide p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Star styling for review ratings */
+.stars {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.reviews-slider .prev,
+.reviews-slider .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.reviews-slider .prev {
+  left: -2rem;
+}
+
+.reviews-slider .next {
+  right: -2rem;
+}
+
+/* Product Grid for category pages */
+.product-grid {
+  display: grid;
+  /* Increase the minimum width of cards so they present more like squares on desktop */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card img {
+  width: 100%;
+  /* Slightly taller images give the cards a more balanced, square appearance */
+  height: 220px;
+  object-fit: cover;
+  /* Show the central portion of product images so the subject is centred */
+  object-position: center center;
+}
+
+/* Brand logos carousel styles */
+.brand-carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+/* Hide all slides by default */
+.brand-slide {
+  display: none;
+}
+
+/* Show the active slide */
+.brand-slide.active {
+  display: block;
+}
+
+/* Style for text-based brand slides */
+.brand-slide h3 {
+  font-size: 2rem;
+  color: var(--primary-blue);
+  margin: 1rem 0;
+}
+
+/* Images that should display their entire content without cropping */
+.contain-img {
+  object-fit: contain !important;
+  object-position: center !important;
+  background-color: #000;
+}
+
+/* Style for brand logos if images are used */
+.brand-slide img {
+  max-width: 150px;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Navigation arrows for brand carousel */
+.brand-carousel .prev,
+.brand-carousel .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.brand-carousel .prev {
+  left: -2rem;
+}
+
+.brand-carousel .next {
+  right: -2rem;
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  margin: 1rem;
+  color: var(--dark-blue);
+}
+
+.product-card p {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  margin: 0 1rem 1rem;
+  color: #555;
+}
+
+.product-card a {
+  margin: 0 1rem 1rem;
+  color: var(--primary-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.product-card a:hover {
+  text-decoration: underline;
+}
+
+/* Hide the hamburger menu toggle on larger screens by default. The toggle is only shown
+   in the mobile breakpoint (defined below in the media query) to save horizontal
+   space for navigation links on desktop. */
+/* Hide the hamburger menu toggle by default on larger screens. It will be shown
+   only at the mobile breakpoint to save space and allow a collapsible menu. */
+.menu-toggle {
+  display: none;
+}
+
+/* Logo styling */
+.nav-logo {
+  /* Bigger logo text for a bold presence on the left of the nav bar */
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+  /* Extra space to separate the logo from the navigation links */
+  margin-right: 4rem;
+}
+
+/* Navigation links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  /* Increase the gap between nav items and the font size for better readability */
+  /* Increase the gap between nav items so the links spread further across the top */
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+  /* Make the navigation text slightly larger for improved legibility */
+  font-size: 1.4rem;
+  /* Larger margin to push the links away from the logo, aligning them nicely across the top */
+  margin-left: 3rem;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary-blue);
+}
+
+/* Dropdown */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  min-width: 220px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
+}
+
+/* Nested submenus inside the products dropdown */
+.submenu {
+  position: relative;
+}
+
+.has-sub::after {
+  content: '\25B8'; /* right-pointing small triangle */
+  margin-left: .3rem;
+  font-size: .9em;
+}
+
+.sub-dropdown {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.sub-dropdown a {
+  padding: 0.5rem 1rem;
+  display: block;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sub-dropdown a:hover {
+  background-color: var(--light-blue);
+  color: var(--primary-blue);
+}
+
+.submenu:hover > .sub-dropdown {
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Hero section */
+.hero {
+  height: 100vh;
+  background-image: url("images/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #fff;
+  text-align: center;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--gradient);
+  color: #fff;
+  border: none;
+}
+
+.btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+}
+
+.btn-outline:hover {
+  background: #fff;
+  color: var(--primary-blue);
+}
+
+/* Section styles */
+section {
+  padding: 5rem 10%;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--dark-blue);
+}
+
+/* About section */
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  background-color: #f9f9f9;
+}
+
+.about-text {
+  flex: 1 1 40%;
+  min-width: 250px;
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.gradient-text {
+  background-image: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.about-image {
+  /* Make the image container a bit narrower to reduce its dominance */
+  flex: 1 1 35%;
+  text-align: center;
+}
+
+.about-image img {
+  /* Limit the size of the about page image so it doesn't dominate the section */
+  max-width: 70%;
+  border-radius: 8px;
+}
+
+/* Reviews section */
+.reviews {
+  background-color: #fff;
+}
+
+.reviews-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.review-card {
+  background-color: #f1f9ff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 320px;
+}
+
+.stars {
+  color: #f7b500;
+  margin-bottom: 0.5rem;
+}
+
+.review-card p {
+  margin-bottom: 0;
+}
+
+/* Products section */
+.products {
+  background-color: #f9f9f9;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.product-item {
+  text-align: center;
+  width: 200px;
+}
+
+.product-item img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.product-item h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.product-item a {
+  color: var(--primary-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.product-item a:hover {
+  text-decoration: underline;
+}
+
+/* Features section (About page) */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.feature {
+  flex: 1 1 220px;
+  background-color: #f1f9ff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.feature .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-blue);
+}
+
+.feature h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+}
+
+.feature p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Categories list (Products page) */
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.category-card {
+  background-color: #f1f9ff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.category-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: var(--dark-blue);
+}
+
+.category-card p {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.category-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.category-card li {
+  margin-bottom: 0.3rem;
+}
+
+.category-card a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.category-card a:hover {
+  text-decoration: underline;
+}
+
+/* Contact section */
+.contact {
+  background-color: #fff;
+}
+
+.contact-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  align-self: center;
+  padding: 0.75rem 2rem;
+  background: var(--gradient);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.contact-form button:hover {
+  opacity: 0.85;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--dark-blue);
+  color: #fff;
+  padding: 2rem 10%;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
 /* Collapse content on tablets/mobile */
 @media (max-width: 1024px) {
   .hero h1 { font-size: 2.2rem; }
@@ -715,14 +1426,16 @@ section {
   .about-image, .about-text { flex: 1 1 100%; }
 }
 
-/* ----- Nav final override (desktop & mobile) ----- */
+/* ========================= */
+/* Navigation Drawer and Overlay */
+/* ========================= */
 
 /* Prevent horizontal scroll */
 html, body {
   overflow-x: hidden !important;
 }
 
-/* Overlay for mobile drawer */
+/* Overlay sits just above the page */
 .nav-overlay {
   position: fixed;
   inset: 0;
@@ -730,49 +1443,58 @@ html, body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.18s ease;
-  z-index: 2000;      /* sits below drawer */
+  z-index: 3000;
 }
 .nav-overlay.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Desktop navigation */
-@media (min-width: 1025px) {
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 20px 60px !important;
-    background-color: rgba(255,255,255,0.95);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    z-index: 1000;
-  }
-  .nav-logo {
-    font-size: 2.6rem !important;
-    margin: 0 !important;
-  }
-  .nav-links {
-    display: flex !important;
-    align-items: center !important;
-    gap: 3rem !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
-  }
-  .nav-links a {
-    font-size: 1.2rem !important;
-    font-weight: 700 !important;
-    text-decoration: none;
-  }
-  .menu-toggle { display: none !important; }
+/* Base nav styling (applies at all sizes) */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 2rem clamp(24px, 4vw, 64px) !important;
+  background-color: rgba(255,255,255,0.95);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  z-index: 5000;
+  box-sizing: border-box;
+}
 
-  /* Hover‑triggered dropdowns on desktop */
+/* Navigation logo */
+.nav-logo {
+  font-size: 2.6rem !important;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+  margin: 0;
+}
+
+/* Base nav links styling */
+.nav-links {
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(1.25rem, 3vw, 3rem) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 1.4rem !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Hide the hamburger toggle by default */
+.menu-toggle {
+  display: none !important;
+}
+
+/* Desktop-specific styles */
+@media (min-width: 1025px) {
   nav li.dropdown,
   nav li.has-submenu {
     position: relative !important;
@@ -789,9 +1511,9 @@ html, body {
     background: #fff;
     border: 1px solid #e8e8e8;
     border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
     padding: 8px;
-    z-index: 1500;
+    z-index: 5500;
   }
   nav li.dropdown:hover > .dropdown-content,
   nav li.has-submenu:hover > .submenu {
@@ -801,34 +1523,25 @@ html, body {
 
 /* Mobile & tablet navigation */
 @media (max-width: 1024px) {
+  /* Adjust nav padding */
   nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 20px 20px !important;
-    background-color: rgba(255,255,255,0.95);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    z-index: 2000;
+    padding: 1rem 1rem !important;
   }
+  /* Show the hamburger button */
   .menu-toggle {
     display: block !important;
     cursor: pointer;
     font-size: 2rem;
     color: var(--primary-blue);
   }
-  /* Centered drawer */
-  .nav-links {
+  /* Drawer card styling */
+  nav .nav-links {
     position: fixed !important;
     top: max(12px, env(safe-area-inset-top)) !important;
     left: 0 !important;
     right: 0 !important;
     margin: 0 auto !important;
-    width: 92vw !important;
+    width: min(92vw, 480px) !important;
     max-height: calc(100dvh - 24px - env(safe-area-inset-top)) !important;
     overflow: auto !important;
     background: #fff !important;
@@ -843,19 +1556,19 @@ html, body {
     pointer-events: none;
     transform: translateY(8px);
     transition: opacity 0.18s ease, transform 0.18s ease;
-    z-index: 2001 !important;        /* sits above overlay */
+    z-index: 6000 !important;
   }
-  .nav-links.show {
+  nav .nav-links.show {
     opacity: 1 !important;
     pointer-events: auto !important;
     transform: translateY(0) !important;
   }
-  /* Big tap targets */
-  .nav-links > li {
+  /* Large tap targets */
+  nav .nav-links > li {
     width: 100% !important;
   }
-  .nav-links > li > a,
-  .nav-links > li > .shop-label {
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label {
     display: block !important;
     width: 100% !important;
     padding: 16px 14px !important;
@@ -866,7 +1579,11 @@ html, body {
     font-weight: 800 !important;
     text-decoration: none !important;
   }
-  /* Submenus open inline inside drawer */
+  nav .nav-links > li > a:hover,
+  nav .nav-links > li > .shop-label:hover {
+    background: #f1f5f9 !important;
+  }
+  /* Inline submenus */
   nav li.dropdown > .dropdown-content,
   nav li.has-submenu > .submenu {
     position: static !important;
@@ -884,8 +1601,8 @@ html, body {
   nav li.has-submenu.submenu-open > .submenu {
     display: block !important;
   }
-  nav .dropdown .dropdown-content a,
-  nav .has-submenu .submenu a {
+  nav .dropdown-content a,
+  nav .submenu a {
     display: block !important;
     padding: 12px 14px !important;
     margin: 6px 0 !important;
@@ -896,345 +1613,84 @@ html, body {
     font-weight: 700 !important;
     text-decoration: none !important;
   }
-  /* Prevent body scroll when drawer is open */
+  nav .dropdown-content a:hover,
+  nav .submenu a:hover {
+    background: #f8fafc !important;
+  }
+  /* Disable hover menus on touch */
+  .dropdown:hover .dropdown-content,
+  .has-submenu:hover .submenu {
+    display: none !important;
+  }
+  /* Lock body scroll when drawer is open */
   body.no-scroll {
     height: 100dvh !important;
     overflow: hidden !important;
   }
-  /* Disable hover dropdowns on touch devices */
-  .dropdown:hover .dropdown-content {
-    display: none !important;
-  }
-}
-/* ===== NAV FIX (minimal, non-destructive) ===== */
-
-/* Overlay sits under drawer */
-.nav-overlay{
-  position:fixed; inset:0;
-  background:rgba(0,0,0,.35);
-  opacity:0; pointer-events:none;
-  transition:opacity .18s ease;
-  z-index:2000;                /* UNDER the drawer */
-}
-.nav-overlay.show{ opacity:1; pointer-events:auto; }
-
-/* Desktop (≥1025px): keep layout, stop right-drift, don't shrink text */
-@media (min-width:1025px){
-  nav{
-    display:flex !important;
-    justify-content:space-between !important;
-    align-items:center !important;
-    padding:2rem 4rem !important;              /* matches your base */
-    position:fixed !important; top:0; left:0; width:100%;
-    background-color:rgba(255,255,255,.95);
-    backdrop-filter:blur(4px);
-    box-shadow:0 2px 4px rgba(0,0,0,.05);
-    z-index:1000;
-  }
-  .nav-links{
-    display:flex !important;
-    align-items:center !important;
-    gap:3rem !important;                       /* keep your spacing */
-    margin:0 !important;                       /* <-- kills the 3rem shove */
-    padding:0 !important;
-    list-style:none !important;
-    flex-wrap:nowrap !important;               /* stop wrap artifacts */
-    font-size:1.4rem !important;               /* keep your original size */
-  }
-  .menu-toggle{ display:none !important; }
 }
 
-/* Mobile/Tablet (≤1024px): drawer above overlay + clickable */
-@media (max-width:1024px){
-  .menu-toggle{
-    display:block !important;
-    cursor:pointer; font-size:2rem; color:var(--primary-blue);
-  }
-  nav{
-    display:flex !important; justify-content:space-between !important; align-items:center !important;
-    position:fixed !important; top:0; left:0; width:100%; z-index:1000;
-    padding:1rem 1rem !important;
-    background-color:rgba(255,255,255,.95);
-    backdrop-filter:blur(4px);
-    box-shadow:0 2px 4px rgba(0,0,0,.05);
-  }
-  /* Centered drawer card */
-  nav .nav-links{
-    position:fixed !important;
-    top:max(12px, env(safe-area-inset-top)) !important;
-    left:0 !important; right:0 !important;
-    margin:0 auto !important; width:92vw !important;
-    max-height:calc(100dvh - 24px - env(safe-area-inset-top)) !important;
-    overflow:auto !important;
-
-    display:flex !important; flex-direction:column !important; gap:10px !important;
-    padding:16px !important; background:#fff !important;
-    border:1px solid #e9edf2 !important; border-radius:16px !important;
-    box-shadow:0 30px 70px rgba(0,0,0,.25) !important;
-
-    opacity:0; pointer-events:none; transform:translateY(8px);
-    transition:opacity .18s ease, transform .18s ease;
-    z-index:2001 !important;                  /* <-- ABOVE overlay */
-  }
-  nav .nav-links.show{
-    opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important;
-  }
-
-  /* Large tap targets */
-  nav .nav-links > li{ width:100% !important; }
-  nav .nav-links > li > a,
-  nav .nav-links > li > .shop-label{
-    display:block !important; width:100% !important;
-    padding:16px 14px !important;
-    background:#f8fafc !important; border:1px solid #e9edf2 !important; border-radius:14px !important;
-    color:#111 !important; font-weight:800 !important; text-decoration:none !important;
-  }
-
-  /* Open submenus inline in the drawer */
-  nav li.dropdown > .dropdown-content,
-  nav li.has-submenu > .submenu{
-    position:static !important; display:none;
-    margin-top:8px !important; width:100% !important; max-width:100% !important;
-    background:#fff !important; border:1px solid #e8e8e8 !important; border-radius:10px !important;
-    box-shadow:none !important; padding:6px !important;
-  }
-  nav li.dropdown.open > .dropdown-content,
-  nav li.has-submenu.submenu-open > .submenu{ display:block !important; }
-
-  /* Disable hover menus on touch */
-  .dropdown:hover .dropdown-content{ display:none !important; }
-
-  /* Lock the page when drawer is open */
-  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
-}
-/* ===== NAV — CLEAN FINAL PATCH (no layout side-effects) ===== */
-
-/* 1) Put nav ABOVE the overlay so the drawer is clickable. 
-      Keep overlay above the page, but below the drawer/nav. */
-nav { z-index: 3001 !important; }
+/* Stacking order: drawer > overlay > nav */
 .nav-overlay { z-index: 3000 !important; }
-
-/* 2) Desktop fixes (≥1025px): stop right-drift, keep text size */
-@media (min-width:1025px){
-  nav{
-    display:flex !important;
-    justify-content:space-between !important;   /* logo left, links right */
-    align-items:center !important;
-    /* keep your generous padding but make it fluid to avoid overflow on smaller laptops */
-    padding: 2rem clamp(24px, 4vw, 64px) !important;
-  }
-
-  /* Kill the shove and wrapping that pushes links off-screen */
-  .nav-links{
-    display:flex !important;
-    align-items:center !important;
-    gap: clamp(1.25rem, 3vw, 3rem) !important;
-    margin: 0 !important;            /* overrides margin-left: 3rem earlier */
-    padding: 0 !important;
-    list-style: none !important;
-    flex-wrap: nowrap !important;     /* prevents wrap-induced overflow */
-    font-size: 1.4rem !important;     /* keep your original desktop size */
-  }
-
-  .menu-toggle{ display:none !important; }
+nav          { z-index: 5000 !important; }
+@media (max-width: 1024px) {
+  nav .nav-links { z-index: 6000 !important; }
 }
 
-/* 3) Mobile & tablet (≤1024px): centered, clickable drawer */
-@media (max-width:1024px){
-  .menu-toggle{
-    display:block !important;
-    cursor:pointer; font-size:2rem; color:var(--primary-blue);
-  }
-
-  nav{
-    display:flex !important; justify-content:space-between !important; align-items:center !important;
-    position:fixed !important; top:0; left:0; width:100%;
-    padding: 1rem 1rem !important;
-    background-color: rgba(255,255,255,.95);
-    backdrop-filter: blur(4px);
-    box-shadow: 0 2px 4px rgba(0,0,0,.05);
-  }
-
-  /* Drawer sits ABOVE overlay (because nav z-index is higher) */
-  nav .nav-links{
-    position: fixed !important;
-    top: max(12px, env(safe-area-inset-top)) !important;
-    left: 0 !important; right: 0 !important;
-    margin: 0 auto !important;
-    width: min(92vw, 480px) !important;
-    max-height: calc(100dvh - 24px - env(safe-area-inset-top)) !important;
-    overflow: auto !important;
-
-    display: flex !important; flex-direction: column !important; gap: 10px !important;
-    padding: 16px !important;
-    background: #fff !important; border: 1px solid #e9edf2 !important; border-radius: 16px !important;
-    box-shadow: 0 30px 70px rgba(0,0,0,.25) !important;
-
-    opacity: 0; pointer-events: none; transform: translateY(8px);
-    transition: opacity .18s ease, transform .18s ease;
-    z-index: 3002 !important;           /* drawer above overlay+nav base */
-  }
-  nav .nav-links.show{
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
-  }
-
-  /* Big tap targets */
-  nav .nav-links > li{ width:100% !important; }
-  nav .nav-links > li > a,
-  nav .nav-links > li > .shop-label{
-    display:block !important; width:100% !important;
-    padding:16px 14px !important;
-    background:#f8fafc !important; border:1px solid #e9edf2 !important; border-radius:14px !important;
-    color:#111 !important; font-weight:800 !important; text-decoration:none !important;
-  }
-
-  /* Submenu inline inside drawer */
-  nav li.dropdown > .dropdown-content,
-  nav li.has-submenu > .submenu{
-    position: static !important; display: none;
-    margin-top: 8px !important; width: 100% !important; max-width: 100% !important;
-    background: #fff !important; border: 1px solid #e8e8e8 !important; border-radius: 10px !important;
-    box-shadow: none !important; padding: 6px !important;
-  }
-  nav li.dropdown.open > .dropdown-content,
-  nav li.has-submenu.submenu-open > .submenu{ display: block !important; }
-
-  /* No hover menus on touch */
-  .dropdown:hover .dropdown-content{ display:none !important; }
-
-  /* Lock page when drawer is open */
-  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
-}
-/* ===== NAV FIX — stacking + desktop drift (final) ===== */
-
-/* Overlay just above the page */
-.nav-overlay { z-index: 3000 !important; }
-
-/* 1) BREAK the nav stacking context so children can stack above overlay */
-nav { z-index: auto !important; }  /* keep position:fixed, but no z-index */
-
-/* 2) Desktop (≥1025px): keep size, stop right drift */
-@media (min-width:1025px){
-  nav{
-    display:flex !important;
-    justify-content:space-between !important;   /* logo left, links right */
-    align-items:center !important;
-    padding: 2rem clamp(24px, 4vw, 64px) !important;
-  }
-  .nav-links{
-    display:flex !important;
-    align-items:center !important;
-    gap: clamp(1.25rem, 3vw, 3rem) !important;
-    margin: 0 !important;           /* override margin-left: 3rem */
-    padding: 0 !important;
-    list-style: none !important;
-    flex-wrap: nowrap !important;   /* prevent wrap that causes overflow */
-    font-size: 1.4rem !important;   /* keep your original size */
-  }
-  .menu-toggle{ display:none !important; }
-}
-
-/* 3) Mobile/Tablet (≤1024px): drawer above overlay and clickable */
-@media (max-width:1024px){
-  /* keep nav fixed top but with no z-index (see above) */
-  nav{
-    display:flex !important; justify-content:space-between !important; align-items:center !important;
-    position:fixed !important; top:0; left:0; width:100%;
-  }
-
-  /* Drawer: higher than overlay; interactive only when open */
-  nav .nav-links{
-    position:fixed !important;
-    top:max(12px, env(safe-area-inset-top)) !important;
-    left:0 !important; right:0 !important; margin:0 auto !important;
-    width:min(92vw, 480px) !important; max-height:calc(100dvh - 24px - env(safe-area-inset-top)) !important;
-    overflow:auto !important;
-
-    display:flex !important; flex-direction:column !important; gap:10px !important;
-    padding:16px !important; background:#fff !important;
-    border:1px solid #e9edf2 !important; border-radius:16px !important;
-    box-shadow:0 30px 70px rgba(0,0,0,.25) !important;
-
-    opacity:0; pointer-events:none; transform:translateY(8px);
-    transition:opacity .18s ease, transform .18s ease;
-    z-index: 3002 !important;  /* <-- ABOVE .nav-overlay (3000) */
-  }
-  nav .nav-links.show{
-    opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important;
-  }
-
-  /* Big tap targets */
-  nav .nav-links > li{ width:100% !important; }
-  nav .nav-links > li > a,
-  nav .nav-links > li > .shop-label{
-    display:block !important; width:100% !important; padding:16px 14px !important;
-    background:#f8fafc !important; border:1px solid #e9edf2 !important; border-radius:14px !important;
-    color:#111 !important; font-weight:800 !important; text-decoration:none !important;
-  }
-
-  /* Inline submenu inside drawer */
-  nav li.dropdown > .dropdown-content,
-  nav li.has-submenu > .submenu{
-    position:static !important; display:none; margin-top:8px !important; width:100% !important;
-    background:#fff !important; border:1px solid #e8e8e8 !important; border-radius:10px !important; box-shadow:none !important; padding:6px !important;
-  }
-  nav li.dropdown.open > .dropdown-content,
-  nav li.has-submenu.submenu-open > .submenu{ display:block !important; }
-
-  /* Lock background when open */
-  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
-}
-/* make padding count inside the 100% width */
+/* Additional tweaks for alignment */
 nav { box-sizing: border-box !important; }
 
-/* keep links from being shoved right or wrapping */
-@media (min-width:1025px){
-  nav { justify-content: space-between !important; }
-  .nav-links{
-    margin: 0 !important;               /* kills margin-left:3rem shove */
-    flex-wrap: nowrap !important;       /* prevents wrap/overflow */
-    gap: clamp(1.25rem,3vw,3rem) !important;
-    font-size: 1.4rem !important;       /* keeps your size */
-  }
+/* Small fallback nav patch (legacy) */
+/* These rules intentionally duplicate some of the above definitions to maintain backward compatibility
+   with legacy markup. They can be safely removed if not needed. */
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, .35);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
 }
-/* make padding count inside the 100% width */
-nav { box-sizing: border-box !important; }
-
-/* keep links from being shoved right or wrapping */
-@media (min-width:1025px){
-  nav { justify-content: space-between !important; }
-  .nav-links{
-    margin: 0 !important;               /* kills margin-left:3rem shove */
-    flex-wrap: nowrap !important;       /* prevents wrap/overflow */
-    gap: clamp(1.25rem,3vw,3rem) !important;
-    font-size: 1.4rem !important;       /* keeps your size */
-  }
+.nav-overlay.show {
+  opacity: 1; pointer-events: auto;
 }
-/* stacking order: drawer (3002) > overlay (3000) */
-.nav-overlay { z-index: 3000 !important; }
-nav          { z-index: 3001 !important; }
-
-@media (max-width:1024px){
-  /* keep your existing drawer styles; just ensure it’s above overlay */
-  nav .nav-links{
-    z-index: 3002 !important;
-    opacity: 0; pointer-events: none; transform: translateY(8px);
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  padding: 1rem 1rem;
+  background-color: rgba(255,255,255,.95);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  box-sizing: border-box;
+}
+@media (max-width: 1024px) {
+  nav .nav-links {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: 0; right: 0;
+    margin: 0 auto;
+    width: min(92vw, 480px);
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
     transition: opacity .18s ease, transform .18s ease;
-    position: fixed !important;
-    left: 0 !important; right: 0 !important; margin: 0 auto !important;
-    top: max(12px, env(safe-area-inset-top)) !important;
-    width: min(92vw, 480px) !important;
   }
-  nav .nav-links.show{
-    opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important;
+  nav .nav-links.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 }
-/* Nav must sit above everything */
-nav { 
-  position: fixed !important; 
-  top: 0; left: 0; width: 100%;
-  box-sizing: border-box !important;
-  z-index: 5000 !important;        /* higher than any section/overlay */
-}
+
+/* End of legacy nav patch */
