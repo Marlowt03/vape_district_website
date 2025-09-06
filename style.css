@@ -1088,3 +1088,15 @@ nav .dropdown > a::after,
 nav .has-submenu > .shop-label::after{
   content: none !important;
 }
+/* Overlay always available to receive taps */
+.nav-overlay { display: none !important; }
+.nav-overlay.show { display: block !important; } /* (kept for safety if you rely on .show anywhere) */
+
+/* Keep drawer above overlay on mobile (JS also sets inline z-index) */
+@media (max-width:1024px){
+  nav .nav-links.show { z-index: 2001 !important; }
+}
+
+/* Kill any dropdown carets */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after { content: none !important; }
