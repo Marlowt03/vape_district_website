@@ -1107,3 +1107,82 @@ nav { z-index: 3001 !important; }
   /* Lock page when drawer is open */
   body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
 }
+/* ===== NAV FIX — stacking + desktop drift (final) ===== */
+
+/* Overlay just above the page */
+.nav-overlay { z-index: 3000 !important; }
+
+/* 1) BREAK the nav stacking context so children can stack above overlay */
+nav { z-index: auto !important; }  /* keep position:fixed, but no z-index */
+
+/* 2) Desktop (≥1025px): keep size, stop right drift */
+@media (min-width:1025px){
+  nav{
+    display:flex !important;
+    justify-content:space-between !important;   /* logo left, links right */
+    align-items:center !important;
+    padding: 2rem clamp(24px, 4vw, 64px) !important;
+  }
+  .nav-links{
+    display:flex !important;
+    align-items:center !important;
+    gap: clamp(1.25rem, 3vw, 3rem) !important;
+    margin: 0 !important;           /* override margin-left: 3rem */
+    padding: 0 !important;
+    list-style: none !important;
+    flex-wrap: nowrap !important;   /* prevent wrap that causes overflow */
+    font-size: 1.4rem !important;   /* keep your original size */
+  }
+  .menu-toggle{ display:none !important; }
+}
+
+/* 3) Mobile/Tablet (≤1024px): drawer above overlay and clickable */
+@media (max-width:1024px){
+  /* keep nav fixed top but with no z-index (see above) */
+  nav{
+    display:flex !important; justify-content:space-between !important; align-items:center !important;
+    position:fixed !important; top:0; left:0; width:100%;
+  }
+
+  /* Drawer: higher than overlay; interactive only when open */
+  nav .nav-links{
+    position:fixed !important;
+    top:max(12px, env(safe-area-inset-top)) !important;
+    left:0 !important; right:0 !important; margin:0 auto !important;
+    width:min(92vw, 480px) !important; max-height:calc(100dvh - 24px - env(safe-area-inset-top)) !important;
+    overflow:auto !important;
+
+    display:flex !important; flex-direction:column !important; gap:10px !important;
+    padding:16px !important; background:#fff !important;
+    border:1px solid #e9edf2 !important; border-radius:16px !important;
+    box-shadow:0 30px 70px rgba(0,0,0,.25) !important;
+
+    opacity:0; pointer-events:none; transform:translateY(8px);
+    transition:opacity .18s ease, transform .18s ease;
+    z-index: 3002 !important;  /* <-- ABOVE .nav-overlay (3000) */
+  }
+  nav .nav-links.show{
+    opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important;
+  }
+
+  /* Big tap targets */
+  nav .nav-links > li{ width:100% !important; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display:block !important; width:100% !important; padding:16px 14px !important;
+    background:#f8fafc !important; border:1px solid #e9edf2 !important; border-radius:14px !important;
+    color:#111 !important; font-weight:800 !important; text-decoration:none !important;
+  }
+
+  /* Inline submenu inside drawer */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    position:static !important; display:none; margin-top:8px !important; width:100% !important;
+    background:#fff !important; border:1px solid #e8e8e8 !important; border-radius:10px !important; box-shadow:none !important; padding:6px !important;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu{ display:block !important; }
+
+  /* Lock background when open */
+  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
+}
