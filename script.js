@@ -5,6 +5,19 @@
 
   const drawer = nav.querySelector('.nav-links');
   const toggle = nav.querySelector('.menu-toggle');
+  let toggle = nav.querySelector('.menu-toggle');
+if (toggle) {
+  // ensure it's a real button, not a link
+  toggle.setAttribute('type', 'button');
+  toggle.setAttribute('aria-expanded', 'false');
+  if (toggle.hasAttribute('href')) toggle.removeAttribute('href');
+  toggle.setAttribute('role', 'button');
+}
+
+// also kill any “#” links globally inside nav so they don't jump
+nav.querySelectorAll('a[href="#"]').forEach(a => {
+  a.addEventListener('click', e => e.preventDefault());
+});
 
   // --------- Single overlay ----------
   let overlay = document.querySelector('.nav-overlay');
