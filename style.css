@@ -1530,3 +1530,91 @@ nav .nav-links > li > .shop-label:hover{ color: var(--primary-blue); }
 /* 6) Z-index hygiene so panels overlay content but not the fixed bar */
 nav { z-index: 1000; }
 nav .nav-links.show { z-index: 1001; }
+/* ============ FINAL NAV REPAIR ============ */
+/* Desktop stays as-is (flex in each <li> is fine there)
+   The issues are only inside the mobile drawer. */
+
+@media (max-width:1024px){
+  /* 1) Stack each nav item vertically inside the drawer
+        (fixes "Shop shifts left + submenu to the right") */
+  nav .nav-links > li{
+    display: block !important;         /* overrides earlier display:flex */
+    align-items: stretch !important;
+  }
+
+  /* 2) Make every top-level item look identical (including Shop <span>) */
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display: block;
+    width: 100%;
+    padding: 16px 14px;
+    background: #f8fafc;
+    border: 1px solid #e9edf2;
+    border-radius: 14px;
+    color: #111;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  /* 3) Submenu lives BELOW the Shop label, full width, no shift */
+  nav li.has-submenu{ padding-bottom: 0 !important; }
+
+  nav li.has-submenu > .submenu,
+  nav li.dropdown > .dropdown-content{
+    position: static !important;
+    display: none;                     /* closed by default */
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    box-shadow: none;
+    background: #fff;
+  }
+  nav li.has-submenu.submenu-open > .submenu,
+  nav li.dropdown.open > .dropdown-content{
+    display: block;                    /* open on tap */
+  }
+
+  /* 4) Submenu links look like tidy buttons */
+  nav .has-submenu > .submenu a,
+  nav .dropdown > .dropdown-content a{
+    display:block;
+    padding:12px 14px;
+    margin:6px 0;
+    font-weight:700;
+    color:#111;
+    text-decoration:none;
+    background:#fff;
+    border:1px solid #e9edf2;
+    border-radius:12px;
+  }
+  nav .has-submenu > .submenu a:hover,
+  nav .dropdown > .dropdown-content a:hover{
+    background:#f5f7fb;
+  }
+
+  /* 5) Kill any leftover “pill” styling that was only on Shop (Contact page) */
+  nav .has-submenu > .shop-label{
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+/* Desktop hover gap already handled elsewhere; keep dropdown visible while moving down */
+@media (hover:hover){
+  nav li.has-submenu,
+  nav li.dropdown{ position:relative; padding-bottom:8px; }
+
+  nav li.has-submenu > .submenu,
+  nav li.dropdown > .dropdown-content{
+    top: calc(100% - 8px); /* overlaps the 8px buffer */
+  }
+  nav li.has-submenu:hover > .submenu,
+  nav li.has-submenu.submenu-open > .submenu,
+  nav li.dropdown:hover > .dropdown-content,
+  nav li.dropdown.open > .dropdown-content{ display:block; }
+}
