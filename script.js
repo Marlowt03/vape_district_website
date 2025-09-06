@@ -132,3 +132,17 @@
     }
   });
 })();
+// Close when clicking/tapping anywhere outside the drawer/menu button
+const outsideClose = (e) => {
+  if (!isMobile()) return;
+  if (!drawer.classList.contains('show')) return;
+
+  const clickedInsideDrawer = drawer.contains(e.target);
+  const clickedMenuBtn      = menuBtn.contains(e.target);
+
+  if (!clickedInsideDrawer && !clickedMenuBtn) {
+    closeMenu();
+  }
+};
+document.addEventListener('click', outsideClose, true);
+document.addEventListener('touchstart', outsideClose, true);
