@@ -1,40 +1,35 @@
-// ===== Vape District — Final stable nav + reviews =====
+// Updated navigation script with robust mobile drawer and submenu handling
 (() => {
-  const nav    = document.querySelector('nav');
+  const nav = document.querySelector('nav');
   if (!nav) return;
 
-const drawer = nav.querySelector('.nav-links') || document.querySelector('.nav-links');
-let   toggle = nav.querySelector('.menu-toggle') || document.querySelector('.menu-toggle');
+  // Drawer element (the collapsible nav-links container)
+  const drawer = nav.querySelector('.nav-links');
+  // Hamburger toggle button
+  let toggle = nav.querySelector('.menu-toggle');
 
-if (toggle) {
-  // ensure it's a real button, not a link
-  toggle.setAttribute('type', 'button');
-  toggle.setAttribute('aria-expanded', 'false');
-  if (toggle.hasAttribute('href')) toggle.removeAttribute('href');
-  toggle.setAttribute('role', 'button');
-} else {
-  // fallback: create the button if markup is missing
-  toggle = document.createElement('button');
-  toggle.className = 'menu-toggle';
-  toggle.type = 'button';
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.textContent = '☰';
-  nav.appendChild(toggle);
-}
-if (toggle) {
-  // ensure it's a real button, not a link
-  toggle.setAttribute('type', 'button');
-  toggle.setAttribute('aria-expanded', 'false');
-  if (toggle.hasAttribute('href')) toggle.removeAttribute('href');
-  toggle.setAttribute('role', 'button');
-}
+  // Ensure the toggle is a button and exists
+  if (toggle) {
+    toggle.setAttribute('type', 'button');
+    toggle.setAttribute('aria-expanded', 'false');
+    if (toggle.hasAttribute('href')) toggle.removeAttribute('href');
+    toggle.setAttribute('role', 'button');
+  } else {
+    // If no toggle exists, create one for reliability
+    toggle = document.createElement('button');
+    toggle.className = 'menu-toggle';
+    toggle.type = 'button';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = '☰';
+    nav.prepend(toggle);
+  }
 
-// also kill any “#” links globally inside nav so they don't jump
-nav.querySelectorAll('a[href="#"]').forEach(a => {
-  a.addEventListener('click', e => e.preventDefault());
-});
+  // Prevent default behaviour for any "#" links to avoid jumping
+  nav.querySelectorAll('a[href="#"]').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
 
-  // --------- Single overlay ----------
+  // Create or retrieve the overlay used when the drawer is open
   let overlay = document.querySelector('.nav-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -42,10 +37,11 @@ nav.querySelectorAll('a[href="#"]').forEach(a => {
     document.body.appendChild(overlay);
   }
 
-  const mq = matchMedia('(max-width:1024px), (hover: none)');
+  // Media query to determine mobile/tablet behaviour
+  const mq = matchMedia('(max-width:1024px),(hover: none)');
   const isMobile = () => mq.matches;
 
-  // --------- Drawer open/close ----------
+  // Open the drawer
   function openDrawer() {
     if (!drawer) return;
     drawer.classList.add('show');
@@ -53,118 +49,119 @@ nav.querySelectorAll('a[href="#"]').forEach(a => {
     document.body.classList.add('no-scroll');
     toggle?.setAttribute('aria-expanded', 'true');
   }
+  // Close the drawer
   function closeDrawer() {
     if (!drawer) return;
     drawer.classList.remove('show');
     overlay.classList.remove('show');
     document.body.classList.remove('no-scroll');
     toggle?.setAttribute('aria-expanded', 'false');
-    // close any mobile submenus
-    nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open')
-      .forEach(li => li.classList.remove('open','submenu-open'));
-    nav.querySelectorAll('a[aria-expanded="true"], .shop-label[aria-expanded="true"]')
-      .forEach(t => t.setAttribute('aria-expanded','false'));
+    // Close any open submenus when closing drawer
+    nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(li => {
+      li.classList.remove('open','submenu-open');
+    });
+    nav.querySelectorAll('a[aria-expanded="true"], .shop-label[aria-expanded="true"]').forEach(t => {
+      t.setAttribute('aria-expanded','false');
+    });
   }
 
-  // Hamburger
-  toggle?.addEventListener('click', (e) => {
+  // Toggle drawer on hamburger click
+  toggle.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    drawer?.classList.contains('show') ? closeDrawer() : openDrawer();
+    if (drawer?.classList.contains('show')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
   });
 
-  // Overlay closes
+  // Clicking on overlay closes drawer
   overlay.addEventListener('click', closeDrawer);
   overlay.addEventListener('touchstart', closeDrawer, { passive: true });
 
-  // Keep clicks inside drawer from closing it
+  // Prevent click inside drawer from bubbling to document and closing it
   drawer?.addEventListener('click', e => e.stopPropagation(), true);
-  drawer?.addEventListener('touchstart', e => e.stopPropagation(), { passive:true });
+  drawer?.addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
 
-  // Click outside to close (mobile only)
+  // Click outside drawer closes it (mobile only)
   document.addEventListener('click', (e) => {
     if (!isMobile()) return;
     if (!drawer?.classList.contains('show')) return;
     const insideDrawer = drawer.contains(e.target);
-    const onToggle     = !!(toggle && toggle.contains(e.target));
+    const onToggle = !!(toggle && toggle.contains(e.target));
     if (!insideDrawer && !onToggle) closeDrawer();
   }, false);
 
-  // --------- Mobile Shop toggle (desktop uses CSS hover) ----------
-  const shopLi = nav.querySelector('li.dropdown, li.has-submenu');
-  const shopTrigger = shopLi?.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
-  if (shopLi && shopTrigger) {
-    shopTrigger.setAttribute('role','button');
-    shopTrigger.setAttribute('tabindex','0');
-    shopTrigger.setAttribute('aria-expanded','false');
+  // Close drawer if we cross breakpoint from mobile to desktop
+  mq.addEventListener?.('change', () => {
+    if (!isMobile()) closeDrawer();
+  });
 
-    const toggleShop = (e) => {
-      if (!isMobile()) return;   // desktop untouched
+  // Attach handlers to each dropdown or submenu trigger for mobile behaviour
+  nav.querySelectorAll('li.dropdown, li.has-submenu').forEach(li => {
+    const trigger = li.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+    if (!trigger) return;
+    trigger.setAttribute('role','button');
+    trigger.setAttribute('tabindex','0');
+    trigger.setAttribute('aria-expanded','false');
+
+    const toggleSubmenu = (e) => {
+      if (!isMobile()) return;
       e.preventDefault();
       e.stopPropagation();
-
-      // Ensure drawer is open so we don't get the flash/close
-      if (!drawer.classList.contains('show')) openDrawer();
-
-      const opening = !(shopLi.classList.contains('open') || shopLi.classList.contains('submenu-open'));
-
-      // Close any other open ones
-      nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open')
-        .forEach(li => { if (li !== shopLi) li.classList.remove('open','submenu-open'); });
-
-      shopLi.classList.toggle('open', opening);
-      shopLi.classList.toggle('submenu-open', opening);
-      shopTrigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+      // Ensure the drawer is open before toggling submenu
+      if (!drawer?.classList.contains('show')) openDrawer();
+      const opening = !(li.classList.contains('open') || li.classList.contains('submenu-open'));
+      // Close any other open submenus
+      nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(other => {
+        if (other !== li) {
+          other.classList.remove('open','submenu-open');
+          const t = other.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+          t?.setAttribute('aria-expanded','false');
+        }
+      });
+      li.classList.toggle('open', opening);
+      li.classList.toggle('submenu-open', opening);
+      trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
     };
 
-    shopTrigger.addEventListener('click', toggleShop);
-    shopTrigger.addEventListener('keydown', (e) => {
+    trigger.addEventListener('click', toggleSubmenu);
+    trigger.addEventListener('keydown', (e) => {
       if (!isMobile()) return;
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleShop(e); }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleSubmenu(e);
+      }
     });
-  }
+  });
 
-  // Close after tapping any real link
+  // Close drawer after clicking any real link (i.e. links with non-# href)
   drawer?.querySelectorAll('a[href]:not([href="#"])').forEach(a => {
     a.addEventListener('click', () => { if (isMobile()) closeDrawer(); });
   });
 
-  // Keep tidy when rotating / crossing breakpoints
-  mq.addEventListener?.('change', () => { if (!isMobile()) closeDrawer(); });
-
-  // --------- Reviews slider ----------
+  // Reviews slider functionality
   const slider = document.querySelector('.reviews-slider');
   if (slider) {
     const slides = Array.from(slider.querySelectorAll('.review-slide'));
-    const prev   = slider.querySelector('.prev');
-    const next   = slider.querySelector('.next');
+    const prev = slider.querySelector('.prev');
+    const next = slider.querySelector('.next');
     if (slides.length && prev && next) {
       let i = slides.findIndex(s => s.classList.contains('active'));
       if (i < 0) i = 0;
       const show = (n) => slides.forEach((s, idx) => s.classList.toggle('active', idx === n));
       show(i);
-      prev.addEventListener('click', (e)=>{ e.preventDefault(); i=(i-1+slides.length)%slides.length; show(i); });
-      next.addEventListener('click', (e)=>{ e.preventDefault(); i=(i+1)%slides.length; show(i); });
+      prev.addEventListener('click', (e) => {
+        e.preventDefault();
+        i = (i - 1 + slides.length) % slides.length;
+        show(i);
+      });
+      next.addEventListener('click', (e) => {
+        e.preventDefault();
+        i = (i + 1) % slides.length;
+        show(i);
+      });
     }
   }
-  
-  // --------- Optional: force-pull the latest style.css on every page ----------
-  // (So you DON'T have to add ?v=... to every HTML file.)
-  // Bump the version to bust caches whenever style.css changes
-  const v = 'navfix8';
-  document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
-    if (!link.href) return;
-    if (link.href.includes('style.css') && !link.href.includes('navfix')) {
-      const url = new URL(link.href, location.href);
-      url.searchParams.set('v', v);
-      link.href = url.toString();
-    }
-  });
 })();
-// Force-refresh ALL stylesheets (no filename guessing)
-const v = 'finalfix9';  // bump this whenever CSS changes
-document.querySelectorAll('link[rel="stylesheet"][href]').forEach(link => {
-  const url = new URL(link.href, location.href);
-  url.searchParams.set('v', v);
-  link.href = url.toString();
-});
