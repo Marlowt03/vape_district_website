@@ -203,3 +203,75 @@
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
   });
 })();
+/* === MOBILE: make "Shop" open/close inside the drawer === */
+(function () {
+  const nav    = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  if (!nav || !drawer) return;
+
+  // Treat as “mobile” when the drawer is open OR the device has no hover
+  const isMobileNow = () => drawer.classList.contains('show') || matchMedia('(hover: none)').matches;
+
+  // Find top-level Shop triggers across both markups
+  const triggers = Array.from(
+    nav.querySelectorAll('li.dropdown > a, li.has-submenu > .shop-label, li.has-submenu > a')
+  );
+
+  // Keep clicks inside the drawer from bubbling to any outside-closer
+  drawer.addEventListener('click', (e) => {
+    if (isMobileNow()) e.stopPropagation();
+  }, true);
+
+  function openShop(li) {
+    // close any other open ones first
+    nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open')
+      .forEach(other => { if (other !== li) { other.classList.remove('open','submenu-open'); } });
+
+    // open this one + show its panel immediately (no CSS dependency)
+    li.classList.add('open','submenu-open');
+    const panel = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
+    if (panel) panel.style.display = 'block';
+
+    // aria for the trigger
+    const t = li.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+    if (t) t.setAttribute('aria-expanded','true');
+  }
+
+  function closeShop(li) {
+    li.classList.remove('open','submenu-open');
+    const panel = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
+    if (panel) panel.style.display = ''; // back to CSS default
+    const t = li.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+    if (t) t.setAttribute('aria-expanded','false');
+  }
+
+  triggers.forEach(trigger => {
+    const li = trigger.closest('li.dropdown, li.has-submenu');
+    if (!li) return;
+
+    trigger.addEventListener('click', (e) => {
+      if (!isMobileNow()) return;      // desktop stays hover-only
+      e.preventDefault();              // prevent href="#" jump
+      e.stopPropagation();             // don’t trigger outside-closers
+
+      const isOpen = li.classList.contains('open') || li.classList.contains('submenu-open');
+      if (isOpen) {
+        closeShop(li);
+      } else {
+        // if something closed the drawer earlier in the tick, reopen it
+        if (!drawer.classList.contains('show')) {
+          drawer.classList.add('show');
+          document.body.classList.add('no-scroll');
+        }
+        // ensure we open after any other handlers run
+        setTimeout(() => openShop(li), 0);
+      }
+    });
+
+    // space/enter support in the drawer
+    trigger.addEventListener('keydown', (e) => {
+      if (!isMobileNow()) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+    });
+  });
+})();
