@@ -917,3 +917,29 @@ nav .has-submenu > .shop-label::after{ content: none !important; }
   /* When drawer is open, prevent the page from scrolling */
   body.no-scroll{ height: 100dvh; overflow: hidden !important; }
 }
+/* ==== DESKTOP NAV — keep fully in viewport and spaced ==== */
+@media (min-width: 1025px){
+  /* Keep nav sizing inside the viewport box */
+  * { box-sizing: border-box; }
+  html, body { max-width: 100vw; overflow-x: hidden; }
+
+  nav{
+    position: fixed; top:0; left:0; right:0;       /* ensure it spans viewport */
+    width: 100vw;                                   /* avoid accidental overflow */
+    display: flex !important;                       /* use flex on desktop */
+    align-items: center;
+    justify-content: space-between;                 /* logo left, links right */
+    padding: 1.25rem clamp(20px, 4vw, 56px);        /* fluid horizontal padding */
+    backdrop-filter: blur(4px);
+  }
+
+  /* Tidy spacing so nothing “hangs” off the sides */
+  .nav-logo{
+    margin: 0;                                      /* remove extra push/pull */
+    font-size: 2.4rem;                              /* slightly smaller = safer */
+  }
+  .nav-links{
+    margin-left: 0;                                 /* kill hard 3rem shove */
+    gap: clamp(16px, 3vw, 48px);                    /* fluid gap */
+  }
+}
