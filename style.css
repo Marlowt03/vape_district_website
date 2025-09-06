@@ -1212,3 +1212,22 @@ nav { box-sizing: border-box !important; }
     font-size: 1.4rem !important;       /* keeps your size */
   }
 }
+/* stacking order: drawer (3002) > overlay (3000) */
+.nav-overlay { z-index: 3000 !important; }
+nav          { z-index: 3001 !important; }
+
+@media (max-width:1024px){
+  /* keep your existing drawer styles; just ensure it’s above overlay */
+  nav .nav-links{
+    z-index: 3002 !important;
+    opacity: 0; pointer-events: none; transform: translateY(8px);
+    transition: opacity .18s ease, transform .18s ease;
+    position: fixed !important;
+    left: 0 !important; right: 0 !important; margin: 0 auto !important;
+    top: max(12px, env(safe-area-inset-top)) !important;
+    width: min(92vw, 480px) !important;
+  }
+  nav .nav-links.show{
+    opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important;
+  }
+}
