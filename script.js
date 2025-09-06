@@ -1,124 +1,141 @@
-// ===== Vape District — Navigation + Reviews (desktop unchanged) =====
-(function () {
-  const header  = document.querySelector('nav');
-  const drawer  = document.querySelector('nav .nav-links');
-  const toggle  = document.querySelector('.menu-toggle');
+/* =========================================================
+   Vape District — Single, clean JS for Nav + Reviews
+   Desktop behavior (hover) is untouched.
+   Mobile uses a centered drawer; Shop toggles inline.
+   ========================================================= */
 
-  // ---------- Overlay (one-time) ----------
+(function () {
+  const nav    = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  const toggle = nav?.querySelector('.menu-toggle');
+  if (!nav || !drawer || !toggle) return;
+
+  // ---------- Overlay ----------
   let overlay = document.querySelector('.nav-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
     overlay.className = 'nav-overlay';
-    // inline styles ensure no old CSS can hide it
     Object.assign(overlay.style, {
-      position: 'fixed', inset: '0', background: 'rgba(0,0,0,.45)',
-      zIndex: '2000', display: 'none'
+      position: 'fixed',
+      inset: '0',
+      background: 'rgba(0,0,0,.45)',
+      zIndex: '2000',
+      display: 'none'
     });
     document.body.appendChild(overlay);
   }
 
-  const mqMobile = matchMedia('(max-width:1024px), (hover: none)');
-  const isMobile = () => mqMobile.matches;
+  const isTouch = () => matchMedia('(hover: none), (pointer: coarse), (max-width:1024px)').matches;
 
   // ---------- Drawer open/close ----------
-  function openDrawer() {
-    if (!drawer) return;
-    drawer.classList.add('show');
-    drawer.style.zIndex = '2001';   // above overlay
-    overlay.style.display = 'block';
-    document.body.classList.add('no-scroll');
-    toggle?.setAttribute('aria-expanded', 'true');
+  function closeAllSubmenus() {
+    drawer.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(li => {
+      li.classList.remove('open', 'submenu-open');
+      const panel = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
+      if (panel) panel.style.display = '';
+      const t = li.querySelector(':scope > a, :scope > .shop-label, :scope > .shop-toggle, :scope > button, :scope > span');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
   }
 
-  function closeSubmenus() {
-    document.querySelectorAll('nav .has-submenu.submenu-open, nav .dropdown.open')
-      .forEach(li => li.classList.remove('submenu-open', 'open'));
-    document.querySelectorAll('nav .shop-label[aria-expanded="true"], nav .shop-toggle[aria-expanded="true"]')
-      .forEach(t => t.setAttribute('aria-expanded','false'));
+  function openDrawer() {
+    drawer.classList.add('show');
+    drawer.style.zIndex = '2001';
+    overlay.style.display = 'block';
+    document.body.classList.add('no-scroll');
+    toggle.setAttribute('aria-expanded', 'true');
   }
 
   function closeDrawer() {
-    if (!drawer) return;
     drawer.classList.remove('show');
     overlay.style.display = 'none';
     document.body.classList.remove('no-scroll');
-    toggle?.setAttribute('aria-expanded','false');
-    closeSubmenus();
+    toggle.setAttribute('aria-expanded', 'false');
+    closeAllSubmenus();
   }
 
-  // Toggle button
-  if (toggle && drawer) {
-    toggle.addEventListener('click', () => {
-      drawer.classList.contains('show') ? closeDrawer() : openDrawer();
-    });
-  }
+  toggle.addEventListener('click', () => {
+    drawer.classList.contains('show') ? closeDrawer() : openDrawer();
+  });
 
-  // Overlay closes
   overlay.addEventListener('click', closeDrawer);
   overlay.addEventListener('touchstart', closeDrawer, { passive: true });
 
-  // IMPORTANT: click-outside in *bubbling* phase (not capture)
-  const outsideClose = (e) => {
-    if (!isMobile()) return;
-    if (!drawer || !drawer.classList.contains('show')) return;
-
-    const insideDrawer = drawer.contains(e.target);
-    const onToggle     = !!(toggle && toggle.contains(e.target));
-    const insideHeader = !!(header && header.contains(e.target));
-
-    // We only close if the tap/click is truly outside the nav + drawer + toggle
-    if (!insideDrawer && !onToggle && !insideHeader) closeDrawer();
-  };
-  document.addEventListener('click', outsideClose, false);
-  document.addEventListener('touchstart', outsideClose, { passive: true });
-
-  // Keep taps inside drawer from bubbling up to document (extra safety)
-  drawer?.addEventListener('click', (e) => e.stopPropagation());
-  drawer?.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
-
-  // ESC to close
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+  // Keep taps inside the drawer from closing it
+  drawer.addEventListener('click', (e) => { if (isTouch()) e.stopPropagation(); }, true);
+  drawer.addEventListener('touchstart', (e) => { if (isTouch()) e.stopPropagation(); }, { passive: true, capture: true });
 
   // Close after clicking any real link
-  drawer?.querySelectorAll('a[href]').forEach(a => a.addEventListener('click', closeDrawer));
+  drawer.querySelectorAll('a[href]').forEach(a => {
+    a.addEventListener('click', () => {
+      // let navigation happen; then tidy
+      setTimeout(closeDrawer, 0);
+    });
+  });
 
-  // ---------- Mobile “Shop” toggle (desktop still uses hover CSS) ----------
-  const shopLi = document.querySelector('nav li.has-submenu, nav li.dropdown');
-  const shopTrigger = shopLi?.querySelector(':scope > .shop-label, :scope > .shop-toggle, :scope > a, :scope > span');
+  // ---------- Mobile Shop toggle (drawer only) ----------
+  // Works with either <li class="dropdown"> or <li class="has-submenu">
+  const shopLis = Array.from(nav.querySelectorAll('li.dropdown, li.has-submenu'));
+  shopLis.forEach(li => {
+    const trigger = li.querySelector(':scope > .shop-label, :scope > .shop-toggle, :scope > a, :scope > button, :scope > span');
+    const panel   = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
+    if (!trigger || !panel) return;
 
-  if (shopLi && shopTrigger) {
-    shopTrigger.setAttribute('role', 'button');
-    shopTrigger.setAttribute('tabindex', '0');
-    shopTrigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('role', 'button');
+    trigger.setAttribute('tabindex', '0');
+    trigger.setAttribute('aria-expanded', 'false');
 
-    const toggleShop = (e) => {
-      if (!isMobile()) return;        // desktop uses CSS hover
+    function openShop() {
+      // close others first
+      shopLis.forEach(other => {
+        if (other !== li) {
+          other.classList.remove('open', 'submenu-open');
+          const p = other.querySelector(':scope > .dropdown-content, :scope > .submenu');
+          if (p) p.style.display = '';
+          const t = other.querySelector(':scope > a, :scope > .shop-label, :scope > .shop-toggle, :scope > button, :scope > span');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      li.classList.add('open', 'submenu-open');
+      panel.style.display = 'block';
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeShop() {
+      li.classList.remove('open', 'submenu-open');
+      panel.style.display = '';
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggleShop(e) {
+      // Only intercept when the drawer is open (mobile)
+      if (!drawer.classList.contains('show')) return;
       e.preventDefault();
       e.stopPropagation();
 
-      const willOpen = !shopLi.classList.contains('submenu-open') && !shopLi.classList.contains('open');
+      const isOpen = li.classList.contains('open') || li.classList.contains('submenu-open');
+      isOpen ? closeShop() : openShop();
+    }
 
-      // close any other open dropdowns
-      document.querySelectorAll('nav li.has-submenu, nav li.dropdown').forEach(li => {
-        if (li !== shopLi) li.classList.remove('submenu-open','open');
-      });
-
-      shopLi.classList.toggle('submenu-open', willOpen);
-      shopLi.classList.toggle('open', willOpen);
-      shopTrigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-    };
-
-    shopTrigger.addEventListener('click', toggleShop);
-    shopTrigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleShop(e); }
+    trigger.addEventListener('click', toggleShop);
+    trigger.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && drawer.classList.contains('show')) {
+        e.preventDefault();
+        toggleShop(e);
+      }
     });
-  }
+  });
 
-  // If viewport changes (e.g., rotate), tidy up
-  mqMobile.addEventListener?.('change', () => { if (!isMobile()) closeDrawer(); });
+  // If the viewport changes (rotate etc.), close the drawer cleanly on leaving mobile
+  matchMedia('(max-width:1024px)').addEventListener?.('change', (mq) => {
+    if (!mq.matches) closeDrawer();
+  });
 })();
 
-// ===== Reviews slider (Home page) =====
+/* =======================
+   Reviews slider (Home)
+   ======================= */
 (function () {
   const root = document.querySelector('.reviews-slider');
   if (!root) return;
@@ -126,152 +143,25 @@
   const slides = Array.from(root.querySelectorAll('.review-slide'));
   const prev   = root.querySelector('.prev');
   const next   = root.querySelector('.next');
-
   if (!slides.length || !prev || !next) return;
 
-  let index = slides.findIndex(s => s.classList.contains('active'));
-  if (index < 0) index = 0;
+  let index = Math.max(0, slides.findIndex(s => s.classList.contains('active')));
 
   function show(i) {
     slides.forEach((s, n) => s.classList.toggle('active', n === i));
   }
-
-  prev.addEventListener('click', () => {
-    index = (index - 1 + slides.length) % slides.length;
+  function go(delta) {
+    index = (index + delta + slides.length) % slides.length;
     show(index);
-  });
+  }
 
-  next.addEventListener('click', () => {
-    index = (index + 1) % slides.length;
-    show(index);
-  });
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
 
-  // optional: keyboard support when slider is focused
+  // Optional keyboard navigation
+  root.tabIndex = 0;
   root.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') prev.click();
-    if (e.key === 'ArrowRight') next.click();
-  });
-})();
-/* === HOTFIX: mobile tap on "Shop" should NOT close the drawer === */
-(function () {
-  const mq = matchMedia('(max-width:1024px), (hover: none)');
-  const isMobile = () => mq.matches;
-
-  const nav    = document.querySelector('nav');
-  const drawer = nav?.querySelector('.nav-links');
-  if (!nav || !drawer) return;
-
-  // Find the top-level Shop item regardless of markup variant
-  const shopLi = nav.querySelector('li.dropdown, li.has-submenu');
-  const trigger = shopLi?.querySelector(':scope > .shop-label, :scope > .shop-toggle, :scope > a, :scope > span, :scope > button');
-  if (!shopLi || !trigger) return;
-
-  // Keep drawer clicks from bubbling up to any outside-closers (mobile only)
-  drawer.addEventListener('click', (e) => { if (isMobile()) e.stopPropagation(); }, true);
-
-  function openDrawer(){
-    drawer.classList.add('show');
-    document.body.classList.add('no-scroll');
-  }
-
-  function toggleShop(open){
-    shopLi.classList.toggle('open', open);
-    shopLi.classList.toggle('submenu-open', open);
-    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  }
-
-  trigger.addEventListener('click', (e) => {
-    if (!isMobile()) return;          // desktop still uses hover; untouched
-    e.preventDefault();               // ignore href="#" jump
-    e.stopPropagation();              // don't let outside-closers see this tap
-
-    const wantOpen = !(shopLi.classList.contains('open') || shopLi.classList.contains('submenu-open'));
-
-    // Run after any global listeners (including existing closers)
-    setTimeout(() => {
-      if (!drawer.classList.contains('show')) openDrawer();  // if something closed it, reopen
-      // Close other open dropdowns, if any
-      document.querySelectorAll('nav li.dropdown.open, nav li.has-submenu.submenu-open')
-        .forEach(li => { if (li !== shopLi) li.classList.remove('open','submenu-open'); });
-      toggleShop(wantOpen);
-    }, 0);
-  });
-
-  // Optional keyboard support in the drawer
-  trigger.addEventListener('keydown', (e) => {
-    if (!isMobile()) return;
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
-  });
-})();
-/* === MOBILE: make "Shop" open/close inside the drawer === */
-(function () {
-  const nav    = document.querySelector('nav');
-  const drawer = nav?.querySelector('.nav-links');
-  if (!nav || !drawer) return;
-
-  // Treat as “mobile” when the drawer is open OR the device has no hover
-  const isMobileNow = () => drawer.classList.contains('show') || matchMedia('(hover: none)').matches;
-
-  // Find top-level Shop triggers across both markups
-  const triggers = Array.from(
-    nav.querySelectorAll('li.dropdown > a, li.has-submenu > .shop-label, li.has-submenu > a')
-  );
-
-  // Keep clicks inside the drawer from bubbling to any outside-closer
-  drawer.addEventListener('click', (e) => {
-    if (isMobileNow()) e.stopPropagation();
-  }, true);
-
-  function openShop(li) {
-    // close any other open ones first
-    nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open')
-      .forEach(other => { if (other !== li) { other.classList.remove('open','submenu-open'); } });
-
-    // open this one + show its panel immediately (no CSS dependency)
-    li.classList.add('open','submenu-open');
-    const panel = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
-    if (panel) panel.style.display = 'block';
-
-    // aria for the trigger
-    const t = li.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
-    if (t) t.setAttribute('aria-expanded','true');
-  }
-
-  function closeShop(li) {
-    li.classList.remove('open','submenu-open');
-    const panel = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
-    if (panel) panel.style.display = ''; // back to CSS default
-    const t = li.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
-    if (t) t.setAttribute('aria-expanded','false');
-  }
-
-  triggers.forEach(trigger => {
-    const li = trigger.closest('li.dropdown, li.has-submenu');
-    if (!li) return;
-
-    trigger.addEventListener('click', (e) => {
-      if (!isMobileNow()) return;      // desktop stays hover-only
-      e.preventDefault();              // prevent href="#" jump
-      e.stopPropagation();             // don’t trigger outside-closers
-
-      const isOpen = li.classList.contains('open') || li.classList.contains('submenu-open');
-      if (isOpen) {
-        closeShop(li);
-      } else {
-        // if something closed the drawer earlier in the tick, reopen it
-        if (!drawer.classList.contains('show')) {
-          drawer.classList.add('show');
-          document.body.classList.add('no-scroll');
-        }
-        // ensure we open after any other handlers run
-        setTimeout(() => openShop(li), 0);
-      }
-    });
-
-    // space/enter support in the drawer
-    trigger.addEventListener('keydown', (e) => {
-      if (!isMobileNow()) return;
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
-    });
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
   });
 })();
