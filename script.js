@@ -183,3 +183,114 @@
     }
   }
 })();
+// --- FINAL one-tap mobile menu handler (append-only, capture-phase) ---
+(() => {
+  const nav = document.querySelector('nav');
+  if (!nav) return;
+
+  const drawer  = nav.querySelector('.nav-links');
+  const overlay = document.querySelector('.nav-overlay');
+  const toggle  = nav.querySelector('.menu-toggle');
+  const mq      = matchMedia('(max-width:1024px),(hover: none)');
+  const isMobile = () => mq.matches;
+
+  const hasPanel = (li) => !!li?.querySelector(':scope > .dropdown-content, :scope > .submenu, :scope > .sub-dropdown');
+
+  function ensureDrawerOpen() {
+    if (!drawer) return;
+    if (!drawer.classList.contains('show')) {
+      drawer.classList.add('show');
+      overlay?.classList.add('show');
+      document.body.classList.add('no-scroll');
+      toggle?.setAttribute('aria-expanded','true');
+    }
+  }
+  function closeDrawer() {
+    if (!drawer) return;
+    drawer.classList.remove('show');
+    overlay?.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+    toggle?.setAttribute('aria-expanded','false');
+  }
+
+  nav.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+
+    // 1) TOP-LEVEL trigger (Shop). Must be a direct child of li.dropdown / li.has-submenu
+    const topTrigger = e.target.closest(
+      'li.dropdown > a, li.dropdown > .shop-label, li.dropdown > button, li.dropdown > span,' +
+      'li.has-submenu > a, li.has-submenu > .shop-label, li.has-submenu > button, li.has-submenu > span'
+    );
+    if (topTrigger) {
+      const li = topTrigger.parentElement;
+      // If this LI actually owns a panel, treat as toggler. Otherwise let it navigate as a normal link
+      if (hasPanel(li)) {
+        e.preventDefault();
+        e.stopImmediatePropagation(); // prevent any other handlers from re-toggling
+        ensureDrawerOpen();
+
+        const opening = !(li.classList.contains('open') || li.classList.contains('submenu-open'));
+
+        // Close any other top-level open menus
+        nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(other => {
+          if (other !== li) {
+            other.classList.remove('open','submenu-open');
+            const ot = other.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+            ot?.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        li.classList.toggle('open', opening);
+        li.classList.toggle('submenu-open', opening);
+        topTrigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+      } else {
+        // No panel = a real link. Close the drawer and let the browser navigate on first tap.
+        e.stopImmediatePropagation();
+        closeDrawer();
+        // do NOT call preventDefault(); navigation proceeds
+      }
+      return; // handled
+    }
+
+    // 2) NESTED items inside the Shop dropdown (e.g., Detox, Mystery Boxes, 420, Vapes)
+    const nestedTrigger = e.target.closest(
+      'li.submenu > a, li.submenu > .has-sub, li.submenu > button, li.submenu > span'
+    );
+    if (nestedTrigger) {
+      const li = nestedTrigger.parentElement;
+      const href = nestedTrigger.getAttribute?.('href');
+
+      // If it's a real link (href and not '#'), we navigate immediately (no toggle, no double-tap)
+      if (href && href !== '#') {
+        e.stopImmediatePropagation();
+        closeDrawer(); // tidy close, then allow default nav
+        return;
+      }
+
+      // Otherwise, only toggle if there is actually a nested panel
+      if (hasPanel(li)) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        ensureDrawerOpen();
+
+        const opening = !li.classList.contains('submenu-open');
+
+        // Close only sibling nested submenus under the same parent
+        const parent = li.parentElement;
+        if (parent) {
+          Array.from(parent.children).forEach(sib => {
+            if (sib !== li && sib.classList?.contains('submenu')) {
+              sib.classList.remove('submenu-open');
+              const t = sib.querySelector(':scope > a, :scope > .has-sub, :scope > button, :scope > span');
+              t?.setAttribute('aria-expanded','false');
+            }
+          });
+        }
+
+        li.classList.toggle('submenu-open', opening);
+        nestedTrigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+      }
+      return; // handled
+    }
+  }, true); // capture so we win before any other listeners
+})();
