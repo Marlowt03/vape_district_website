@@ -753,270 +753,121 @@ section {
     display: none;
   }
 }
-/* ========= NAV FIX PATCH (append at very end of style.css) ========= */
+/* =========================
+   NAV â€” FINAL MOBILE + DESKTOP OVERRIDES
+   Paste this block AT THE VERY END of style.css
+   ========================= */
 
-/* Layering: overlay below the drawer, both above the fixed header */
+/* Never allow sideways scroll */
+html, body { overflow-x: hidden !important; }
+
+/* Overlay (single definition, above the fixed header) */
 .nav-overlay{
   position: fixed; inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0,0,0,.35);
   opacity: 0; pointer-events: none;
   transition: opacity .18s ease;
-  z-index: 2000 !important;   /* below the drawer */
+  z-index: 2000;
 }
 .nav-overlay.show{ opacity: 1; pointer-events: auto; }
 
-/* Prevent background scroll while drawer is open */
-body.no-scroll{ height: 100dvh; overflow: hidden; }
-
-/* -------------------- MOBILE (≤1024px) -------------------- */
+/* Ensure the fixed header layout is stable */
+nav{ display:grid !important; grid-template-columns: 1fr auto; align-items:center; }
+.menu-toggle{ display:none; }
 @media (max-width:1024px){
-
-  /* The drawer is the <ul class="nav-links"> — center it and keep it in-frame */
-  nav .nav-links{
-    position: fixed !important;
-    top: max(12px, env(safe-area-inset-top));
-    left: 50% !important; right: auto !important;
-    transform: translateX(-50%) translateY(8px);
-    width: min(92vw, 480px);
-    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
-    overflow: auto;
-    background: #fff;
-    border: 1px solid #e9edf2;
-    border-radius: 16px;
-    box-shadow: 0 30px 70px rgba(0,0,0,.25);
-    padding: 16px;
-    flex-direction: column;
-    gap: 10px;
-
-    /* critical: override any earlier nav spacing that shoved it sideways */
-    margin-left: 0 !important;
-    opacity: 0; pointer-events: none;
-    transition: opacity .18s ease, transform .18s ease;
-    z-index: 2001 !important;   /* above the overlay */
-  }
-  nav .nav-links.show{
-    opacity: 1; pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  /* Big tap targets for top-level items */
-  nav .nav-links > li{ width: 100%; }
-  nav .nav-links > li > a,
-  nav .nav-links > li > .shop-label{
-    display: block; width: 100%;
-    padding: 16px 14px;
-    background: #f8fafc;
-    border: 1px solid #e9edf2; border-radius: 14px;
-    color: #111; font-weight: 800; text-decoration: none;
-  }
-  nav .nav-links > li > a:hover,
-  nav .nav-links > li > .shop-label:hover{ background: #f5f7fb; }
-
-  /* Show the Shop panel when JS adds classes — inline, full width */
-  nav li.dropdown > .dropdown-content,
-  nav li.has-submenu > .submenu{
-    display: none; position: static !important;
-    width: 100% !important; max-width: 100% !important;
-    margin-top: 8px; padding: 6px;
-    border: 1px solid #e8e8e8; border-radius: 10px;
-    box-shadow: none; background: #fff;
-  }
-  nav li.dropdown.open > .dropdown-content,
-  nav li.has-submenu.submenu-open > .submenu{
-    display: block !important;
-  }
-
-  /* Links inside the dropdown look like tidy buttons */
-  nav .dropdown .dropdown-content a,
-  nav .has-submenu .submenu a{
-    display:block; padding:12px 14px; margin:6px 0;
-    font-weight:700; color:#111; text-decoration:none;
-    background:#fff; border:1px solid #e9edf2; border-radius:12px;
-  }
-
-  /* Kill any caret/odd styling on the Shop label */
-  nav .dropdown > a::after,
-  nav .has-submenu > .shop-label::after{ content: none !important; }
-  nav .has-submenu > .shop-label{
-    background: transparent !important;
-    border: none !important; box-shadow: none !important; outline: none !important;
-  }
+  .menu-toggle{ display:block !important; font-size:2rem; color: var(--primary-blue); }
 }
 
-/* -------------------- DESKTOP (hover devices) -------------------- */
-@media (hover:hover){
-
-  /* Remove the hover gap under "Shop" so the panel stays open while you move down */
-  nav li.dropdown, nav li.has-submenu{ position: relative; padding-bottom: 8px; }
-
-  /* Create an invisible “bridge” just below the trigger */
-  nav li.dropdown > a::after,
-  nav li.has-submenu > .shop-label::after{
-    content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px;
-  }
-
-  /* Position the dropdown to overlap that 8px buffer */
-  nav li.dropdown > .dropdown-content,
-  nav li.has-submenu > .submenu{
-    display: none;
-    position: absolute; top: calc(100% - 8px); left: 0;
-    min-width: 240px; max-width: min(92vw, 320px);
-    background: #fff; border: 1px solid #e8e8e8;
-    border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,.12);
-    padding: 8px 0; z-index: 999;
-  }
-
-  /* Keep the panel visible while hovering either the trigger or the panel */
-  nav li.dropdown:hover > .dropdown-content,
-  nav li.dropdown > .dropdown-content:hover,
-  nav li.has-submenu:hover > .submenu,
-  nav li.has-submenu > .submenu:hover{
-    display: block;
-  }
-
-  /* Dropdown links on desktop */
-  nav .dropdown .dropdown-content a,
-  nav .has-submenu .submenu a{
-    display:block; padding:10px 14px; margin:6px 8px;
-    color:#111; text-decoration:none; font-weight:600;
-    border-radius: 10px;
-  }
-  nav .dropdown .dropdown-content a:hover,
-  nav .has-submenu .submenu a:hover{ background:#f5f7fb; }
-}
-
-/* Remove any tiny caret that might still appear */
-nav .dropdown > a::after,
-nav .has-submenu > .shop-label::after{ content: none !important; }
-
-/* ========= END NAV FIX PATCH ========= */
-/* =============================================================
-   NAV PATCH — paste this after your existing styles (line ~756+)
-   Mobile drawer + overlay + desktop hover anti-gap (single source of truth)
-   ============================================================= */
-
-/* Safety: never allow sideways scroll */
-html, body { overflow-x: hidden; }
-
-/* 0) Overlay that dims the page and closes on tap */
-.nav-overlay{
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.35);        /* lighter dim */
-  opacity: 0; pointer-events: none;
-  transition: opacity .18s ease;
-  z-index: 2000;                      /* above the fixed <nav> */
-  display: none;
-}
-.nav-overlay.show{ display:block; opacity: 1; pointer-events: auto; }
-
-/* 1) Desktop dropdowns — keep panel attached (no hover gap) */
+/* --- DESKTOP dropdown: keep panel "bridged" to the button (no flicker) --- */
 @media (hover:hover){
   nav li.dropdown,
-  nav li.has-submenu{ position: relative; padding-bottom: 10px; }
-
+  nav li.has-submenu{ position:relative; padding-bottom:10px; }
   nav li.dropdown > .dropdown-content,
   nav li.has-submenu > .submenu{
-    display: none;
-    position: absolute;
-    top: calc(100% - 10px);           /* overlaps the 10px bridge */
-    left: 0;
-    min-width: 240px;
-    max-width: min(92vw, 320px);
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(0,0,0,.12);
-    padding: 8px 0;
-    z-index: 999;
+    display:none;
+    position:absolute; left:0; top:calc(100% - 10px);
+    min-width:240px; max-width:min(92vw, 340px);
+    background:#fff; border:1px solid #e8e8e8; border-radius:12px;
+    box-shadow:0 14px 28px rgba(0,0,0,.12); padding:8px; z-index:1500;
   }
-
   nav li.dropdown:hover > .dropdown-content,
-  nav li.has-submenu:hover > .submenu{ display: block; }
-
-  /* hover bridge so you can move mouse down without losing it */
+  nav li.has-submenu:hover > .submenu{ display:block; }
+  /* invisible bridge under the button so mouse can travel down */
   nav li.dropdown::after,
-  nav li.has-submenu::after{
-    content: ''; position: absolute; left: 0; right: 0; height: 10px; bottom: 0;
-  }
-
-  /* link styling inside the panel */
-  nav .dropdown .dropdown-content a,
-  nav .has-submenu .submenu a{
-    display: block; padding: 10px 14px; margin: 6px 0;
-    font-weight: 600; color: #111; text-decoration: none;
-    border: 1px solid #e9edf2; border-radius: 12px; background: #fff;
-  }
-  nav .dropdown .dropdown-content a:hover,
-  nav .has-submenu .submenu a:hover{ background:#f5f7fb; }
+  nav li.has-submenu::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:10px; }
 }
 
-/* Remove any small caret that might still render under “Shop” */
-nav .dropdown > a::after,
-nav .has-submenu > .shop-label::after{ content: none !important; }
-
-/* 2) Mobile drawer — centered, in-frame, scrollable */
+/* --- MOBILE drawer (centered card) --- */
 @media (max-width:1024px){
-  nav{ display: grid; grid-template-columns: 1fr auto; align-items: center; }
-  .menu-toggle{ display: block; font-size: 2rem; color: var(--primary-blue); }
-
+  /* the UL becomes a centered panel */
   nav .nav-links{
-    position: fixed;
-    left: 50%;
-    top: max(12px, env(safe-area-inset-top));
-    transform: translateX(-50%) translateY(8px);
-    width: min(92vw, 480px);
-    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
-    overflow: auto;
-    background: #fff;
-    color: #101418;
-    border: 1px solid #e9edf2;
-    border-radius: 16px;
-    box-shadow: 0 30px 70px rgba(0,0,0,.25);
-    padding: 16px;
-    flex-direction: column;
-    gap: 10px;
-    opacity: 0;
-    pointer-events: none;
+    position: fixed !important;
+    left: 50% !important;
+    top: max(12px, env(safe-area-inset-top)) !important;
+    transform: translateX(-50%) translateY(8px) !important;
+    width: min(92vw, 480px) !important;
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top)) !important;
+    overflow: auto !important;
+    background: #fff !important;
+    border: 1px solid #e9edf2 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25) !important;
+    padding: 16px !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    opacity: 0; pointer-events: none;
     transition: opacity .18s ease, transform .18s ease;
-    z-index: 2001; /* above overlay */
+    z-index: 2001 !important; /* above overlay */
   }
   nav .nav-links.show{
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
   }
 
-  /* prevent page scroll when drawer is open */
-  body.no-scroll{ height: 100dvh; overflow: hidden; }
-
-  /* top level items look identical (including the Shop <span>) */
-  nav .nav-links > li{ width: 100%; display: block; }
+  /* Big tap targets for each top-level item (including Shop <span>) */
+  nav .nav-links > li{ width:100% !important; display:block !important; }
   nav .nav-links > li > a,
-  nav .nav-links > li > .shop-label{
-    display: block; width: 100%;
-    padding: 16px 14px;
-    border: 1px solid #e9edf2; border-radius: 14px;
-    background: #f8fanc; color: #111; font-weight: 800; text-decoration: none;
+  nav .nav-links > li > .shop-label,
+  nav .nav-links > li > .shop-toggle{
+    display:block !important;
+    width:100% !important;
+    padding:16px 14px !important;
+    background:#f8fafc !important;
+    border:1px solid #e9edf2 !important;
+    border-radius:14px !important;
+    color:#111 !important;
+    font-weight:800 !important;
+    text-decoration:none !important;
   }
+  nav .nav-links > li > a:active,
+  nav .nav-links > li > .shop-label:active{ transform: translateY(1px); }
 
-  /* dropdown panel shows inline when JS adds .open/.submenu-open */
+  /* Submenu opens inline under Shop, full width */
   nav li.dropdown > .dropdown-content,
   nav li.has-submenu > .submenu{
     position: static !important;
-    width: 100% !important; max-width: 100% !important;
-    border: 1px solid #e8e8e8; border-radius: 10px;
-    box-shadow: none; margin-top: 8px; padding: 6px;
-    background: #fff; display: none;
+    display: none;
+    width:100% !important; max-width:100% !important;
+    margin-top:8px; padding:6px;
+    border:1px solid #e8e8e8; border-radius:10px;
+    box-shadow:none; background:#fff;
   }
   nav li.dropdown.open > .dropdown-content,
-  nav li.has-submenu.submenu-open > .submenu{ display: block !important; }
+  nav li.has-submenu.submenu-open > .submenu{ display:block !important; }
 
-  /* kill flyout-on-hover inside mobile */
-  nav .submenu .sub-dropdown{ display: none !important; }
-  nav .submenu .has-sub::after{ content: '' !important; }
+  /* Links inside the submenu */
+  nav .dropdown .dropdown-content a,
+  nav .has-submenu .submenu a{
+    display:block; padding:12px 14px; margin:6px 0;
+    background:#fff; border:1px solid #e9edf2; border-radius:12px;
+    color:#111; font-weight:700; text-decoration:none;
+  }
+
+  /* Body lock when drawer is open */
+  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
 }
 
-/* 3) Layering hygiene */
-nav{ z-index: 1000; }                 /* fixed header */
-@media (max-width:1024px){ nav .nav-links{ z-index: 2001; } } /* above overlay */
-/* End of patch */
+/* Remove any tiny caret that might still appear on â€œShopâ€ */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after{ content:none !important; }
