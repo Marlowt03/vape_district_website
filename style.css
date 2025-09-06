@@ -1068,3 +1068,23 @@ body.no-scroll{ height: 100dvh; overflow: hidden; }
     outline: none !important;
   }
 }
+/* --- Overlay must sit above fixed <nav> but below the drawer --- */
+.nav-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 2000;            /* above the header */
+}
+.nav-overlay.show{ opacity: 1; pointer-events: auto; }
+
+/* Make sure the drawer sits above the overlay */
+@media (max-width: 1024px){
+  nav .nav-links.show{ z-index: 2001; }  /* higher than .nav-overlay */
+}
+
+/* Remove any little dropdown arrow/caret you might still see */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after{
+  content: none !important;
+}
