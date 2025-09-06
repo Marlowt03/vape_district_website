@@ -906,3 +906,104 @@ html, body {
     display: none !important;
   }
 }
+/* ===== NAV FIX (minimal, non-destructive) ===== */
+
+/* Overlay sits under drawer */
+.nav-overlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.35);
+  opacity:0; pointer-events:none;
+  transition:opacity .18s ease;
+  z-index:2000;                /* UNDER the drawer */
+}
+.nav-overlay.show{ opacity:1; pointer-events:auto; }
+
+/* Desktop (≥1025px): keep layout, stop right-drift, don't shrink text */
+@media (min-width:1025px){
+  nav{
+    display:flex !important;
+    justify-content:space-between !important;
+    align-items:center !important;
+    padding:2rem 4rem !important;              /* matches your base */
+    position:fixed !important; top:0; left:0; width:100%;
+    background-color:rgba(255,255,255,.95);
+    backdrop-filter:blur(4px);
+    box-shadow:0 2px 4px rgba(0,0,0,.05);
+    z-index:1000;
+  }
+  .nav-links{
+    display:flex !important;
+    align-items:center !important;
+    gap:3rem !important;                       /* keep your spacing */
+    margin:0 !important;                       /* <-- kills the 3rem shove */
+    padding:0 !important;
+    list-style:none !important;
+    flex-wrap:nowrap !important;               /* stop wrap artifacts */
+    font-size:1.4rem !important;               /* keep your original size */
+  }
+  .menu-toggle{ display:none !important; }
+}
+
+/* Mobile/Tablet (≤1024px): drawer above overlay + clickable */
+@media (max-width:1024px){
+  .menu-toggle{
+    display:block !important;
+    cursor:pointer; font-size:2rem; color:var(--primary-blue);
+  }
+  nav{
+    display:flex !important; justify-content:space-between !important; align-items:center !important;
+    position:fixed !important; top:0; left:0; width:100%; z-index:1000;
+    padding:1rem 1rem !important;
+    background-color:rgba(255,255,255,.95);
+    backdrop-filter:blur(4px);
+    box-shadow:0 2px 4px rgba(0,0,0,.05);
+  }
+  /* Centered drawer card */
+  nav .nav-links{
+    position:fixed !important;
+    top:max(12px, env(safe-area-inset-top)) !important;
+    left:0 !important; right:0 !important;
+    margin:0 auto !important; width:92vw !important;
+    max-height:calc(100dvh - 24px - env(safe-area-inset-top)) !important;
+    overflow:auto !important;
+
+    display:flex !important; flex-direction:column !important; gap:10px !important;
+    padding:16px !important; background:#fff !important;
+    border:1px solid #e9edf2 !important; border-radius:16px !important;
+    box-shadow:0 30px 70px rgba(0,0,0,.25) !important;
+
+    opacity:0; pointer-events:none; transform:translateY(8px);
+    transition:opacity .18s ease, transform .18s ease;
+    z-index:2001 !important;                  /* <-- ABOVE overlay */
+  }
+  nav .nav-links.show{
+    opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important;
+  }
+
+  /* Large tap targets */
+  nav .nav-links > li{ width:100% !important; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display:block !important; width:100% !important;
+    padding:16px 14px !important;
+    background:#f8fafc !important; border:1px solid #e9edf2 !important; border-radius:14px !important;
+    color:#111 !important; font-weight:800 !important; text-decoration:none !important;
+  }
+
+  /* Open submenus inline in the drawer */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    position:static !important; display:none;
+    margin-top:8px !important; width:100% !important; max-width:100% !important;
+    background:#fff !important; border:1px solid #e8e8e8 !important; border-radius:10px !important;
+    box-shadow:none !important; padding:6px !important;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu{ display:block !important; }
+
+  /* Disable hover menus on touch */
+  .dropdown:hover .dropdown-content{ display:none !important; }
+
+  /* Lock the page when drawer is open */
+  body.no-scroll{ height:100dvh !important; overflow:hidden !important; }
+}
