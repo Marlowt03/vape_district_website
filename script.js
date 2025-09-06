@@ -133,5 +133,5 @@
     }
   });
 })();
-// (bottom of script.js)
-const v = 'navfix10';
+// inside your IIFE where you set v:
+const v = 'finalfix4';  // <- bump this
