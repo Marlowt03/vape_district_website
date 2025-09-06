@@ -1231,3 +1231,10 @@ nav          { z-index: 3001 !important; }
     opacity: 1 !important; pointer-events: auto !important; transform: translateY(0) !important;
   }
 }
+/* Nav must sit above everything */
+nav { 
+  position: fixed !important; 
+  top: 0; left: 0; width: 100%;
+  box-sizing: border-box !important;
+  z-index: 5000 !important;        /* higher than any section/overlay */
+}
