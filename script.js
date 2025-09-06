@@ -218,3 +218,65 @@
     trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
   }, true);
 })();
+// --- One-tap mobile submenu hotfix (capture-phase; ignore plain links) ---
+(() => {
+  const nav = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  if (!nav || !drawer) return;
+
+  const mq = matchMedia('(max-width:1024px),(hover: none)');
+  const isMobile = () => mq.matches;
+
+  // helper to open drawer if shut
+  const openDrawer = () => {
+    if (!drawer.classList.contains('show')) {
+      drawer.classList.add('show');
+      document.body.classList.add('no-scroll');
+      document.querySelector('.nav-overlay')?.classList.add('show');
+      nav.querySelector('.menu-toggle')?.setAttribute('aria-expanded','true');
+    }
+  };
+
+  // run BEFORE other listeners so we can stop duplicates
+  nav.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+
+    // Find a *top-level trigger* (direct child of the LI)
+    const trigger = e.target.closest(
+      'li.dropdown > a, li.has-submenu > a,' +
+      'li.dropdown > .shop-label, li.has-submenu > .shop-label,' +
+      'li.dropdown > button, li.has-submenu > button,' +
+      'li.dropdown > span, li.has-submenu > span'
+    );
+    if (!trigger) return;
+
+    const li = trigger.parentElement;
+    if (!li) return;
+
+    // Only intercept if this LI actually HAS a submenu element
+    const submenu = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
+    if (!submenu) return;              // plain links: let them navigate normally
+
+    // From here: treat as dropdown, handle ONCE
+    e.preventDefault();
+    e.stopImmediatePropagation();      // stop any other handlers from re-toggling
+    e.stopPropagation();
+
+    openDrawer();
+
+    // Close siblings
+    nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(other => {
+      if (other !== li) {
+        other.classList.remove('open','submenu-open');
+        const t = other.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+        t?.setAttribute('aria-expanded','false');
+      }
+    });
+
+    // Toggle this one
+    const opening = !(li.classList.contains('open') || li.classList.contains('submenu-open'));
+    li.classList.toggle('open', opening);
+    li.classList.toggle('submenu-open', opening);
+    trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }, true); // <-- capture-phase
+})();
