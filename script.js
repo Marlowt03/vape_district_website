@@ -122,7 +122,8 @@
 
   // --------- Optional: force-pull the latest style.css on every page ----------
   // (So you DON'T have to add ?v=... to every HTML file.)
-  const v = 'navfix7';
+  // Bump the version to bust caches whenever style.css changes
+  const v = 'navfix8';
   document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
     if (!link.href) return;
     if (link.href.includes('style.css') && !link.href.includes('navfix')) {
