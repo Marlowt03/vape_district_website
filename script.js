@@ -165,3 +165,29 @@
     if (e.key === 'ArrowRight') go(1);
   });
 })();
+/* Mobile: tapping "Shop" toggles the submenu inside the drawer */
+(function () {
+  const nav    = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  if (!nav || !drawer) return;
+
+  const trigger = nav.querySelector('li.dropdown > a, li.has-submenu > .shop-label, li.has-submenu > a');
+  const li      = trigger?.closest('li.dropdown, li.has-submenu');
+  if (!trigger || !li) return;
+
+  function inDrawer() { return drawer.classList.contains('show'); }
+
+  trigger.addEventListener('click', (e) => {
+    if (!inDrawer()) return;          // desktop stays hover-only
+    e.preventDefault();
+    e.stopPropagation();
+
+    const open = li.classList.toggle('open') || li.classList.toggle('submenu-open');
+    if (open) {
+      // close any siblings
+      nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(other => {
+        if (other !== li) other.classList.remove('open', 'submenu-open');
+      });
+    }
+  });
+})();
