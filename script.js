@@ -3,9 +3,24 @@
   const nav    = document.querySelector('nav');
   if (!nav) return;
 
-  const drawer = nav.querySelector('.nav-links');
-  const toggle = nav.querySelector('.menu-toggle');
-  let toggle = nav.querySelector('.menu-toggle');
+const drawer = nav.querySelector('.nav-links') || document.querySelector('.nav-links');
+let   toggle = nav.querySelector('.menu-toggle') || document.querySelector('.menu-toggle');
+
+if (toggle) {
+  // ensure it's a real button, not a link
+  toggle.setAttribute('type', 'button');
+  toggle.setAttribute('aria-expanded', 'false');
+  if (toggle.hasAttribute('href')) toggle.removeAttribute('href');
+  toggle.setAttribute('role', 'button');
+} else {
+  // fallback: create the button if markup is missing
+  toggle = document.createElement('button');
+  toggle.className = 'menu-toggle';
+  toggle.type = 'button';
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.textContent = '☰';
+  nav.appendChild(toggle);
+}
 if (toggle) {
   // ensure it's a real button, not a link
   toggle.setAttribute('type', 'button');
