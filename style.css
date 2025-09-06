@@ -329,9 +329,9 @@ nav {
 }
 
 .has-sub::after {
-  content: 'â–¸';
-  float: right;
-  margin-left: 0.3rem;
+  content: '\25B8';         /* ◸ right-pointing small triangle */
+  margin-left: .3rem;
+  font-size: .9em;
 }
 
 .sub-dropdown {
