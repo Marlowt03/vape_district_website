@@ -294,3 +294,57 @@
     }
   }, true); // capture so we win before any other listeners
 })();
+/* === FINAL, ultra-narrow one-tap patch for /420 and /vapes (mobile only) === */
+(() => {
+  const nav    = document.querySelector('nav');
+  if (!nav) return;
+
+  const drawer = nav.querySelector('.nav-links');
+  const overlay= document.querySelector('.nav-overlay');
+
+  // Treat these paths as immediate links (first tap navigates)
+  const LINK_ONLY = new Set(['/420','/420/','/vapes','/vapes/']);
+
+  // Mobile detector (matches your code)
+  const mq = matchMedia('(max-width:1024px),(hover: none)');
+  const isMobile = () => mq.matches;
+
+  // Small helper so we don't rely on other functions
+  function drawerIsOpen() {
+    return !!drawer && drawer.classList.contains('show');
+  }
+  function closeDrawer() {
+    if (!drawerIsOpen()) return;
+    drawer.classList.remove('show');
+    overlay?.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+    // don't touch aria etc; leave the rest of your state alone
+  }
+
+  // Capture-phase so we win BEFORE any other handlers
+  nav.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    if (!drawerIsOpen()) return;              // only when hamburger drawer is open
+
+    // Only consider real anchors inside the drawer
+    const a = e.target.closest('a[href]');
+    if (!a || !drawer.contains(a)) return;
+
+    // Normalize pathname (strip origin and keep trailing slash)
+    let url;
+    try { url = new URL(a.getAttribute('href'), window.location.origin); }
+    catch { return; }                          // ignore malformed hrefs
+
+    if (!LINK_ONLY.has(url.pathname)) return;  // only /420 and /vapes
+
+    // IMPORTANT: stop any submenu toggle handlers from running
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+
+    // Close drawer cleanly, then navigate on FIRST tap
+    closeDrawer();
+    // Let the browser do the navigation immediately
+    window.location.assign(url.href);
+  }, true);
+})();
