@@ -1112,3 +1112,18 @@ nav .has-submenu > .shop-label::after { content: none !important; }
 /* Remove any little caret under “Shop” */
 nav .dropdown > a::after,
 nav .has-submenu > .shop-label::after { content: none !important; }
+/* --- MOBILE: show Shop panel when JS adds .open / .submenu-open --- */
+@media (max-width:1024px){
+  nav .nav-links.show li.dropdown.open > .dropdown-content,
+  nav .nav-links.show li.has-submenu.submenu-open > .submenu{
+    display: block !important;   /* override earlier "display:none" */
+  }
+
+  /* keep the drawer from shifting the Shop label */
+  nav .nav-links.show > li { display: block; }
+  nav .nav-links.show > li > a { display:block; width:100%; }
+}
+
+/* remove any tiny caret that might still appear under Shop */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after { content: none !important; }
