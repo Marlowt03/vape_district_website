@@ -890,3 +890,133 @@ nav .dropdown > a::after,
 nav .has-submenu > .shop-label::after{ content: none !important; }
 
 /* ========= END NAV FIX PATCH ========= */
+/* =============================================================
+   NAV PATCH — paste this after your existing styles (line ~756+)
+   Mobile drawer + overlay + desktop hover anti-gap (single source of truth)
+   ============================================================= */
+
+/* Safety: never allow sideways scroll */
+html, body { overflow-x: hidden; }
+
+/* 0) Overlay that dims the page and closes on tap */
+.nav-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);        /* lighter dim */
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 2000;                      /* above the fixed <nav> */
+  display: none;
+}
+.nav-overlay.show{ display:block; opacity: 1; pointer-events: auto; }
+
+/* 1) Desktop dropdowns — keep panel attached (no hover gap) */
+@media (hover:hover){
+  nav li.dropdown,
+  nav li.has-submenu{ position: relative; padding-bottom: 10px; }
+
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    display: none;
+    position: absolute;
+    top: calc(100% - 10px);           /* overlaps the 10px bridge */
+    left: 0;
+    min-width: 240px;
+    max-width: min(92vw, 320px);
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    padding: 8px 0;
+    z-index: 999;
+  }
+
+  nav li.dropdown:hover > .dropdown-content,
+  nav li.has-submenu:hover > .submenu{ display: block; }
+
+  /* hover bridge so you can move mouse down without losing it */
+  nav li.dropdown::after,
+  nav li.has-submenu::after{
+    content: ''; position: absolute; left: 0; right: 0; height: 10px; bottom: 0;
+  }
+
+  /* link styling inside the panel */
+  nav .dropdown .dropdown-content a,
+  nav .has-submenu .submenu a{
+    display: block; padding: 10px 14px; margin: 6px 0;
+    font-weight: 600; color: #111; text-decoration: none;
+    border: 1px solid #e9edf2; border-radius: 12px; background: #fff;
+  }
+  nav .dropdown .dropdown-content a:hover,
+  nav .has-submenu .submenu a:hover{ background:#f5f7fb; }
+}
+
+/* Remove any small caret that might still render under “Shop” */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after{ content: none !important; }
+
+/* 2) Mobile drawer — centered, in-frame, scrollable */
+@media (max-width:1024px){
+  nav{ display: grid; grid-template-columns: 1fr auto; align-items: center; }
+  .menu-toggle{ display: block; font-size: 2rem; color: var(--primary-blue); }
+
+  nav .nav-links{
+    position: fixed;
+    left: 50%;
+    top: max(12px, env(safe-area-inset-top));
+    transform: translateX(-50%) translateY(8px);
+    width: min(92vw, 480px);
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
+    overflow: auto;
+    background: #fff;
+    color: #101418;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 2001; /* above overlay */
+  }
+  nav .nav-links.show{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* prevent page scroll when drawer is open */
+  body.no-scroll{ height: 100dvh; overflow: hidden; }
+
+  /* top level items look identical (including the Shop <span>) */
+  nav .nav-links > li{ width: 100%; display: block; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display: block; width: 100%;
+    padding: 16px 14px;
+    border: 1px solid #e9edf2; border-radius: 14px;
+    background: #f8fanc; color: #111; font-weight: 800; text-decoration: none;
+  }
+
+  /* dropdown panel shows inline when JS adds .open/.submenu-open */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    position: static !important;
+    width: 100% !important; max-width: 100% !important;
+    border: 1px solid #e8e8e8; border-radius: 10px;
+    box-shadow: none; margin-top: 8px; padding: 6px;
+    background: #fff; display: none;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu{ display: block !important; }
+
+  /* kill flyout-on-hover inside mobile */
+  nav .submenu .sub-dropdown{ display: none !important; }
+  nav .submenu .has-sub::after{ content: '' !important; }
+}
+
+/* 3) Layering hygiene */
+nav{ z-index: 1000; }                 /* fixed header */
+@media (max-width:1024px){ nav .nav-links{ z-index: 2001; } } /* above overlay */
+/* End of patch */
