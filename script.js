@@ -119,7 +119,10 @@
       next.addEventListener('click', (e)=>{ e.preventDefault(); i=(i+1)%slides.length; show(i); });
     }
   }
-
+  
+// in script.js (near the bottom)
+const v = 'navfix8';   // increment this
+  
   // --------- Optional: force-pull the latest style.css on every page ----------
   // (So you DON'T have to add ?v=... to every HTML file.)
   // Bump the version to bust caches whenever style.css changes
