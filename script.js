@@ -120,9 +120,6 @@
     }
   }
   
-// in script.js (near the bottom)
-const v = 'navfix8';   // increment this
-  
   // --------- Optional: force-pull the latest style.css on every page ----------
   // (So you DON'T have to add ?v=... to every HTML file.)
   // Bump the version to bust caches whenever style.css changes
@@ -136,3 +133,5 @@ const v = 'navfix8';   // increment this
     }
   });
 })();
+// (bottom of script.js)
+const v = 'navfix10';
