@@ -708,7 +708,6 @@ section {
 }
 
 /* Base style sheet for Vape District website */
-
 /* Define colour palette */
 :root {
   --light-blue: #e0f4ff;
@@ -717,8 +716,7 @@ section {
   --gradient: linear-gradient(45deg, #1da2ff, #0f528e);
 }
 
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -1040,7 +1038,7 @@ nav {
 }
 
 .has-sub::after {
-  content: '\25B8'; /* right-pointing small triangle */
+  content: '\25B8';         /* â—¸ right-pointing small triangle */
   margin-left: .3rem;
   font-size: .9em;
 }
@@ -1654,7 +1652,7 @@ nav { box-sizing: border-box !important; }
 nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  alignments: center;
   position: fixed;
   top: 0; left: 0;
   width: 100%;
@@ -1694,6 +1692,7 @@ nav {
 }
 
 /* End of legacy nav patch */
+
 /* --- Mobile submenu fail-safe (append at end) --- */
 @media (max-width:1024px){
   /* Submenus default hidden inside the drawer */
@@ -1718,7 +1717,7 @@ nav {
   nav li.submenu-open > .submenu{
     display: block !important;
   }
-  /* Drawer shouldn’t clip expanded submenu */
+  /* Drawer shouldnâ€™t clip expanded submenu */
   nav .nav-links{ overflow: visible !important; }
 }
 /* Nested submenu visibility (mobile only) */
