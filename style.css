@@ -1721,3 +1721,22 @@ nav {
   /* Drawer shouldn’t clip expanded submenu */
   nav .nav-links{ overflow: visible !important; }
 }
+/* Nested submenu visibility (mobile only) */
+@media (max-width:1024px){
+  nav li.submenu > .sub-dropdown,
+  nav li.submenu > .dropdown-content,
+  nav li.submenu > .submenu{
+    display: none !important;
+    position: static !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+  }
+  nav li.submenu.submenu-open > .sub-dropdown,
+  nav li.submenu.submenu-open > .dropdown-content,
+  nav li.submenu.submenu-open > .submenu{
+    display: block !important;
+  }
+
+  /* make sure the drawer doesn't clip expanded nested panels */
+  nav .nav-links{ overflow: visible !important; }
+}
