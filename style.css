@@ -1694,3 +1694,30 @@ nav {
 }
 
 /* End of legacy nav patch */
+/* --- Mobile submenu fail-safe (append at end) --- */
+@media (max-width:1024px){
+  /* Submenus default hidden inside the drawer */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .dropdown-content,
+  nav li.dropdown > .submenu,
+  nav li.has-submenu > .submenu{
+    position: static !important;
+    display: none !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+    background: #fff !important;
+    border: 1px solid #e8e8e8 !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    padding: 6px !important;
+  }
+  /* Show when parent is opened (we support both class names) */
+  nav li.open > .dropdown-content,
+  nav li.submenu-open > .dropdown-content,
+  nav li.open > .submenu,
+  nav li.submenu-open > .submenu{
+    display: block !important;
+  }
+  /* Drawer shouldn’t clip expanded submenu */
+  nav .nav-links{ overflow: visible !important; }
+}
