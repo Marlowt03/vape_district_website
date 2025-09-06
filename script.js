@@ -1,3 +1,24 @@
+/* ---- one-time cache bust for style.css on ALL pages ---- */
+(() => {
+  const VERSION = 'navfix2'; // bump this when you change CSS again
+  function bumpLink(link) {
+    try {
+      const u = new URL(link.getAttribute('href'), location.href);
+      u.searchParams.set('v', VERSION);
+      link.setAttribute('href', u.pathname + '?' + u.searchParams.toString());
+    } catch {}
+  }
+  const run = () => {
+    document
+      .querySelectorAll('link[rel="stylesheet"][href$="style.css"]')
+      .forEach(bumpLink);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
 // ===== Vape District — STABLE NAV + REVIEWS (desktop unchanged) =====
 (() => {
   const nav    = document.querySelector('nav');
