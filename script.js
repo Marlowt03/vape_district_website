@@ -1,88 +1,134 @@
-// === Hamburger ===
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-if (menuToggle && navLinks) {
-  menuToggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('show');
-    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-}
-
-// === Shop dropdown (works with <li class="has-submenu"><span>… and with .dropdown > a) ===
+// ===== Mobile menu + submenu behavior (desktop untouched) =====
 (function () {
-  const nav = document.querySelector('nav');
-  if (!nav) return;
+  const nav      = document.querySelector('nav');
+  const menuBtn  = document.querySelector('.menu-toggle');
+  const drawer   = document.querySelector('.nav-links');
 
-  // find any "Shop" top-level item, regardless of markup
-  const shops = Array.from(nav.querySelectorAll('li.has-submenu, li.dropdown'))
-    .filter(li => {
-      const t = li.querySelector(':scope > a, :scope > span, :scope > button');
-      return t && (t.textContent || '').trim().toLowerCase() === 'shop';
-    });
+  if (!nav || !menuBtn || !drawer) return;
 
-  if (!shops.length) return;
+  // Build a click-to-close overlay once
+  let overlay = document.querySelector('.nav-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
+  }
 
-  const closeAll = () => {
-    shops.forEach(li => {
-      li.classList.remove('open', 'submenu-open');
-      const t = li.querySelector(':scope > a, :scope > span, :scope > button');
-      t && t.setAttribute('aria-expanded', 'false');
-    });
-  };
+  // Helpers
+  const isMobile = () => window.matchMedia('(max-width: 1024px)').matches;
 
-  shops.forEach(li => {
-    const trigger = li.querySelector(':scope > a, :scope > span, :scope > button');
-    const panel = li.querySelector(':scope > .dropdown-content, :scope > .submenu');
+  function openMenu() {
+    drawer.classList.add('show');
+    overlay.classList.add('show');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('no-scroll');
+  }
+  function closeMenu() {
+    drawer.classList.remove('show');
+    overlay.classList.remove('show');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('no-scroll');
+    // also close any open submenus
+    drawer.querySelectorAll('.submenu-open, .open').forEach(li => li.classList.remove('submenu-open','open'));
+    drawer.querySelectorAll('[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded','false'));
+  }
+  function toggleMenu() {
+    if (drawer.classList.contains('show')) closeMenu(); else openMenu();
+  }
+
+  // Toggle drawer
+  menuBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleMenu();
+  });
+
+  // Click outside to close (overlay)
+  overlay.addEventListener('click', closeMenu);
+
+  // ESC to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('show')) closeMenu();
+  });
+
+  // Make SHOP toggle its submenu on mobile
+  // Works for either: <li class="has-submenu"><span class="shop-label">...</span><ul class="submenu">...</ul>
+  // or               : <li class="dropdown"><a class="shop-toggle">...</a><div class="dropdown-content">...</div>
+  function wireShopToggle(li) {
+    const trigger = li.querySelector(':scope > .shop-label, :scope > a, :scope > span, :scope > button');
+    const panel   = li.querySelector(':scope > .submenu, :scope > .dropdown-content');
     if (!trigger || !panel) return;
 
-    trigger.setAttribute('role', 'button');
-    trigger.setAttribute('tabindex', '0');
-    trigger.setAttribute('aria-expanded', 'false');
+    // Accessible state
+    trigger.setAttribute('aria-expanded','false');
+    trigger.setAttribute('role','button');
+    trigger.setAttribute('tabindex','0');
 
-    const setOpen = (open) => {
-      if (li.classList.contains('dropdown')) li.classList.toggle('open', open);
-      if (li.classList.contains('has-submenu')) li.classList.toggle('submenu-open', open);
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    };
-
-    const toggle = (e) => {
+    // Toggle handler for mobile only
+    const onToggle = (e) => {
+      if (!isMobile()) return; // desktop keeps hover behavior
       e.preventDefault();
       e.stopPropagation();
-      const isOpen = li.classList.contains('open') || li.classList.contains('submenu-open');
-      closeAll();
-      setOpen(!isOpen);
+
+      const opening = !li.classList.contains('submenu-open') && !li.classList.contains('open');
+
+      // Close any other open submenus (just in case)
+      drawer.querySelectorAll('.submenu-open, .open').forEach(other => {
+        if (other !== li) other.classList.remove('submenu-open','open');
+      });
+      drawer.querySelectorAll('[aria-expanded="true"]').forEach(t => {
+        if (!li.contains(t)) t.setAttribute('aria-expanded','false');
+      });
+
+      // Toggle this one
+      li.classList.toggle('submenu-open');
+      li.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+
+      // Ensure the newly opened panel is fully visible inside the drawer
+      if (opening) {
+        // little delay so panel gets its height
+        requestAnimationFrame(() => {
+          const panelRect  = panel.getBoundingClientRect();
+          const drawerRect = drawer.getBoundingClientRect();
+          const extra = 12; // breathing room
+          if (panelRect.bottom > drawerRect.bottom) {
+            const delta = panelRect.bottom - drawerRect.bottom + extra;
+            drawer.scrollTop += delta;
+          } else if (panelRect.top < drawerRect.top) {
+            const delta = drawerRect.top - panelRect.top + extra;
+            drawer.scrollTop -= delta;
+          }
+        });
+      }
     };
 
-    trigger.addEventListener('click', toggle);
+    trigger.addEventListener('click', onToggle);
     trigger.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') toggle(e);
+      if (e.key === 'Enter' || e.key === ' ') onToggle(e);
     });
+  }
 
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!li.contains(e.target)) setOpen(false);
-    });
-
-    // Close after selecting an item; also close the drawer on mobile
-    panel.querySelectorAll('a[href]').forEach(a => {
-      a.addEventListener('click', () => {
-        setOpen(false);
-        if (navLinks && navLinks.classList.contains('show')) {
-          navLinks.classList.remove('show');
-          menuToggle?.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
+  // Find any “Shop” top-level item(s)
+  nav.querySelectorAll('li.has-submenu, li.dropdown').forEach(li => {
+    const label = li.querySelector(':scope > .shop-label, :scope > a, :scope > span, :scope > button');
+    if (!label) return;
+    const text = (label.textContent || '').trim().toLowerCase();
+    if (text === 'shop') wireShopToggle(li);
   });
 
-  // On touch, ensure 420/Vapes act like normal links (no toggles)
-  document.querySelectorAll('nav .submenu .has-sub').forEach(a => {
-    a.addEventListener('click', (e) => {
-      if (matchMedia('(hover: none)').matches) {
-        const href = a.getAttribute('href') || '';
-        if (href.trim() === '#') e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
+  // Clicking any real link inside the drawer should close the drawer
+  drawer.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    // Let normal navigation happen, then close the UI immediately
+    closeMenu();
+  });
+
+  // On resize: if switching to desktop, just make sure overlay/body states are clean
+  window.addEventListener('resize', () => {
+    if (!isMobile()) {
+      overlay.classList.remove('show');
+      document.body.classList.remove('no-scroll');
+    }
   });
 })();
