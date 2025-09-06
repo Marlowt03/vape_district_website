@@ -174,3 +174,47 @@
     }
   }
 })();
+// --- Mobile submenu fail-safe (append at end of file) ---
+(() => {
+  const nav = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  if (!nav || !drawer) return;
+
+  const mq = matchMedia('(max-width:1024px),(hover: none)');
+  const isMobile = () => mq.matches;
+
+  nav.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+
+    // Find a trigger that is a *direct* child of its <li>
+    const trigger = e.target.closest(
+      'li.dropdown > a, li.has-submenu > a,' +
+      'li.dropdown > .shop-label, li.has-submenu > .shop-label,' +
+      'li.dropdown > button, li.has-submenu > button,' +
+      'li.dropdown > span, li.has-submenu > span'
+    );
+    if (!trigger) return;
+
+    const li = trigger.parentElement;
+    if (!li || !(li.classList.contains('dropdown') || li.classList.contains('has-submenu'))) return;
+
+    // We’re inside the drawer; don’t navigate away
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Close other open submenus
+    nav.querySelectorAll('li.dropdown.open, li.has-submenu.submenu-open').forEach(other => {
+      if (other !== li) {
+        other.classList.remove('open', 'submenu-open');
+        const t = other.querySelector(':scope > a, :scope > .shop-label, :scope > button, :scope > span');
+        t?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Toggle this one
+    const opening = !(li.classList.contains('open') || li.classList.contains('submenu-open'));
+    li.classList.toggle('open', opening);
+    li.classList.toggle('submenu-open', opening);
+    trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }, true);
+})();
