@@ -263,3 +263,70 @@
     trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
   }, true); // capture → guarantees single handling
 })();
+// --- ONE-TAP nested submenu patch (drop-in; append at end of script.js) ---
+(() => {
+  const nav = document.querySelector('nav');
+  const drawer = nav?.querySelector('.nav-links');
+  if (!nav || !drawer) return;
+
+  const mq = matchMedia('(max-width:1024px),(hover: none)');
+  const isMobile = () => mq.matches;
+
+  // 1) Swallow touchend on any menu trigger so only the synthetic click runs once
+  nav.addEventListener('touchend', (e) => {
+    if (!isMobile()) return;
+
+    const isTrigger = !!e.target.closest(
+      // top-level triggers
+      'li.dropdown > a, li.has-submenu > a,' +
+      'li.dropdown > .shop-label, li.has-submenu > .shop-label,' +
+      'li.dropdown > button, li.has-submenu > button,' +
+      'li.dropdown > span, li.has-submenu > span,' +
+      // nested submenu triggers (e.g., 420 / Vapes)
+      'li.submenu > a, li.submenu > .has-sub, li.submenu > button, li.submenu > span'
+    );
+    if (!isTrigger) return;
+
+    // Prevent default + stop all other touchend handlers to avoid double toggles
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+  }, true); // capture
+
+  // 2) Single click handler for nested submenu items (e.g., 420 / Vapes)
+  nav.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+
+    // Nested submenu trigger MUST be a direct child of li.submenu
+    const trigger = e.target.closest('li.submenu > a, li.submenu > .has-sub, li.submenu > button, li.submenu > span');
+    if (!trigger) return;
+
+    const li = trigger.parentElement;
+    if (!li || !li.classList.contains('submenu')) return;
+
+    // Only treat as dropdown if a nested panel exists next to the trigger
+    const panel = li.querySelector(':scope > .sub-dropdown, :scope > .dropdown-content, :scope > .submenu');
+    if (!panel) return; // no nested content → let it behave like a normal link
+
+    // Handle exactly once
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    e.stopPropagation();
+
+    // Open this nested submenu, close its siblings under the same parent
+    const opening = !li.classList.contains('submenu-open');
+    const parent = li.parentElement;
+    if (parent) {
+      Array.from(parent.children).forEach(sib => {
+        if (sib !== li && sib.classList?.contains('submenu')) {
+          sib.classList.remove('submenu-open');
+          const t = sib.querySelector(':scope > a, :scope > .has-sub, :scope > button, :scope > span');
+          t?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    li.classList.toggle('submenu-open', opening);
+    trigger.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }, true); // capture
+})();
