@@ -758,13 +758,13 @@ section {
 /* Safety: never allow sideways scroll */
 html, body { overflow-x: hidden; }
 
-/* Drawer overlay (injected via JS) */
+/* overlay to close on outside tap */
 .nav-overlay{
   position: fixed; inset: 0;
-  background: rgba(0,0,0,.5);
+  background: rgba(0,0,0,.45);
   opacity: 0; pointer-events: none;
   transition: opacity .18s ease;
-  z-index: 999; /* below the drawer, above page content */
+  z-index: 2000;   /* was 1000; ensure it sits on top of the fixed <nav> */
 }
 .nav-overlay.show{ opacity: 1; pointer-events: auto; }
 
