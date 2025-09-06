@@ -753,194 +753,140 @@ section {
     display: none;
   }
 }
-/* === NAVIGATION: unified mobile & desktop support === */
+/* ========= NAV FIX PATCH (append at very end of style.css) ========= */
 
-/* Remove any stray arrows on dropdowns */
-nav .dropdown > a::after,
-nav .has-submenu > .shop-label::after { content: none !important; }
+/* Layering: overlay below the drawer, both above the fixed header */
+.nav-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 2000 !important;   /* below the drawer */
+}
+.nav-overlay.show{ opacity: 1; pointer-events: auto; }
 
-/* Overlay covers page when drawer is open */
-.nav-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    display: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    z-index: 2000;
-}
-.nav-overlay.show {
-    display: block;
-    opacity: 1;
-}
+/* Prevent background scroll while drawer is open */
+body.no-scroll{ height: 100dvh; overflow: hidden; }
 
-/* Base style for nav items (desktop & mobile) */
-nav .nav-links { align-items: center; }
-nav .nav-links > li { position: relative; display: flex; align-items: center; }
-nav .nav-links > li > a,
-nav .nav-links > li > .shop-label {
-    display: inline-block;
-    padding: 0.75rem 1rem;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #333;
-    line-height: 1.2;
-    cursor: pointer;
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-nav .nav-links > li > a:hover,
-nav .nav-links > li > .shop-label:hover {
-    color: var(--primary-blue);
-}
+/* -------------------- MOBILE (≤1024px) -------------------- */
+@media (max-width:1024px){
 
-/* Clean up pill styling applied on Contact page */
-nav .has-submenu > .shop-label {
+  /* The drawer is the <ul class="nav-links"> — center it and keep it in-frame */
+  nav .nav-links{
+    position: fixed !important;
+    top: max(12px, env(safe-area-inset-top));
+    left: 50% !important; right: auto !important;
+    transform: translateX(-50%) translateY(8px);
+    width: min(92vw, 480px);
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top));
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    padding: 16px;
+    flex-direction: column;
+    gap: 10px;
+
+    /* critical: override any earlier nav spacing that shoved it sideways */
+    margin-left: 0 !important;
+    opacity: 0; pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 2001 !important;   /* above the overlay */
+  }
+  nav .nav-links.show{
+    opacity: 1; pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Big tap targets for top-level items */
+  nav .nav-links > li{ width: 100%; }
+  nav .nav-links > li > a,
+  nav .nav-links > li > .shop-label{
+    display: block; width: 100%;
+    padding: 16px 14px;
+    background: #f8fafc;
+    border: 1px solid #e9edf2; border-radius: 14px;
+    color: #111; font-weight: 800; text-decoration: none;
+  }
+  nav .nav-links > li > a:hover,
+  nav .nav-links > li > .shop-label:hover{ background: #f5f7fb; }
+
+  /* Show the Shop panel when JS adds classes — inline, full width */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    display: none; position: static !important;
+    width: 100% !important; max-width: 100% !important;
+    margin-top: 8px; padding: 6px;
+    border: 1px solid #e8e8e8; border-radius: 10px;
+    box-shadow: none; background: #fff;
+  }
+  nav li.dropdown.open > .dropdown-content,
+  nav li.has-submenu.submenu-open > .submenu{
+    display: block !important;
+  }
+
+  /* Links inside the dropdown look like tidy buttons */
+  nav .dropdown .dropdown-content a,
+  nav .has-submenu .submenu a{
+    display:block; padding:12px 14px; margin:6px 0;
+    font-weight:700; color:#111; text-decoration:none;
+    background:#fff; border:1px solid #e9edf2; border-radius:12px;
+  }
+
+  /* Kill any caret/odd styling on the Shop label */
+  nav .dropdown > a::after,
+  nav .has-submenu > .shop-label::after{ content: none !important; }
+  nav .has-submenu > .shop-label{
     background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
+    border: none !important; box-shadow: none !important; outline: none !important;
+  }
 }
 
-/* Desktop dropdown behaviour */
-@media (hover: hover) {
-    nav li.dropdown > a::after { content: "▾"; font-size: 0.85em; margin-left: 4px; opacity: 0.7; }
-    nav li.dropdown .dropdown-content,
-    nav li.has-submenu .submenu {
-        display: none;
-        position: absolute;
-        top: calc(100% + 10px);
-        right: 0;               /* open to the left side */
-        min-width: 240px;
-        max-width: min(92vw, 340px);
-        background: #fff;
-        border: 1px solid #e8e8e8;
-        border-radius: 12px;
-        box-shadow: 0 14px 28px rgba(0, 0, 0, .12);
-        padding: 8px;
-        z-index: 999;
-    }
-    nav li.dropdown.open > .dropdown-content,
-    nav li.dropdown:hover > .dropdown-content,
-    nav li.has-submenu.submenu-open > .submenu,
-    nav li.has-submenu:hover > .submenu { display: block; }
+/* -------------------- DESKTOP (hover devices) -------------------- */
+@media (hover:hover){
 
-    /* Desktop sub-dropdown (420/Vapes) opens leftward */
-    nav .submenu .sub-dropdown {
-        display: none;
-        position: absolute;
-        top: -8px;
-        right: calc(100% + 8px);
-        min-width: 220px;
-        background: #fff;
-        border: 1px solid #e8e8e8;
-        border-radius: 12px;
-        padding: 8px;
-        box-shadow: 0 14px 28px rgba(0,0,0,.12);
-    }
-    nav .submenu:hover > .sub-dropdown { display: block; }
+  /* Remove the hover gap under "Shop" so the panel stays open while you move down */
+  nav li.dropdown, nav li.has-submenu{ position: relative; padding-bottom: 8px; }
 
-    /* Button styling inside dropdowns */
-    nav .dropdown-content a,
-    nav .submenu a {
-        display: block;
-        padding: 12px 14px;
-        margin: 6px 0;
-        border: 1px solid #e9edf2;
-        border-radius: 12px;
-        font-weight: 700;
-        color: #111;
-        background: #fff;
-        text-decoration: none;
-        transition: background 0.2s ease;
-    }
-    nav .dropdown-content a:hover,
-    nav .submenu a:hover { background: #f5f7fb; }
+  /* Create an invisible “bridge” just below the trigger */
+  nav li.dropdown > a::after,
+  nav li.has-submenu > .shop-label::after{
+    content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px;
+  }
+
+  /* Position the dropdown to overlap that 8px buffer */
+  nav li.dropdown > .dropdown-content,
+  nav li.has-submenu > .submenu{
+    display: none;
+    position: absolute; top: calc(100% - 8px); left: 0;
+    min-width: 240px; max-width: min(92vw, 320px);
+    background: #fff; border: 1px solid #e8e8e8;
+    border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    padding: 8px 0; z-index: 999;
+  }
+
+  /* Keep the panel visible while hovering either the trigger or the panel */
+  nav li.dropdown:hover > .dropdown-content,
+  nav li.dropdown > .dropdown-content:hover,
+  nav li.has-submenu:hover > .submenu,
+  nav li.has-submenu > .submenu:hover{
+    display: block;
+  }
+
+  /* Dropdown links on desktop */
+  nav .dropdown .dropdown-content a,
+  nav .has-submenu .submenu a{
+    display:block; padding:10px 14px; margin:6px 8px;
+    color:#111; text-decoration:none; font-weight:600;
+    border-radius: 10px;
+  }
+  nav .dropdown .dropdown-content a:hover,
+  nav .has-submenu .submenu a:hover{ background:#f5f7fb; }
 }
 
-/* Mobile nav behaviour */
-@media (max-width: 1024px) {
-    /* Drawer container */
-    nav .nav-links {
-        position: fixed;
-        left: 50%;
-        top: max(12px, env(safe-area-inset-top));
-        transform: translateX(-50%) translateY(8px);
-        width: min(92vw, 480px);
-        max-height: calc(100dvh - 24px - env(safe-area-inset-top));
-        overflow-y: auto;
-        background: #fff;
-        border: 1px solid #e9edf2;
-        border-radius: 16px;
-        box-shadow: 0 30px 70px rgba(0,0,0,.25);
-        padding: 16px;
-        flex-direction: column;
-        gap: 10px;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 2001;
-        transition: opacity .18s ease, transform .18s ease;
-    }
-    nav .nav-links.show {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(-50%) translateY(0);
-    }
-    /* Each nav item becomes a full-width button */
-    nav .nav-links > li { width: 100%; display: block; }
-    nav .nav-links > li > a,
-    nav .nav-links > li > .shop-label {
-        display: block;
-        width: 100%;
-        padding: 16px 14px;
-        background: #f8fafc;
-        border: 1px solid #e9edf2;
-        border-radius: 14px;
-        color: #111;
-        font-weight: 800;
-    }
-    nav .nav-links > li > a:hover,
-    nav .nav-links > li > .shop-label:hover {
-        background: #f5f7fb;
-    }
+/* Remove any tiny caret that might still appear */
+nav .dropdown > a::after,
+nav .has-submenu > .shop-label::after{ content: none !important; }
 
-    /* Mobile submenus open inline under "Shop" */
-    nav li.has-submenu > .submenu,
-    nav li.dropdown > .dropdown-content {
-        position: static !important;
-        display: none;
-        width: 100%;
-        margin-top: 8px;
-        padding: 8px;
-        border: 1px solid #e8e8e8;
-        border-radius: 10px;
-        background: #fff;
-    }
-    nav li.has-submenu.submenu-open > .submenu,
-    nav li.dropdown.open > .dropdown-content {
-        display: block !important;
-    }
-
-    /* Disable 420/Vapes flyouts on mobile; show them inline if needed */
-    nav .submenu .sub-dropdown {
-        display: none !important;
-    }
-
-    /* Links inside mobile submenus */
-    nav .has-submenu > .submenu a,
-    nav .dropdown > .dropdown-content a {
-        display: block;
-        padding: 12px 14px;
-        margin: 6px 0;
-        background: #fff;
-        border: 1px solid #e9edf2;
-        border-radius: 12px;
-        font-weight: 700;
-        color: #111;
-        text-decoration: none;
-    }
-    nav .has-submenu > .submenu a:hover,
-    nav .dropdown > .dropdown-content a:hover {
-        background: #f5f7fb;
-    }
-}
+/* ========= END NAV FIX PATCH ========= */
